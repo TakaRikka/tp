@@ -10,7 +10,8 @@ extern char lbl_803739A0[0x310];
 extern void* lbl_80451368;
 extern u32 lbl_804514E0;
 extern u8 lbl_803C3384;
-extern u8 lbl_803DD2E8;
+struct m_cpadInfo;
+extern m_cpadInfo lbl_803DD2E8;
 extern u8 lbl_803A2EF4;
 extern u8 lbl_803A2EE0;
 extern u8 lbl_80450B19;
@@ -48,7 +49,6 @@ extern u8 lbl_80450B24;
 extern u8 lbl_80450B1C;
 extern u8 lbl_80450580;
 extern u8 lbl_80450B1A;
-extern u8 lbl_803DD2D8;
 extern u8 lbl_80450B18;
 extern u8 lbl_803D32E0;
 extern u8 lbl_80450BBC;
@@ -374,16 +374,59 @@ extern u8 lbl_804342E8;  // JKernel::decompMutex (static?)
 extern u8 lbl_804508B8;  // JKRAram::sSZSBufferSize
 extern u8 lbl_803CC128;  // JKRAram::sMessageBuffer
 
+//// JUTGamePad:
+// func_802E06DC
+extern u8 lbl_803CC610;
+// func_802E08E4
+extern u8 lbl_804343D8;
+extern u8 lbl_804508DC;
+extern u8 lbl_804508D8;
+// func_802E0CD8
+extern u8 lbl_804508E8;
+extern u8 lbl_804508EC;
+extern u8 lbl_8043456C;
+// func_802E108C
+extern u8 lbl_80456020;
+extern u8 lbl_80456018;
+// func_802E1238
+extern u8 lbl_80456030;
+extern u8 lbl_80456038;
+extern u8 lbl_80456040;
+extern u8 lbl_80456048;
+extern u8 lbl_8045604C;
+// func_802E1500
+extern u8 lbl_804508E4;
+extern u8 lbl_804508E0;
+
+extern double lbl_803DD2F0;
+extern f32 lbl_80451180;
+
+struct now {  // m_Do_mtx::mDoMtx_stack_c::now
+    float unk0[4];
+    float unk10[4];
+    float unk20[4];
+};
+
+extern now lbl_803DD470;  // CHANGE TYPE LATER
+
+extern s64 lbl_80450DE8;
+extern u32 lbl_80450DD8;
+extern u32 lbl_80450DDC;
+class dLib_time_c;
+extern dLib_time_c* lbl_80450DE0;
+extern u32 lbl_80450DE4;
+
 // m_Do_Reset
 // func_80015614
 #include "JSystem/JUtility/JUTXfb/JUTXfb.h"
-extern JUTXfb* lbl_80451550;
+// extern JUTXfb* lbl_80451550;
 extern u8 lbl_80450BB8;
 extern char lbl_80374198[16];
 // func_8001574C
 extern bool lbl_80451501;
-extern void* lbl_804514EC;  // JUTGamePad::C3ButtonReset::sCallback
-extern u32 lbl_804514F0;    // JUTGamePad::C3ButtonReset::sCallbackArg
+
+extern void (*lbl_804514EC)(int, void*);  // JUTGamePad::C3ButtonReset::sCallback
+extern void* lbl_804514F0;                // JUTGamePad::C3ButtonReset::sCallbackArg
 extern u32 lbl_803ECF00;
 
 // additional symbols needed for d_alink.cpp
@@ -753,7 +796,6 @@ extern u8 lbl_8042552C;
 extern u8 lbl_80391E48;
 extern u8 lbl_80391D44;
 extern u8 lbl_804255A4;
-extern u8 lbl_80451180;
 extern u8 lbl_804532AC;
 extern u8 lbl_80452F04;
 extern u8 lbl_80391A2C;
@@ -990,3 +1032,49 @@ extern u8 lbl_80452F48;
 extern u8 lbl_80452E90;
 extern u8 lbl_803918D0;
 extern u8 lbl_80453028;
+extern u8 lbl_803A9C60;
+extern u8 lbl_80452628;
+extern u8 lbl_8045262C;
+extern u8 lbl_80452630;
+extern u8 lbl_80452634;
+extern u8 lbl_80452638;
+extern u8 lbl_8045263C;
+extern u8 lbl_80452640;
+extern u8 lbl_80452644;
+extern u8 lbl_80452648;
+extern u8 lbl_8045264C;
+extern u8 lbl_80452650;
+extern u8 lbl_80452654;
+extern u8 lbl_80452658;
+extern u8 lbl_8037A770;
+extern u8 lbl_80450F58;
+extern u8 lbl_803A9C54;
+extern u8 lbl_8045265C;
+extern u8 lbl_80452660;
+extern u8 lbl_80452664;
+extern u8 lbl_803A71E8;
+extern u8 lbl_803A9C48;
+extern u8 lbl_80424B0C;
+extern u8 lbl_803A9BF8;
+extern u8 lbl_80450660;
+extern u8 lbl_803A9C3C;
+extern u8 lbl_803A9C18;
+extern u8 lbl_80452670;
+extern u8 lbl_80452668;
+extern u8 lbl_80452678;
+extern u8 lbl_80452680;
+extern u8 lbl_80452688;
+extern u8 lbl_80450664;
+extern u8 lbl_803A9C04;
+extern u8 lbl_8045066C;
+extern u8 lbl_80452690;
+extern u8 lbl_803A9C70;
+extern u8 lbl_80452694;
+extern u8 lbl_80450670;
+extern u8 lbl_80452698;
+extern u8 lbl_8045269C;
+extern u8 lbl_804526A8;
+extern u8 lbl_804526A0;
+extern u8 lbl_804526B0;
+extern u8 lbl_804526B4;
+extern u8 lbl_80424B00;

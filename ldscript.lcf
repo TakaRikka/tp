@@ -758,6 +758,13 @@ SECTIONS {
 "__dt__7JKRFileFv" = 0x802D7B90;
 }
 FORCEACTIVE {
+ dLib_checkActorInRectangle__FP10fopAc_ac_cP10fopAc_ac_cPC4cXyzPC4cXyz
+ getValueStick__10CSTControlFv
+ getAngleStick__10CSTControlFv
+ dLib_getEventSwitchNo__Fi
+ getValueStick__9STControlFv
+ getAngleStick__9STControlFv
+ init__9STControlFv
  checkStateCarry__7dBomb_cFv
  checkFlowerBombWait__7dBomb_cFP10fopAc_ac_c
  checkWaterBomb__7dBomb_cFP10fopAc_ac_c
@@ -1307,6 +1314,42 @@ run__7JKRAramFv
 getAlinkArcName__9daAlink_cFv
 calc__16daAlink_matAnm_cCFP11J3DMaterial
 getResetData__6mDoRstFv
+fpcNd_DrawMethod
+fpcNd_Draw
+fpcNd_Execute
+fpcNd_IsDelete
+fpcNd_Delete
+fpcNd_Create
+fpcNd_IsCreatingFromUnder
+fpcNdRq_phase_IsCreated
+fpcNdRq_phase_Create
+fpcNdRq_phase_IsDeleteTiming
+fpcNdRq_phase_IsDeleted
+fpcNdRq_phase_Delete
+fpcSCtRq_phase_Load
+fpcSCtRq_phase_CreateProcess
+fpcSCtRq_phase_SubCreateProcess
+fpcSCtRq_phase_IsComplete
+fpcSCtRq_phase_PostMethod
+fpcSCtRq_phase_Done
+fpcSCtRq_Handler
+fpcSCtRq_Delete
+fpcSCtRq_Request
+fpcSCtRq_Cancel
+fpcFCtRq_Do
+fpcFCtRq_Delete
+fpcFCtRq_Request
+fpcLf_Draw
+fpcLf_Execute
+fpcLf_IsDelete
+fpcLf_Delete
+fpcLf_Create
+func_8007400C
+func_80073D08
+func_80073A08
+func_800738FC
+func_800732AC
+func_80070178
 func_8014471C
 func_80144714
 func_8014470C
