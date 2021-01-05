@@ -327,6 +327,7 @@ public:
     int isMagicFlag(u8) const;
 
     u16& getCurrentHealth() { return mCurrentHealth; }
+    u16& getCurrentRupees() { return mCurrentRupees; }
     u16& getCurrentLanternOil() { return mCurrentLanternOil; }
     u8& getScent() { return mEquipment[3]; }
     void setWalletLV(u8 lv) { mCurrentWallet = lv; }
@@ -892,6 +893,7 @@ public:
     dSv_save_c& getSaveFile() { return save_file; }
     dSv_memory_c& getMemory() { return memory; }
     dSv_zone_c* getZones() { return zones; }
+    dSv_player_c& getPlayer() { return save_file.getPlayer(); }
 
 private:
     /* 0x000 */ dSv_save_c save_file;
