@@ -2,6 +2,7 @@
 # PYTHON_ARGCOMPLETE_OK
 import argparse
 import sys
+from pathlib import Path, PurePath
 from typing import (
     Any,
     Dict,
@@ -243,6 +244,19 @@ parser.add_argument(
     metavar="SYMBOL",
     help="override symbol name on lhs when using -o"
 )
+parser.add_argument(
+    "--select-occurence",
+    dest="select_occurence",
+    type=int,
+    default=0,
+    help="If multiple occurence of the same symbol is found, use this to select the correct ocurrance."
+)
+parser.add_argument(
+    "--source-wslpath",
+    dest="source_wslpath",
+    action="store_true",
+    help="Pass source code path through 'wslpath' before reading it."
+)
 
 # Project-specific flags, e.g. different versions/make arguments.
 add_custom_arguments_fn = getattr(diff_settings, "add_custom_arguments", None)
@@ -411,7 +425,7 @@ def maybe_get_objdump_source_flags() -> List[str]:
 
     flags = [
         "--source",
-        "--source-comment=│ ",
+        #"--source-comment=│ ",
         "-l",
     ]
 
@@ -497,7 +511,13 @@ def search_map_file(fn_name: str, mapfile: Optional[str] = None, build_dir: Opti
         #                                         ram   elf rom                                                       object name
         find = re.findall(re.compile(r'  \S+ \S+ (\S+) (\S+)  . ' + fn_name + r'(?: \(entry of \.(?:init|text)\))? \t(\S+)'), contents)
         if len(find) > 1:
-            fail(f"Found multiple occurrences of function {fn_name} in map file.")
+            if args.select_occurence > 0:
+                find = [find[args.select_occurence - 1]]
+            else:
+                print(f"Found multiple occurrences of function {fn_name} in map file:", file=sys.stderr)
+                for i,location in enumerate(find):
+                    print(f"    {i+1}: {location[0]} {location[1]} {str(location[2]).ljust(40, ' ')}", file=sys.stderr)
+                fail(f"Use --select-occurence to select the right occurrence.")
         if len(find) == 1:
             rom = int(find[0][1],16)
             objname = find[0][2]
@@ -616,7 +636,6 @@ def ansi_ljust(s: str, width: int) -> str:
     else:
         return s
 
-
 if arch == "mips":
     re_int = re.compile(r"[0-9]+")
     re_comment = re.compile(r"<.*?>")
@@ -695,11 +714,12 @@ elif arch == "aarch64":
     instructions_with_address_immediates = branch_instructions.union({"adrp"})
 elif arch == "ppc":
     re_int = re.compile(r"[0-9]+")
-    re_comment = re.compile(r"(<.*?>|//.*$)")
+    re_comment = re.compile(r"(<.*?>$|<.*?>|//.*$)")
     re_reg = re.compile(r"\$?\b([rf][0-9]+)\b")
     re_sprel = re.compile(r"(?<=,)(-?[0-9]+|-?0x[0-9a-f]+)\(r1\)")
     re_large_imm = re.compile(r"-?[1-9][0-9]{2,}|-?0x[0-9a-f]{3,}")
     re_imm = re.compile(r"(\b|-)([0-9]+|0x[0-9a-fA-F]+)\b(?!\(r1)|[^@]*@(ha|h|lo)")
+    re_file_line = re.compile(r"(.*\.cpp)\:([0-9]+)")
     arch_flags = []
     forbidden = set(string.ascii_letters + "_")
     branch_likely_instructions = set()
@@ -913,6 +933,7 @@ def make_difference_normalizer() -> DifferenceNormalizer:
 
 
 def process(lines: List[str]) -> List[Line]:
+    file_cache = dict()
     normalizer = make_difference_normalizer()
     skip_next = False
     source_lines = []
@@ -921,14 +942,12 @@ def process(lines: List[str]) -> List[Line]:
         if lines and not lines[-1]:
             lines.pop()
 
+    last_path = None
+    last_line = None
     output: List[Line] = []
     stop_after_delay_slot = False
     for row in lines:
         if args.diff_obj and (">:" in row or not row):
-            continue
-
-        if args.source and (row and row[0] != " "):
-            source_lines.append(row)
             continue
 
         if "R_AARCH64_" in row:
@@ -946,6 +965,44 @@ def process(lines: List[str]) -> List[Line]:
         if "R_PPC_" in row:
             new_original = process_ppc_reloc(row, output[-1].original)
             output[-1] = output[-1]._replace(original=new_original)
+            continue
+
+        if args.source and (row and row[0] != " "):
+            m_file_line = re.match(re_file_line, row)
+            if m_file_line:
+                path = m_file_line.group(1)
+                line = int(m_file_line.group(2))
+                if args.source_wslpath:
+                    path = subprocess.check_output(["wslpath","-ua", path],universal_newlines=True).strip()
+
+                if path in file_cache:
+                    file_lines = file_cache[path]
+                else:
+                    if not Path(path).is_file():
+                        fail(f"Source file not found: '{path}'")
+                    with open(path) as source_file:
+                        file_lines = source_file.readlines()
+                        file_cache[path] = [x.rstrip() for x in file_lines]
+
+                if path == last_path:
+                    if last_line:
+                        i = last_line
+                        while i + 1 < line:
+                            if i > 0 and i <= len(file_lines):
+                                source_lines.append(file_lines[i - 1])
+                            i += 1
+                else:
+                    source_lines.append(f"// \"{elide_path(Path(path))}\"")
+                    
+                if line > 0 and line <= len(file_lines):
+                    source_lines.append(file_lines[line - 1])
+
+                last_path = path
+                last_line = line
+            else:
+                last_path = None
+                last_line = None
+                source_lines.append(row)
             continue
 
         m_comment = re.search(re_comment, row)
@@ -1245,8 +1302,8 @@ def do_diff(basedump: str, mydump: str) -> List[OutputLine]:
             out1 = ""
             out2 = line2.original
 
-        if args.source and line2 and line2.comment:
-            out2 += f" {line2.comment}"
+        #if args.source and line2 and line2.comment:
+        #    out2 += f" {line2.comment}"
 
         def format_part(
             out: str,
@@ -1316,9 +1373,12 @@ def chunk_diff(diff: List[OutputLine]) -> List[Union[List[OutputLine], OutputLin
     chunks.append(cur_right)
     return chunks
 
+def elide_path(p: Path) -> PurePath:
+    return PurePath(p.parts[0]) / '...' / PurePath(p.parts[-1])
 
 def format_diff(
-    old_diff: List[OutputLine], new_diff: List[OutputLine]
+    old_diff: List[OutputLine], new_diff: List[OutputLine],
+    base_obj_path: Optional[Path] = None, ref_obj_path: Optional[Path] = None
 ) -> Tuple[str, List[str]]:
     old_chunks = chunk_diff(old_diff)
     new_chunks = chunk_diff(new_diff)
@@ -1362,7 +1422,7 @@ def format_diff(
             for (base, old, new) in output
         ]
     else:
-        header_line = ""
+        header_line = f'{elide_path(base_obj_path)}'.ljust(width) + f'  {elide_path(ref_obj_path)}'.ljust(width)
         diff_lines = [
             ansi_ljust(base, width) + new.fmt2
             for (base, old, new) in output
@@ -1454,12 +1514,18 @@ class Display:
     ready_queue: "queue.Queue[None]"
     watch_queue: "queue.Queue[Optional[float]]"
     less_proc: "Optional[subprocess.Popen[bytes]]"
+    base_obj_path: Optional[Path]
+    ref_obj_path: Optional[Path]
 
-    def __init__(self, basedump: str, mydump: str) -> None:
+    def __init__(self, basedump: str, mydump: str,
+                 base_obj_path: Optional[Path] = None,
+                 ref_obj_path: Optional[Path] = None) -> None:
         self.basedump = basedump
         self.mydump = mydump
         self.emsg = None
         self.last_diff_output = None
+        self.base_obj_path = base_obj_path
+        self.ref_obj_path = ref_obj_path
 
     def run_less(self) -> "Tuple[subprocess.Popen[bytes], subprocess.Popen[bytes]]":
         if self.emsg is not None:
@@ -1469,7 +1535,7 @@ class Display:
             last_diff_output = self.last_diff_output or diff_output
             if args.threeway != "base" or not self.last_diff_output:
                 self.last_diff_output = diff_output
-            header, diff_lines = format_diff(last_diff_output, diff_output)
+            header, diff_lines = format_diff(last_diff_output, diff_output, self.base_obj_path, self.ref_obj_path)
             header_lines = [header] if header else []
             output = "\n".join(header_lines + diff_lines[args.skip_lines :])
 
@@ -1575,7 +1641,9 @@ def main() -> None:
 
     mydump = run_objdump(mycmd)
 
-    display = Display(basedump, mydump)
+    base_obj_path = Path(basecmd[1])
+    ref_obj_path = Path(mycmd[1])
+    display = Display(basedump, mydump, base_obj_path, ref_obj_path)
 
     if not args.watch:
         display.run_sync()
