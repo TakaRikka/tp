@@ -1,0 +1,13 @@
+<map id="HeapCheck" name="HeapCheck">
+<area shape="rect" id="node1" title=" " alt="" coords="427,543,517,569"/>
+<area shape="rect" id="node2" href="$classJKRExpHeap.html" title=" " alt="" coords="423,453,521,480"/>
+<area shape="rect" id="node3" href="$classJKRHeap.html" title=" " alt="" coords="297,311,375,338"/>
+<area shape="rect" id="node4" href="$classJKRDisposer.html" title=" " alt="" coords="221,453,320,480"/>
+<area shape="rect" id="node5" href="$classJSULink.html" title=" " alt="" coords="5,163,176,189"/>
+<area shape="rect" id="node6" href="$classJSUPtrLink.html" title=" " alt="" coords="89,7,180,33"/>
+<area shape="rect" id="node7" href="$classJSUPtrList.html" title=" " alt="" coords="167,112,254,139"/>
+<area shape="rect" id="node10" href="$classJSUList.html" title=" " alt="" coords="128,213,296,240"/>
+<area shape="rect" id="node8" href="$classJSUTree.html" title=" " alt="" coords="320,213,472,240"/>
+<area shape="rect" id="node9" href="$structOSMutex.html" title=" " alt="" coords="497,213,573,240"/>
+<area shape="rect" id="node11" href="$classJKRExpHeap_1_1CMemBlock.html" title=" " alt="" coords="508,311,684,338"/>
+</map>

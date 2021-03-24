@@ -1,0 +1,22 @@
+<map id="dStage_roomDt_c" name="dStage_roomDt_c">
+<area shape="rect" id="node1" title=" " alt="" coords="312,472,439,499"/>
+<area shape="rect" id="node2" href="$classstage__arrow__class.html" title=" " alt="" coords="22,9,153,36"/>
+<area shape="rect" id="node3" href="$classstage__actor__class.html" title=" " alt="" coords="23,60,151,87"/>
+<area shape="rect" id="node4" href="$classstage__tresure__class.html" title=" " alt="" coords="18,111,157,137"/>
+<area shape="rect" id="node5" href="$classdStage__SoundInfo__c.html" title=" " alt="" coords="16,161,159,188"/>
+<area shape="rect" id="node6" href="$classstage__map__info__class.html" title=" " alt="" coords="11,212,163,239"/>
+<area shape="rect" id="node7" href="$classdStage__dPnt__c.html" title=" " alt="" coords="32,263,143,289"/>
+<area shape="rect" id="node8" href="$classstage__camera__class.html" title=" " alt="" coords="16,313,159,340"/>
+<area shape="rect" id="node9" href="$classdStage__MapEventInfo__c.html" title=" " alt="" coords="5,364,169,391"/>
+<area shape="rect" id="node10" href="$classdStage__FileList2__dt__c.html" title=" " alt="" coords="11,415,163,441"/>
+<area shape="rect" id="node11" href="$classstage__vrboxcol__info__class.html" title=" " alt="" coords="19,466,156,507"/>
+<area shape="rect" id="node12" href="$classstage__tgsc__class.html" title=" " alt="" coords="25,532,149,559"/>
+<area shape="rect" id="node13" href="$classdStage__Lbnk__c.html" title=" " alt="" coords="31,583,144,609"/>
+<area shape="rect" id="node14" href="$classdStage__dPath__c.html" title=" " alt="" coords="28,633,147,660"/>
+<area shape="rect" id="node15" href="$classstage__scls__info__dummy__class.html" title=" " alt="" coords="6,685,169,726"/>
+<area shape="rect" id="node16" href="$classstage__map__info__dummy__class.html" title=" " alt="" coords="6,750,169,791"/>
+<area shape="rect" id="node17" href="$classstage__pure__lightvec__info__class.html" title=" " alt="" coords="18,815,157,857"/>
+<area shape="rect" id="node18" href="$classdStage__FileList__dt__c.html" title=" " alt="" coords="15,881,160,908"/>
+<area shape="rect" id="node19" href="$classstage__vrbox__info__class.html" title=" " alt="" coords="8,932,167,959"/>
+<area shape="rect" id="node20" href="$classdStage__FloorInfo__c.html" title=" " alt="" coords="20,983,155,1009"/>
+</map>

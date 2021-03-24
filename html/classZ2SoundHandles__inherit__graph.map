@@ -1,0 +1,8 @@
+<map id="Z2SoundHandles" name="Z2SoundHandles">
+<area shape="rect" id="node1" title=" " alt="" coords="199,155,321,181"/>
+<area shape="rect" id="node4" href="$classZ2DopplerSoundObjBase.html" title=" " alt="" coords="5,229,173,256"/>
+<area shape="rect" id="node5" href="$classZ2SoundObjBase.html" title=" " alt="" coords="198,229,322,256"/>
+<area shape="rect" id="node6" href="$classZ2SoundObjSimple.html" title=" " alt="" coords="346,229,481,256"/>
+<area shape="rect" id="node2" href="$classJSUList.html" title=" " alt="" coords="155,80,365,107"/>
+<area shape="rect" id="node3" href="$classJSUPtrList.html" title=" " alt="" coords="217,5,303,32"/>
+</map>

@@ -1,0 +1,22 @@
+<map id="JKRDisposer" name="JKRDisposer">
+<area shape="rect" id="node1" title=" " alt="" coords="5,183,104,209"/>
+<area shape="rect" id="node2" href="$classJKRAramHeap.html" title=" " alt="" coords="152,44,261,71"/>
+<area shape="rect" id="node3" href="$classJKRFile.html" title=" " alt="" coords="173,95,241,121"/>
+<area shape="rect" id="node5" href="$classJKRFileLoader.html" title=" " alt="" coords="153,145,261,172"/>
+<area shape="rect" id="node12" href="$classJKRHeap.html" title=" " alt="" coords="167,208,246,235"/>
+<area shape="rect" id="node16" href="$classJKRThread.html" title=" " alt="" coords="163,335,250,361"/>
+<area shape="rect" id="node20" href="$structJUTGamePad.html" title=" " alt="" coords="154,385,259,412"/>
+<area shape="rect" id="node4" href="$classJKRDvdFile.html" title=" " alt="" coords="324,31,415,57"/>
+<area shape="rect" id="node6" href="$classJKRArchive.html" title=" " alt="" coords="324,81,415,108"/>
+<area shape="rect" id="node11" href="$classJKRFileCache.html" title=" " alt="" coords="317,132,422,159"/>
+<area shape="rect" id="node7" href="$classJKRAramArchive.html" title=" " alt="" coords="479,5,601,32"/>
+<area shape="rect" id="node8" href="$classJKRCompArchive.html" title=" " alt="" coords="477,56,603,83"/>
+<area shape="rect" id="node9" href="$classJKRDvdArchive.html" title=" " alt="" coords="483,107,597,133"/>
+<area shape="rect" id="node10" href="$classJKRMemArchive.html" title=" " alt="" coords="480,157,600,184"/>
+<area shape="rect" id="node13" href="$classJKRAssertHeap.html" title=" " alt="" coords="311,183,427,209"/>
+<area shape="rect" id="node14" href="$classJKRExpHeap.html" title=" " alt="" coords="320,233,419,260"/>
+<area shape="rect" id="node15" href="$classJKRSolidHeap.html" title=" " alt="" coords="316,284,423,311"/>
+<area shape="rect" id="node17" href="$classJKRAram.html" title=" " alt="" coords="330,335,409,361"/>
+<area shape="rect" id="node18" href="$classJKRAramStream.html" title=" " alt="" coords="309,385,429,412"/>
+<area shape="rect" id="node19" href="$classJKRDecomp.html" title=" " alt="" coords="322,436,417,463"/>
+</map>

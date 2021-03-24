@@ -1,0 +1,29 @@
+<map id="dSv_save_c" name="dSv_save_c">
+<area shape="rect" id="node1" title=" " alt="" coords="912,501,1007,528"/>
+<area shape="rect" id="node2" href="$classdSv__MiniGame__c.html" title=" " alt="" coords="645,375,771,401"/>
+<area shape="rect" id="node3" href="$classdSv__memory2__c.html" title=" " alt="" coords="649,425,767,452"/>
+<area shape="rect" id="node4" href="$classdSv__player__c.html" title=" " alt="" coords="658,476,758,503"/>
+<area shape="rect" id="node5" href="$classdSv__player__item__max__c.html" title=" " alt="" coords="313,15,476,41"/>
+<area shape="rect" id="node6" href="$classdSv__player__collect__c.html" title=" " alt="" coords="322,65,467,92"/>
+<area shape="rect" id="node7" href="$classdSv__player__field__last__stay__info__c.html" title=" " alt="" coords="323,117,467,158"/>
+<area shape="rect" id="node8" href="$classcXyz.html" title=" " alt="" coords="100,189,151,216"/>
+<area shape="rect" id="node22" href="$classdSv__player__last__mark__info__c.html" title=" " alt="" coords="319,182,470,223"/>
+<area shape="rect" id="node23" href="$classdSv__horse__place__c.html" title=" " alt="" coords="327,248,463,275"/>
+<area shape="rect" id="node9" href="$structVec.html" title=" " alt="" coords="5,189,51,216"/>
+<area shape="rect" id="node10" href="$classdSv__player__info__c.html" title=" " alt="" coords="331,299,459,325"/>
+<area shape="rect" id="node11" href="$classdSv__player__get__item__c.html" title=" " alt="" coords="316,349,473,376"/>
+<area shape="rect" id="node12" href="$classdSv__player__status__b__c.html" title=" " alt="" coords="316,400,473,427"/>
+<area shape="rect" id="node13" href="$classdSv__player__status__a__c.html" title=" " alt="" coords="316,451,473,477"/>
+<area shape="rect" id="node14" href="$classdSv__player__return__place__c.html" title=" " alt="" coords="305,501,484,528"/>
+<area shape="rect" id="node15" href="$classdSv__player__config__c.html" title=" " alt="" coords="324,552,465,579"/>
+<area shape="rect" id="node16" href="$classdSv__player__item__c.html" title=" " alt="" coords="329,603,461,629"/>
+<area shape="rect" id="node17" href="$classdSv__letter__info__c.html" title=" " alt="" coords="333,653,456,680"/>
+<area shape="rect" id="node18" href="$classdSv__light__drop__c.html" title=" " alt="" coords="333,704,456,731"/>
+<area shape="rect" id="node19" href="$classdSv__player__item__record__c.html" title=" " alt="" coords="307,755,482,781"/>
+<area shape="rect" id="node20" href="$classdSv__fishing__info__c.html" title=" " alt="" coords="329,805,460,832"/>
+<area shape="rect" id="node21" href="$classdSv__player__wolf__c.html" title=" " alt="" coords="329,856,460,883"/>
+<area shape="rect" id="node24" href="$classdSv__reserve__c.html" title=" " alt="" coords="653,527,763,553"/>
+<area shape="rect" id="node25" href="$classdSv__event__c.html" title=" " alt="" coords="659,577,757,604"/>
+<area shape="rect" id="node26" href="$classdSv__memory__c.html" title=" " alt="" coords="652,755,764,781"/>
+<area shape="rect" id="node27" href="$classdSv__memBit__c.html" title=" " alt="" coords="339,907,450,933"/>
+</map>

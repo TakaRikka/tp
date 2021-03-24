@@ -1,0 +1,9 @@
+<map id="JKRArchive" name="JKRArchive">
+<area shape="rect" id="node1" title=" " alt="" coords="241,155,332,181"/>
+<area shape="rect" id="node4" href="$classJKRAramArchive.html" title=" " alt="" coords="5,229,128,256"/>
+<area shape="rect" id="node5" href="$classJKRCompArchive.html" title=" " alt="" coords="152,229,277,256"/>
+<area shape="rect" id="node6" href="$classJKRDvdArchive.html" title=" " alt="" coords="301,229,416,256"/>
+<area shape="rect" id="node7" href="$classJKRMemArchive.html" title=" " alt="" coords="440,229,560,256"/>
+<area shape="rect" id="node2" href="$classJKRFileLoader.html" title=" " alt="" coords="233,80,341,107"/>
+<area shape="rect" id="node3" href="$classJKRDisposer.html" title=" " alt="" coords="237,5,336,32"/>
+</map>

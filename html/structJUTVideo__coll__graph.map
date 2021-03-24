@@ -1,0 +1,11 @@
+<map id="JUTVideo" name="JUTVideo">
+<area shape="rect" id="node1" title=" " alt="" coords="89,317,169,344"/>
+<area shape="rect" id="node2" href="$structGXRenderModeObj.html" title=" " alt="" coords="5,213,140,240"/>
+<area shape="rect" id="node3" href="$structOSMessageQueue.html" title=" " alt="" coords="164,213,296,240"/>
+<area shape="rect" id="node4" href="$structOSThreadQueue.html" title=" " alt="" coords="299,109,417,136"/>
+<area shape="rect" id="node5" href="$structOSThread.html" title=" " alt="" coords="465,213,547,240"/>
+<area shape="rect" id="node6" href="$structOSThreadLink.html" title=" " alt="" coords="453,317,559,344"/>
+<area shape="rect" id="node7" href="$structOSMutexQueue.html" title=" " alt="" coords="569,109,683,136"/>
+<area shape="rect" id="node8" href="$structOSMutex.html" title=" " alt="" coords="489,5,565,32"/>
+<area shape="rect" id="node9" href="$structOSContext.html" title=" " alt="" coords="707,109,793,136"/>
+</map>

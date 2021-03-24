@@ -1,0 +1,11 @@
+<map id="Z2SoundHandlePool" name="Z2SoundHandlePool">
+<area shape="rect" id="node1" title=" " alt="" coords="541,201,682,228"/>
+<area shape="rect" id="node2" href="$classJAISoundHandle.html" title=" " alt="" coords="403,112,523,139"/>
+<area shape="rect" id="node3" href="$classJAISound.html" title=" " alt="" coords="272,201,351,228"/>
+<area shape="rect" id="node4" href="$structJAISoundParams.html" title=" " alt="" coords="5,112,129,139"/>
+<area shape="rect" id="node5" href="$classJAISoundID.html" title=" " alt="" coords="153,112,245,139"/>
+<area shape="rect" id="node6" href="$structJAIAudience.html" title=" " alt="" coords="270,112,366,139"/>
+<area shape="rect" id="node7" href="$classJSULink.html" title=" " alt="" coords="548,112,763,139"/>
+<area shape="rect" id="node8" href="$classJSUPtrLink.html" title=" " alt="" coords="717,7,807,33"/>
+<area shape="rect" id="node9" href="$classJSUPtrList.html" title=" " alt="" coords="787,112,873,139"/>
+</map>
