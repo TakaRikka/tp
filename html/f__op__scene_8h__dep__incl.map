@@ -1,0 +1,15 @@
+<map id="include/f/f_op/f_op_scene.h" name="include/f/f_op/f_op_scene.h">
+<area shape="rect" id="node1" title=" " alt="" coords="208,5,337,47"/>
+<area shape="rect" id="node2" href="$f__op__scene_8cpp.html" title=" " alt="" coords="5,191,177,218"/>
+<area shape="rect" id="node3" href="$f__op__scene__pause_8h.html" title=" " alt="" coords="303,95,432,136"/>
+<area shape="rect" id="node4" href="$f__op__overlap__mng_8cpp.html" title=" " alt="" coords="202,184,357,225"/>
+<area shape="rect" id="node5" href="$f__op__scene__pause_8cpp.html" title=" " alt="" coords="381,184,529,225"/>
+<area shape="rect" id="node6" href="$f__op__scene__mng_8h.html" title=" " alt="" coords="553,184,683,225"/>
+<area shape="rect" id="node12" href="$f__op__scene__req_8h.html" title=" " alt="" coords="803,184,932,225"/>
+<area shape="rect" id="node7" href="$d__com__inf__game_8cpp.html" title=" " alt="" coords="132,273,291,315"/>
+<area shape="rect" id="node8" href="$d__stage_8cpp.html" title=" " alt="" coords="315,281,441,307"/>
+<area shape="rect" id="node9" href="$f__ap__game_8cpp.html" title=" " alt="" coords="465,281,605,307"/>
+<area shape="rect" id="node10" href="$f__op__msg__mng_8cpp.html" title=" " alt="" coords="630,273,769,315"/>
+<area shape="rect" id="node11" href="$f__op__scene__mng_8cpp.html" title=" " alt="" coords="793,273,941,315"/>
+<area shape="rect" id="node13" href="$f__op__scene__req_8cpp.html" title=" " alt="" coords="965,273,1113,315"/>
+</map>

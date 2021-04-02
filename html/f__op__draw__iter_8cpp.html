@@ -81,11 +81,10 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="f__op__draw__iter_8h_source.html">f/f_op/f_op_draw_iter.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="c__tag_8h_source.html">SComponent/c_tag.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="c__tree_8h_source.html">SComponent/c_tree.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="global_8h_source.html">global.h</a>&quot;</code><br />
 <code>#include &quot;f/f_op/f_op_draw_iter/asm/func_80020400.s&quot;</code><br />
-<code>#include &quot;f/f_op/f_op_draw_iter/asm/func_80020444.s&quot;</code><br />
-<code>#include &quot;f/f_op/f_op_draw_iter/asm/func_80020480.s&quot;</code><br />
 </div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Include dependency graph for f_op_draw_iter.cpp:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -99,12 +98,12 @@ $(function() {
 Functions</h2></td></tr>
 <tr class="memitem:aea475cb3f55e1ad6fbd100e3054775e6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="f__op__draw__iter_8cpp.html#aea475cb3f55e1ad6fbd100e3054775e6">fopDwIt_GetTag__Fv</a> (void)</td></tr>
 <tr class="separator:aea475cb3f55e1ad6fbd100e3054775e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a79381bb1fc844dbb3aac321ac5810ed2"><td class="memItemLeft" align="right" valign="top">asm void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="f__op__draw__iter_8cpp.html#a79381bb1fc844dbb3aac321ac5810ed2">fopDwIt_GetTag</a> (void)</td></tr>
-<tr class="separator:a79381bb1fc844dbb3aac321ac5810ed2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd85820e3d2af86a53af79e7c8b9c656"><td class="memItemLeft" align="right" valign="top">asm void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="f__op__draw__iter_8cpp.html#abd85820e3d2af86a53af79e7c8b9c656">fopDwIt_Begin</a> (void)</td></tr>
-<tr class="separator:abd85820e3d2af86a53af79e7c8b9c656"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad34dbf48afe4b3150bad4bd957c06e93"><td class="memItemLeft" align="right" valign="top">asm void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="f__op__draw__iter_8cpp.html#ad34dbf48afe4b3150bad4bd957c06e93">fopDwIt_Next</a> (<a class="el" href="structcreate__tag__class.html">create_tag_class</a> *pCreateTag)</td></tr>
-<tr class="separator:ad34dbf48afe4b3150bad4bd957c06e93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adac1c7c2d32928f37b1b7d19ae13655f"><td class="memItemLeft" align="right" valign="top">asm <a class="el" href="structcreate__tag__class.html">create_tag_class</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="f__op__draw__iter_8cpp.html#adac1c7c2d32928f37b1b7d19ae13655f">fopDwIt_GetTag</a> (void)</td></tr>
+<tr class="separator:adac1c7c2d32928f37b1b7d19ae13655f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4140660a096e34fddd9c6257d52a927e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcreate__tag__class.html">create_tag_class</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="f__op__draw__iter_8cpp.html#a4140660a096e34fddd9c6257d52a927e">fopDwIt_Begin</a> (void)</td></tr>
+<tr class="separator:a4140660a096e34fddd9c6257d52a927e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4df0cb62a4205b21ebde0718a2ef2598"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcreate__tag__class.html">create_tag_class</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="f__op__draw__iter_8cpp.html#a4df0cb62a4205b21ebde0718a2ef2598">fopDwIt_Next</a> (<a class="el" href="structcreate__tag__class.html">create_tag_class</a> *pCreateTag)</td></tr>
+<tr class="separator:a4df0cb62a4205b21ebde0718a2ef2598"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -114,14 +113,14 @@ Variables</h2></td></tr>
 <tr class="separator:a3ce19a617ccab48e7746ef79d63dc479"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="abd85820e3d2af86a53af79e7c8b9c656"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd85820e3d2af86a53af79e7c8b9c656">&#9670;&nbsp;</a></span>fopDwIt_Begin()</h2>
+<a id="a4140660a096e34fddd9c6257d52a927e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4140660a096e34fddd9c6257d52a927e">&#9670;&nbsp;</a></span>fopDwIt_Begin()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">asm void fopDwIt_Begin </td>
+          <td class="memname"><a class="el" href="structcreate__tag__class.html">create_tag_class</a>* fopDwIt_Begin </td>
           <td>(</td>
           <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -132,14 +131,14 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a79381bb1fc844dbb3aac321ac5810ed2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a79381bb1fc844dbb3aac321ac5810ed2">&#9670;&nbsp;</a></span>fopDwIt_GetTag()</h2>
+<a id="adac1c7c2d32928f37b1b7d19ae13655f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adac1c7c2d32928f37b1b7d19ae13655f">&#9670;&nbsp;</a></span>fopDwIt_GetTag()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">asm void fopDwIt_GetTag </td>
+          <td class="memname">asm <a class="el" href="structcreate__tag__class.html">create_tag_class</a>* fopDwIt_GetTag </td>
           <td>(</td>
           <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -168,14 +167,14 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="ad34dbf48afe4b3150bad4bd957c06e93"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad34dbf48afe4b3150bad4bd957c06e93">&#9670;&nbsp;</a></span>fopDwIt_Next()</h2>
+<a id="a4df0cb62a4205b21ebde0718a2ef2598"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4df0cb62a4205b21ebde0718a2ef2598">&#9670;&nbsp;</a></span>fopDwIt_Next()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">asm void fopDwIt_Next </td>
+          <td class="memname"><a class="el" href="structcreate__tag__class.html">create_tag_class</a>* fopDwIt_Next </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structcreate__tag__class.html">create_tag_class</a> *&#160;</td>
           <td class="paramname"><em>pCreateTag</em></td><td>)</td>

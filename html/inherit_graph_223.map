@@ -1,3 +1,6 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structJStudio_1_1fvb_1_1data_1_1TBlock.html" title=" " alt="" coords="5,5,127,47"/>
+<area shape="rect" id="node1" href="$structJKRFileFinder__UnknownBase.html" title=" " alt="" coords="5,31,201,57"/>
+<area shape="rect" id="node2" href="$classJKRFileFinder.html" title=" " alt="" coords="249,31,353,57"/>
+<area shape="rect" id="node3" href="$classJKRArcFinder.html" title=" " alt="" coords="403,5,506,32"/>
+<area shape="rect" id="node4" href="$classJKRDvdFinder.html" title=" " alt="" coords="401,56,508,83"/>
 </map>

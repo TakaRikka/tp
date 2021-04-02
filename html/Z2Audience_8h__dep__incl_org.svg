@@ -5,109 +5,109 @@
  -->
 <!-- Title: include/Z2AudioLib/Z2Audience/Z2Audience.h Pages: 1 -->
 <svg width="1026pt" height="95pt"
- viewBox="0.00 0.00 1026.00 95.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ viewBox="0.00 0.00 1025.50 95.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 91)">
 <title>include/Z2AudioLib/Z2Audience/Z2Audience.h</title>
-<polygon fill="white" stroke="transparent" points="-4,4 -4,-91 1022,-91 1022,4 -4,4"/>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-91 1021.5,-91 1021.5,4 -4,4"/>
 <!-- Node1 -->
 <g id="node1" class="node">
 <title>Node1</title>
 <g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="448.5,-56.5 448.5,-86.5 582.5,-86.5 582.5,-56.5 448.5,-56.5"/>
-<text text-anchor="start" x="456.5" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">include/Z2AudioLib</text>
-<text text-anchor="middle" x="515.5" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Z2Audience/Z2Audience.h</text>
+<polygon fill="#bfbfbf" stroke="black" points="448,-56.5 448,-86.5 582,-86.5 582,-56.5 448,-56.5"/>
+<text text-anchor="start" x="456" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">include/Z2AudioLib</text>
+<text text-anchor="middle" x="515" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Z2Audience/Z2Audience.h</text>
 </a>
 </g>
 </g>
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="Z2Audience_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-19.5 157,-19.5 157,-0.5 0,-0.5"/>
-<text text-anchor="middle" x="78.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">libs/Z2AudioLib/Z2Audience.cpp</text>
+<g id="a_node2"><a xlink:href="Z2AudioMgr_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="0,-0.5 0,-19.5 158,-19.5 158,-0.5 0,-0.5"/>
+<text text-anchor="middle" x="79" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">libs/Z2AudioLib/Z2AudioMgr.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node2 -->
 <g id="edge1" class="edge">
 <title>Node1&#45;&gt;Node2</title>
-<path fill="none" stroke="midnightblue" d="M438.1,-59.96C353.38,-48.43 219.22,-30.16 140.94,-19.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="437.8,-63.45 448.18,-61.33 438.74,-56.52 437.8,-63.45"/>
+<path fill="none" stroke="midnightblue" d="M437.77,-59.96C353.25,-48.43 219.4,-30.16 141.3,-19.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="437.45,-63.45 447.83,-61.33 438.4,-56.51 437.45,-63.45"/>
 </g>
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
-<g id="a_node3"><a xlink:href="Z2AudioMgr_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="175.5,-0.5 175.5,-19.5 333.5,-19.5 333.5,-0.5 175.5,-0.5"/>
-<text text-anchor="middle" x="254.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">libs/Z2AudioLib/Z2AudioMgr.cpp</text>
+<g id="a_node3"><a xlink:href="Z2Audience_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="176.5,-0.5 176.5,-19.5 333.5,-19.5 333.5,-0.5 176.5,-0.5"/>
+<text text-anchor="middle" x="255" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">libs/Z2AudioLib/Z2Audience.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node3 -->
 <g id="edge2" class="edge">
 <title>Node1&#45;&gt;Node3</title>
-<path fill="none" stroke="midnightblue" d="M444.02,-54.2C394.79,-42.98 331.36,-28.52 291.81,-19.51"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="443.45,-57.66 453.98,-56.47 445.01,-50.84 443.45,-57.66"/>
+<path fill="none" stroke="midnightblue" d="M443.79,-54.2C394.75,-42.98 331.57,-28.52 292.17,-19.51"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="443.18,-57.66 453.71,-56.47 444.75,-50.83 443.18,-57.66"/>
 </g>
 <!-- Node4 -->
 <g id="node4" class="node">
 <title>Node4</title>
 <g id="a_node4"><a xlink:href="Z2Creature_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="352,-0.5 352,-19.5 505,-19.5 505,-0.5 352,-0.5"/>
-<text text-anchor="middle" x="428.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">libs/Z2AudioLib/Z2Creature.cpp</text>
+<polygon fill="white" stroke="black" points="351.5,-0.5 351.5,-19.5 504.5,-19.5 504.5,-0.5 351.5,-0.5"/>
+<text text-anchor="middle" x="428" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">libs/Z2AudioLib/Z2Creature.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node4 -->
 <g id="edge3" class="edge">
 <title>Node1&#45;&gt;Node4</title>
-<path fill="none" stroke="midnightblue" d="M486.23,-50.48C470.91,-40 452.93,-27.71 441.16,-19.66"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="484.65,-53.64 494.88,-56.4 488.6,-47.87 484.65,-53.64"/>
+<path fill="none" stroke="midnightblue" d="M485.73,-50.48C470.41,-40 452.43,-27.71 440.66,-19.66"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="484.15,-53.64 494.38,-56.4 488.1,-47.87 484.15,-53.64"/>
 </g>
 <!-- Node5 -->
 <g id="node5" class="node">
 <title>Node5</title>
 <g id="a_node5"><a xlink:href="Z2EnvSeMgr_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="523,-0.5 523,-19.5 684,-19.5 684,-0.5 523,-0.5"/>
-<text text-anchor="middle" x="603.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">libs/Z2AudioLib/Z2EnvSeMgr.cpp</text>
+<polygon fill="white" stroke="black" points="522.5,-0.5 522.5,-19.5 683.5,-19.5 683.5,-0.5 522.5,-0.5"/>
+<text text-anchor="middle" x="603" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">libs/Z2AudioLib/Z2EnvSeMgr.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node5 -->
 <g id="edge4" class="edge">
 <title>Node1&#45;&gt;Node5</title>
-<path fill="none" stroke="midnightblue" d="M544.67,-50.78C560.27,-40.23 578.68,-27.78 590.7,-19.66"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="542.68,-47.9 536.35,-56.4 546.6,-53.7 542.68,-47.9"/>
+<path fill="none" stroke="midnightblue" d="M544.17,-50.78C559.77,-40.23 578.18,-27.78 590.2,-19.66"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="542.18,-47.9 535.85,-56.4 546.1,-53.7 542.18,-47.9"/>
 </g>
 <!-- Node6 -->
 <g id="node6" class="node">
 <title>Node6</title>
 <g id="a_node6"><a xlink:href="Z2LinkMgr_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="702.5,-0.5 702.5,-19.5 854.5,-19.5 854.5,-0.5 702.5,-0.5"/>
-<text text-anchor="middle" x="778.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">libs/Z2AudioLib/Z2LinkMgr.cpp</text>
+<polygon fill="white" stroke="black" points="702,-0.5 702,-19.5 854,-19.5 854,-0.5 702,-0.5"/>
+<text text-anchor="middle" x="778" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">libs/Z2AudioLib/Z2LinkMgr.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node6 -->
 <g id="edge5" class="edge">
 <title>Node1&#45;&gt;Node6</title>
-<path fill="none" stroke="midnightblue" d="M587.53,-54.2C637.14,-42.98 701.05,-28.52 740.9,-19.51"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="586.48,-50.85 577.49,-56.47 588.02,-57.68 586.48,-50.85"/>
+<path fill="none" stroke="midnightblue" d="M587.03,-54.2C636.64,-42.98 700.55,-28.52 740.4,-19.51"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="585.98,-50.85 576.99,-56.47 587.52,-57.68 585.98,-50.85"/>
 </g>
 <!-- Node7 -->
 <g id="node7" class="node">
 <title>Node7</title>
 <g id="a_node7"><a xlink:href="Z2SeMgr_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="873,-0.5 873,-19.5 1018,-19.5 1018,-0.5 873,-0.5"/>
-<text text-anchor="middle" x="945.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">libs/Z2AudioLib/Z2SeMgr.cpp</text>
+<polygon fill="white" stroke="black" points="872.5,-0.5 872.5,-19.5 1017.5,-19.5 1017.5,-0.5 872.5,-0.5"/>
+<text text-anchor="middle" x="945" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">libs/Z2AudioLib/Z2SeMgr.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node7 -->
 <g id="edge6" class="edge">
 <title>Node1&#45;&gt;Node7</title>
-<path fill="none" stroke="midnightblue" d="M592.61,-59.83C676,-48.29 807.27,-30.13 884.01,-19.51"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="592.11,-56.37 582.69,-61.2 593.07,-63.3 592.11,-56.37"/>
+<path fill="none" stroke="midnightblue" d="M592.11,-59.83C675.5,-48.29 806.77,-30.13 883.51,-19.51"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="591.61,-56.37 582.19,-61.2 592.57,-63.3 591.61,-56.37"/>
 </g>
 </g>
 </svg>

@@ -81,7 +81,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="f__pc__create__iter_8h_source.html">f/f_pc/f_pc_create_iter.h</a>&quot;</code><br />
-<code>#include &quot;f/f_pc/asm/80020A40.s&quot;</code><br />
+<code>#include &quot;<a class="el" href="f__pc__create__req_8h_source.html">f/f_pc/f_pc_create_req.h</a>&quot;</code><br />
 </div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Include dependency graph for f_pc_create_iter.cpp:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -97,10 +97,10 @@ Functions</h2></td></tr>
 <tr class="separator:a73ad41c3e77b9c797c23fe542c8a26b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac968affaaaa38d1cdf3862382b75fd9e"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="f__pc__create__iter_8cpp.html#ac968affaaaa38d1cdf3862382b75fd9e">fpcCtIt_Judge</a> (<a class="el" href="f__pc__create__iter_8h.html#a08f7a5311ef47ba9b7e5281b55882056">fpcCtIt_JudgeFunc</a> pJudge, void *pUserData)</td></tr>
 <tr class="separator:ac968affaaaa38d1cdf3862382b75fd9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afbc32a746ce159e8c92280284c1a454f"><td class="memItemLeft" align="right" valign="top">asm void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="f__pc__create__iter_8cpp.html#afbc32a746ce159e8c92280284c1a454f">fpcCtIt_filter_JudgeInLayer</a> (<a class="el" href="structcreate__tag.html">create_tag</a> *, <a class="el" href="structfpcCtIt__jilprm__c.html">fpcCtIt_jilprm_c</a> *)</td></tr>
-<tr class="separator:afbc32a746ce159e8c92280284c1a454f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa54fa0262c9a0b99fe58cb051b5e3a40"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="f__pc__create__iter_8cpp.html#aa54fa0262c9a0b99fe58cb051b5e3a40">fpcCtIt_JudgeInLayer</a> (unsigned int pUnk0, <a class="el" href="f__pc__create__iter_8h.html#a08f7a5311ef47ba9b7e5281b55882056">fpcCtIt_JudgeFunc</a> pFunc, void *pUserData)</td></tr>
-<tr class="separator:aa54fa0262c9a0b99fe58cb051b5e3a40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6daf8cc95daba70253b32a8ad187e51b"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="f__pc__create__iter_8cpp.html#a6daf8cc95daba70253b32a8ad187e51b">fpcCtIt_filter_JudgeInLayer</a> (<a class="el" href="structcreate__tag.html">create_tag</a> *pCreateTag, <a class="el" href="structfpcCtIt__jilprm__c.html">fpcCtIt_jilprm_c</a> *pIterData)</td></tr>
+<tr class="separator:a6daf8cc95daba70253b32a8ad187e51b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86543bd7ca34111d3b6dee85b3c33a02"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="f__pc__create__iter_8cpp.html#a86543bd7ca34111d3b6dee85b3c33a02">fpcCtIt_JudgeInLayer</a> (unsigned int pLayerID, <a class="el" href="f__pc__create__iter_8h.html#a08f7a5311ef47ba9b7e5281b55882056">fpcCtIt_JudgeFunc</a> pFunc, void *pUserData)</td></tr>
+<tr class="separator:a86543bd7ca34111d3b6dee85b3c33a02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -108,23 +108,23 @@ Variables</h2></td></tr>
 <tr class="separator:a40a5fbb247854fc877bdcf271da4aeb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="afbc32a746ce159e8c92280284c1a454f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afbc32a746ce159e8c92280284c1a454f">&#9670;&nbsp;</a></span>fpcCtIt_filter_JudgeInLayer()</h2>
+<a id="a6daf8cc95daba70253b32a8ad187e51b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6daf8cc95daba70253b32a8ad187e51b">&#9670;&nbsp;</a></span>fpcCtIt_filter_JudgeInLayer()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">asm void* fpcCtIt_filter_JudgeInLayer </td>
+          <td class="memname">void* fpcCtIt_filter_JudgeInLayer </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structcreate__tag.html">create_tag</a> *&#160;</td>
-          <td class="paramname">, </td>
+          <td class="paramname"><em>pCreateTag</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="structfpcCtIt__jilprm__c.html">fpcCtIt_jilprm_c</a> *&#160;</td>
-          <td class="paramname">&#160;</td>
+          <td class="paramname"><em>pIterData</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -164,8 +164,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="aa54fa0262c9a0b99fe58cb051b5e3a40"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa54fa0262c9a0b99fe58cb051b5e3a40">&#9670;&nbsp;</a></span>fpcCtIt_JudgeInLayer()</h2>
+<a id="a86543bd7ca34111d3b6dee85b3c33a02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86543bd7ca34111d3b6dee85b3c33a02">&#9670;&nbsp;</a></span>fpcCtIt_JudgeInLayer()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -174,7 +174,7 @@ Variables</h2></td></tr>
           <td class="memname">void* fpcCtIt_JudgeInLayer </td>
           <td>(</td>
           <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>pUnk0</em>, </td>
+          <td class="paramname"><em>pLayerID</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>

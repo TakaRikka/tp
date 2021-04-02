@@ -46,7 +46,7 @@ if (edges && edges.length) {
         </defs>
 
 <script type="text/javascript">
-var viewWidth = 964;
+var viewWidth = 963;
 var viewHeight = 106;
 var sectionId = 'dynsection-0';
 </script>
@@ -54,14 +54,14 @@ var sectionId = 'dynsection-0';
 <svg id="graph" class="graph">
 <g id="viewport">
 <title>include/Z2AudioLib/Z2FxLineMgr/Z2FxLineMgr.h</title>
-<polygon fill="white" stroke="transparent" points="-4,4 -4,-102 959.5,-102 959.5,4 -4,4"/>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-102 958.5,-102 958.5,4 -4,4"/>
 <!-- Node1 -->
 <g id="node1" class="node">
 <title>Node1</title>
 <g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="405,-67.5 405,-97.5 549,-97.5 549,-67.5 405,-67.5"/>
-<text text-anchor="start" x="413" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">include/Z2AudioLib</text>
-<text text-anchor="middle" x="477" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Z2FxLineMgr/Z2FxLineMgr.h</text>
+<polygon fill="#bfbfbf" stroke="black" points="403,-67.5 403,-97.5 547,-97.5 547,-67.5 403,-67.5"/>
+<text text-anchor="start" x="411" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">include/Z2AudioLib</text>
+<text text-anchor="middle" x="475" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Z2FxLineMgr/Z2FxLineMgr.h</text>
 </a>
 </g>
 </g>
@@ -78,8 +78,8 @@ var sectionId = 'dynsection-0';
 <!-- Node1&#45;&gt;Node2 -->
 <g id="edge1" class="edge">
 <title>Node1&#45;&gt;Node2</title>
-<path fill="none" stroke="midnightblue" d="M394.74,-69.66C327.91,-59.86 231.25,-45.27 147,-31 144.15,-30.52 141.24,-30.02 138.3,-29.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="394.39,-73.14 404.79,-71.13 395.41,-66.22 394.39,-73.14"/>
+<path fill="none" stroke="midnightblue" d="M392.92,-69.58C326.51,-59.77 230.61,-45.2 147,-31 144.15,-30.52 141.24,-30.01 138.3,-29.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="392.51,-73.06 402.91,-71.06 393.53,-66.14 392.51,-73.06"/>
 </g>
 <!-- Node3 -->
 <g id="node3" class="node">
@@ -93,8 +93,8 @@ var sectionId = 'dynsection-0';
 <!-- Node1&#45;&gt;Node3 -->
 <g id="edge2" class="edge">
 <title>Node1&#45;&gt;Node3</title>
-<path fill="none" stroke="midnightblue" d="M414.94,-64.83C367.58,-52.11 304.27,-35.11 266.75,-25.03"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="414.22,-68.26 424.79,-67.48 416.04,-61.5 414.22,-68.26"/>
+<path fill="none" stroke="midnightblue" d="M413.45,-64.83C366.48,-52.11 303.7,-35.11 266.49,-25.03"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="412.65,-68.24 423.22,-67.48 414.48,-61.48 412.65,-68.24"/>
 </g>
 <!-- Node4 -->
 <g id="node4" class="node">
@@ -109,54 +109,54 @@ var sectionId = 'dynsection-0';
 <!-- Node1&#45;&gt;Node4 -->
 <g id="edge3" class="edge">
 <title>Node1&#45;&gt;Node4</title>
-<path fill="none" stroke="midnightblue" d="M451.31,-60.88C439,-51.01 424.57,-39.43 413.54,-30.58"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="449.43,-63.87 459.42,-67.4 453.82,-58.41 449.43,-63.87"/>
+<path fill="none" stroke="midnightblue" d="M449.94,-60.88C437.94,-51.01 423.87,-39.43 413.11,-30.58"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="447.91,-63.75 457.86,-67.4 452.36,-58.34 447.91,-63.75"/>
 </g>
 <!-- Node5 -->
 <g id="node5" class="node">
 <title>Node5</title>
-<g id="a_node5"><a xlink:href="Z2SceneMgr_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="478.5,-6 478.5,-25 639.5,-25 639.5,-6 478.5,-6"/>
-<text text-anchor="middle" x="559" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">libs/Z2AudioLib/Z2SceneMgr.cpp</text>
+<g id="a_node5"><a xlink:href="Z2LinkMgr_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="478,-6 478,-25 630,-25 630,-6 478,-6"/>
+<text text-anchor="middle" x="554" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">libs/Z2AudioLib/Z2LinkMgr.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node5 -->
 <g id="edge4" class="edge">
 <title>Node1&#45;&gt;Node5</title>
-<path fill="none" stroke="midnightblue" d="M502.85,-61.01C518.07,-48.94 536.54,-34.3 548.03,-25.19"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="500.46,-58.44 494.79,-67.4 504.8,-63.93 500.46,-58.44"/>
+<path fill="none" stroke="midnightblue" d="M499.91,-61.01C514.57,-48.94 532.36,-34.3 543.43,-25.19"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="497.64,-58.34 492.14,-67.4 502.09,-63.75 497.64,-58.34"/>
 </g>
 <!-- Node6 -->
 <g id="node6" class="node">
 <title>Node6</title>
-<g id="a_node6"><a xlink:href="Z2LinkMgr_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="658,-6 658,-25 810,-25 810,-6 658,-6"/>
-<text text-anchor="middle" x="734" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">libs/Z2AudioLib/Z2LinkMgr.cpp</text>
+<g id="a_node6"><a xlink:href="Z2SceneMgr_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="648.5,-6 648.5,-25 809.5,-25 809.5,-6 648.5,-6"/>
+<text text-anchor="middle" x="729" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">libs/Z2AudioLib/Z2SceneMgr.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node6 -->
 <g id="edge5" class="edge">
 <title>Node1&#45;&gt;Node6</title>
-<path fill="none" stroke="midnightblue" d="M542.28,-64.99C592.64,-52.25 660.27,-35.15 700.28,-25.03"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="541.29,-61.63 532.45,-67.48 543,-68.42 541.29,-61.63"/>
+<path fill="none" stroke="midnightblue" d="M539.52,-64.99C589.29,-52.25 656.13,-35.15 695.67,-25.03"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="538.62,-61.61 529.8,-67.48 540.36,-68.39 538.62,-61.61"/>
 </g>
 <!-- Node7 -->
 <g id="node7" class="node">
 <title>Node7</title>
 <g id="a_node7"><a xlink:href="Z2StatusMgr_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="828.5,-0.5 828.5,-30.5 955.5,-30.5 955.5,-0.5 828.5,-0.5"/>
-<text text-anchor="start" x="836.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">libs/Z2AudioLib/Z2Status</text>
-<text text-anchor="middle" x="892" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Mgr.cpp</text>
+<polygon fill="white" stroke="black" points="827.5,-0.5 827.5,-30.5 954.5,-30.5 954.5,-0.5 827.5,-0.5"/>
+<text text-anchor="start" x="835.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">libs/Z2AudioLib/Z2Status</text>
+<text text-anchor="middle" x="891" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Mgr.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node7 -->
 <g id="edge6" class="edge">
 <title>Node1&#45;&gt;Node7</title>
-<path fill="none" stroke="midnightblue" d="M559.22,-70.52C628.61,-60.98 730.5,-46.31 819,-31 822.06,-30.47 825.18,-29.91 828.33,-29.34"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="558.66,-67.07 549.22,-71.89 559.61,-74 558.66,-67.07"/>
+<path fill="none" stroke="midnightblue" d="M557.38,-70.65C627.19,-61.17 729.87,-46.51 819,-31 821.76,-30.52 824.58,-30.01 827.43,-29.49"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="556.76,-67.21 547.32,-72.02 557.7,-74.14 556.76,-67.21"/>
 </g>
 </g>
 </svg>

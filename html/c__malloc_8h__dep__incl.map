@@ -1,9 +1,10 @@
 <map id="include/SComponent/c_malloc.h" name="include/SComponent/c_malloc.h">
-<area shape="rect" id="node1" title=" " alt="" coords="453,5,596,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="525,5,668,47"/>
 <area shape="rect" id="node2" href="$f__op__actor__mng_8cpp.html" title=" " alt="" coords="5,95,148,136"/>
 <area shape="rect" id="node3" href="$f__op__kankyo__mng_8cpp.html" title=" " alt="" coords="173,95,327,136"/>
-<area shape="rect" id="node4" href="$f__pc__base_8cpp.html" title=" " alt="" coords="351,102,517,129"/>
-<area shape="rect" id="node5" href="$f__pc__create__req_8cpp.html" title=" " alt="" coords="541,95,690,136"/>
-<area shape="rect" id="node6" href="$f__pc__node__req_8cpp.html" title=" " alt="" coords="714,95,855,136"/>
-<area shape="rect" id="node7" href="$c__malloc_8cpp.html" title=" " alt="" coords="879,95,1058,136"/>
+<area shape="rect" id="node4" href="$f__op__msg__mng_8cpp.html" title=" " alt="" coords="351,95,490,136"/>
+<area shape="rect" id="node5" href="$f__pc__base_8cpp.html" title=" " alt="" coords="514,102,679,129"/>
+<area shape="rect" id="node6" href="$f__pc__create__req_8cpp.html" title=" " alt="" coords="703,95,853,136"/>
+<area shape="rect" id="node7" href="$f__pc__node__req_8cpp.html" title=" " alt="" coords="877,95,1018,136"/>
+<area shape="rect" id="node8" href="$c__malloc_8cpp.html" title=" " alt="" coords="1042,95,1221,136"/>
 </map>

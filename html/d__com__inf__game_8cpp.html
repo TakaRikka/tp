@@ -86,6 +86,8 @@ $(function() {
 <code>#include &quot;<a class="el" href="d__bg__s_8h_source.html">d/d_bg/d_bg_s/d_bg_s.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="d__item_8h_source.html">d/d_item/d_item/d_item.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="d__kankyo_8h_source.html">d/d_kankyo/d_kankyo.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="d__meter2__info_8h_source.html">d/d_meter2/d_meter2_info/d_meter2_info.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="d__stage_8h_source.html">d/d_stage/d_stage.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="f__op__scene__mng_8h_source.html">f/f_op/f_op_scene_mng.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="global_8h_source.html">global.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="m__Do__Reset_8h_source.html">m_Do/m_Do_Reset/m_Do_Reset.h</a>&quot;</code><br />
@@ -141,7 +143,6 @@ $(function() {
 <code>#include &quot;d/d_com/d_com_inf_game/asm/func_8002D924.s&quot;</code><br />
 <code>#include &quot;d/d_com/d_com_inf_game/asm/func_8002D938.s&quot;</code><br />
 <code>#include &quot;d/d_com/d_com_inf_game/asm/func_8002D94C.s&quot;</code><br />
-<code>#include &quot;d/d_com/d_com_inf_game/asm/func_8002D9B0.s&quot;</code><br />
 <code>#include &quot;d/d_com/d_com_inf_game/asm/func_8002D9CC.s&quot;</code><br />
 <code>#include &quot;d/d_com/d_com_inf_game/asm/func_8002DA30.s&quot;</code><br />
 <code>#include &quot;d/d_com/d_com_inf_game/asm/func_8002DA9C.s&quot;</code><br />
@@ -265,8 +266,8 @@ Functions</h2></td></tr>
 <tr class="separator:a6aa51b75ee7a83513bbf1b53e94f6f41"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a77d3d296c1faa7430caa53e3f82d568c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="d__com__inf__game_8cpp.html#a77d3d296c1faa7430caa53e3f82d568c">dKy_daynight_check__Fv</a> (void)</td></tr>
 <tr class="separator:a77d3d296c1faa7430caa53e3f82d568c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a17e9b8b6897ac38bdf82b3740d9aecb7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="d__com__inf__game_8cpp.html#a17e9b8b6897ac38bdf82b3740d9aecb7">getZoneNo__20dStage_roomControl_cFi</a> (int)</td></tr>
-<tr class="separator:a17e9b8b6897ac38bdf82b3740d9aecb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a052981e3830f220cb0419aad430ce7c0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="d__com__inf__game_8cpp.html#a052981e3830f220cb0419aad430ce7c0">getZoneNo__20dStage_roomControl_cFi</a> (int)</td></tr>
+<tr class="separator:a052981e3830f220cb0419aad430ce7c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0f3db249165098d2c00c7d27d1f2f857"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="d__com__inf__game_8cpp.html#a0f3db249165098d2c00c7d27d1f2f857">getTimerMode__14dComIfG_play_cFv</a> (void)</td></tr>
 <tr class="separator:a0f3db249165098d2c00c7d27d1f2f857"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2dde7fba00b028caaad477d80c20e480"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#a5ffa4f640862b25ba6d4f635b78bdbe1">s16</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="d__com__inf__game_8cpp.html#a2dde7fba00b028caaad477d80c20e480">dComIfGs_getWarpPlayerAngleY__Fv</a> (void)</td></tr>
@@ -801,21 +802,17 @@ Functions</h2></td></tr>
 <tr class="separator:a426c2115dd58fec74571a6438454e12e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab857c97d455ea5acdcfc5da5d0de0bad"><td class="memItemLeft" align="right" valign="top">asm void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="d__com__inf__game_8cpp.html#ab857c97d455ea5acdcfc5da5d0de0bad">dComIfG_getNowCalcRegion</a> (void)</td></tr>
 <tr class="separator:ab857c97d455ea5acdcfc5da5d0de0bad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a125bfc224a5e324dcd6fdbc9fbbaf860"><td class="memItemLeft" align="right" valign="top">asm void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="d__com__inf__game_8cpp.html#a125bfc224a5e324dcd6fdbc9fbbaf860">dComIfGs_setWarpItemData</a> (int unk1, const char *stage, <a class="el" href="classcXyz.html">cXyz</a> pos, <a class="el" href="types_8h.html#a5ffa4f640862b25ba6d4f635b78bdbe1">s16</a> angle, <a class="el" href="types_8h.html#a151f780fb455885061d3b77ec1c90c03">s8</a> room, <a class="el" href="types_8h.html#aed742c436da53c1080638ce6ef7d13de">u8</a> unk2, <a class="el" href="types_8h.html#aed742c436da53c1080638ce6ef7d13de">u8</a> unk3)</td></tr>
+<tr class="memitem:a125bfc224a5e324dcd6fdbc9fbbaf860"><td class="memItemLeft" align="right" valign="top">asm void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="d__com__inf__game_8cpp.html#a125bfc224a5e324dcd6fdbc9fbbaf860">dComIfGs_setWarpItemData</a> (int unk1, const char *stage, <a class="el" href="classcXyz.html">cXyz</a> pos, <a class="el" href="types_8h.html#a5ffa4f640862b25ba6d4f635b78bdbe1">s16</a> angle, <a class="el" href="types_8h.html#a151f780fb455885061d3b77ec1c90c03">s8</a> room, <a class="el" href="types_8h.html#aed742c436da53c1080638ce6ef7d13de">u8</a> <a class="el" href="structunk2.html">unk2</a>, <a class="el" href="types_8h.html#aed742c436da53c1080638ce6ef7d13de">u8</a> unk3)</td></tr>
 <tr class="separator:a125bfc224a5e324dcd6fdbc9fbbaf860"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4d763558efc939c33d04fcc2668cada7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="d__com__inf__game_8cpp.html#a4d763558efc939c33d04fcc2668cada7">dComIfGs_setLastWarpMarkItemData</a> (const char *stage, <a class="el" href="classcXyz.html">cXyz</a> pos, <a class="el" href="types_8h.html#a5ffa4f640862b25ba6d4f635b78bdbe1">s16</a> angle, <a class="el" href="types_8h.html#a151f780fb455885061d3b77ec1c90c03">s8</a> room, <a class="el" href="types_8h.html#aed742c436da53c1080638ce6ef7d13de">u8</a> unk1, <a class="el" href="types_8h.html#aed742c436da53c1080638ce6ef7d13de">u8</a> unk2)</td></tr>
+<tr class="memitem:a4d763558efc939c33d04fcc2668cada7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="d__com__inf__game_8cpp.html#a4d763558efc939c33d04fcc2668cada7">dComIfGs_setLastWarpMarkItemData</a> (const char *stage, <a class="el" href="classcXyz.html">cXyz</a> pos, <a class="el" href="types_8h.html#a5ffa4f640862b25ba6d4f635b78bdbe1">s16</a> angle, <a class="el" href="types_8h.html#a151f780fb455885061d3b77ec1c90c03">s8</a> room, <a class="el" href="types_8h.html#aed742c436da53c1080638ce6ef7d13de">u8</a> unk1, <a class="el" href="types_8h.html#aed742c436da53c1080638ce6ef7d13de">u8</a> <a class="el" href="structunk2.html">unk2</a>)</td></tr>
 <tr class="separator:a4d763558efc939c33d04fcc2668cada7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4c5dcf037d2499a20fc30eba875347f5"><td class="memItemLeft" align="right" valign="top">asm void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="d__com__inf__game_8cpp.html#a4c5dcf037d2499a20fc30eba875347f5">dComIfGs_staffroll_next_go__Fv</a> (void)</td></tr>
 <tr class="separator:a4c5dcf037d2499a20fc30eba875347f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a5a5ec56aa4a400e07ebcf8f725f12206"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#aed742c436da53c1080638ce6ef7d13de">u8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="d__com__inf__game_8cpp.html#a5a5ec56aa4a400e07ebcf8f725f12206">lbl_80430188</a></td></tr>
-<tr class="separator:a5a5ec56aa4a400e07ebcf8f725f12206"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:add1bf00647269474da0643c5417dc97f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#aed742c436da53c1080638ce6ef7d13de">u8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="d__com__inf__game_8cpp.html#add1bf00647269474da0643c5417dc97f">lbl_80378F38</a></td></tr>
 <tr class="separator:add1bf00647269474da0643c5417dc97f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab2bbfa99872b29196f74f17f5516596b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#aed742c436da53c1080638ce6ef7d13de">u8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="d__com__inf__game_8cpp.html#ab2bbfa99872b29196f74f17f5516596b">lbl_803A7288</a></td></tr>
-<tr class="separator:ab2bbfa99872b29196f74f17f5516596b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a3ecb8cfcb77515c6feffc5bcc998d3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#aed742c436da53c1080638ce6ef7d13de">u8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="d__com__inf__game_8cpp.html#a2a3ecb8cfcb77515c6feffc5bcc998d3">lbl_80450D64</a></td></tr>
 <tr class="separator:a2a3ecb8cfcb77515c6feffc5bcc998d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2ba0b1b3544e28896c68774f77640e75"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#aed742c436da53c1080638ce6ef7d13de">u8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="d__com__inf__game_8cpp.html#a2ba0b1b3544e28896c68774f77640e75">lbl_80450BC8</a></td></tr>
@@ -832,8 +829,8 @@ Variables</h2></td></tr>
 <tr class="separator:aeba7867d783416c34bebd084a8c8f6d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a205b86f9ebd48a911aff4a01343d3af2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#aed742c436da53c1080638ce6ef7d13de">u8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="d__com__inf__game_8cpp.html#a205b86f9ebd48a911aff4a01343d3af2">lbl_80451D04</a></td></tr>
 <tr class="separator:a205b86f9ebd48a911aff4a01343d3af2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ffa06b35cc76b8d8fe5c1a562e55810"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#aed742c436da53c1080638ce6ef7d13de">u8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="d__com__inf__game_8cpp.html#a6ffa06b35cc76b8d8fe5c1a562e55810">lbl_803F6094</a></td></tr>
-<tr class="separator:a6ffa06b35cc76b8d8fe5c1a562e55810"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6458c8a5ef591fd9c7c8333204ef9969"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classdStage__roomStatus__c.html">dStage_roomStatus_c</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="d__com__inf__game_8cpp.html#a6458c8a5ef591fd9c7c8333204ef9969">lbl_803F6094</a> [0x40]</td></tr>
+<tr class="separator:a6458c8a5ef591fd9c7c8333204ef9969"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7fbc7f4cf54ccfa9677897bd47c1a8bf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#aed742c436da53c1080638ce6ef7d13de">u8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="d__com__inf__game_8cpp.html#a7fbc7f4cf54ccfa9677897bd47c1a8bf">lbl_80451D10</a></td></tr>
 <tr class="separator:a7fbc7f4cf54ccfa9677897bd47c1a8bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9646e33bd6d70227e1afb2df3b3f0de6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#aed742c436da53c1080638ce6ef7d13de">u8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="d__com__inf__game_8cpp.html#a9646e33bd6d70227e1afb2df3b3f0de6">lbl_80451D08</a></td></tr>
@@ -4806,14 +4803,14 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a17e9b8b6897ac38bdf82b3740d9aecb7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a17e9b8b6897ac38bdf82b3740d9aecb7">&#9670;&nbsp;</a></span>getZoneNo__20dStage_roomControl_cFi()</h2>
+<a id="a052981e3830f220cb0419aad430ce7c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a052981e3830f220cb0419aad430ce7c0">&#9670;&nbsp;</a></span>getZoneNo__20dStage_roomControl_cFi()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">asm int getZoneNo__20dStage_roomControl_cFi </td>
+          <td class="memname">int getZoneNo__20dStage_roomControl_cFi </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -6375,28 +6372,6 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="ab2bbfa99872b29196f74f17f5516596b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab2bbfa99872b29196f74f17f5516596b">&#9670;&nbsp;</a></span>lbl_803A7288</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="types_8h.html#aed742c436da53c1080638ce6ef7d13de">u8</a> lbl_803A7288</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="aae88ca1a70c9e62d8b890b2d737f603d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aae88ca1a70c9e62d8b890b2d737f603d">&#9670;&nbsp;</a></span>lbl_803A9C48</h2>
 
@@ -6617,8 +6592,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a6ffa06b35cc76b8d8fe5c1a562e55810"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ffa06b35cc76b8d8fe5c1a562e55810">&#9670;&nbsp;</a></span>lbl_803F6094</h2>
+<a id="a6458c8a5ef591fd9c7c8333204ef9969"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6458c8a5ef591fd9c7c8333204ef9969">&#9670;&nbsp;</a></span>lbl_803F6094</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -6627,7 +6602,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="types_8h.html#aed742c436da53c1080638ce6ef7d13de">u8</a> lbl_803F6094</td>
+          <td class="memname"><a class="el" href="classdStage__roomStatus__c.html">dStage_roomStatus_c</a> lbl_803F6094[0x40]</td>
         </tr>
       </table>
   </td>
@@ -6694,28 +6669,6 @@ Variables</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="types_8h.html#aed742c436da53c1080638ce6ef7d13de">u8</a> lbl_80423FD0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a5a5ec56aa4a400e07ebcf8f725f12206"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5a5ec56aa4a400e07ebcf8f725f12206">&#9670;&nbsp;</a></span>lbl_80430188</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="types_8h.html#aed742c436da53c1080638ce6ef7d13de">u8</a> lbl_80430188</td>
         </tr>
       </table>
   </td>

@@ -1,3 +1,6 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classJSUTreeIterator.html" title=" " alt="" coords="5,5,151,32"/>
+<area shape="rect" id="node1" href="$classJSUIosBase.html" title=" " alt="" coords="5,5,101,32"/>
+<area shape="rect" id="node2" href="$classJSUInputStream.html" title=" " alt="" coords="149,5,268,32"/>
+<area shape="rect" id="node3" href="$classJSURandomInputStream.html" title=" " alt="" coords="316,5,483,32"/>
+<area shape="rect" id="node4" href="$classJSUFileInputStream.html" title=" " alt="" coords="531,5,671,32"/>
 </map>

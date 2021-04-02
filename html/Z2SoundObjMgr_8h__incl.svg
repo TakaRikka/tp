@@ -39,16 +39,16 @@
 <g id="node3" class="node">
 <title>Node3</title>
 <g id="a_node3"><a xlink:href="types_8h.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="75.5,-0.5 75.5,-19.5 156.5,-19.5 156.5,-0.5 75.5,-0.5"/>
-<text text-anchor="middle" x="116" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">dolphin/types.h</text>
+<polygon fill="white" stroke="black" points="123.5,-0.5 123.5,-19.5 204.5,-19.5 204.5,-0.5 123.5,-0.5"/>
+<text text-anchor="middle" x="164" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">dolphin/types.h</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node3 -->
-<g id="edge4" class="edge">
+<g id="edge5" class="edge">
 <title>Node1&#45;&gt;Node3</title>
-<path fill="none" stroke="midnightblue" d="M162.23,-123.49C159.79,-106.88 154.58,-78.61 145,-56 140.84,-46.18 134.58,-36.11 128.94,-28"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="131.68,-25.83 122.98,-19.79 126.02,-29.94 131.68,-25.83"/>
+<path fill="none" stroke="midnightblue" d="M164,-123.48C164,-100.72 164,-55.7 164,-30.06"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="167.5,-29.79 164,-19.79 160.5,-29.79 167.5,-29.79"/>
 </g>
 <!-- Node4 -->
 <g id="node4" class="node">
@@ -69,8 +69,14 @@
 <!-- Node2&#45;&gt;Node3 -->
 <g id="edge2" class="edge">
 <title>Node2&#45;&gt;Node3</title>
-<path fill="none" stroke="midnightblue" d="M79.38,-56.4C86.35,-47.75 95.31,-36.64 102.63,-27.58"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="105.46,-29.64 109.02,-19.66 100.01,-25.24 105.46,-29.64"/>
+<path fill="none" stroke="midnightblue" d="M90.75,-56.4C105.99,-46.95 125.99,-34.56 141.24,-25.11"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="143.38,-27.9 150.03,-19.66 139.69,-21.95 143.38,-27.9"/>
+</g>
+<!-- Node4&#45;&gt;Node3 -->
+<g id="edge4" class="edge">
+<title>Node4&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M230.38,-56.4C216.7,-47.04 198.79,-34.79 185.02,-25.38"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="186.89,-22.41 176.66,-19.66 182.94,-28.19 186.89,-22.41"/>
 </g>
 </g>
 </svg>

@@ -1,15 +1,15 @@
 <map id="include/JSystem/JKernel/JKRAramPiece" name="include/JSystem/JKernel/JKRAramPiece">
 <area shape="rect" id="node1" href="dir_ae5e263ef5d9e353d6bda4908f06a816.html" title="JKRAramPiece" alt="" coords="133,52,243,100"/>
 <area shape="rect" id="node2" href="dir_45593f23b58a9cb34ecfe1ccd7e4e81f.html" title="JSupport" alt="" coords="5,148,80,196"/>
-<area shape="rect" id="edge2-headlabel" href="dir_000075_000098.html" title="1" alt="" coords="94,138,102,152"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000080_000103.html" title="1" alt="" coords="94,138,102,152"/>
 <area shape="rect" id="node3" href="dir_65d600aab5b7177ee2dccfac7c04bb8a.html" title="ar" alt="" coords="104,148,176,196"/>
-<area shape="rect" id="edge3-headlabel" href="dir_000075_000002.html" title="1" alt="" coords="164,128,172,143"/>
+<area shape="rect" id="edge3-headlabel" href="dir_000080_000002.html" title="1" alt="" coords="164,128,172,143"/>
 <area shape="rect" id="node4" href="dir_7b371d9fdb0359ac564866f88df60f77.html" title="os" alt="" coords="200,148,272,196"/>
-<area shape="rect" id="edge4-headlabel" href="dir_000075_000121.html" title="1" alt="" coords="219,121,227,135"/>
+<area shape="rect" id="edge4-headlabel" href="dir_000080_000126.html" title="1" alt="" coords="219,121,227,135"/>
 <area shape="rect" id="node5" href="dir_b778c3f297ab88300258a2935792c8cc.html" title="dolphin" alt="" coords="152,244,224,292"/>
-<area shape="rect" id="edge5-headlabel" href="dir_000075_000046.html" title="1" alt="" coords="240,242,248,256"/>
-<area shape="rect" id="edge1-headlabel" href="dir_000098_000046.html" title="5" alt="" coords="138,220,146,234"/>
-<area shape="rect" id="edge6-headlabel" href="dir_000002_000046.html" title="2" alt="" coords="171,217,179,231"/>
-<area shape="rect" id="edge7-headlabel" href="dir_000121_000046.html" title="1" alt="" coords="212,224,220,239"/>
+<area shape="rect" id="edge5-headlabel" href="dir_000080_000049.html" title="1" alt="" coords="240,242,248,256"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000103_000049.html" title="5" alt="" coords="138,220,146,234"/>
+<area shape="rect" id="edge6-headlabel" href="dir_000002_000049.html" title="2" alt="" coords="171,217,179,231"/>
+<area shape="rect" id="edge7-headlabel" href="dir_000126_000049.html" title="1" alt="" coords="212,224,220,239"/>
 <area shape="rect" id="clust1" href="dir_cd1009b6de6f257cf504091b6f95eba2.html" title="JKernel" alt="" coords="121,16,255,111"/>
 </map>

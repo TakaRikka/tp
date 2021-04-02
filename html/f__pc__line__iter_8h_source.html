@@ -83,12 +83,14 @@ $(function() {
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="c__node__iter_8h.html">SComponent/c_node_iter.h</a>&quot;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keywordtype">void</span> <a class="code" href="f__pc__line__iter_8h.html#aa2c7ba87822cf6811d7fbdce1efd2666">fpcLnIt_Queue</a>(<a class="code" href="c__node__iter_8h.html#a721a39d45276f2910d68164359852ec1">cNdIt_MethodFunc</a> pFunc);</div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="f__pc__line__iter_8h.html#a841df23b7c7aa894221100158dcaf59a">    7</a></span>&#160;<span class="keyword">typedef</span> int (*<a class="code" href="f__pc__line__iter_8h.html#a841df23b7c7aa894221100158dcaf59a">fpcLnIt_QueueFunc</a>)(<span class="keywordtype">void</span>*, <span class="keywordtype">void</span>*);</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keywordtype">void</span> <a class="code" href="f__pc__line__iter_8h.html#ae881597e0ebbfe1f6ac0bf52f614fb38">fpcLnIt_Queue</a>(<a class="code" href="f__pc__line__iter_8h.html#a841df23b7c7aa894221100158dcaf59a">fpcLnIt_QueueFunc</a> pFunc);</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="ac__node__iter_8h_html"><div class="ttname"><a href="c__node__iter_8h.html">c_node_iter.h</a></div></div>
-<div class="ttc" id="ac__node__iter_8h_html_a721a39d45276f2910d68164359852ec1"><div class="ttname"><a href="c__node__iter_8h.html#a721a39d45276f2910d68164359852ec1">cNdIt_MethodFunc</a></div><div class="ttdeci">int(* cNdIt_MethodFunc)(node_class *pNode, void *pUserData)</div><div class="ttdef"><b>Definition:</b> c_node_iter.h:7</div></div>
-<div class="ttc" id="af__pc__line__iter_8h_html_aa2c7ba87822cf6811d7fbdce1efd2666"><div class="ttname"><a href="f__pc__line__iter_8h.html#aa2c7ba87822cf6811d7fbdce1efd2666">fpcLnIt_Queue</a></div><div class="ttdeci">void fpcLnIt_Queue(cNdIt_MethodFunc pFunc)</div><div class="ttdef"><b>Definition:</b> f_pc_line_iter.cpp:22</div></div>
+<div class="ttc" id="af__pc__line__iter_8h_html_a841df23b7c7aa894221100158dcaf59a"><div class="ttname"><a href="f__pc__line__iter_8h.html#a841df23b7c7aa894221100158dcaf59a">fpcLnIt_QueueFunc</a></div><div class="ttdeci">int(* fpcLnIt_QueueFunc)(void *, void *)</div><div class="ttdef"><b>Definition:</b> f_pc_line_iter.h:7</div></div>
+<div class="ttc" id="af__pc__line__iter_8h_html_ae881597e0ebbfe1f6ac0bf52f614fb38"><div class="ttname"><a href="f__pc__line__iter_8h.html#ae881597e0ebbfe1f6ac0bf52f614fb38">fpcLnIt_Queue</a></div><div class="ttdeci">void fpcLnIt_Queue(fpcLnIt_QueueFunc pFunc)</div><div class="ttdef"><b>Definition:</b> f_pc_line_iter.cpp:23</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
