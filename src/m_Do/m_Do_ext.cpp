@@ -4,6 +4,7 @@
 //
 
 #include "m_Do/m_Do_ext.h"
+#include "m_Do/m_Do_mtx.h"
 #include "JSystem/J3DGraphAnimator/J3DMaterialAnm.h"
 #include "JSystem/J3DGraphBase/J3DTevs.h"
 #include "JSystem/JKernel/JKRArchive.h"
@@ -129,11 +130,6 @@ struct mDoExt_3DlineMat0_c {
     /* 80014E84 */ bool getMaterialID();
 };
 
-struct J3DDrawBuffer;
-
-struct J3DDrawBuffer {
-    /* 8032548C */ void entryImm(J3DPacket*, u16);
-};
 
 struct dDlst_list_c {
     /* 800565EC */ void entryZSortXluDrawList(J3DDrawBuffer*, J3DPacket*, cXyz&);
@@ -579,6 +575,73 @@ extern "C" extern u16 data_804563F8;
 //
 // Declarations:
 //
+
+/* void drawCube(MtxP mtx, cXyz* array, const GXColor& color) {
+    GXSetArray(GX_VA_POS, array, sizeof(cXyz));
+    GXSetVtxAttrFmt(GX_VTXFMT0, GX_VA_POS, GX_POS_XYZ, GX_F32, 0);
+    GXClearVtxDesc();
+    GXSetVtxDesc(GX_VA_POS, GX_INDEX8);
+    GXSetNumChans(1);
+    GXSetChanCtrl(GX_COLOR0, GX_DISABLE, GX_SRC_REG, GX_SRC_REG, GX_LIGHT_NULL, GX_DF_CLAMP, GX_AF_NONE);
+    GXSetNumTexGens(0);
+    GXSetNumTevStages(1);
+    GXSetTevColor(GX_TEVREG0, color);
+    GXSetTevOrder(GX_TEVSTAGE0, GX_TEXCOORD_NULL, GX_TEXMAP_NULL, GX_COLOR0A0);
+    GXSetTevColorIn(GX_TEVSTAGE0, GX_CC_ZERO, GX_CC_ZERO, GX_CC_ZERO, GX_CC_C0);
+    GXSetTevColorOp(GX_TEVSTAGE0, GX_TEV_ADD, GX_TB_ZERO, GX_CS_SCALE_1, GX_ENABLE, GX_TEVPREV);
+    GXSetTevAlphaIn(GX_TEVSTAGE0, GX_CA_ZERO, GX_CA_ZERO, GX_CA_ZERO, GX_CA_A0);
+    GXSetTevAlphaOp(GX_TEVSTAGE0, GX_TEV_ADD, GX_TB_ZERO, GX_CS_SCALE_1, GX_ENABLE, GX_TEVPREV);
+    GXSetZMode(GX_ENABLE, GX_LEQUAL, GX_ENABLE);
+    GXSetBlendMode(GX_BM_BLEND, GX_BL_SRC_ALPHA, GX_BL_INV_SRC_ALPHA, GX_LO_CLEAR);
+    GXSetAlphaCompare(GX_ALWAYS, 0, GX_AOP_OR, GX_ALWAYS, 0);
+    GXSetCullMode(GX_CULL_BACK);
+    GXSetClipMode(GX_DISABLE);
+    GXLoadPosMtxImm(mtx, 0);
+    GXSetCurrentMtx(0);
+
+    GXBegin(GX_TRIANGLESTRIP, GX_VTXFMT0, 14);
+    GXPosition1x8(4);
+    GXPosition1x8(6);
+    GXPosition1x8(5);
+    GXPosition1x8(7);
+    GXPosition1x8(3);
+    GXPosition1x8(6);
+    GXPosition1x8(2);
+    GXPosition1x8(4);
+    GXPosition1x8(0);
+    GXPosition1x8(5);
+    GXPosition1x8(1);
+    GXPosition1x8(3);
+    GXPosition1x8(0);
+    GXPosition1x8(2);
+    GXEnd();
+}
+
+
+static cXyz tmp_arr[8] = {
+    cXyz(-1.0f, 1.0f, -1.0f),
+    cXyz(1.0f, 1.0f, -1.0f),
+    cXyz(-1.0f, 1.0f, 1.0f),
+    cXyz(1.0f, 1.0f, 1.0f),
+    cXyz(-1.0f, -1.0f, -1.0f),
+    cXyz(1.0f, -1.0f, -1.0f),
+    cXyz(-1.0f, -1.0f, 1.0f),
+    cXyz(1.0f, -1.0f, 1.0f),
+};
+
+void mDoExt_cubePacket::draw() {
+    static bool init = false;
+
+    if (!init) {
+        init = true;
+    }
+    mDoMtx_stack_c::transS(mPosition.x, mPosition.y, mPosition.z);
+    mDoMtx_stack_c::XYZrotM(mAngle.x, mAngle.y, mAngle.z);
+    mDoMtx_stack_c::scaleM(mSize.x, mSize.y, mSize.z);
+    mDoMtx_stack_c::revConcat(j3dSys.getViewMtx());
+    drawCube(mDoMtx_stack_c::get(), tmp_arr, mColor);
+} */
+
 
 /* ############################################################################################## */
 /* 80451B18-80451B1C 000118 0004+00 11/11 0/0 0/0 .sdata2          @3847 */

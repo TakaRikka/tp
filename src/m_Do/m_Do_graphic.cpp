@@ -6,14 +6,11 @@
 #include "m_Do/m_Do_graphic.h"
 #include "dol2asm.h"
 #include "dolphin/types.h"
+#include "d/com/d_com_inf_game.h"
 
 //
 // Types:
 //
-
-struct view_port_class {};
-
-struct view_class {};
 
 struct mDoMtx_stack_c {
     static u8 now[48];
@@ -21,55 +18,6 @@ struct mDoMtx_stack_c {
 
 struct mDoMch_render_c {
     static void* mRenderModeObj[1 + 1 /* padding */];
-};
-
-struct daPy_py_c {
-    /* 8000B1E4 */ s32 getAtnActorID() const;
-};
-
-struct JPADrawInfo {};
-
-struct dPa_control_c {
-    /* 8004C134 */ void calcMenu();
-    /* 8004C188 */ void draw(JPADrawInfo*, u8);
-};
-
-struct dMenu_Collect3D_c {
-    /* 801B75E8 */ void setupItem3D(f32 (*)[4]);
-};
-
-struct dDlst_shadowControl_c {
-    /* 800557C8 */ void imageDraw(f32 (*)[4]);
-    /* 80055A14 */ void draw(f32 (*)[4]);
-};
-
-struct J3DDrawBuffer {};
-
-struct dDlst_base_c {};
-
-struct dDlst_list_c {
-    /* 80056390 */ void init();
-    /* 80056538 */ void reset();
-    /* 800566D4 */ void drawOpaDrawList(J3DDrawBuffer*);
-    /* 80056710 */ void drawXluDrawList(J3DDrawBuffer*);
-    /* 8005674C */ void drawOpaListItem3d();
-    /* 80056770 */ void drawXluListItem3d();
-    /* 800567C4 */ void draw(dDlst_base_c**, dDlst_base_c**);
-    /* 80056900 */ void calcWipe();
-};
-
-struct dAttention_c {
-    /* 800737E4 */ void LockonTruth();
-};
-
-struct cXyz {
-    /* 80009184 */ ~cXyz();
-
-    static f32 Zero[3];
-};
-
-struct JUTGamePad {
-    static u8 mPadStatus[48];
 };
 
 struct JUTDbPrint {
@@ -80,15 +28,8 @@ struct JMath {
     static u8 sincosTable_[65536];
 };
 
-struct JKRSolidHeap {};
-
 struct JFWSystem {
     static u8 systemConsole[4];
-};
-
-struct J3DSys {
-    /* 803100BC */ void drawInit();
-    /* 8031073C */ void reinitGX();
 };
 
 struct J2DPrint {
@@ -210,23 +151,19 @@ extern "C" void _restgpr_21();
 extern "C" void _restgpr_24();
 extern "C" void _restgpr_27();
 extern "C" void _restgpr_28();
-extern "C" void strcmp();
 extern "C" extern u8 g_mDoMtx_identity[48 + 24 /* padding */];
 extern "C" extern void* __vt__14J2DGrafContext[10];
 extern "C" extern void* __vt__13J2DOrthoGraph[10];
 extern "C" u8 now__14mDoMtx_stack_c[48];
 extern "C" extern u8 g_HIO[64 + 4 /* padding */];
-extern "C" extern u8 g_dComIfG_gameInfo[122384];
 extern "C" extern u8 g_env_light[4880];
 extern "C" f32 Zero__4cXyz[3];
 extern "C" u8 mPadStatus__10JUTGamePad[48];
-extern "C" extern u8 j3dSys[284];
 extern "C" u8 sincosTable___5JMath[65536];
 extern "C" extern u32 data_80450580;
 extern "C" void* mRenderModeObj__15mDoMch_render_c[1 + 1 /* padding */];
 extern "C" extern u8 g_clearColor[4];
 extern "C" extern u32 g_whiteColor;
-extern "C" extern u32 __float_nan;
 extern "C" u8 systemConsole__9JFWSystem[4];
 extern "C" u8 sManager__10JFWDisplay[4];
 extern "C" u8 sCurrentHeap__7JKRHeap[4];
@@ -435,7 +372,7 @@ void mDoGph_BlankingOFF() {
 }
 
 /* 80008424-80008450 002D64 002C+00 1/1 0/0 0/0 .text            dScnPly_BeforeOfPaint__Fv */
-#pragma push
+/* #pragma push
 #pragma optimization_level 0
 #pragma optimizewithasm off
 static asm void dScnPly_BeforeOfPaint() {
@@ -443,6 +380,12 @@ static asm void dScnPly_BeforeOfPaint() {
 #include "asm/m_Do/m_Do_graphic/dScnPly_BeforeOfPaint__Fv.s"
 }
 #pragma pop
+ */
+
+static void dScnPly_BeforeOfPaint() {
+    g_dComIfG_gameInfo.drawlist.reset();
+    dDbVw_deleteDrawPacketList();
+}
 
 /* 80008450-80008474 002D90 0024+00 0/0 1/0 0/0 .text            mDoGph_BeforeOfDraw__Fv */
 #pragma push
@@ -561,7 +504,8 @@ static asm void drawDepth2(view_class* param_0, view_port_class* param_1, int pa
 #pragma push
 #pragma optimization_level 0
 #pragma optimizewithasm off
-asm cXyz::~cXyz() {
+/// asm cXyz::~cXyz() {
+extern "C" asm void __dt__4cXyzFv() {
     nofralloc
 #include "asm/m_Do/m_Do_graphic/__dt__4cXyzFv.s"
 }

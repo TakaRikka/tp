@@ -136,7 +136,7 @@ static u8 FifoObj[128];
 static u8 gxData[1456];
 
 /* 80456580-80456584 -00001 0004+00 6/6 108/108 0/0 .sdata2          __GXData */
-SECTION_SDATA2 extern void* __GXData = (void*)&gxData;
+SECTION_SDATA2 extern u8* __GXData = (u8*)&gxData;
 
 /* 8035921C-80359318 353B5C 00FC+00 1/1 0/0 0/0 .text            __GXDefaultTexRegionCallback */
 #pragma push

@@ -10,6 +10,7 @@
 #include "dolphin/gx/GX.h"
 #include "f_op/f_op_actor.h"
 #include "global.h"
+#include "MSL_C.PPCEABI.bare.H/MSL_Common/Src/printf.h"
 
 class cCcD_PntAttr;
 class cCcD_CpsAttr;
@@ -413,7 +414,9 @@ public:
     /* 800847C8 */ virtual cCcD_GObjInf* GetGObjInf() { return NULL; }
     /* 80084BE8 */ virtual cCcD_ShapeAttr const* GetShapeAttr() const { return NULL; }
     /* 80085130 */ virtual cCcD_ShapeAttr* GetShapeAttr() { return NULL; }
-    /* 80084BF0 */ virtual void Draw(_GXColor const&) {}
+    /* 80084BF0 */ virtual void Draw(_GXColor const&) {
+        printf("\ncCcD_Obj::draw(): run\n");
+    }
     /* 80263A10 */ void ct();
     /* 80263A1C */ void Set(cCcD_SrcObj const&);
     fopAc_ac_c* GetAc();

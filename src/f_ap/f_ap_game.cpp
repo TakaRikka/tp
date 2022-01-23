@@ -8,6 +8,8 @@
 #include "f_op/f_op_scene_mng.h"
 #include "f_pc/f_pc_manager.h"
 #include "m_Do/m_Do_main.h"
+//#include "m_Do/m_Do_ext.h"
+#include "d/com/d_com_inf_game.h"
 
 fapGm_HIO_c::fapGm_HIO_c()
     : mColor(-1), mLetterTopColor(-1), mLetterBottomColor(-1), mLetterTopShadowColor(-1),
@@ -51,6 +53,13 @@ void fapGm_After() {
 void fapGm_Execute() {
     fpcM_Management(NULL, fapGm_After);
     cCt_Counter(0);
+
+    /* if (dComIfGp_getPlayer(0) != NULL) {
+        daAlink_c* link = (daAlink_c*)dComIfGp_getPlayer(0);
+        cXyz size(100.0f, 100.0f, 100.0f);
+        GXColor color = {200, 0, 0, 200}; 
+        dDbVw_drawCubeXlu(link->mCurrent.mPosition, size, link->mCurrent.mAngle, color);
+    } */
 }
 
 fapGm_HIO_c g_HIO;

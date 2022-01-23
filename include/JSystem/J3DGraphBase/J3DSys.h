@@ -64,7 +64,7 @@ struct J3DSys {
         /* 0x4 */ XLU,
     };
 
-    Mtx* getViewMtx() { return &mViewMtx; }
+    MtxP getViewMtx() { return mViewMtx; }
 
     void setDrawModeOpaTexEdge() { mDrawMode = OPA_TEX_EDGE; }
 
@@ -100,6 +100,12 @@ struct J3DSys {
     void setModelNrmMtx(Mtx33* pMtxArr) {
         mModelNrmMtx = pMtxArr;
         GXSetArray(GX_NRM_MTX_ARRAY, mModelNrmMtx, sizeof(*mModelNrmMtx));
+    }
+
+    // Type 0: Opa Buffer
+    // Type 1: Xlu Buffer
+    J3DDrawBuffer* getDrawBuffer(int type) {
+        return mDrawBuffer[type];
     }
 
     static Mtx mCurrentMtx;

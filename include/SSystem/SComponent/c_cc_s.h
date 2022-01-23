@@ -11,7 +11,7 @@ enum WeightType {
 };
 
 class cCcS {
-private:
+public:
     /* 0x0000 */ cCcD_Obj* mpObjAt[0x100];
     /* 0x0400 */ cCcD_Obj* mpObjTg[0x300];
     /* 0x1000 */ cCcD_Obj* mpObjCo[0x100];

@@ -962,6 +962,13 @@ void GXReadXfRasMetric(u32*, u32*, u32*, u32*);
 void GXInitFifoBase(GXFifoObj*, void*, u32);
 void GXInitFifoPtrs(GXFifoObj*, void*, void*);
 void GXSaveCPUFifo(GXFifoObj*);
+void GXSetVtxAttrFmtv(GXVtxFmt, GXVtxDescList*);
+
+/* inline void GXSetVtxDescv(GXVtxDescList*);
+inline void GXGetVtxDesc(GXAttr, GXAttrType*);
+inline void GXGetVtxDescv(GXVtxDescList*);
+
+extern u8* __GXData; */
 
 #define GFX_FIFO(T) (*(volatile T*)0xCC008000)
 
@@ -994,7 +1001,146 @@ inline void GXPosition1x16(u16 x) {
     GFX_FIFO(u16) = x;
 }
 
+inline void GXPosition1x8(u8 s) {
+    GFX_FIFO(u8) = s;
+}
+
 inline void GXEnd() {}
+
+/* GXVtxDescList vcd;
+GXVtxDescList vat; */
+
+/* inline void GXGetVtxDesc(GXAttr attr, GXAttrType* type) {
+    GXAttrType t;
+    switch(attr) {
+    case 0:
+        t = (*(u32*)(__GXData) + 0x6) & 1;
+        break;
+    }
+    case 1:
+        t = ((*(u32*)(__GXData) + 0x6) & 2) >> 1;
+        break;
+    }
+    case 2:
+        t = ((*(u32*)(__GXData) + 0x6) & 4) >> 2;
+        break;
+    }
+    case 3:
+        t = ((*(u32*)(__GXData) + 0x6) & 8) >> 3;
+        break;
+    }
+    case 4:
+        t = ((*(u32*)(__GXData) + 0x6) & 0x10) >> 4;
+        break;
+    }
+    case 5:
+        t = ((*(u32*)(__GXData) + 0x6) & 0x20) >> 5;
+        break;
+    }
+    case 6:
+        t = ((*(__GXData) + 0x6) & 0x40) >> 6;
+        break;
+    }
+    case 7:
+        t = ((*(u32*)(__GXData) + 0x6) & 0x80) >> 7;
+        break;
+    }
+    case 8:
+        t = ((*(u32*)(__GXData) + 0x6) & 0x100) >> 8;
+        break;
+    }
+    case 9:
+        t = ((*(u32*)(__GXData) + 0x6) & 0x600) >> 9;
+        break;
+    }
+    case 10:
+        if ((*(__GXData) + 0x524) == 0) {
+            t = 0;
+        } else {
+            t = ((*(u32*)(__GXData) + 0x6) & 0x1800) >> 11;
+        }
+        break;
+    }
+    case 11:
+        t = ((*(u32*)(__GXData) + 0x6) & 0x6000) >> 13;
+        break;
+    }
+    case 12:
+        t = ((*(u32*)(__GXData) + 0x6) & 0x18000) >> 15;
+        break;
+    }
+    case 13:
+        t = (*(u32*)(__GXData) + 0x7) & 3;
+        break;
+    }
+    case 14:
+        t = ((*(u32*)(__GXData) + 0x7) & 2) >> 2;
+        break;
+    }
+    case 15:
+        t = ((*(u32*)(__GXData) + 0x7) & 2) >> 4;
+        break;
+    }
+    case 16:
+        t = ((*(u32*)(__GXData) + 0x7) & 2) >> 6;
+        break;
+    }
+    case 17:
+        t = ((*(u32*)(__GXData) + 0x7) & 2) >> 8;
+        break;
+    }
+    case 18:
+        t = ((*(u32*)(__GXData) + 0x7) & 2) >> 10;
+        break;
+    }
+    case 19:
+        t = ((*(u32*)(__GXData) + 0x7) & 2) >> 12;
+        break;
+    }
+    case 20:
+        t = ((*(u32*)(__GXData) + 0x7) & 2) >> 14;
+        break;
+    }
+    default:
+        t = 0;
+        break;
+    }
+    case 25:
+        if ((*(__GXData) + 0x525) == 0) {
+            t = 0;
+        } else {
+            t = ((*(u32*)(__GXData) + 0x6) & 0x1800) >> 11;
+        }
+        break;
+    }
+    *type = t;
+}
+
+inline void GXGetVtxDescv(GXVtxDescList* attr_list) {
+    int i = 0;
+    for (; i < 0x15; i++) {
+        attr_list[i]->attr = (GXAttr)i;
+        GXGetVtxDesc((GXAttr)i, attr_list[i]->type);
+    }
+    attr_list[i]->attr = (GXAttr)0x19;
+    GXGetVtxDesc((GXAttr)0x19, attr_list[i]->type);
+    attr_list[i + 1]->attr = (GXAttr)0xFF;
+}
+
+inline void RestoreVertState(void) {
+    GXSetVtxDescv(&vcd);
+    GXSetVtxAttrFmtv(GX_VTXFMT3, &vat);
+}
+
+inline void GetVertState(void) {
+    GXGetVtxDescv(&vcd);
+    GXGetVtxAttrFmtv(GX_VTXFMT3, &vat);
+    GXClearVtxDesc();
+    GXSetVtxDesc(GX_VA_POS, GX_DIRECT);
+    GXSetVtxDesc(GX_VA_NRM, GX_DIRECT);
+    GXSetVtxAttrFmt(GX_VTXFMT3, GX_VA_POS, GX_POS_XYZ, GX_F32, 0);
+    GXSetVtxAttrFmt(GX_VTXFMT3, GX_VA_NRM, GX_POS_XY, GX_F32, 0);
+} */
 };
 
 #endif

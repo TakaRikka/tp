@@ -6,6 +6,8 @@
 #include "JSystem/JKernel/JKRAssertHeap.h"
 #include "JSystem/JKernel/JKRExpHeap.h"
 #include "JSystem/JKernel/JKRSolidHeap.h"
+#include "JSystem/J3DGraphBase/J3DDrawBuffer.h"
+#include "SSystem/SComponent/c_sxyz.h"
 #include "global.h"
 
 class mDoExt_baseAnm {
@@ -110,6 +112,7 @@ private:
     /* 0x14 */ u16 field_0x14;
     /* 0x16 */ u8 field_0x16;
 };  // Size: 0x18
+
 
 class mDoExt_invisibleModel {
 public:

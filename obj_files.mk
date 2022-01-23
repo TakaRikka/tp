@@ -239,6 +239,7 @@ O_FILES := \
 	$(BUILD_DIR)/src/d/d_k_wmark.o \
 	$(BUILD_DIR)/src/d/d_k_wpillar.o \
 	$(BUILD_DIR)/src/DynamicLink.o \
+	# $(BUILD_DIR)/src/d/d_dbCollisionView.o \
 
 LIBS := \
 	$(BUILD_DIR)/libSComponent.a \

@@ -2,7 +2,9 @@
 #define D_CC_D_CC_D_H
 
 #include "SSystem/SComponent/c_cc_d.h"
+#include "d/d_dbCollisionView.h"
 #include "dolphin/types.h"
+#include "MSL_C.PPCEABI.bare.H/MSL_Common/Src/printf.h"
 
 struct dCcD_SrcGAtTgCoCommonBase {
     /* 0x00 */ u32 mGFlag;
@@ -225,6 +227,15 @@ public:
     /* 800849C4 */ void MoveCTg(cXyz&);
     /* 80084D60 */ virtual ~dCcD_Cyl() {}
     dCcD_Cyl() {}
+
+    virtual void Draw(const GXColor& color) {
+        printf("dCcD_Cyl::draw(): run");
+        cXyz pos = GetCP();
+        cXyz size(GetR(), GetH(), GetR());
+        csXyz angle(0, 0, 0);
+
+        dDbVw_drawCubeXlu(pos, size, angle, color);
+    }
 };  // Size = 0x13C
 
 class dCcD_Sph : public dCcD_GObjInf, public cCcD_SphAttr {
@@ -235,6 +246,15 @@ public:
     /* 80084AC4 */ void MoveCAt(cXyz&);
     /* 80084B34 */ virtual cCcD_ShapeAttr* GetShapeAttr();
     /* 80084BF4 */ virtual ~dCcD_Sph() {}
+    
+    void Draw(const GXColor& color) {
+        printf("dCcD_Sph::draw(): run");
+        cXyz pos = GetC();
+        cXyz size(GetR(), GetR(), GetR());
+        csXyz angle(0, 0, 0);
+
+        dDbVw_drawCubeXlu(pos, size, angle, color);
+    }
 };  // Size = 0x138
 
 class dCcD_Cps : public dCcD_GObjInf, public cCcD_CpsAttr {
@@ -245,6 +265,15 @@ public:
     /* 80084854 */ void CalcTgVec();
     /* 8008506C */ virtual ~dCcD_Cps() {}
     dCcD_Cps() {}
+
+    virtual void Draw(const GXColor& color) {
+        printf("dCcD_Cps::draw(): run");
+        cXyz pos = mStart;
+        cXyz size(mRadius, mRadius, mRadius);
+        csXyz angle(0, 0, 0);
+
+        dDbVw_drawCubeXlu(pos, size, angle, color);
+    }
 };  // Size = 0x144
 
 class dCcD_Tri : public dCcD_GObjInf, public cCcD_TriAttr {

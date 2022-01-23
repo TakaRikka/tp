@@ -14,6 +14,7 @@
 #include "d/particle/d_particle.h"
 #include "d/save/d_save.h"
 #include "dolphin/types.h"
+#include "f_op/f_op_camera_mng.h"
 
 struct dTimer_c {
     /* 8025D524 */ int deleteCheck();
@@ -45,8 +46,6 @@ public:
     /* 0x0 */ char* field_0x0;
     /* 0x4 */ JKRHeap* heap;
 };
-
-struct camera_class {};
 
 class dComIfG_camera_info_class {
 public:
