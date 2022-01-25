@@ -1,8 +1,8 @@
 #ifndef M_DO_M_DO_MTX_H
 #define M_DO_M_DO_MTX_H
 
-#include "SSystem/SComponent/c_xyz.h"
 #include "SSystem/SComponent/c_sxyz.h"
+#include "SSystem/SComponent/c_xyz.h"
 #include "dolphin/mtx/mtx.h"
 #include "dolphin/mtx/quat.h"
 #include "dolphin/types.h"
@@ -49,6 +49,8 @@ public:
     static Mtx* next;
     static Mtx* end;
 };
+
+extern Mtx g_mDoMtx_identity;
 
 class mDoMtx_quatStack_c {
 public:

@@ -4,9 +4,9 @@
 //
 
 #include "d/cc/d_cc_s.h"
+#include "d/com/d_com_inf_game.h"
 #include "dol2asm.h"
 #include "dolphin/types.h"
-#include "d/com/d_com_inf_game.h"
 #include "d/d_dbCollisionView.h"
 #include "m_Do/m_Do_mtx.h"
 
@@ -106,9 +106,6 @@ extern "C" u8 BaseZ__4cXyz[12];
 void dCcS::Ct() {
     cCcS::Ct();
     mMass_Mng.Ct();
-
-    s32 roomNo = dComIfGp_roomControl_getStayNo();
-    mRoomResPtr = dComIfG_getStageRes(dComIfG_getRoomArcName(roomNo), "room.dzr");
 }
 
 /* 80085F08-80085F28 080848 0020+00 0/0 1/1 0/0 .text            Dt__4dCcSFv */
@@ -506,7 +503,6 @@ void dCcS::Draw() {
 void dCcS::MassClear() {
     mMass_Mng.Clear();
 }
-
 
 /* ############################################################################################## */
 /* 803AC3A4-803AC3E4 0094C4 0040+00 1/1 0/0 0/0 .data            m_mtrl_hit_tbl__4dCcS */

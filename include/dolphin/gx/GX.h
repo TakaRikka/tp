@@ -1005,6 +1005,22 @@ inline void GXPosition1x8(u8 s) {
     GFX_FIFO(u8) = s;
 }
 
+inline void GXPosition3s8(s8 x, s8 y, s8 z) {
+    GFX_FIFO(s8) = x;
+    GFX_FIFO(s8) = y;
+    GFX_FIFO(s8) = z;
+}
+
+inline void GXPosition2s8(s8 x, s8 y) {
+    GFX_FIFO(s8) = x;
+    GFX_FIFO(s8) = y;
+}
+
+inline void GXTexCoord2s8(s8 x, s8 y) {
+    GFX_FIFO(s8) = x;
+    GFX_FIFO(s8) = y;
+}
+
 inline void GXEnd() {}
 
 /* GXVtxDescList vcd;

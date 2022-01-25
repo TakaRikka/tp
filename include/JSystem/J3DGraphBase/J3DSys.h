@@ -11,6 +11,11 @@ enum J3DError {
     kJ3DError_Alloc = 4,
 };
 
+enum J3DSysDrawBuffer {
+    /* 0x0 */ OPA_BUFFER,
+    /* 0x1 */ XLU_BUFFER
+};
+
 class J3DMtxCalc;
 class J3DModel;
 class J3DMatPacket;
@@ -104,9 +109,13 @@ struct J3DSys {
 
     // Type 0: Opa Buffer
     // Type 1: Xlu Buffer
-    J3DDrawBuffer* getDrawBuffer(int type) {
-        return mDrawBuffer[type];
-    }
+    void setDrawBuffer(J3DDrawBuffer* buffer, int type) { mDrawBuffer[type] = buffer; }
+
+    // Type 0: Opa Buffer
+    // Type 1: Xlu Buffer
+    J3DDrawBuffer* getDrawBuffer(int type) { return mDrawBuffer[type]; }
+
+    void setViewMtx(Mtx m) { PSMTXCopy(m, mViewMtx); }
 
     static Mtx mCurrentMtx;
     static Vec mCurrentS;
