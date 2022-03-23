@@ -20,6 +20,49 @@ public:
     /* 80194138 */ virtual bool isDead();
 };
 
+class gzMenu : public dDlst_base_c {
+public:
+    struct gzCursor {
+        int x;
+        int y;
+    };
+
+    gzMenu() {}
+    virtual void _delete() {}
+    virtual void execute() {}
+    //virtual void draw();
+    virtual ~gzMenu();
+
+    static bool mDisplay;
+    static gzCursor mCursor;
+};
+
+class gzMainMenu : public gzMenu {
+public:
+    gzMainMenu();
+    virtual void draw();
+    virtual void _delete();
+    virtual void execute();
+    virtual ~gzMainMenu();
+
+    static const int LINE_NUM = 10;
+
+    J2DTextBox* mpLines[LINE_NUM];
+};
+
+class gzCheatMenu : public gzMenu {
+public:
+    gzCheatMenu();
+    virtual void draw();
+    virtual void _delete();
+    virtual void execute();
+    virtual ~gzCheatMenu();
+
+    static const int LINE_NUM = 2;
+
+    J2DTextBox* mpLines[LINE_NUM];
+};
+
 class dMeterButton_c : public dDlst_base_c {
 public:
     /* 80201328 */ dMeterButton_c();
@@ -223,7 +266,7 @@ public:
     void offRupeeSoundBit(int bit) { mRupeeSound &= ~(1 << bit); }
     bool isRupeeSoundBit(int bit) { return mRupeeSound & (1 << bit); }
 
-private:
+public:
     /* 0x100 */ JKRExpHeap* mpHeap;
     /* 0x104 */ JKRExpHeap* mpSubHeap;
     /* 0x108 */ void* field_0x108;
@@ -320,6 +363,16 @@ private:
     /* 0x20C */ f32 field_0x20c;
     /* 0x210 */ f32 field_0x210;
     /* 0x214 */ f32 field_0x214;
+
+    ////////////////////////////
+
+    gzMenu* mpGZCurrentMenu;
+    gzMainMenu* mpGZMenu;
+    gzCheatMenu* mpGZCheatMenu;
 };
+
+inline void gzSetCurrentMenu(gzMenu* menu) {
+    g_meter2_info.mMeterClass->mpGZCurrentMenu = menu;
+}
 
 #endif /* D_METER_D_METER2_H */

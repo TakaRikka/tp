@@ -287,12 +287,13 @@ inline void dMeter2Info_offUseButton(int flag) {
 
 /* 8021EA14-8021F128 219354 0714+00 1/1 0/0 0/0 .text            _create__9dMeter2_cFv */
 // this can be cleaned up with float literals when everything else is decompiled
+// [GZ NOTE]: mpHeap size increased from 0x5A400 / 0x60800 to allow space for gz menu
 int dMeter2_c::_create() {
     stage_stag_info_class* stag_info = dComIfGp_getStageStagInfo();
     if (dStage_stagInfo_GetUpButton(stag_info) == 1) {
-        mpHeap = fopMsgM_createExpHeap(0x5A400, NULL);
+        mpHeap = fopMsgM_createExpHeap(0x6A400, NULL);  // temp heap size, should try to reduce later
     } else {
-        mpHeap = fopMsgM_createExpHeap(0x60800, NULL);
+        mpHeap = fopMsgM_createExpHeap(0x6A400, NULL);  // temp heap size, should try to reduce later
     }
 
     JKRHeap* heap = mDoExt_setCurrentHeap(mpHeap);
@@ -454,6 +455,9 @@ int dMeter2_c::_create() {
     field_0x19a = 0;
 
     mpMeterDraw = new dMeter2Draw_c(mpHeap);
+    mpGZMenu = new gzMainMenu();
+    mpGZCheatMenu = new gzCheatMenu();
+    mpGZCurrentMenu = mpGZMenu;
 
     field_0x130 = mpMeterDraw->getNowLightDropRateCalc();
     mpHeap->getTotalFreeSize();
@@ -534,6 +538,10 @@ int dMeter2_c::_execute() {
     checkStatus();
     mpMeterDraw->exec(field_0x124);
 
+    if (mpGZCurrentMenu != NULL) {
+        mpGZCurrentMenu->execute();
+    }
+
     moveLife();
     moveKantera();
     moveOxygen();
@@ -612,7 +620,187 @@ int dMeter2_c::_draw() {
         dComIfGd_set2DOpaTop(mpMeterButton);
     }
 
+    if (mpGZCurrentMenu != NULL) {
+        dComIfGd_set2DOpaTop(mpGZCurrentMenu);
+    }
+
     return 1;
+}
+
+static const char* gzVersion = "0.0.1";
+
+bool gzMenu::mDisplay = false;
+gzMenu::gzCursor gzMenu::mCursor = {0, 0};
+
+gzMainMenu::gzMainMenu() {
+    mDisplay = false;
+
+    for (int i = 0; i < LINE_NUM; i++) {
+        mpLines[i] = new J2DTextBox();
+        mpLines[i]->setFont(mDoExt_getMesgFont());
+        mpLines[i]->setFontSize(18.0f, 18.0f);
+    }
+    
+    char header[12];
+    sprintf(header, "tpgz v%s", gzVersion);
+    mpLines[0]->setString(header);
+
+    mpLines[1]->setString("cheats");
+    mpLines[2]->setString("flags");
+    mpLines[3]->setString("inventory");
+    mpLines[4]->setString("memory");
+    mpLines[5]->setString("practice");
+    mpLines[6]->setString("scene");
+    mpLines[7]->setString("settings");
+    mpLines[8]->setString("tools");
+    mpLines[9]->setString("warping");
+}
+
+gzCheatMenu::gzCheatMenu() {
+    for (int i = 0; i < LINE_NUM; i++) {
+        mpLines[i] = new J2DTextBox();
+        mpLines[i]->setFont(mDoExt_getMesgFont());
+        mpLines[i]->setFontSize(18.0f, 18.0f);
+    }
+    
+    char header[12];
+    sprintf(header, "tpgz v%s", gzVersion);
+    mpLines[0]->setString(header);
+
+    mpLines[1]->setString("infinite hearts");
+}
+
+gzMenu::~gzMenu() {
+    _delete();
+}
+
+gzMainMenu::~gzMainMenu() {
+    _delete();
+}
+
+void gzMainMenu::_delete() {
+    for (int i = 0; i < LINE_NUM; i++) {
+        delete mpLines[i];
+        mpLines[i] = NULL;
+    }
+}
+
+void gzMainMenu::execute() {
+    if (mDoCPd_c::getHoldL(0) && mDoCPd_c::getHoldR(0) && mDoCPd_c::getTrigDown(0)) {
+        mDisplay = !mDisplay;
+    }
+
+    if (mDisplay) {
+        if (mDoCPd_c::getTrigB(0)) {
+            mDisplay = false;
+        }
+
+        if (mDoCPd_c::getTrigA(0)) {
+            if (mCursor.y == 0) {
+                gzSetCurrentMenu(g_meter2_info.mMeterClass->mpGZCheatMenu);
+            }
+        }
+
+        if (mDoCPd_c::getTrigDown(0) && mCursor.y < LINE_NUM) {
+            mCursor.y++;
+        }
+
+        if (mDoCPd_c::getTrigUp(0) && mCursor.y >= 0) {
+            mCursor.y--;
+        }
+
+        if (mCursor.y < 0) {
+            mCursor.y = LINE_NUM - 2;
+        } else if (mCursor.y > LINE_NUM - 2) {
+            mCursor.y = 0;
+        }
+    }
+}
+
+void gzMainMenu::draw() {
+    if (mDisplay) {
+        if (mpLines[0] != NULL) {
+            mpLines[0]->mCharColor = 0xEE8000FF;
+            mpLines[0]->mGradientColor = 0xEE8000FF;
+            mpLines[0]->draw(30.0f, 30.0f, 608.0f, HBIND_LEFT);
+        }
+
+        for (int i = 1; i < LINE_NUM; i++) {
+            if (mpLines[i] != NULL) {
+                mpLines[i]->draw(30.0f, 80.0f + ((i - 1) * 22.0f), 608.0f, HBIND_LEFT);
+            }
+
+            if (mCursor.y == i - 1) {
+                mpLines[i]->mCharColor = 0xEE8000FF;
+                mpLines[i]->mGradientColor = 0xEE8000FF;
+            } else {
+                mpLines[i]->mCharColor = 0xFFFFFFFF;
+                mpLines[i]->mGradientColor = 0xFFFFFFFF;
+            }
+        }
+    }
+}
+
+
+gzCheatMenu::~gzCheatMenu() {
+    _delete();
+}
+
+void gzCheatMenu::_delete() {
+    for (int i = 0; i < LINE_NUM; i++) {
+        delete mpLines[i];
+        mpLines[i] = NULL;
+    }
+}
+
+void gzCheatMenu::execute() {
+    if (mDoCPd_c::getHoldL(0) && mDoCPd_c::getHoldR(0) && mDoCPd_c::getTrigDown(0)) {
+        mDisplay = !mDisplay;
+    }
+
+    if (mDisplay) {
+        if (mDoCPd_c::getTrigB(0)) {
+            gzSetCurrentMenu(g_meter2_info.mMeterClass->mpGZMenu);
+        }
+
+        if (mDoCPd_c::getTrigDown(0) && mCursor.y < LINE_NUM) {
+            mCursor.y++;
+        }
+
+        if (mDoCPd_c::getTrigUp(0) && mCursor.y >= 0) {
+            mCursor.y--;
+        }
+
+        if (mCursor.y < 0) {
+            mCursor.y = LINE_NUM - 2;
+        } else if (mCursor.y > LINE_NUM - 2) {
+            mCursor.y = 0;
+        }
+    }
+}
+
+void gzCheatMenu::draw() {
+    if (mDisplay) {
+        if (mpLines[0] != NULL) {
+            mpLines[0]->mCharColor = 0xEE8000FF;
+            mpLines[0]->mGradientColor = 0xEE8000FF;
+            mpLines[0]->draw(30.0f, 30.0f, 608.0f, HBIND_LEFT);
+        }
+
+        for (int i = 1; i < LINE_NUM; i++) {
+            if (mpLines[i] != NULL) {
+                mpLines[i]->draw(30.0f, 80.0f + ((i - 1) * 22.0f), 608.0f, HBIND_LEFT);
+            }
+
+            if (mCursor.y == i - 1) {
+                mpLines[i]->mCharColor = 0xEE8000FF;
+                mpLines[i]->mGradientColor = 0xEE8000FF;
+            } else {
+                mpLines[i]->mCharColor = 0xFFFFFFFF;
+                mpLines[i]->mGradientColor = 0xFFFFFFFF;
+            }
+        }
+    }
 }
 
 /* ############################################################################################## */
@@ -646,6 +834,12 @@ int dMeter2_c::_delete() {
     if (mpMap != NULL) {
         delete mpMap;
         mpMap = NULL;
+    }
+
+    mpHeap->getTotalFreeSize();
+    if (mpGZMenu != NULL) {
+        delete mpGZMenu;
+        mpGZMenu = NULL;
     }
 
     mpHeap->getTotalFreeSize();

@@ -78,7 +78,7 @@ public:
 
     void setCharSpace(f32 space) { mCharSpacing = space; }
 
-private:
+public:
     /* 0x0100 */ JUTFont* mFont;
     /* 0x0104 */ JUtility::TColor mCharColor;
     /* 0x0108 */ JUtility::TColor mGradientColor;
