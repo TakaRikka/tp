@@ -2628,6 +2628,11 @@ static int dMw_Draw(dMw_c* p_menu) {
 
 /* 801FD860-801FD880 1F81A0 0020+00 1/0 0/0 0/0 .text            dMw_Execute__FP5dMw_c */
 static int dMw_Execute(dMw_c* p_menu) {
+    // bypass menu executing if gz menu is open
+    if (gzMenu::mDisplay) {
+        return 1;
+    }
+
     return p_menu->_execute();
 }
 

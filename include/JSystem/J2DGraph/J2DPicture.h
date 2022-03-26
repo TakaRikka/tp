@@ -97,7 +97,7 @@ public:
         mCornerColor[3] = c3;
     }
 
-private:
+public:
     /* 0x100 */ JUTTexture* mTexture[2];
     /* 0x108 */ u8 mTextureCount;
     /* 0x109 */ u8 field_0x109;

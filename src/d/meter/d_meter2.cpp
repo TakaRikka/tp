@@ -456,7 +456,7 @@ int dMeter2_c::_create() {
 
     mpMeterDraw = new dMeter2Draw_c(mpHeap);
     mpGZMenu = new gzMainMenu();
-    mpGZCheatMenu = new gzCheatMenu();
+    //mpGZCheatMenu = new gzCheatMenu();
     mpGZCurrentMenu = mpGZMenu;
 
     field_0x130 = mpMeterDraw->getNowLightDropRateCalc();
@@ -624,183 +624,16 @@ int dMeter2_c::_draw() {
         dComIfGd_set2DOpaTop(mpGZCurrentMenu);
     }
 
+    J2DTextBox heapDebug;
+    heapDebug.setFont(mDoExt_getMesgFont());
+    heapDebug.setFontSize(18.0f, 18.0f);
+
+    char text[32];
+    sprintf(text, "heap free: 0x%X", mpHeap->getTotalFreeSize());
+    heapDebug.setString(text);
+    heapDebug.draw(200.0f, 30.0f, 608.0f, HBIND_LEFT);
+
     return 1;
-}
-
-static const char* gzVersion = "0.0.1";
-
-bool gzMenu::mDisplay = false;
-gzMenu::gzCursor gzMenu::mCursor = {0, 0};
-
-gzMainMenu::gzMainMenu() {
-    mDisplay = false;
-
-    for (int i = 0; i < LINE_NUM; i++) {
-        mpLines[i] = new J2DTextBox();
-        mpLines[i]->setFont(mDoExt_getMesgFont());
-        mpLines[i]->setFontSize(18.0f, 18.0f);
-    }
-    
-    char header[12];
-    sprintf(header, "tpgz v%s", gzVersion);
-    mpLines[0]->setString(header);
-
-    mpLines[1]->setString("cheats");
-    mpLines[2]->setString("flags");
-    mpLines[3]->setString("inventory");
-    mpLines[4]->setString("memory");
-    mpLines[5]->setString("practice");
-    mpLines[6]->setString("scene");
-    mpLines[7]->setString("settings");
-    mpLines[8]->setString("tools");
-    mpLines[9]->setString("warping");
-}
-
-gzCheatMenu::gzCheatMenu() {
-    for (int i = 0; i < LINE_NUM; i++) {
-        mpLines[i] = new J2DTextBox();
-        mpLines[i]->setFont(mDoExt_getMesgFont());
-        mpLines[i]->setFontSize(18.0f, 18.0f);
-    }
-    
-    char header[12];
-    sprintf(header, "tpgz v%s", gzVersion);
-    mpLines[0]->setString(header);
-
-    mpLines[1]->setString("infinite hearts");
-}
-
-gzMenu::~gzMenu() {
-    _delete();
-}
-
-gzMainMenu::~gzMainMenu() {
-    _delete();
-}
-
-void gzMainMenu::_delete() {
-    for (int i = 0; i < LINE_NUM; i++) {
-        delete mpLines[i];
-        mpLines[i] = NULL;
-    }
-}
-
-void gzMainMenu::execute() {
-    if (mDoCPd_c::getHoldL(0) && mDoCPd_c::getHoldR(0) && mDoCPd_c::getTrigDown(0)) {
-        mDisplay = !mDisplay;
-    }
-
-    if (mDisplay) {
-        if (mDoCPd_c::getTrigB(0)) {
-            mDisplay = false;
-        }
-
-        if (mDoCPd_c::getTrigA(0)) {
-            if (mCursor.y == 0) {
-                gzSetCurrentMenu(g_meter2_info.mMeterClass->mpGZCheatMenu);
-            }
-        }
-
-        if (mDoCPd_c::getTrigDown(0) && mCursor.y < LINE_NUM) {
-            mCursor.y++;
-        }
-
-        if (mDoCPd_c::getTrigUp(0) && mCursor.y >= 0) {
-            mCursor.y--;
-        }
-
-        if (mCursor.y < 0) {
-            mCursor.y = LINE_NUM - 2;
-        } else if (mCursor.y > LINE_NUM - 2) {
-            mCursor.y = 0;
-        }
-    }
-}
-
-void gzMainMenu::draw() {
-    if (mDisplay) {
-        if (mpLines[0] != NULL) {
-            mpLines[0]->mCharColor = 0xEE8000FF;
-            mpLines[0]->mGradientColor = 0xEE8000FF;
-            mpLines[0]->draw(30.0f, 30.0f, 608.0f, HBIND_LEFT);
-        }
-
-        for (int i = 1; i < LINE_NUM; i++) {
-            if (mpLines[i] != NULL) {
-                mpLines[i]->draw(30.0f, 80.0f + ((i - 1) * 22.0f), 608.0f, HBIND_LEFT);
-            }
-
-            if (mCursor.y == i - 1) {
-                mpLines[i]->mCharColor = 0xEE8000FF;
-                mpLines[i]->mGradientColor = 0xEE8000FF;
-            } else {
-                mpLines[i]->mCharColor = 0xFFFFFFFF;
-                mpLines[i]->mGradientColor = 0xFFFFFFFF;
-            }
-        }
-    }
-}
-
-
-gzCheatMenu::~gzCheatMenu() {
-    _delete();
-}
-
-void gzCheatMenu::_delete() {
-    for (int i = 0; i < LINE_NUM; i++) {
-        delete mpLines[i];
-        mpLines[i] = NULL;
-    }
-}
-
-void gzCheatMenu::execute() {
-    if (mDoCPd_c::getHoldL(0) && mDoCPd_c::getHoldR(0) && mDoCPd_c::getTrigDown(0)) {
-        mDisplay = !mDisplay;
-    }
-
-    if (mDisplay) {
-        if (mDoCPd_c::getTrigB(0)) {
-            gzSetCurrentMenu(g_meter2_info.mMeterClass->mpGZMenu);
-        }
-
-        if (mDoCPd_c::getTrigDown(0) && mCursor.y < LINE_NUM) {
-            mCursor.y++;
-        }
-
-        if (mDoCPd_c::getTrigUp(0) && mCursor.y >= 0) {
-            mCursor.y--;
-        }
-
-        if (mCursor.y < 0) {
-            mCursor.y = LINE_NUM - 2;
-        } else if (mCursor.y > LINE_NUM - 2) {
-            mCursor.y = 0;
-        }
-    }
-}
-
-void gzCheatMenu::draw() {
-    if (mDisplay) {
-        if (mpLines[0] != NULL) {
-            mpLines[0]->mCharColor = 0xEE8000FF;
-            mpLines[0]->mGradientColor = 0xEE8000FF;
-            mpLines[0]->draw(30.0f, 30.0f, 608.0f, HBIND_LEFT);
-        }
-
-        for (int i = 1; i < LINE_NUM; i++) {
-            if (mpLines[i] != NULL) {
-                mpLines[i]->draw(30.0f, 80.0f + ((i - 1) * 22.0f), 608.0f, HBIND_LEFT);
-            }
-
-            if (mCursor.y == i - 1) {
-                mpLines[i]->mCharColor = 0xEE8000FF;
-                mpLines[i]->mGradientColor = 0xEE8000FF;
-            } else {
-                mpLines[i]->mCharColor = 0xFFFFFFFF;
-                mpLines[i]->mGradientColor = 0xFFFFFFFF;
-            }
-        }
-    }
 }
 
 /* ############################################################################################## */

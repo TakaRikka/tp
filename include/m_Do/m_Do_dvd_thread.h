@@ -61,7 +61,7 @@ public:
                                                             JKRHeap*);
     /* 800162B0 */ virtual s32 execute();
 
-private:
+public:
     /* 0x14 */ u8 mMountDirection;
     /* 0x18 */ s32 mEntryNum;
     /* 0x1C */ JKRArchive* mArchive;

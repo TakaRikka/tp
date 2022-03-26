@@ -8,6 +8,8 @@
 #include "d/msg/d_msg_class.h"
 #include "dolphin/types.h"
 
+#include "gz/gz_menu.h"
+
 class dMeterMap_c;
 
 class dMeterSub_c : public dDlst_base_c {
@@ -18,49 +20,6 @@ public:
     /* 80194130 */ virtual bool _execute(u32);
     /* 80194124 */ virtual bool _delete();
     /* 80194138 */ virtual bool isDead();
-};
-
-class gzMenu : public dDlst_base_c {
-public:
-    struct gzCursor {
-        int x;
-        int y;
-    };
-
-    gzMenu() {}
-    virtual void _delete() {}
-    virtual void execute() {}
-    //virtual void draw();
-    virtual ~gzMenu();
-
-    static bool mDisplay;
-    static gzCursor mCursor;
-};
-
-class gzMainMenu : public gzMenu {
-public:
-    gzMainMenu();
-    virtual void draw();
-    virtual void _delete();
-    virtual void execute();
-    virtual ~gzMainMenu();
-
-    static const int LINE_NUM = 10;
-
-    J2DTextBox* mpLines[LINE_NUM];
-};
-
-class gzCheatMenu : public gzMenu {
-public:
-    gzCheatMenu();
-    virtual void draw();
-    virtual void _delete();
-    virtual void execute();
-    virtual ~gzCheatMenu();
-
-    static const int LINE_NUM = 2;
-
-    J2DTextBox* mpLines[LINE_NUM];
 };
 
 class dMeterButton_c : public dDlst_base_c {
@@ -370,9 +329,5 @@ public:
     gzMainMenu* mpGZMenu;
     gzCheatMenu* mpGZCheatMenu;
 };
-
-inline void gzSetCurrentMenu(gzMenu* menu) {
-    g_meter2_info.mMeterClass->mpGZCurrentMenu = menu;
-}
 
 #endif /* D_METER_D_METER2_H */

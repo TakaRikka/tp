@@ -190,7 +190,7 @@ public:
     bool isShowFlag() { return mShowFlag & 1 != 0; }
     bool isFadeNowCheck() { return mDoGph_gInf_c::getFader()->getStatus() == 1; }
 
-private:
+public:
     /* 0x100 */ JKRExpHeap* mpHeap;
     /* 0x104 */ STControl* mpStick;
     /* 0x108 */ CSTControl* mpCStick;
