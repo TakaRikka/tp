@@ -179,11 +179,37 @@ public:
     /* 8000FAE8 */ virtual ~mDoExt_morf_c();
 
 private:
-    /* 0x04 */ u32 field_0x4;
-    /* 0x08 */ u32 mAnm;
+    /* 0x04 */ J3DModel* mpModel;
+    /* 0x08 */ J3DAnmTransform* mAnm;
     /* 0x0C */ J3DFrameCtrl mFrameCtrl;
-    /* 0x20 */ u32 field_0x20;
-    /* 0x24 */ u32 field_0x24;
+    /* 0x20 */ J3DTransformInfo* mpTransformInfo;
+    /* 0x24 */ Quaternion* mpQuat;
+    /* 0x28 */ f32 mCurMorf;
+    /* 0x2C */ f32 mPrevMorf;
+    /* 0x30 */ f32 mMorfStep;
+};
+
+class mDoExt_McaMorfCallBack2_c;
+class Z2Creature;
+struct mDoExt_McaMorfSO : public mDoExt_morf_c{
+    /* 800107D0 */ mDoExt_McaMorfSO(J3DModelData*, mDoExt_McaMorfCallBack1_c*,
+                                    mDoExt_McaMorfCallBack2_c*, J3DAnmTransform*, int, f32, int,
+                                    int, Z2Creature*, u32, u32);
+    /* 800108F0 */ void create(J3DModelData*, mDoExt_McaMorfCallBack1_c*,
+                               mDoExt_McaMorfCallBack2_c*, J3DAnmTransform*, int, f32, int, int,
+                               Z2Creature*, u32, u32);
+    /* 80010E70 */ void setAnm(J3DAnmTransform*, int, f32, f32, f32, f32);
+    /* 800110B0 */ void play(u32, s8);
+    /* 80011154 */ void updateDL();
+    /* 800111C0 */ void entryDL();
+    /* 800111EC */ void modelCalc();
+    /* 80011250 */ void getTransform(u16, J3DTransformInfo*);
+    /* 80011310 */ void stopZelAnime();
+
+    /* 80010888 */ ~mDoExt_McaMorfSO();
+    /* 80010B68 */ void calc();
+
+
 };
 
 class mDoExt_MtxCalcOldFrame {

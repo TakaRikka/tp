@@ -39,24 +39,6 @@ struct Z2Creature {
     /* 802C06D0 */ void updateAnime(f32, f32);
 };
 
-struct mDoExt_McaMorfSO {
-    /* 800107D0 */ mDoExt_McaMorfSO(J3DModelData*, mDoExt_McaMorfCallBack1_c*,
-                                    mDoExt_McaMorfCallBack2_c*, J3DAnmTransform*, int, f32, int,
-                                    int, Z2Creature*, u32, u32);
-    /* 80010888 */ ~mDoExt_McaMorfSO();
-    /* 800108F0 */ void create(J3DModelData*, mDoExt_McaMorfCallBack1_c*,
-                               mDoExt_McaMorfCallBack2_c*, J3DAnmTransform*, int, f32, int, int,
-                               Z2Creature*, u32, u32);
-    /* 80010B68 */ void calc();
-    /* 80010E70 */ void setAnm(J3DAnmTransform*, int, f32, f32, f32, f32);
-    /* 800110B0 */ void play(u32, s8);
-    /* 80011154 */ void updateDL();
-    /* 800111C0 */ void entryDL();
-    /* 800111EC */ void modelCalc();
-    /* 80011250 */ void getTransform(u16, J3DTransformInfo*);
-    /* 80011310 */ void stopZelAnime();
-};
-
 struct mDoExt_McaMorf2 {
     /* 80011348 */ mDoExt_McaMorf2(J3DModelData*, mDoExt_McaMorfCallBack1_c*,
                                    mDoExt_McaMorfCallBack2_c*, J3DAnmTransform*, J3DAnmTransform*,

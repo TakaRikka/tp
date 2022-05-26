@@ -650,6 +650,7 @@ void* dComIfG_getOldStageRes(char const* resName);
 void dComIfG_get_timelayer(int* layer);
 int dComIfG_resDelete(request_of_phase_process_class* i_phase, char const* resName);
 int dComIfG_changeOpeningScene(scene_class* scene, s16 procName);
+int dComIfG_resLoad(request_of_phase_process_class* i_phase, char const* resName, JKRHeap* heap);
 
 inline void dComIfG_setBrightness(u8 brightness) {
     g_dComIfG_gameInfo.mFadeBrightness = brightness;

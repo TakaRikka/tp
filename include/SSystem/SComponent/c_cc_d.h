@@ -423,6 +423,7 @@ public:
     cCcD_Stts* GetStts() { return mStts; }
     cCcD_DivideInfo& GetDivideInfo() { return mDivideInfo; }
     int ChkBsRevHit() const { return field_0x40 & 2; }
+    void SetStts(cCcD_Stts* stts) { mStts = stts; }
 
 private:
     /* 0x040 */ int field_0x40;

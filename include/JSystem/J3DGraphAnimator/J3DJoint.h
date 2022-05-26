@@ -35,7 +35,10 @@ public:
 };
 
 template <typename A, typename B>
-class J3DMtxCalcNoAnm : public J3DMtxCalcNoAnmBase, public A, public B {};
+class J3DMtxCalcNoAnm : public J3DMtxCalcNoAnmBase, public A, public B {
+    virtual void init(Vec const&, Mtx*) { }
+    virtual void calc() { }
+};
 
 class J3DJoint;
 typedef int (*J3DJointCallBack)(J3DJoint*, int);

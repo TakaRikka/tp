@@ -2863,6 +2863,8 @@ static void dStage_dt_c_stageLoader(void* i_data, dStage_dt_c* stageDt) {
     dStage_dt_c_decode(i_data, stageDt, l_funcTable_5163, 26);
     layerTableLoader(i_data, stageDt, -1);
     layerActorLoader(i_data, stageDt, -1);
+
+    fopAcM_create(PROC_NPC_HENNA0, 0, NULL, -1, NULL, NULL, -1);
 }
 
 /* 80026BBC-80026C34 0214FC 0078+00 0/0 1/1 0/0 .text dStage_dt_c_roomLoader__FPvP11dStage_dt_ci

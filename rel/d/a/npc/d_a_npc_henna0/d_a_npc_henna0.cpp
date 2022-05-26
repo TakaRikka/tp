@@ -6,11 +6,20 @@
 #include "rel/d/a/npc/d_a_npc_henna0/d_a_npc_henna0.h"
 #include "dol2asm.h"
 #include "dolphin/types.h"
+#include "f_op/f_op_actor_mng.h"
+#include "MSL_C/MSL_Common/Src/string.h"
+#include "d/com/d_com_inf_game.h"
+#include "d/a/d_a_npc.h"
 
 //
 // Forward References:
 //
 
+extern "C" static bool daNpcPuppet_Draw__FP13daNpcPuppet_c();
+extern "C" static bool daNpcPuppet_Execute__FP13daNpcPuppet_c();
+extern "C" static bool daNpcPuppet_IsDelete__FP13daNpcPuppet_c();
+extern "C" static bool daNpcPuppet_Delete__FP13daNpcPuppet_c();
+extern "C" static void daNpcPuppet_Create__FP10fopAc_ac_c();
 extern "C" extern void* g_profile_NPC_HENNA0[12];
 
 //
@@ -18,16 +27,111 @@ extern "C" extern void* g_profile_NPC_HENNA0[12];
 //
 
 extern "C" extern void* g_fopAc_Method[8];
-extern "C" extern void* g_fpcLf_Method[5 + 1 /* padding */];
 
 //
 // Declarations:
 //
 
+class daNpcPuppet_c : public daNpcT_c {
+public:
+    daNpcPuppet_c() {
+        // mJntCtrl (dNpc_JntCtrl_c) stuff is probably daNpcT_motionAnmData_c or daNpcT_JntAnm_c?
+    }
+
+    ~daNpcPuppet_c() {}
+
+    /* 0xE40 */ request_of_phase_process_class mPhaseRequest;
+    /* 0xE48 */ JKRExpHeap* mpHeap;
+    /* 0xE4C */ dCcD_Cyl mCollider;
+};
+
+static int daNpcPuppet_createHeap(fopAc_ac_c* ac) {
+    daNpcPuppet_c* puppet = static_cast<daNpcPuppet_c*>(ac);
+
+    J3DModelData* modelData = (J3DModelData*)dComIfG_getObjectRes("LinkPuppet", "cl.bdl");
+    puppet->mMcaMorfAnm[0] = new mDoExt_McaMorfSO(modelData, NULL, NULL, NULL, 2, 1.0f, 0, -1, NULL, 0x80000, 0x11001222);
+    
+    if (puppet->mMcaMorfAnm[0] == NULL) {
+        return 0;
+    }
+
+    return 1;
+}
+
+static int daNpcPuppet_Draw(daNpcPuppet_c* puppet) {
+    puppet->draw(0, 0, puppet->field_0xde8, NULL, 0.0f, 0, 0, 0);
+    return 1;
+}
+
+static int daNpcPuppet_Execute(daNpcPuppet_c* puppet) {
+    puppet->execute();
+    return 1;
+}
+
+static int daNpcPuppet_IsDelete(daNpcPuppet_c* ac) {
+    return 1;
+}
+
+static int daNpcPuppet_Delete(daNpcPuppet_c* puppet) {
+    puppet->~daNpcPuppet_c();
+    return 1;
+}
+
+SECTION_DATA static u8 l_cylSrc[68] = {
+    0x00, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x1A, 0xD8, 0xFF, 0xFD, 0xFF, 0x00, 0x00, 0x00, 0x05, 0x00, 0x00, 0x00, 0x73,
+    0x04, 0x03, 0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x06, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x42, 0x0C, 0x00, 0x00, 0x43, 0x34, 0x00, 0x00,
+};
+
+static int daNpcPuppet_Create(fopAc_ac_c* ac) {
+    if (!fopAcM_CheckCondition(ac, 8)) {
+        new (ac) daNpcPuppet_c();
+        fopAcM_OnCondition(ac, 8);
+    }
+    daNpcPuppet_c* puppet = static_cast<daNpcPuppet_c*>(ac);
+
+    if (dComIfG_resLoad(&puppet->mPhaseRequest, "LinkPuppet", puppet->mpHeap) != 4) {
+        return 0;
+    }
+
+    if (!fopAcM_entrySolidHeap(puppet, daNpcPuppet_createHeap, 0)) {
+        return 5;
+    }
+
+    // field_0x864: Stts
+    puppet->field_0x864.Init(0xFF, 0xFF, puppet);
+    puppet->mCollider.SetStts(&puppet->field_0x864);
+    puppet->mCollider.Set(*(dCcD_SrcCyl*)l_cylSrc);
+    puppet->mMcaMorfAnm[0]->setMorf(0.0f);
+
+    // test stuff
+    /* puppet->mCounter = 0;
+    strcpy(puppet->mTestName, "KOYORI SUKI");
+    puppet->mCurrent.mPosition.x = 42069.0f; */
+
+    return 4;
+}
+
+SECTION_DATA static void* l_daNpcHenna0_Method[8] = {
+    (void*)daNpcPuppet_Create__FP10fopAc_ac_c,
+    (void*)daNpcPuppet_Delete__FP13daNpcPuppet_c,
+    (void*)daNpcPuppet_Execute__FP13daNpcPuppet_c,
+    (void*)daNpcPuppet_IsDelete__FP13daNpcPuppet_c,
+    (void*)daNpcPuppet_Draw__FP13daNpcPuppet_c,
+    (void*)NULL,
+    (void*)NULL,
+    (void*)NULL,
+};
+
 /* ############################################################################################## */
 /* 80A013E0-80A01410 -00001 0030+00 0/0 0/0 1/0 .data            g_profile_NPC_HENNA0 */
 SECTION_DATA extern void* g_profile_NPC_HENNA0[12] = {
-    (void*)0xFFFFFFFD, (void*)0x0007FFFD, (void*)0x02560000, (void*)&g_fpcLf_Method,
-    (void*)0x00000828, (void*)NULL,       (void*)NULL,       (void*)&g_fopAc_Method,
-    (void*)0x01570000, (void*)NULL,       (void*)0x00044100, (void*)0x040E0000,
+    (void*)0xFFFFFFFD, (void*)0x0007FFFD,
+    (void*)0x02560000, (void*)&g_fpcLf_Method,
+    (void*)0x00000828, (void*)NULL,
+    (void*)NULL,       (void*)&g_fopAc_Method,
+    (void*)0x01570000, (void*)&l_daNpcHenna0_Method,
+    (void*)0x00044100, (void*)0x040E0000,
 };

@@ -23,13 +23,6 @@ struct mDoMtx_stack_c {
     static u8 now[48];
 };
 
-struct mDoExt_McaMorfSO {
-    /* 80010E70 */ void setAnm(J3DAnmTransform*, int, f32, f32, f32, f32);
-    /* 800110B0 */ void play(u32, s8);
-    /* 800111C0 */ void entryDL();
-    /* 800111EC */ void modelCalc();
-};
-
 struct daNpcT_Hermite_c {
     /* 8014CBAC */ ~daNpcT_Hermite_c();
 };
