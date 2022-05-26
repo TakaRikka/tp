@@ -208,8 +208,6 @@ struct mDoExt_McaMorfSO : public mDoExt_morf_c{
 
     /* 80010888 */ ~mDoExt_McaMorfSO();
     /* 80010B68 */ void calc();
-
-
 };
 
 class mDoExt_MtxCalcOldFrame {
