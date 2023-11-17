@@ -935,9 +935,12 @@ asm int daAlink_c::procGoatCatch() {
 }
 #pragma pop
 
+#include "d/a/d_a_alink.h"
+#include "rel/d/a/d_a_cow/d_a_cow.h"
+
 /* 800EA2A8-800EA3AC 0E4BE8 0104+00 2/2 0/0 0/0 .text            procGoatStrokeInit__9daAlink_cFv */
 // matches with literals
-#ifdef NONMATCHING
+#ifndef NONMATCHING
 int daAlink_c::procGoatStrokeInit() {
     if (mEquipItem != NO_ITEM) {
         return procPreActionUnequipInit(PROC_GOAT_STROKE, field_0x27f4);
@@ -945,19 +948,38 @@ int daAlink_c::procGoatStrokeInit() {
 
     commonProcInit(PROC_GOAT_STROKE);
     field_0x280c.setData(field_0x27f4);
-    setSingleAnimeBase(ANM_COW_STROKE);
-
-    static_cast<daCow_c*>(field_0x280c.getActor())->setNaderu();
-    mNormalSpeed = 0.0f;
-
-    if ((s16)(fopAcM_searchActorAngleY(field_0x27f4, this) - field_0x27f4->shape_angle.y) > 0) {
-        shape_angle.y = field_0x27f4->shape_angle.y - 0x4000;
-    } else {
-        shape_angle.y = field_0x27f4->shape_angle.y + 0x4000;
+    
+    if (fopAcM_GetName(field_0x27f4) == PROC_COW) {
+        setSingleAnimeBase(ANM_COW_STROKE);
+        static_cast<daCow_c*>(field_0x280c.getActor())->setNaderu();
+    } else if (fopAcM_GetName(field_0x27f4) == PROC_DO || fopAcM_GetName(field_0x27f4) == PROC_NPC_NE) {
+        setSingleAnimeBase(ANM_COW_STROKE);
+        setUnderAnime(0x7B, UNDER_2, 1.0f, 0.0f, -1, -1.0f);
+        field_0x37c8 = field_0x27f4->current.pos;
     }
 
-    current.pos.x = field_0x27f4->current.pos.x - cM_ssin(shape_angle.y) * 100.0f;
-    current.pos.z = field_0x27f4->current.pos.z - cM_scos(shape_angle.y) * 100.0f;
+    mNormalSpeed = 0.0f;
+
+    if (fopAcM_GetName(field_0x27f4) == PROC_COW) {
+        if ((s16)(fopAcM_searchActorAngleY(field_0x27f4, this) - field_0x27f4->shape_angle.y) > 0) {
+            shape_angle.y = field_0x27f4->shape_angle.y - 0x4000;
+        } else {
+            shape_angle.y = field_0x27f4->shape_angle.y + 0x4000;
+        }
+    }
+
+    f32 pet_dist;
+    if (fopAcM_GetName(field_0x27f4) == PROC_DO) {
+        pet_dist = 100.0f;
+    } else if (fopAcM_GetName(field_0x27f4) == PROC_NPC_NE) {
+        pet_dist = 60.0f;
+    } else {
+        pet_dist = 100.0f;
+    }
+
+    current.pos.x = field_0x27f4->current.pos.x - cM_ssin(shape_angle.y) * pet_dist;
+    current.pos.z = field_0x27f4->current.pos.z - cM_scos(shape_angle.y) * pet_dist;
+    field_0x300e.x = mBodyAngle.x;
     return 1;
 }
 #else
@@ -975,6 +997,18 @@ asm int daAlink_c::procGoatStrokeInit() {
 int daAlink_c::procGoatStroke() {
     if (mUnderFrameCtrl[0].checkAnmEnd()) {
         checkNextAction(0);
+    }
+
+    s16 pet_angle = 0;
+    if (fopAcM_GetName(field_0x27f4) == PROC_DO) {
+        pet_angle = 0x1400;
+    } else if (fopAcM_GetName(field_0x27f4) == PROC_NPC_NE) {
+        pet_angle = 0x2000;
+    }
+
+    if (fopAcM_GetName(field_0x27f4) == PROC_DO || fopAcM_GetName(field_0x27f4) == PROC_NPC_NE) {
+        mBodyAngle.x = field_0x300e.x + pet_angle;
+        field_0x27f4->current.pos = field_0x37c8;
     }
 
     return 1;

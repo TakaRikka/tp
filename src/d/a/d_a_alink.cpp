@@ -15783,6 +15783,8 @@ void daAlink_c::decideDoStatus() {
                             } else if (!checkGrabLineCheck()) {
                                 if (actor_name == PROC_Obj_Yobikusa) {
                                     setDoStatus(0x2B);
+                                } else if (actor_name == PROC_DO || actor_name == PROC_NPC_NE) {
+                                    setDoStatus(0x38); // Pet
                                 } else if (fopAcM_CheckCarryType(field_0x27f4, fopAcM_CARRY_TYPE_8))
                                 {
                                     setDoStatusEmphasys(0x34);
