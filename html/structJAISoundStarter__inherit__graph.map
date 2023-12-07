@@ -1,0 +1,10 @@
+<map id="JAISoundStarter" name="JAISoundStarter">
+<area shape="rect" id="node1" title=" " alt="" coords="178,93,297,119"/>
+<area shape="rect" id="node3" href="$structZ2SoundStarter.html" title=" " alt="" coords="181,167,294,192"/>
+<area shape="rect" id="node2" href="$classJASGlobalInstance.html" title=" " alt="" coords="166,5,309,45"/>
+<area shape="rect" id="node4" href="$structZ2LinkSoundStarter.html" title=" " alt="" coords="5,240,144,265"/>
+<area shape="rect" id="node6" href="$structZ2RideSoundStarter.html" title=" " alt="" coords="168,240,307,265"/>
+<area shape="rect" id="node8" href="$structZ2SpeechStarter.html" title=" " alt="" coords="331,240,451,265"/>
+<area shape="rect" id="node5" href="$structZ2CreatureLink.html" title=" " alt="" coords="19,313,130,339"/>
+<area shape="rect" id="node7" href="$classZ2CreatureRide.html" title=" " alt="" coords="181,313,293,339"/>
+</map>

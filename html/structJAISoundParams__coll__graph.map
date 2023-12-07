@@ -1,0 +1,8 @@
+<map id="JAISoundParams" name="JAISoundParams">
+<area shape="rect" id="node1" title=" " alt="" coords="76,343,200,368"/>
+<area shape="rect" id="node2" href="$structJAISoundParamsProperty.html" title=" " alt="" coords="5,255,177,280"/>
+<area shape="rect" id="node3" href="$structJAISoundParamsMove.html" title=" " alt="" coords="201,255,357,280"/>
+<area shape="rect" id="node4" href="$structJASSoundParams.html" title=" " alt="" coords="148,167,277,192"/>
+<area shape="rect" id="node5" href="$structJAISoundParamsTransition.html" title=" " alt="" coords="302,167,483,192"/>
+<area shape="rect" id="node6" href="$structJAISoundParamsTransition_1_1TTransition.html" title=" " alt="" coords="302,5,483,45"/>
+</map>

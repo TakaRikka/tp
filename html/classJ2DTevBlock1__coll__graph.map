@@ -1,0 +1,26 @@
+<map id="J2DTevBlock1" name="J2DTevBlock1">
+<area shape="rect" id="node1" title=" " alt="" coords="968,223,1075,248"/>
+<area shape="rect" id="node2" href="$classJ2DTevBlock.html" title=" " alt="" coords="655,5,755,31"/>
+<area shape="rect" id="node3" href="$classJ2DTevOrder.html" title=" " alt="" coords="655,55,754,80"/>
+<area shape="rect" id="node4" href="$structJ2DTevOrderInfo.html" title=" " alt="" coords="358,55,479,80"/>
+<area shape="rect" id="node5" href="$structJ2DGXColorS10.html" title=" " alt="" coords="646,104,763,129"/>
+<area shape="rect" id="node6" href="$struct__GXColorS10.html" title=" " alt="" coords="371,104,466,129"/>
+<area shape="rect" id="node7" href="$classJ2DTevStage.html" title=" " alt="" coords="654,153,755,179"/>
+<area shape="rect" id="node8" href="$structJUtility_1_1TColor.html" title=" " alt="" coords="125,667,232,692"/>
+<area shape="rect" id="node19" href="$structJUTFont.html" title=" " alt="" coords="382,639,455,664"/>
+<area shape="rect" id="node9" href="$struct__GXColor.html" title=" " alt="" coords="5,667,76,692"/>
+<area shape="rect" id="node10" href="$classJ2DTevSwapModeTable.html" title=" " alt="" coords="623,740,787,765"/>
+<area shape="rect" id="node11" href="$classJ2DIndTevStage.html" title=" " alt="" coords="645,789,764,815"/>
+<area shape="rect" id="node12" href="$classJUTTexture.html" title=" " alt="" coords="659,267,750,292"/>
+<area shape="rect" id="node13" href="$struct__GXTexObj.html" title=" " alt="" coords="374,329,463,355"/>
+<area shape="rect" id="node18" href="$structJUTResFont.html" title=" " alt="" coords="657,471,753,496"/>
+<area shape="rect" id="node14" href="$structResTIMG.html" title=" " alt="" coords="379,267,458,292"/>
+<area shape="rect" id="node15" href="$classJUTPalette.html" title=" " alt="" coords="375,195,463,220"/>
+<area shape="rect" id="node16" href="$struct__GXTlutObj.html" title=" " alt="" coords="133,171,224,196"/>
+<area shape="rect" id="node17" href="$structResTLUT.html" title=" " alt="" coords="139,220,218,245"/>
+<area shape="rect" id="node20" href="$structResFONT.html" title=" " alt="" coords="378,392,459,417"/>
+<area shape="rect" id="node21" href="$structResFONT_1_1INF1.html" title=" " alt="" coords="361,491,477,516"/>
+<area shape="rect" id="node22" href="$structResFONT_1_1WID1.html" title=" " alt="" coords="359,540,478,565"/>
+<area shape="rect" id="node23" href="$structResFONT_1_1GLY1.html" title=" " alt="" coords="358,589,479,615"/>
+<area shape="rect" id="node24" href="$structResFONT_1_1MAP1.html" title=" " alt="" coords="357,441,480,467"/>
+</map>

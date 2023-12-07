@@ -1,0 +1,10 @@
+<map id="JKRFileLoader" name="JKRFileLoader">
+<area shape="rect" id="node1" title=" " alt="" coords="294,79,402,104"/>
+<area shape="rect" id="node3" href="$structJKRArchive.html" title=" " alt="" coords="241,152,332,177"/>
+<area shape="rect" id="node8" href="$classJKRFileCache.html" title=" " alt="" coords="357,152,462,177"/>
+<area shape="rect" id="node2" href="$classJKRDisposer.html" title=" " alt="" coords="299,5,397,31"/>
+<area shape="rect" id="node4" href="$structJKRAramArchive.html" title=" " alt="" coords="5,225,128,251"/>
+<area shape="rect" id="node5" href="$classJKRCompArchive.html" title=" " alt="" coords="152,225,277,251"/>
+<area shape="rect" id="node6" href="$classJKRDvdArchive.html" title=" " alt="" coords="301,225,416,251"/>
+<area shape="rect" id="node7" href="$classJKRMemArchive.html" title=" " alt="" coords="440,225,560,251"/>
+</map>

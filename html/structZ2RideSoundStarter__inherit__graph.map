@@ -1,0 +1,8 @@
+<map id="Z2RideSoundStarter" name="Z2RideSoundStarter">
+<area shape="rect" id="node1" title=" " alt="" coords="85,255,223,280"/>
+<area shape="rect" id="node6" href="$classZ2CreatureRide.html" title=" " alt="" coords="98,328,210,353"/>
+<area shape="rect" id="node2" href="$structZ2SoundStarter.html" title=" " alt="" coords="97,181,211,207"/>
+<area shape="rect" id="node3" href="$structJAISoundStarter.html" title=" " alt="" coords="17,101,136,126"/>
+<area shape="rect" id="node4" href="$classJASGlobalInstance.html" title=" " alt="" coords="5,5,148,45"/>
+<area shape="rect" id="node5" href="$classJASGlobalInstance.html" title=" " alt="" coords="160,93,303,133"/>
+</map>

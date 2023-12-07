@@ -1,6 +1,26 @@
 var searchData=
 [
-  ['gxtexfilter8_32276',['GXTexFilter8',['../GX_8h.html#a0d356aa6edc8e7db81af86d4c31671b7',1,'GX.h']]],
-  ['gxtexfmt8_32277',['GXTexFmt8',['../GX_8h.html#a379ebef75327b0f5e176ee10bb5f6c2f',1,'GX.h']]],
-  ['gxtexwrapmode8_32278',['GXTexWrapMode8',['../GX_8h.html#a0edd939774ab25e3c5bc6acde7ce7386',1,'GX.h']]]
+  ['eaction_0',['EAction',['../classdaAlldie__c.html#a78c81511b77b6387b2b896b7f48dcb16',1,'daAlldie_c']]],
+  ['eallocdirection_1',['EAllocDirection',['../classJKRDvdRipper.html#add5351d092f559b4c2bef0b3e2199161',1,'JKRDvdRipper']]],
+  ['eallocmode_2',['EAllocMode',['../classJKRAramHeap.html#a205023c6aecd9390890fb673e5dc18c5',1,'JKRAramHeap::EAllocMode()'],['../structJKRExpHeap.html#a9a114aea69c03b0590e1615a86fedf0d',1,'JKRExpHeap::EAllocMode()']]],
+  ['econsoletype_3',['EConsoleType',['../classJUTConsole.html#ad7223c9ab1f27f5443a1149a7828f14c',1,'JUTConsole']]],
+  ['edrawdone_4',['EDrawDone',['../structJFWDisplay.html#af84166a3fe71eef3b55b7de7c8f219c2',1,'JFWDisplay']]],
+  ['edrawtype_5',['EDrawType',['../structJ3DDrawBuffer.html#a1d4387294ed1574b058c9cf646532d1f',1,'J3DDrawBuffer']]],
+  ['einfopage_6',['EInfoPage',['../classJUTException.html#a816c521deb969255e2de0aadc6ccecee',1,'JUTException']]],
+  ['eiostate_7',['EIoState',['../JSUIosBase_8h.html#a61dd3f9cb1b6fb3089120128760e0642',1,'JSUIosBase.h']]],
+  ['emountdirection_8',['EMountDirection',['../structJKRArchive.html#adcf19e3c6e754c27610ed30a8acd1b0f',1,'JKRArchive']]],
+  ['emountmode_9',['EMountMode',['../structJKRArchive.html#afa04710b1fffa15f661f0dd3a66bba3e',1,'JKRArchive']]],
+  ['epadport_10',['EPadPort',['../structJUTGamePad.html#a3990b295576728aa2d2615d6e1eb7721',1,'JUTGamePad']]],
+  ['epagingtype_11',['EPagingType',['../structJUTCacheFont.html#a818c79531f40faba514471be75b8616a',1,'JUTCacheFont']]],
+  ['erumble_12',['ERumble',['../structJUTGamePad_1_1CRumble.html#aa36f3f11ae6dd87c2cb7488c10178796',1,'JUTGamePad::CRumble']]],
+  ['esorttype_13',['ESortType',['../structJ3DDrawBuffer.html#aadf9ff2a7ac4f162f53c25e1d14481f1',1,'J3DDrawBuffer']]],
+  ['estate_14',['EState',['../classdAttention__c.html#ac5ec59347fd27d93b1370a8df820d66b',1,'dAttention_c']]],
+  ['estatus_15',['EStatus',['../structJUTFader.html#a606d584eb413fdd3bae4105c7db0e35b',1,'JUTFader']]],
+  ['estickdir_16',['EStickDir',['../structSTControl.html#aae5481b3246ccaf69c1d1f7e156a46bb',1,'STControl']]],
+  ['estickmode_17',['EStickMode',['../structJUTGamePad.html#abca75dfff195b24734a99dea1527843b',1,'JUTGamePad']]],
+  ['eventmode_18',['EventMode',['../d__event_8h.html#a0a8ba9df0e4b60821889d34ab83e47fe',1,'d_event.h']]],
+  ['eventstatus_19',['EventStatus',['../d__event_8h.html#ac03f53915dd13820e0dfd3b3c93bed17',1,'d_event.h']]],
+  ['eventtype_20',['EventType',['../d__event_8h.html#a2628ea8d12e8b2563c32f05dc7fff6fa',1,'d_event.h']]],
+  ['ewhichstick_21',['EWhichStick',['../structJUTGamePad.html#a4c483e23c50c5c317b979d7edd70ab6b',1,'JUTGamePad']]],
+  ['exfbnumber_22',['EXfbNumber',['../classJUTXfb.html#afdd1587f1b4b7c8868f78ac2065e6bc6',1,'JUTXfb']]]
 ];

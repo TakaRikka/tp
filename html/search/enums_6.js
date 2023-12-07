@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['itemslots_32279',['ItemSlots',['../d__save_8h.html#a9d3885001fb8bb3097ddc87d7fd1c69f',1,'d_save.h']]],
-  ['itemtable_32280',['ItemTable',['../d__save_8h.html#a0a48966e59817e2d4685d1f0b44b33f2',1,'d_save.h']]]
+  ['fdversion_0',['fdversion',['../fdlibm_8h.html#ae15fd6df5a9fbcbedffca4294b04188a',1,'fdlibm.h']]],
+  ['flags_5fe_1',['Flags_e',['../classcBgW.html#a42938bf74683806ca89731e935eed652',1,'cBgW']]],
+  ['fopacm_5fcarry_2',['fopAcM_CARRY',['../f__op__actor__mng_8h.html#a9a8f0caf5338c590123da43b40d903ab',1,'f_op_actor_mng.h']]]
 ];

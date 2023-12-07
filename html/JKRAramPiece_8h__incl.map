@@ -1,8 +1,11 @@
-<map id="include/JSystem/JKernel/JKRAramPiece/JKRAramPiece.h" name="include/JSystem/JKernel/JKRAramPiece/JKRAramPiece.h">
-<area shape="rect" id="node1" title=" " alt="" coords="152,5,371,47"/>
-<area shape="rect" id="node2" href="$JSUList_8h.html" title=" " alt="" coords="5,169,187,211"/>
-<area shape="rect" id="node3" href="$types_8h.html" title=" " alt="" coords="221,259,329,285"/>
-<area shape="rect" id="node4" href="$ARQ_8h.html" title=" " alt="" coords="261,95,336,121"/>
-<area shape="rect" id="node5" href="$OS_8h.html" title=" " alt="" coords="360,95,429,121"/>
-<area shape="rect" id="node6" href="$dvd_8h.html" title=" " alt="" coords="363,177,442,203"/>
+<map id="include/JSystem/JKernel/JKRAramPiece.h" name="include/JSystem/JKernel/JKRAramPiece.h">
+<area shape="rect" id="node1" title=" " alt="" coords="211,5,377,45"/>
+<area shape="rect" id="node2" href="$JSUList_8h.html" title=" " alt="" coords="5,167,196,192"/>
+<area shape="rect" id="node5" href="$arq_8h.html" title=" " alt="" coords="160,240,271,265"/>
+<area shape="rect" id="node6" href="$OSMessage_8h.html" title=" " alt="" coords="272,93,439,119"/>
+<area shape="rect" id="node9" href="$OSMutex_8h.html" title=" " alt="" coords="463,93,613,119"/>
+<area shape="rect" id="node3" href="$types_8h.html" title=" " alt="" coords="161,313,269,339"/>
+<area shape="rect" id="node4" href="$stddef_8h.html" title=" " alt="" coords="125,387,306,427"/>
+<area shape="rect" id="node7" href="$OSThread_8h.html" title=" " alt="" coords="297,167,451,192"/>
+<area shape="rect" id="node8" href="$OSContext_8h.html" title=" " alt="" coords="295,240,453,265"/>
 </map>

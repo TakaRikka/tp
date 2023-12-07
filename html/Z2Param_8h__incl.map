@@ -1,4 +1,5 @@
-<map id="include/Z2AudioLib/Z2Param/Z2Param.h" name="include/Z2AudioLib/Z2Param/Z2Param.h">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,152,47"/>
-<area shape="rect" id="node2" href="$types_8h.html" title=" " alt="" coords="25,95,133,121"/>
+<map id="include/Z2AudioLib/Z2Param.h" name="include/Z2AudioLib/Z2Param.h">
+<area shape="rect" id="node1" title=" " alt="" coords="29,5,163,45"/>
+<area shape="rect" id="node2" href="$types_8h.html" title=" " alt="" coords="42,93,150,119"/>
+<area shape="rect" id="node3" href="$stddef_8h.html" title=" " alt="" coords="5,167,187,207"/>
 </map>

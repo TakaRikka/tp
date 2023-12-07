@@ -1,0 +1,10 @@
+<map id="include/JSystem/JFramework" name="include/JSystem/JFramework">
+<area shape="rect" id="node1" href="dir_25682d7fe27d5da48e7af3ae8c2abb7f.html" title="JUtility" alt="" coords="27,125,90,151"/>
+<area shape="rect" id="node2" href="dir_45593f23b58a9cb34ecfe1ccd7e4e81f.html" title="JSupport" alt="" coords="115,125,189,151"/>
+<area shape="rect" id="node3" href="dir_46476ff8a47134c2cbdbc6a41dfe8c11.html" title="JFramework" alt="" coords="94,52,189,77"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000845_000873.html" title="3" alt="" coords="88,112,96,127"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000845_000869.html" title="1" alt="" coords="152,98,160,113"/>
+<area shape="rect" id="node4" href="dir_b778c3f297ab88300258a2935792c8cc.html" title="dolphin" alt="" coords="214,125,277,151"/>
+<area shape="rect" id="edge3-headlabel" href="dir_000845_000786.html" title="3" alt="" coords="214,100,222,115"/>
+<area shape="rect" id="clust1" href="dir_4f0979a7f5e3194619cde56505e372d8.html" title="JSystem" alt="" coords="16,16,200,161"/>
+</map>

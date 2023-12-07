@@ -1,5 +1,10 @@
 <map id="mDoExt_bpkAnm" name="mDoExt_bpkAnm">
-<area shape="rect" id="node1" title=" " alt="" coords="9,184,131,211"/>
-<area shape="rect" id="node2" href="$classmDoExt__baseAnm.html" title=" " alt="" coords="5,95,135,121"/>
-<area shape="rect" id="node3" href="$classJ3DFrameCtrl.html" title=" " alt="" coords="19,5,121,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="78,357,201,383"/>
+<area shape="rect" id="node2" href="$structmDoExt__baseAnm.html" title=" " alt="" coords="5,269,135,295"/>
+<area shape="rect" id="node3" href="$structJ3DFrameCtrl.html" title=" " alt="" coords="19,181,121,207"/>
+<area shape="rect" id="node4" href="$classJ3DAnmColor.html" title=" " alt="" coords="159,269,261,295"/>
+<area shape="rect" id="node5" href="$classJ3DAnmBase.html" title=" " alt="" coords="152,181,255,207"/>
+<area shape="rect" id="node6" href="$structJUTNameTab.html" title=" " alt="" coords="279,181,383,207"/>
+<area shape="rect" id="node7" href="$structResNTAB.html" title=" " alt="" coords="291,93,372,119"/>
+<area shape="rect" id="node8" href="$structResNTAB_1_1Entry.html" title=" " alt="" coords="273,5,389,31"/>
 </map>

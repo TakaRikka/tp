@@ -1,6 +1,8 @@
 <map id="include/JSystem/JAudio2/JAUAudioArcInterpreter.h" name="include/JSystem/JAudio2/JAUAudioArcInterpreter.h">
-<area shape="rect" id="node1" title=" " alt="" coords="139,5,314,47"/>
-<area shape="rect" id="node2" href="$Z2AudioMgr_8cpp.html" title=" " alt="" coords="5,109,216,136"/>
-<area shape="rect" id="node3" href="$Z2AudioArcLoader_8h.html" title=" " alt="" coords="241,95,447,151"/>
-<area shape="rect" id="node4" href="$Z2AudioArcLoader_8cpp.html" title=" " alt="" coords="252,199,436,240"/>
+<area shape="rect" id="node1" title=" " alt="" coords="202,5,377,45"/>
+<area shape="rect" id="node2" href="$JAUAudioArcLoader_8h.html" title=" " alt="" coords="103,93,273,133"/>
+<area shape="rect" id="node6" href="$JAUAudioArcInterpreter_8cpp.html" title=" " alt="" coords="297,93,485,133"/>
+<area shape="rect" id="node3" href="$Z2AudioArcLoader_8h.html" title=" " alt="" coords="25,181,169,221"/>
+<area shape="rect" id="node5" href="$JAUAudioArcLoader_8cpp.html" title=" " alt="" coords="194,181,363,221"/>
+<area shape="rect" id="node4" href="$Z2AudioArcLoader_8cpp.html" title=" " alt="" coords="5,269,189,309"/>
 </map>

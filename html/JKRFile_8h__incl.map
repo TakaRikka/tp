@@ -1,6 +1,7 @@
-<map id="include/JSystem/JKernel/JKRFile/JKRFile.h" name="include/JSystem/JKernel/JKRFile/JKRFile.h">
-<area shape="rect" id="node1" title=" " alt="" coords="122,5,289,47"/>
-<area shape="rect" id="node2" href="$JKRDisposer_8h.html" title=" " alt="" coords="35,95,237,136"/>
-<area shape="rect" id="node4" href="$types_8h.html" title=" " alt="" coords="170,273,278,300"/>
-<area shape="rect" id="node3" href="$JSUList_8h.html" title=" " alt="" coords="5,184,187,225"/>
+<map id="include/JSystem/JKernel/JKRFile.h" name="include/JSystem/JKernel/JKRFile.h">
+<area shape="rect" id="node1" title=" " alt="" coords="27,5,194,45"/>
+<area shape="rect" id="node2" href="$JKRDisposer_8h.html" title=" " alt="" coords="5,93,216,119"/>
+<area shape="rect" id="node3" href="$JSUList_8h.html" title=" " alt="" coords="15,167,206,192"/>
+<area shape="rect" id="node4" href="$types_8h.html" title=" " alt="" coords="57,240,165,265"/>
+<area shape="rect" id="node5" href="$stddef_8h.html" title=" " alt="" coords="20,313,201,353"/>
 </map>

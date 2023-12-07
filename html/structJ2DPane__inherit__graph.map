@@ -1,0 +1,10 @@
+<map id="J2DPane" name="J2DPane">
+<area shape="rect" id="node1" title=" " alt="" coords="185,5,259,31"/>
+<area shape="rect" id="node2" href="$structJ2DPicture.html" title=" " alt="" coords="12,79,99,104"/>
+<area shape="rect" id="node4" href="$structJ2DScreen.html" title=" " alt="" coords="123,79,209,104"/>
+<area shape="rect" id="node5" href="$structJ2DTextBox.html" title=" " alt="" coords="233,79,325,104"/>
+<area shape="rect" id="node7" href="$classJ2DWindow.html" title=" " alt="" coords="357,79,447,104"/>
+<area shape="rect" id="node3" href="$structJ2DPictureEx.html" title=" " alt="" coords="5,152,105,177"/>
+<area shape="rect" id="node6" href="$structJ2DTextBoxEx.html" title=" " alt="" coords="222,152,329,177"/>
+<area shape="rect" id="node8" href="$structJ2DWindowEx.html" title=" " alt="" coords="353,152,459,177"/>
+</map>

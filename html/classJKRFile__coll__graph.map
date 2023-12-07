@@ -1,11 +1,19 @@
 <map id="JKRFile" name="JKRFile">
-<area shape="rect" id="node1" title=" " alt="" coords="445,401,513,427"/>
-<area shape="rect" id="node2" href="$classJKRDisposer.html" title=" " alt="" coords="349,303,448,329"/>
-<area shape="rect" id="node3" href="$classJKRHeap.html" title=" " alt="" coords="234,401,313,427"/>
-<area shape="rect" id="node4" href="$classJSUTree.html" title=" " alt="" coords="5,303,157,329"/>
-<area shape="rect" id="node5" href="$structOSMutex.html" title=" " alt="" coords="182,303,258,329"/>
-<area shape="rect" id="node6" href="$classJSUList.html" title=" " alt="" coords="215,163,383,189"/>
-<area shape="rect" id="node7" href="$classJSUPtrList.html" title=" " alt="" coords="305,5,391,32"/>
-<area shape="rect" id="node8" href="$classJSUPtrLink.html" title=" " alt="" coords="371,111,461,137"/>
-<area shape="rect" id="node9" href="$classJSULink.html" title=" " alt="" coords="333,213,504,240"/>
+<area shape="rect" id="node1" title=" " alt="" coords="119,411,187,436"/>
+<area shape="rect" id="node2" href="$classJKRDisposer.html" title=" " alt="" coords="105,299,204,324"/>
+<area shape="rect" id="node3" href="$structJKRHeap.html" title=" " alt="" coords="213,411,291,436"/>
+<area shape="rect" id="node4" href="$structOSMutex.html" title=" " alt="" coords="745,299,821,324"/>
+<area shape="rect" id="node6" href="$structOSThread.html" title=" " alt="" coords="625,508,706,533"/>
+<area shape="rect" id="node9" href="$structOSMutexQueue.html" title=" " alt="" coords="620,411,735,436"/>
+<area shape="rect" id="node10" href="$structOSMutexLink.html" title=" " alt="" coords="847,411,948,436"/>
+<area shape="rect" id="node5" href="$structOSThreadQueue.html" title=" " alt="" coords="815,611,934,636"/>
+<area shape="rect" id="node8" href="$structOSThreadLink.html" title=" " alt="" coords="583,611,689,636"/>
+<area shape="rect" id="node7" href="$structOSContext.html" title=" " alt="" coords="424,411,509,436"/>
+<area shape="rect" id="node11" href="$classJSUTree.html" title=" " alt="" coords="231,299,383,324"/>
+<area shape="rect" id="node12" href="$classJSUList.html" title=" " alt="" coords="261,161,361,187"/>
+<area shape="rect" id="node13" href="$structJSUPtrList.html" title=" " alt="" coords="246,5,333,31"/>
+<area shape="rect" id="node14" href="$structJSUPtrLink.html" title=" " alt="" coords="133,110,224,135"/>
+<area shape="rect" id="node16" href="$classJSUList.html" title=" " alt="" coords="368,161,536,187"/>
+<area shape="rect" id="node15" href="$classJSULink.html" title=" " alt="" coords="201,211,303,236"/>
+<area shape="rect" id="node17" href="$classJSULink.html" title=" " alt="" coords="5,211,176,236"/>
 </map>

@@ -1,0 +1,6 @@
+<map id="Z2AudibleChannel" name="Z2AudibleChannel">
+<area shape="rect" id="node1" title=" " alt="" coords="48,181,175,207"/>
+<area shape="rect" id="node2" href="$structJASSoundParams.html" title=" " alt="" coords="5,93,135,119"/>
+<area shape="rect" id="node3" href="$structZ2AudibleRelPos.html" title=" " alt="" coords="159,93,282,119"/>
+<area shape="rect" id="node4" href="$structJGeometry_1_1TVec3_3_01f32_01_4.html" title=" " alt="" coords="136,5,305,31"/>
+</map>

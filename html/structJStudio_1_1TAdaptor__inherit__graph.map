@@ -1,0 +1,18 @@
+<map id="JStudio::TAdaptor" name="JStudio::TAdaptor">
+<area shape="rect" id="node1" title=" " alt="" coords="5,215,131,241"/>
+<area shape="rect" id="node2" href="$structJStudio_1_1TAdaptor__actor.html" title=" " alt="" coords="191,18,352,43"/>
+<area shape="rect" id="node4" href="$structJStudio_1_1TAdaptor__ambientLight.html" title=" " alt="" coords="182,73,361,113"/>
+<area shape="rect" id="node6" href="$structJStudio_1_1TAdaptor__camera.html" title=" " alt="" coords="184,141,359,166"/>
+<area shape="rect" id="node8" href="$structJStudio_1_1TAdaptor__fog.html" title=" " alt="" coords="196,190,347,215"/>
+<area shape="rect" id="node10" href="$structJStudio_1_1TAdaptor__light.html" title=" " alt="" coords="193,239,349,265"/>
+<area shape="rect" id="node12" href="$structJStudio_1_1TAdaptor__message.html" title=" " alt="" coords="179,289,364,314"/>
+<area shape="rect" id="node13" href="$structJStudio_1_1TAdaptor__particle.html" title=" " alt="" coords="184,338,359,363"/>
+<area shape="rect" id="node15" href="$structJStudio_1_1TAdaptor__sound.html" title=" " alt="" coords="188,391,355,417"/>
+<area shape="rect" id="node3" href="$structJStudio__JStage_1_1TAdaptor__actor.html" title=" " alt="" coords="425,5,598,45"/>
+<area shape="rect" id="node5" href="$structJStudio__JStage_1_1TAdaptor__ambientLight.html" title=" " alt="" coords="425,69,598,109"/>
+<area shape="rect" id="node7" href="$structJStudio__JStage_1_1TAdaptor__camera.html" title=" " alt="" coords="425,133,598,173"/>
+<area shape="rect" id="node9" href="$structJStudio__JStage_1_1TAdaptor__fog.html" title=" " alt="" coords="412,198,611,223"/>
+<area shape="rect" id="node11" href="$structJStudio__JStage_1_1TAdaptor__light.html" title=" " alt="" coords="425,248,598,288"/>
+<area shape="rect" id="node14" href="$structJStudio__JParticle_1_1TAdaptor__particle.html" title=" " alt="" coords="446,327,577,367"/>
+<area shape="rect" id="node16" href="$structJStudio__JAudio2_1_1TAdaptor__sound.html" title=" " alt="" coords="422,391,601,431"/>
+</map>

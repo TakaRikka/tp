@@ -1,6 +1,9 @@
 <map id="Z2SoundObjBase" name="Z2SoundObjBase">
-<area shape="rect" id="node1" title=" " alt="" coords="49,229,173,256"/>
-<area shape="rect" id="node2" href="$classZ2SoundHandles.html" title=" " alt="" coords="49,155,172,181"/>
-<area shape="rect" id="node3" href="$classJSUList.html" title=" " alt="" coords="5,80,216,107"/>
-<area shape="rect" id="node4" href="$classJSUPtrList.html" title=" " alt="" coords="67,5,154,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="87,225,211,251"/>
+<area shape="rect" id="node5" href="$classZ2SoundObjAnime.html" title=" " alt="" coords="5,299,136,324"/>
+<area shape="rect" id="node7" href="$classZ2SoundObjSimple.html" title=" " alt="" coords="161,299,295,324"/>
+<area shape="rect" id="node2" href="$classZ2SoundHandles.html" title=" " alt="" coords="88,152,211,177"/>
+<area shape="rect" id="node3" href="$classJSUList.html" title=" " alt="" coords="44,79,255,104"/>
+<area shape="rect" id="node4" href="$structJSUPtrList.html" title=" " alt="" coords="106,5,193,31"/>
+<area shape="rect" id="node6" href="$classmDoExt__zelAnime.html" title=" " alt="" coords="7,372,134,397"/>
 </map>

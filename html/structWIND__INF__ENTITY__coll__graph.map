@@ -1,0 +1,6 @@
+<map id="WIND_INF_ENTITY" name="WIND_INF_ENTITY">
+<area shape="rect" id="node1" title=" " alt="" coords="5,363,145,388"/>
+<area shape="rect" id="node2" href="$structWIND__INFLUENCE.html" title=" " alt="" coords="6,275,145,300"/>
+<area shape="rect" id="node3" href="$structcXyz.html" title=" " alt="" coords="50,126,101,151"/>
+<area shape="rect" id="node4" href="$structVec.html" title=" " alt="" coords="53,5,98,31"/>
+</map>

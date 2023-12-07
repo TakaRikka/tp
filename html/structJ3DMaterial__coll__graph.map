@@ -1,0 +1,44 @@
+<map id="J3DMaterial" name="J3DMaterial">
+<area shape="rect" id="node1" title=" " alt="" coords="1605,286,1695,311"/>
+<area shape="rect" id="node2" href="$classJ3DShape.html" title=" " alt="" coords="1883,422,1966,447"/>
+<area shape="rect" id="node14" href="$structJ3DJoint.html" title=" " alt="" coords="1888,263,1961,289"/>
+<area shape="rect" id="node3" href="$structVec.html" title=" " alt="" coords="1627,142,1673,167"/>
+<area shape="rect" id="node4" href="$struct__GXVtxDescList.html" title=" " alt="" coords="1444,618,1563,643"/>
+<area shape="rect" id="node5" href="$struct__GXAttr.html" title=" " alt="" coords="996,598,1065,623"/>
+<area shape="rect" id="node11" href="$struct__GXVtxAttrFmtList.html" title=" " alt="" coords="1267,571,1401,597"/>
+<area shape="rect" id="node6" href="$classJ3DShapeMtx.html" title=" " alt="" coords="1599,437,1701,462"/>
+<area shape="rect" id="node7" href="$classJ3DShapeDraw.html" title=" " alt="" coords="1594,387,1706,413"/>
+<area shape="rect" id="node8" href="$classJ3DCurrentMtx.html" title=" " alt="" coords="1280,466,1388,491"/>
+<area shape="rect" id="node9" href="$classJ3DCurrentMtxInfo.html" title=" " alt="" coords="965,466,1096,491"/>
+<area shape="rect" id="node10" href="$structJ3DVertexData.html" title=" " alt="" coords="1595,550,1705,575"/>
+<area shape="rect" id="node12" href="$struct__GXColor.html" title=" " alt="" coords="1295,522,1373,547"/>
+<area shape="rect" id="node13" href="$structJ3DDrawMtxData.html" title=" " alt="" coords="1589,663,1711,689"/>
+<area shape="rect" id="node17" href="$structJ3DJointTree.html" title=" " alt="" coords="2155,471,2253,497"/>
+<area shape="rect" id="node15" href="$structJ3DMtxCalc.html" title=" " alt="" coords="2623,353,2715,378"/>
+<area shape="rect" id="node16" href="$classJ3DMtxBuffer.html" title=" " alt="" coords="2405,442,2505,467"/>
+<area shape="rect" id="node18" href="$structJ3DModelHierarchy.html" title=" " alt="" coords="1857,471,1992,497"/>
+<area shape="rect" id="node19" href="$structJUTNameTab.html" title=" " alt="" coords="435,343,539,369"/>
+<area shape="rect" id="node32" href="$classJ3DAnmColor.html" title=" " alt="" coords="678,237,781,262"/>
+<area shape="rect" id="node35" href="$structJ3DAnmTextureSRTKey.html" title=" " alt="" coords="648,138,811,163"/>
+<area shape="rect" id="node37" href="$structJ3DAnmTexPattern.html" title=" " alt="" coords="662,187,797,213"/>
+<area shape="rect" id="node39" href="$structJ3DAnmTevRegKey.html" title=" " alt="" coords="660,89,799,114"/>
+<area shape="rect" id="node20" href="$structResNTAB.html" title=" " alt="" coords="224,343,305,369"/>
+<area shape="rect" id="node21" href="$structResNTAB_1_1Entry.html" title=" " alt="" coords="5,343,121,369"/>
+<area shape="rect" id="node22" href="$structJ3DTransformInfo.html" title=" " alt="" coords="1587,53,1713,78"/>
+<area shape="rect" id="node23" href="$structJGeometry_1_1TVec3_3_01f32_01_4.html" title=" " alt="" coords="1249,9,1419,34"/>
+<area shape="rect" id="node24" href="$structJGeometry_1_1TVec3_3_01s16_01_4.html" title=" " alt="" coords="1248,58,1420,83"/>
+<area shape="rect" id="node25" href="$structJ3DColorBlock.html" title=" " alt="" coords="1280,310,1388,335"/>
+<area shape="rect" id="node26" href="$structJ3DTexGenBlock.html" title=" " alt="" coords="1273,359,1395,385"/>
+<area shape="rect" id="node27" href="$structJ3DTevBlock.html" title=" " alt="" coords="1284,162,1384,187"/>
+<area shape="rect" id="node28" href="$classJ3DIndBlock.html" title=" " alt="" coords="1286,211,1382,237"/>
+<area shape="rect" id="node29" href="$structJ3DPEBlock.html" title=" " alt="" coords="1287,261,1381,286"/>
+<area shape="rect" id="node30" href="$structJ3DMaterialAnm.html" title=" " alt="" coords="1275,113,1393,138"/>
+<area shape="rect" id="node31" href="$structJ3DMatColorAnm.html" title=" " alt="" coords="969,237,1093,262"/>
+<area shape="rect" id="node33" href="$classJ3DAnmBase.html" title=" " alt="" coords="435,139,538,165"/>
+<area shape="rect" id="node34" href="$structJ3DTexMtxAnm.html" title=" " alt="" coords="973,138,1088,163"/>
+<area shape="rect" id="node36" href="$structJ3DTexNoAnm.html" title=" " alt="" coords="975,187,1086,213"/>
+<area shape="rect" id="node38" href="$structJ3DTevColorAnm.html" title=" " alt="" coords="969,89,1093,114"/>
+<area shape="rect" id="node40" href="$structJ3DTevKColorAnm.html" title=" " alt="" coords="964,39,1097,65"/>
+<area shape="rect" id="node41" href="$structJ3DDisplayListObj.html" title=" " alt="" coords="1269,409,1399,434"/>
+<area shape="rect" id="node42" href="$structGDLObj.html" title=" " alt="" coords="996,409,1065,434"/>
+</map>

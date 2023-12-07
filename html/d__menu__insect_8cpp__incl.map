@@ -1,0 +1,52 @@
+<map id="src/d/menu/d_menu_insect.cpp" name="src/d/menu/d_menu_insect.cpp">
+<area shape="rect" id="node1" title=" " alt="" coords="2337,5,2540,31"/>
+<area shape="rect" id="node2" href="$d__menu__insect_8h.html" title=" " alt="" coords="58,93,225,119"/>
+<area shape="rect" id="node4" href="$types_8h.html" title=" " alt="" coords="727,357,835,383"/>
+<area shape="rect" id="node6" href="$J2DTextBox_8h.html" title=" " alt="" coords="1644,86,1831,126"/>
+<area shape="rect" id="node9" href="$JKRExpHeap_8h.html" title=" " alt="" coords="1855,93,2067,119"/>
+<area shape="rect" id="node11" href="$JKRMemArchive_8h.html" title=" " alt="" coords="573,93,806,119"/>
+<area shape="rect" id="node13" href="$stdio_8h.html" title=" " alt="" coords="2091,93,2199,119"/>
+<area shape="rect" id="node17" href="$d__com__inf__game_8h.html" title=" " alt="" coords="996,93,1167,119"/>
+<area shape="rect" id="node28" href="$d__select__cursor_8h.html" title=" " alt="" coords="249,93,383,119"/>
+<area shape="rect" id="node30" href="$d__meter2__info_8h.html" title=" " alt="" coords="1999,189,2161,214"/>
+<area shape="rect" id="node31" href="$d__meter__HIO_8h.html" title=" " alt="" coords="1477,189,1635,214"/>
+<area shape="rect" id="node34" href="$d__msg__string_8h.html" title=" " alt="" coords="2223,93,2374,119"/>
+<area shape="rect" id="node35" href="$dol2asm_8h.html" title=" " alt="" coords="2398,93,2479,119"/>
+<area shape="rect" id="node36" href="$m__Do__controller__pad_8h.html" title=" " alt="" coords="2504,86,2659,126"/>
+<area shape="rect" id="node37" href="$m__Do__graphic_8h.html" title=" " alt="" coords="1127,277,1281,302"/>
+<area shape="rect" id="node38" href="$d__msg__scrn__3select_8h.html" title=" " alt="" coords="1305,269,1455,309"/>
+<area shape="rect" id="node39" title=" " alt="" coords="2683,79,2935,133"/>
+<area shape="rect" id="node40" title=" " alt="" coords="2960,86,3171,126"/>
+<area shape="rect" id="node41" title=" " alt="" coords="3195,86,3405,126"/>
+<area shape="rect" id="node42" title=" " alt="" coords="3429,86,3643,126"/>
+<area shape="rect" id="node43" title=" " alt="" coords="3667,86,3906,126"/>
+<area shape="rect" id="node44" title=" " alt="" coords="3931,79,4123,133"/>
+<area shape="rect" id="node45" title=" " alt="" coords="4147,79,4354,133"/>
+<area shape="rect" id="node46" title=" " alt="" coords="4379,79,4573,133"/>
+<area shape="rect" id="node47" title=" " alt="" coords="4597,79,4784,133"/>
+<area shape="rect" id="node48" title=" " alt="" coords="4809,79,5002,133"/>
+<area shape="rect" id="node49" title=" " alt="" coords="5027,86,5269,126"/>
+<area shape="rect" id="node50" title=" " alt="" coords="5293,86,5496,126"/>
+<area shape="rect" id="node3" href="$d__drawlist_8h.html" title=" " alt="" coords="58,189,161,214"/>
+<area shape="rect" id="node5" href="$global_8h.html" title=" " alt="" coords="623,277,689,302"/>
+<area shape="rect" id="node7" href="$J2DMaterial_8h.html" title=" " alt="" coords="2185,189,2404,214"/>
+<area shape="rect" id="node8" href="$J2DPane_8h.html" title=" " alt="" coords="2428,189,2631,214"/>
+<area shape="rect" id="node10" href="$JKRHeap_8h.html" title=" " alt="" coords="2655,189,2846,214"/>
+<area shape="rect" id="node12" href="$JKRArchive_8h.html" title=" " alt="" coords="333,189,537,214"/>
+<area shape="rect" id="node14" href="$char__io_8h.html" title=" " alt="" coords="2871,181,3052,221"/>
+<area shape="rect" id="node15" href="$file__io_8h.html" title=" " alt="" coords="3076,181,3257,221"/>
+<area shape="rect" id="node16" href="$printf_8h.html" title=" " alt="" coords="3281,181,3463,221"/>
+<area shape="rect" id="node18" href="$d__bg__s_8h.html" title=" " alt="" coords="890,189,993,214"/>
+<area shape="rect" id="node19" href="$d__cc__s_8h.html" title=" " alt="" coords="613,189,715,214"/>
+<area shape="rect" id="node20" href="$d__attention_8h.html" title=" " alt="" coords="1119,189,1225,214"/>
+<area shape="rect" id="node21" href="$d__resorce_8h.html" title=" " alt="" coords="1250,189,1350,214"/>
+<area shape="rect" id="node22" href="$d__vibration_8h.html" title=" " alt="" coords="1660,189,1767,214"/>
+<area shape="rect" id="node24" href="$d__event_8h.html" title=" " alt="" coords="740,189,865,214"/>
+<area shape="rect" id="node25" href="$d__event__manager_8h.html" title=" " alt="" coords="1791,189,1974,214"/>
+<area shape="rect" id="node26" href="$d__particle_8h.html" title=" " alt="" coords="765,277,910,302"/>
+<area shape="rect" id="node27" href="$f__op__camera__mng_8h.html" title=" " alt="" coords="935,277,1103,302"/>
+<area shape="rect" id="node23" href="$c__xyz_8h.html" title=" " alt="" coords="1852,269,2007,309"/>
+<area shape="rect" id="node29" href="$d__select__icon_8h.html" title=" " alt="" coords="185,189,308,214"/>
+<area shape="rect" id="node32" href="$TColor_8h.html" title=" " alt="" coords="1479,277,1649,302"/>
+<area shape="rect" id="node33" href="$c__sxyz_8h.html" title=" " alt="" coords="1673,269,1828,309"/>
+</map>

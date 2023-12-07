@@ -1,13 +1,24 @@
 <map id="JStudio::object::TObject_ID" name="JStudio::object::TObject_ID">
-<area shape="rect" id="node1" title=" " alt="" coords="215,297,393,323"/>
-<area shape="rect" id="node3" href="$structJStudio_1_1fvb_1_1TObject.html" title=" " alt="" coords="441,202,584,229"/>
-<area shape="rect" id="node10" href="$classJStudio_1_1stb_1_1TObject.html" title=" " alt="" coords="441,322,584,349"/>
-<area shape="rect" id="node2" href="$classJStudio_1_1object_1_1TIDData.html" title=" " alt="" coords="5,297,167,323"/>
-<area shape="rect" id="node4" href="$structJStudio_1_1fvb_1_1TObject__composite.html" title=" " alt="" coords="644,5,787,47"/>
-<area shape="rect" id="node5" href="$structJStudio_1_1fvb_1_1TObject__constant.html" title=" " alt="" coords="644,71,787,112"/>
-<area shape="rect" id="node6" href="$structJStudio_1_1fvb_1_1TObject__hermite.html" title=" " alt="" coords="644,136,787,177"/>
-<area shape="rect" id="node7" href="$structJStudio_1_1fvb_1_1TObject__list.html" title=" " alt="" coords="632,202,799,229"/>
-<area shape="rect" id="node8" href="$structJStudio_1_1fvb_1_1TObject__list__parameter.html" title=" " alt="" coords="644,253,787,295"/>
-<area shape="rect" id="node9" href="$structJStudio_1_1fvb_1_1TObject__transition.html" title=" " alt="" coords="644,319,787,360"/>
-<area shape="rect" id="node11" href="$classJStudio_1_1stb_1_1TObject__control.html" title=" " alt="" coords="644,384,787,425"/>
+<area shape="rect" id="node1" title=" " alt="" coords="215,234,393,259"/>
+<area shape="rect" id="node3" href="$structJStudio_1_1ctb_1_1TObject.html" title=" " alt="" coords="441,85,584,110"/>
+<area shape="rect" id="node5" href="$classJStudio_1_1fvb_1_1TObject.html" title=" " alt="" coords="441,234,584,259"/>
+<area shape="rect" id="node12" href="$classJStudio_1_1stb_1_1TObject.html" title=" " alt="" coords="441,441,584,466"/>
+<area shape="rect" id="node2" href="$structJStudio_1_1object_1_1TIDData.html" title=" " alt="" coords="5,234,167,259"/>
+<area shape="rect" id="node4" href="$structJStudio_1_1ctb_1_1TObject__TxyzRy.html" title=" " alt="" coords="644,5,787,45"/>
+<area shape="rect" id="node6" href="$classJStudio_1_1fvb_1_1TObject__composite.html" title=" " alt="" coords="644,69,787,109"/>
+<area shape="rect" id="node7" href="$classJStudio_1_1fvb_1_1TObject__constant.html" title=" " alt="" coords="644,133,787,173"/>
+<area shape="rect" id="node8" href="$structJStudio_1_1fvb_1_1TObject__hermite.html" title=" " alt="" coords="644,197,787,237"/>
+<area shape="rect" id="node9" href="$classJStudio_1_1fvb_1_1TObject__list.html" title=" " alt="" coords="632,262,799,287"/>
+<area shape="rect" id="node10" href="$classJStudio_1_1fvb_1_1TObject__list__parameter.html" title=" " alt="" coords="644,312,787,352"/>
+<area shape="rect" id="node11" href="$classJStudio_1_1fvb_1_1TObject__transition.html" title=" " alt="" coords="644,376,787,416"/>
+<area shape="rect" id="node13" href="$classJStudio_1_1TObject.html" title=" " alt="" coords="656,441,775,466"/>
+<area shape="rect" id="node22" href="$classJStudio_1_1stb_1_1TObject__control.html" title=" " alt="" coords="644,491,787,531"/>
+<area shape="rect" id="node14" href="$structJStudio_1_1TObject__actor.html" title=" " alt="" coords="859,251,1013,277"/>
+<area shape="rect" id="node15" href="$structJStudio_1_1TObject__ambientLight.html" title=" " alt="" coords="851,301,1021,341"/>
+<area shape="rect" id="node16" href="$structJStudio_1_1TObject__camera.html" title=" " alt="" coords="852,366,1020,391"/>
+<area shape="rect" id="node17" href="$structJStudio_1_1TObject__fog.html" title=" " alt="" coords="865,415,1007,441"/>
+<area shape="rect" id="node18" href="$structJStudio_1_1TObject__light.html" title=" " alt="" coords="861,465,1011,490"/>
+<area shape="rect" id="node19" href="$structJStudio_1_1TObject__message.html" title=" " alt="" coords="847,514,1025,539"/>
+<area shape="rect" id="node20" href="$structJStudio_1_1TObject__particle.html" title=" " alt="" coords="853,563,1019,589"/>
+<area shape="rect" id="node21" href="$structJStudio_1_1TObject__sound.html" title=" " alt="" coords="856,613,1016,638"/>
 </map>

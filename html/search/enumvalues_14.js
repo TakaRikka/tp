@@ -1,6 +1,29 @@
 var searchData=
 [
-  ['val_5f0_32707',['VAL_0',['../structJUTGamePad_1_1CRumble.html#aa36f3f11ae6dd87c2cb7488c10178796af260a4543d9e7fced87ccfca206e971d',1,'JUTGamePad::CRumble']]],
-  ['val_5f1_32708',['VAL_1',['../structJUTGamePad_1_1CRumble.html#aa36f3f11ae6dd87c2cb7488c10178796a92498d79e07a0a7141872971ee51c15e',1,'JUTGamePad::CRumble']]],
-  ['val_5f2_32709',['VAL_2',['../structJUTGamePad_1_1CRumble.html#aa36f3f11ae6dd87c2cb7488c10178796adbb92a72b701876a10e925cfbe146563',1,'JUTGamePad::CRumble']]]
+  ['ugly_5fsoup_0',['UGLY_SOUP',['../d__save_8h.html#a0a48966e59817e2d4685d1f0b44b33f2ab67ea255f785e98f7c9b810d9626da7b',1,'d_save.h']]],
+  ['unclearable_1',['UNCLEARABLE',['../d__kankyo__data_8h.html#a22a7f4c7dfa4763f73a82caff6e1713eac2f1f604155d86eef6b33a8cf9b0f1ac',1,'d_kankyo_data.h']]],
+  ['under_5f0_2',['UNDER_0',['../structdaAlink__c.html#ab648cd37b444a6b86395bd841f25d0c8a5782f7278517176c4b616fd798afb439',1,'daAlink_c']]],
+  ['under_5f1_3',['UNDER_1',['../structdaAlink__c.html#ab648cd37b444a6b86395bd841f25d0c8a5673dec860c25fdb6563ef362eaba74a',1,'daAlink_c']]],
+  ['under_5f2_4',['UNDER_2',['../structdaAlink__c.html#ab648cd37b444a6b86395bd841f25d0c8a2a4bd6afedd8bb7e261a646236977e2c',1,'daAlink_c']]],
+  ['unk0_5',['UNK0',['../JUTPalette_8h.html#a491b4d113f1985ddc5da78693ee35d61a9229525ca6a5799d37b50b9a33d8a1b9',1,'JUTPalette.h']]],
+  ['unk1_6',['UNK1',['../JUTPalette_8h.html#a491b4d113f1985ddc5da78693ee35d61a89492c59f1adf6bb48c497e753a5fea9',1,'JUTPalette.h']]],
+  ['unk_5f0_7',['UNK_0',['../classJUTXfb.html#afdd1587f1b4b7c8868f78ac2065e6bc6aafeeeac8b28e1cab8d123c1039b5b208',1,'JUTXfb']]],
+  ['unk_5f0x19_8',['UNK_0x19',['../namespaceJStudio_1_1data.html#a51a0b38eaf25f9657128ffc29b27473eacf2a924a9b4087b13a160d66f50e8d02',1,'JStudio::data']]],
+  ['unk_5f1_9',['UNK_1',['../classJUTXfb.html#afdd1587f1b4b7c8868f78ac2065e6bc6ac2356f7cd8835e304501064c65d1d898',1,'JUTXfb']]],
+  ['unk_5f2_10',['UNK_2',['../classJUTXfb.html#afdd1587f1b4b7c8868f78ac2065e6bc6ac366e7d460915b9028731bba36b47ecb',1,'JUTXfb']]],
+  ['unk_5f3_11',['UNK_3',['../classJUTXfb.html#afdd1587f1b4b7c8868f78ac2065e6bc6a25efd4df67caef8cfab5861338ce89f0',1,'JUTXfb']]],
+  ['unk_5fmethod_5f0_12',['UNK_METHOD_0',['../structJFWDisplay.html#af84166a3fe71eef3b55b7de7c8f219c2a53227de1e5a6faf1ae4478b199eee5b3',1,'JFWDisplay']]],
+  ['unk_5fmethod_5f1_13',['UNK_METHOD_1',['../structJFWDisplay.html#af84166a3fe71eef3b55b7de7c8f219c2a5a6c2858fd585df25b856ef0f517434f',1,'JFWDisplay']]],
+  ['unknown_14',['UNKNOWN',['../classJKRAramStreamCommand.html#a584a0f0d44d10e7db7ae9487b83a3486a2de801cff5693dc0762b74549e5efeb1',1,'JKRAramStreamCommand']]],
+  ['unknown_5fealloc_5fdirection_15',['UNKNOWN_EALLOC_DIRECTION',['../classJKRDvdRipper.html#add5351d092f559b4c2bef0b3e2199161aaa755b34b664d87cb5d121fe07d24c22',1,'JKRDvdRipper']]],
+  ['unknown_5fmount_5fdirection_16',['UNKNOWN_MOUNT_DIRECTION',['../structJKRArchive.html#adcf19e3c6e754c27610ed30a8acd1b0fa7ada7bee31268bae4ae8b40f883df688',1,'JKRArchive']]],
+  ['unknown_5fmount_5fmode_17',['UNKNOWN_MOUNT_MODE',['../structJKRArchive.html#afa04710b1fffa15f661f0dd3a66bba3ea59ff20ff12931705e7c27dd9f7dd78b9',1,'JKRArchive']]],
+  ['unkstatus_5f0_18',['UNKSTATUS_0',['../structJUTFader.html#a606d584eb413fdd3bae4105c7db0e35ba865acf61d78e4742334359d7d0f783ff',1,'JUTFader']]],
+  ['unkstatus_5fm1_19',['UNKSTATUS_M1',['../structJUTFader.html#a606d584eb413fdd3bae4105c7db0e35baa1424faf4cb3b0d746b5da7002333a2c',1,'JUTFader']]],
+  ['unoriented_20',['UNORIENTED',['../ansi__files_8h.html#af6827b9bbcdbe2d4efa7ba30be248553af52ed2427e99ed120503006e807cfedd',1,'ansi_files.h']]],
+  ['unselect_5fframe_21',['UNSELECT_FRAME',['../classdMeter__ringHIO__c.html#a87d3dfaf86880005c2704508da87d2afa2539165f4caafee15ce57d9cfa630790',1,'dMeter_ringHIO_c']]],
+  ['upper_5f0_22',['UPPER_0',['../structdaAlink__c.html#aec4a16a0dabe1247aedc0449068864d1ad96871a99f86f159c45a27fab361f993',1,'daAlink_c']]],
+  ['upper_5f1_23',['UPPER_1',['../structdaAlink__c.html#aec4a16a0dabe1247aedc0449068864d1a492654b0fbaa4cbc7ecb5dda582a4b0f',1,'daAlink_c']]],
+  ['upper_5f2_24',['UPPER_2',['../structdaAlink__c.html#aec4a16a0dabe1247aedc0449068864d1ad1e96afa549e22aaeea41fb0ea243b30',1,'daAlink_c']]],
+  ['utawa_5fheart_25',['UTAWA_HEART',['../d__save_8h.html#a0a48966e59817e2d4685d1f0b44b33f2a1c6d5d9756bef24449738cd48ec1e1b7',1,'d_save.h']]]
 ];

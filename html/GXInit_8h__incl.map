@@ -1,0 +1,12 @@
+<map id="include/dolphin/gx/GXInit.h" name="include/dolphin/gx/GXInit.h">
+<area shape="rect" id="node1" title=" " alt="" coords="147,5,272,45"/>
+<area shape="rect" id="node2" href="$GXEnum_8h.html" title=" " alt="" coords="5,240,152,265"/>
+<area shape="rect" id="node5" href="$GXStruct_8h.html" title=" " alt="" coords="135,93,283,119"/>
+<area shape="rect" id="node7" href="$mtx_8h.html" title=" " alt="" coords="317,93,440,119"/>
+<area shape="rect" id="node3" href="$types_8h.html" title=" " alt="" coords="226,313,334,339"/>
+<area shape="rect" id="node4" href="$stddef_8h.html" title=" " alt="" coords="189,387,371,427"/>
+<area shape="rect" id="node6" href="$global_8h.html" title=" " alt="" coords="176,240,243,265"/>
+<area shape="rect" id="node8" href="$mtx44_8h.html" title=" " alt="" coords="318,167,455,192"/>
+<area shape="rect" id="node9" href="$quat_8h.html" title=" " alt="" coords="479,167,606,192"/>
+<area shape="rect" id="node10" href="$vec_8h.html" title=" " alt="" coords="424,240,547,265"/>
+</map>

@@ -1,7 +1,10 @@
 <map id="JKRThread" name="JKRThread">
-<area shape="rect" id="node1" title=" " alt="" coords="125,80,212,107"/>
-<area shape="rect" id="node3" href="$classJKRAram.html" title=" " alt="" coords="5,155,84,181"/>
-<area shape="rect" id="node4" href="$classJKRAramStream.html" title=" " alt="" coords="109,155,229,181"/>
-<area shape="rect" id="node5" href="$classJKRDecomp.html" title=" " alt="" coords="253,155,348,181"/>
-<area shape="rect" id="node2" href="$classJKRDisposer.html" title=" " alt="" coords="119,5,218,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="347,79,434,104"/>
+<area shape="rect" id="node3" href="$structJASAudioThread.html" title=" " alt="" coords="5,152,125,177"/>
+<area shape="rect" id="node4" href="$structJASTaskThread.html" title=" " alt="" coords="150,152,266,177"/>
+<area shape="rect" id="node5" href="$structJKRAram.html" title=" " alt="" coords="290,152,369,177"/>
+<area shape="rect" id="node6" href="$classJKRAramStream.html" title=" " alt="" coords="393,152,513,177"/>
+<area shape="rect" id="node7" href="$classJKRDecomp.html" title=" " alt="" coords="538,152,633,177"/>
+<area shape="rect" id="node8" href="$classJUTException.html" title=" " alt="" coords="657,152,759,177"/>
+<area shape="rect" id="node2" href="$classJKRDisposer.html" title=" " alt="" coords="341,5,440,31"/>
 </map>

@@ -1,4 +1,5 @@
-<map id="include/msl_c/math.h" name="include/msl_c/math.h">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,151,32"/>
-<area shape="rect" id="node2" href="$types_8h.html" title=" " alt="" coords="24,80,132,107"/>
+<map id="include/MSL_C/math.h" name="include/MSL_C/math.h">
+<area shape="rect" id="node1" title=" " alt="" coords="19,5,173,31"/>
+<area shape="rect" id="node2" href="$MSL__Common_2Src_2float_8h.html" title=" " alt="" coords="5,79,187,119"/>
+<area shape="rect" id="node3" href="$fdlibm_8h.html" title=" " alt="" coords="63,167,129,192"/>
 </map>

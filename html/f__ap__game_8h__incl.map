@@ -1,4 +1,8 @@
-<map id="include/f/f_ap_game/f_ap_game.h" name="include/f/f_ap_game/f_ap_game.h">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,144,47"/>
-<area shape="rect" id="node2" href="$types_8h.html" title=" " alt="" coords="21,95,129,121"/>
+<map id="include/f_ap/f_ap_game.h" name="include/f_ap/f_ap_game.h">
+<area shape="rect" id="node1" title=" " alt="" coords="11,5,181,31"/>
+<area shape="rect" id="node2" href="$TColor_8h.html" title=" " alt="" coords="11,79,181,104"/>
+<area shape="rect" id="node3" href="$GXStruct_8h.html" title=" " alt="" coords="22,152,170,177"/>
+<area shape="rect" id="node4" href="$global_8h.html" title=" " alt="" coords="63,225,129,251"/>
+<area shape="rect" id="node5" href="$types_8h.html" title=" " alt="" coords="42,299,150,324"/>
+<area shape="rect" id="node6" href="$stddef_8h.html" title=" " alt="" coords="5,372,187,412"/>
 </map>

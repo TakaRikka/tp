@@ -1,0 +1,20 @@
+<map id="J2DTevBlock2" name="J2DTevBlock2">
+<area shape="rect" id="node1" title=" " alt="" coords="827,223,933,248"/>
+<area shape="rect" id="node2" href="$classJ2DTevBlock.html" title=" " alt="" coords="513,5,613,31"/>
+<area shape="rect" id="node3" href="$classJ2DTevOrder.html" title=" " alt="" coords="514,55,613,80"/>
+<area shape="rect" id="node4" href="$structJ2DTevOrderInfo.html" title=" " alt="" coords="221,55,343,80"/>
+<area shape="rect" id="node5" href="$structJ2DGXColorS10.html" title=" " alt="" coords="505,104,622,129"/>
+<area shape="rect" id="node6" href="$struct__GXColorS10.html" title=" " alt="" coords="235,104,329,129"/>
+<area shape="rect" id="node7" href="$classJ2DTevStage.html" title=" " alt="" coords="513,153,614,179"/>
+<area shape="rect" id="node8" href="$structJUtility_1_1TColor.html" title=" " alt="" coords="229,244,335,269"/>
+<area shape="rect" id="node18" href="$structJUTFont.html" title=" " alt="" coords="527,267,600,292"/>
+<area shape="rect" id="node9" href="$struct__GXColor.html" title=" " alt="" coords="15,244,86,269"/>
+<area shape="rect" id="node10" href="$classJ2DTevSwapModeTable.html" title=" " alt="" coords="481,316,645,341"/>
+<area shape="rect" id="node11" href="$classJ2DIndTevStage.html" title=" " alt="" coords="504,365,623,391"/>
+<area shape="rect" id="node12" href="$classJUTTexture.html" title=" " alt="" coords="518,415,609,440"/>
+<area shape="rect" id="node13" href="$struct__GXTexObj.html" title=" " alt="" coords="237,331,327,356"/>
+<area shape="rect" id="node14" href="$structResTIMG.html" title=" " alt="" coords="243,380,321,405"/>
+<area shape="rect" id="node15" href="$classJUTPalette.html" title=" " alt="" coords="238,461,326,487"/>
+<area shape="rect" id="node16" href="$struct__GXTlutObj.html" title=" " alt="" coords="5,436,96,461"/>
+<area shape="rect" id="node17" href="$structResTLUT.html" title=" " alt="" coords="11,485,90,511"/>
+</map>

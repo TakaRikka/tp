@@ -1,0 +1,10 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$structJ2DPane.html" title=" " alt="" coords="5,80,80,105"/>
+<area shape="rect" id="node2" href="$structJ2DPicture.html" title=" " alt="" coords="131,5,217,31"/>
+<area shape="rect" id="node4" href="$structJ2DScreen.html" title=" " alt="" coords="131,55,217,80"/>
+<area shape="rect" id="node5" href="$structJ2DTextBox.html" title=" " alt="" coords="128,104,220,129"/>
+<area shape="rect" id="node7" href="$classJ2DWindow.html" title=" " alt="" coords="129,153,219,179"/>
+<area shape="rect" id="node3" href="$structJ2DPictureEx.html" title=" " alt="" coords="271,5,371,31"/>
+<area shape="rect" id="node6" href="$structJ2DTextBoxEx.html" title=" " alt="" coords="268,104,375,129"/>
+<area shape="rect" id="node8" href="$structJ2DWindowEx.html" title=" " alt="" coords="269,153,374,179"/>
+</map>

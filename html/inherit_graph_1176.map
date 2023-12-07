@@ -1,0 +1,21 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$structJGadget_1_1binary_1_1TParseData.html" title=" " alt="" coords="5,461,192,486"/>
+<area shape="rect" id="node2" href="$structJGadget_1_1binary_1_1TParseData__aligned.html" title=" " alt="" coords="240,421,427,461"/>
+<area shape="rect" id="node19" href="$structJGadget_1_1binary_1_1TParseData__aligned.html" title=" " alt="" coords="240,485,427,525"/>
+<area shape="rect" id="node3" href="$structJMessage_1_1data_1_1TParse__TBlock.html" title=" " alt="" coords="482,69,643,109"/>
+<area shape="rect" id="node7" href="$structJMessage_1_1data_1_1TParse__THeader.html" title=" " alt="" coords="482,133,643,173"/>
+<area shape="rect" id="node8" href="$structJStudio_1_1ctb_1_1data_1_1TParse__TBlock.html" title=" " alt="" coords="502,197,623,237"/>
+<area shape="rect" id="node9" href="$classJStudio_1_1fvb_1_1data_1_1TParse__TBlock.html" title=" " alt="" coords="502,261,623,301"/>
+<area shape="rect" id="node10" href="$classJStudio_1_1fvb_1_1data_1_1TParse__THeader.html" title=" " alt="" coords="499,325,626,365"/>
+<area shape="rect" id="node11" href="$classJStudio_1_1fvb_1_1data_1_1TParse__TParagraph.html" title=" " alt="" coords="491,389,635,429"/>
+<area shape="rect" id="node12" href="$classJStudio_1_1stb_1_1data_1_1TParse__TBlock.html" title=" " alt="" coords="502,453,623,493"/>
+<area shape="rect" id="node14" href="$classJStudio_1_1stb_1_1data_1_1TParse__THeader.html" title=" " alt="" coords="499,517,626,557"/>
+<area shape="rect" id="node15" href="$classJStudio_1_1stb_1_1data_1_1TParse__TParagraph.html" title=" " alt="" coords="491,581,635,621"/>
+<area shape="rect" id="node16" href="$structJStudio_1_1stb_1_1data_1_1TParse__TParagraph__data.html" title=" " alt="" coords="475,645,651,685"/>
+<area shape="rect" id="node17" href="$classJStudio_1_1stb_1_1data_1_1TParse__TParagraph__dataID.html" title=" " alt="" coords="491,710,635,765"/>
+<area shape="rect" id="node18" href="$classJStudio_1_1stb_1_1data_1_1TParse__TSequence.html" title=" " alt="" coords="491,789,634,829"/>
+<area shape="rect" id="node4" href="$structJMessage_1_1data_1_1TParse__TBlock__color.html" title=" " alt="" coords="699,5,860,45"/>
+<area shape="rect" id="node5" href="$structJMessage_1_1data_1_1TParse__TBlock__info.html" title=" " alt="" coords="699,69,860,109"/>
+<area shape="rect" id="node6" href="$structJMessage_1_1data_1_1TParse__TBlock__messageID.html" title=" " alt="" coords="699,133,860,173"/>
+<area shape="rect" id="node13" href="$classJStudio_1_1stb_1_1data_1_1TParse__TBlock__object.html" title=" " alt="" coords="699,453,859,493"/>
+</map>

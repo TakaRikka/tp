@@ -1,4 +1,23 @@
 var searchData=
 [
-  ['padmask_32286',['PADMask',['../pad_8h.html#ab96557969238b9fc6c43629bda3adf1c',1,'pad.h']]]
+  ['j2danmkind_0',['J2DAnmKind',['../J2DAnimation_8h.html#a424f4c2c887eb519e2f0f02b37e42c48',1,'J2DAnimation.h']]],
+  ['j2dbaseposition_1',['J2DBasePosition',['../J2DPane_8h.html#afafd1dbaf17cb41f7cbb8488b65e15c6',1,'J2DPane.h']]],
+  ['j2dbinding_2',['J2DBinding',['../J2DPicture_8h.html#a96fb4ec02521f5de85b6d87e225dc3a2',1,'J2DPicture.h']]],
+  ['j2dmirror_3',['J2DMirror',['../J2DPicture_8h.html#a40eaf2775cb364a00f5f7d4d77f5f675',1,'J2DPicture.h']]],
+  ['j2drotateaxis_4',['J2DRotateAxis',['../J2DPane_8h.html#a568654c26104cd8c9ccd4aae037a0e58',1,'J2DPane.h']]],
+  ['j2dtextboxhbinding_5',['J2DTextBoxHBinding',['../J2DTextBox_8h.html#ace2fe1d49637af193cc4e768d170d99c',1,'J2DTextBox.h']]],
+  ['j2dtextboxvbinding_6',['J2DTextBoxVBinding',['../J2DTextBox_8h.html#a35671d4460456c0fc983cd5a32545154',1,'J2DTextBox.h']]],
+  ['j3danmloaderdatabaseflag_7',['J3DAnmLoaderDataBaseFlag',['../J3DAnmLoader_8h.html#a2a42a88b0719fe71b7c48f3f5a17bf44',1,'J3DAnmLoader.h']]],
+  ['j3derror_8',['J3DError',['../J3DSys_8h.html#ac80cca76e4c0a8b5d26b0835bbda4125',1,'J3DSys.h']]],
+  ['j3dmdlflag_9',['J3DMdlFlag',['../J3DModel_8h.html#a3ecb7261816b0d7c134baaee78846a0b',1,'J3DModel.h']]],
+  ['j3dshpflag_10',['J3DShpFlag',['../J3DShape_8h.html#ad9cff334cc916c839a76377035ca005f',1,'J3DShape.h']]],
+  ['j3dsysdrawbuffer_11',['J3DSysDrawBuffer',['../J3DSys_8h.html#a86b42b9786c8ef48baa9e9d1455d1392',1,'J3DSys.h']]],
+  ['j3dsysflag_12',['J3DSysFlag',['../J3DSys_8h.html#a26200bc06a3935eb5d34b04a21d37c8b',1,'J3DSys.h']]],
+  ['jasaudiomessage_13',['JASAudioMessage',['../JASAudioThread_8h.html#ac11d3651aef0eb9a6920dc7bac750bd8',1,'JASAudioThread.h']]],
+  ['jasmixmode_14',['JASMixMode',['../JASAiCtrl_8h.html#a0afb4e822ef485ad7cc403ceea779b63',1,'JASAiCtrl.h']]],
+  ['jasoutputrate_15',['JASOutputRate',['../JASAiCtrl_8h.html#a17798305b6b8f32e641d4de5c1382286',1,'JASAiCtrl.h']]],
+  ['jkrexpandswitch_16',['JKRExpandSwitch',['../JKRDvdRipper_8h.html#a3a81ab253efe80892d32be96b8a9dec2',1,'JKRDvdRipper.h']]],
+  ['jkrmembreakflag_17',['JKRMemBreakFlag',['../JKRMemArchive_8h.html#a2a0bd9c14b0a5e25b0a8d59556ac8dd2',1,'JKRMemArchive.h']]],
+  ['jsustreamseekfrom_18',['JSUStreamSeekFrom',['../JSUInputStream_8h.html#a858865037a136681f994fcd5565c1404',1,'JSUInputStream.h']]],
+  ['juttransparency_19',['JUTTransparency',['../JUTPalette_8h.html#a491b4d113f1985ddc5da78693ee35d61',1,'JUTPalette.h']]]
 ];

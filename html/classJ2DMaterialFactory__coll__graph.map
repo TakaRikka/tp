@@ -1,0 +1,23 @@
+<map id="J2DMaterialFactory" name="J2DMaterialFactory">
+<area shape="rect" id="node1" title=" " alt="" coords="607,327,741,352"/>
+<area shape="rect" id="node2" href="$structJ2DMaterialInitData.html" title=" " alt="" coords="336,29,472,55"/>
+<area shape="rect" id="node3" href="$structJ2DIndInitData.html" title=" " alt="" coords="350,79,458,104"/>
+<area shape="rect" id="node4" href="$structJ2DIndTexOrderInfo.html" title=" " alt="" coords="23,5,161,31"/>
+<area shape="rect" id="node5" href="$structJ2DIndTexMtxInfo.html" title=" " alt="" coords="29,55,155,80"/>
+<area shape="rect" id="node6" href="$structJ2DIndTexCoordScaleInfo.html" title=" " alt="" coords="5,104,179,129"/>
+<area shape="rect" id="node7" href="$structJ2DIndTevStageInfo.html" title=" " alt="" coords="21,153,163,179"/>
+<area shape="rect" id="node8" href="$struct__GXColor.html" title=" " alt="" coords="365,129,443,155"/>
+<area shape="rect" id="node9" href="$structJ2DColorChanInfo.html" title=" " alt="" coords="341,179,467,204"/>
+<area shape="rect" id="node10" href="$structJ2DTexCoordInfo.html" title=" " alt="" coords="343,228,465,253"/>
+<area shape="rect" id="node11" href="$structJ2DTexMtxInfo.html" title=" " alt="" coords="349,277,459,303"/>
+<area shape="rect" id="node12" href="$structVec.html" title=" " alt="" coords="69,252,115,277"/>
+<area shape="rect" id="node13" href="$structJ2DTextureSRTInfo.html" title=" " alt="" coords="24,301,160,327"/>
+<area shape="rect" id="node14" href="$structJ2DTevOrderInfo.html" title=" " alt="" coords="343,327,465,352"/>
+<area shape="rect" id="node15" href="$structJ2DGXColorS10.html" title=" " alt="" coords="345,376,463,401"/>
+<area shape="rect" id="node16" href="$struct__GXColorS10.html" title=" " alt="" coords="45,376,139,401"/>
+<area shape="rect" id="node17" href="$structJ2DTevStageInfo.html" title=" " alt="" coords="343,425,465,451"/>
+<area shape="rect" id="node18" href="$structJ2DTevSwapModeInfo.html" title=" " alt="" coords="327,475,481,500"/>
+<area shape="rect" id="node19" href="$structJ2DTevSwapModeTableInfo.html" title=" " alt="" coords="311,524,497,549"/>
+<area shape="rect" id="node20" href="$structJ2DAlphaCompInfo.html" title=" " alt="" coords="337,573,471,599"/>
+<area shape="rect" id="node21" href="$structJ2DBlendInfo.html" title=" " alt="" coords="354,623,454,648"/>
+</map>

@@ -1,0 +1,13 @@
+<map id="J3DTexGenBlock4" name="J3DTexGenBlock4">
+<area shape="rect" id="node1" title=" " alt="" coords="233,355,364,380"/>
+<area shape="rect" id="node2" href="$structJ3DTexGenBlockPatched.html" title=" " alt="" coords="131,280,301,305"/>
+<area shape="rect" id="node3" href="$structJ3DTexGenBlock.html" title=" " alt="" coords="141,181,264,207"/>
+<area shape="rect" id="node4" href="$structJ3DTexCoord.html" title=" " alt="" coords="17,181,117,207"/>
+<area shape="rect" id="node5" href="$structJ3DTexCoordInfo.html" title=" " alt="" coords="5,93,128,119"/>
+<area shape="rect" id="node6" href="$structJ3DTexMtx.html" title=" " alt="" coords="289,181,375,207"/>
+<area shape="rect" id="node7" href="$structJ3DTexMtxInfo.html" title=" " alt="" coords="247,93,356,119"/>
+<area shape="rect" id="node8" href="$structVec.html" title=" " alt="" coords="400,5,445,31"/>
+<area shape="rect" id="node11" href="$structJ3DNBTScaleInfo.html" title=" " alt="" coords="381,93,507,119"/>
+<area shape="rect" id="node9" href="$structJ3DTextureSRTInfo.html" title=" " alt="" coords="220,5,356,31"/>
+<area shape="rect" id="node10" href="$structJ3DNBTScale.html" title=" " alt="" coords="362,231,467,256"/>
+</map>

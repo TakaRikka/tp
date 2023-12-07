@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['true_32781',['TRUE',['../types_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d',1,'types.h']]]
+  ['k1_0',['K1',['../string_8c.html#aadecb1977e30da2f62766f1fcb8b1f95',1,'string.c']]],
+  ['k2_1',['K2',['../string_8c.html#ab6d0e745059aded06587e4b6933bca0b',1,'string.c']]]
 ];

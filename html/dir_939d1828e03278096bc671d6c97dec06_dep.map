@@ -1,15 +1,14 @@
 <map id="include/JSystem/JAudio2" name="include/JSystem/JAudio2">
-<area shape="rect" id="node2" href="dir_430636007169dc9d0e315a38fd1d0814.html" title="JAIAudience" alt="" coords="820,63,916,111"/>
-<area shape="rect" id="node3" href="dir_1f6699a6a5fc66af9995261798d0386a.html" title="JAISe" alt="" coords="724,63,796,111"/>
-<area shape="rect" id="node4" href="dir_e2668a40f3444fca973b8684b1619288.html" title="JAISeMgr" alt="" coords="620,63,700,111"/>
-<area shape="rect" id="node5" href="dir_ce11deca028b73e61b250b6982b52ca8.html" title="JAISound" alt="" coords="62,159,141,207"/>
-<area shape="rect" id="node6" href="dir_8ace303a2308c13b8388d769d11bac9b.html" title="JAISoundHandles" alt="" coords="38,63,165,111"/>
-<area shape="rect" id="edge1-headlabel" href="dir_000068_000067.html" title="1" alt="" coords="106,133,114,148"/>
-<area shape="rect" id="node7" href="dir_8f5336265214fd2bd1469608e20ee518.html" title="JASGadget" alt="" coords="355,63,445,111"/>
-<area shape="rect" id="node8" href="dir_6eb4fe62018cf5eac19dac1c2b363657.html" title="JAUAudioArcLoader" alt="" coords="189,63,331,111"/>
-<area shape="rect" id="node9" href="dir_e51435f31bd1bca4757cc87832a1adfe.html" title="JAUClusterSound" alt="" coords="469,63,595,111"/>
-<area shape="rect" id="node10" href="dir_b778c3f297ab88300258a2935792c8cc.html" title="dolphin" alt="" coords="1044,159,1116,207"/>
-<area shape="rect" id="edge2-headlabel" href="dir_000071_000049.html" title="1" alt="" coords="1025,143,1033,157"/>
-<area shape="rect" id="clust2" href="dir_939d1828e03278096bc671d6c97dec06.html" alt="" coords="27,52,1023,217"/>
-<area shape="rect" id="clust1" href="dir_4f0979a7f5e3194619cde56505e372d8.html" title="JSystem" alt="" coords="16,16,1033,228"/>
+<area shape="rect" id="node1" href="dir_25682d7fe27d5da48e7af3ae8c2abb7f.html" title="JUtility" alt="" coords="27,125,90,151"/>
+<area shape="rect" id="node2" href="dir_45593f23b58a9cb34ecfe1ccd7e4e81f.html" title="JSupport" alt="" coords="115,125,189,151"/>
+<area shape="rect" id="node3" href="dir_cd1009b6de6f257cf504091b6f95eba2.html" title="JKernel" alt="" coords="213,125,280,151"/>
+<area shape="rect" id="node4" href="dir_939d1828e03278096bc671d6c97dec06.html" title="JAudio2" alt="" coords="211,52,280,77"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000843_000873.html" title="2" alt="" coords="106,119,114,134"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000843_000869.html" title="10" alt="" coords="180,113,194,128"/>
+<area shape="rect" id="edge4-headlabel" href="dir_000843_000849.html" title="4" alt="" coords="251,99,259,114"/>
+<area shape="rect" id="node5" href="dir_b778c3f297ab88300258a2935792c8cc.html" title="dolphin" alt="" coords="305,125,367,151"/>
+<area shape="rect" id="edge3-headlabel" href="dir_000843_000786.html" title="35" alt="" coords="304,100,319,114"/>
+<area shape="rect" id="node6" href="dir_e464f436794397718a79e116ac090ffa.html" title="MSL_C" alt="" coords="392,125,459,151"/>
+<area shape="rect" id="edge5-headlabel" href="dir_000843_001281.html" title="1" alt="" coords="377,103,385,118"/>
+<area shape="rect" id="clust1" href="dir_4f0979a7f5e3194619cde56505e372d8.html" title="JSystem" alt="" coords="16,16,291,161"/>
 </map>

@@ -1,0 +1,6 @@
+<map id="BOSS_LIGHT" name="BOSS_LIGHT">
+<area shape="rect" id="node1" title=" " alt="" coords="63,260,169,285"/>
+<area shape="rect" id="node2" href="$structcXyz.html" title=" " alt="" coords="5,126,56,151"/>
+<area shape="rect" id="node3" href="$structVec.html" title=" " alt="" coords="8,5,53,31"/>
+<area shape="rect" id="node4" href="$struct__GXColor.html" title=" " alt="" coords="162,126,241,151"/>
+</map>

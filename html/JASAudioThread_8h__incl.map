@@ -1,0 +1,16 @@
+<map id="include/JSystem/JAudio2/JASAudioThread.h" name="include/JSystem/JAudio2/JASAudioThread.h">
+<area shape="rect" id="node1" title=" " alt="" coords="181,5,350,45"/>
+<area shape="rect" id="node2" href="$JASGadget_8h.html" title=" " alt="" coords="49,93,255,119"/>
+<area shape="rect" id="node6" href="$JKRThread_8h.html" title=" " alt="" coords="291,93,491,119"/>
+<area shape="rect" id="node3" href="$JUTAssert_8h.html" title=" " alt="" coords="5,240,200,265"/>
+<area shape="rect" id="node4" href="$types_8h.html" title=" " alt="" coords="326,460,434,485"/>
+<area shape="rect" id="node5" href="$stddef_8h.html" title=" " alt="" coords="289,533,471,573"/>
+<area shape="rect" id="node7" href="$JKRHeap_8h.html" title=" " alt="" coords="295,167,486,192"/>
+<area shape="rect" id="node13" href="$OSMessage_8h.html" title=" " alt="" coords="521,167,687,192"/>
+<area shape="rect" id="node14" href="$OSTime_8h.html" title=" " alt="" coords="657,387,799,412"/>
+<area shape="rect" id="node8" href="$JKRDisposer_8h.html" title=" " alt="" coords="275,240,485,265"/>
+<area shape="rect" id="node10" href="$OSMutex_8h.html" title=" " alt="" coords="509,240,659,265"/>
+<area shape="rect" id="node9" href="$JSUList_8h.html" title=" " alt="" coords="285,313,475,339"/>
+<area shape="rect" id="node11" href="$OSThread_8h.html" title=" " alt="" coords="507,313,661,339"/>
+<area shape="rect" id="node12" href="$OSContext_8h.html" title=" " alt="" coords="455,387,614,412"/>
+</map>

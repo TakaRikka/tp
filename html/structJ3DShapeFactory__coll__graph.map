@@ -1,0 +1,9 @@
+<map id="J3DShapeFactory" name="J3DShapeFactory">
+<area shape="rect" id="node1" title=" " alt="" coords="251,196,377,221"/>
+<area shape="rect" id="node2" href="$structJ3DShapeInitData.html" title=" " alt="" coords="5,108,132,133"/>
+<area shape="rect" id="node3" href="$structVec.html" title=" " alt="" coords="46,5,91,31"/>
+<area shape="rect" id="node4" href="$struct__GXVtxDescList.html" title=" " alt="" coords="156,108,275,133"/>
+<area shape="rect" id="node5" href="$struct__GXAttr.html" title=" " alt="" coords="181,5,250,31"/>
+<area shape="rect" id="node6" href="$structJ3DShapeMtxInitData.html" title=" " alt="" coords="299,108,447,133"/>
+<area shape="rect" id="node7" href="$structJ3DShapeDrawInitData.html" title=" " alt="" coords="471,108,629,133"/>
+</map>

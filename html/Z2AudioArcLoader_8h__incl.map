@@ -1,6 +1,7 @@
-<map id="include/Z2AudioLib/Z2AudioArcLoader/Z2AudioArcLoader.h" name="include/Z2AudioLib/Z2AudioArcLoader/Z2AudioArcLoader.h">
-<area shape="rect" id="node1" title=" " alt="" coords="221,5,427,61"/>
-<area shape="rect" id="node2" href="$JAUAudioArcInterpreter_8h.html" title=" " alt="" coords="5,109,192,151"/>
-<area shape="rect" id="node3" href="$JAUAudioArcLoader_8h.html" title=" " alt="" coords="217,109,431,151"/>
-<area shape="rect" id="node4" href="$types_8h.html" title=" " alt="" coords="455,117,563,143"/>
+<map id="include/Z2AudioLib/Z2AudioArcLoader.h" name="include/Z2AudioLib/Z2AudioArcLoader.h">
+<area shape="rect" id="node1" title=" " alt="" coords="27,5,171,45"/>
+<area shape="rect" id="node2" href="$JAUAudioArcLoader_8h.html" title=" " alt="" coords="5,93,192,133"/>
+<area shape="rect" id="node3" href="$JAUAudioArcInterpreter_8h.html" title=" " alt="" coords="5,181,192,221"/>
+<area shape="rect" id="node4" href="$types_8h.html" title=" " alt="" coords="45,269,153,295"/>
+<area shape="rect" id="node5" href="$stddef_8h.html" title=" " alt="" coords="8,343,189,383"/>
 </map>

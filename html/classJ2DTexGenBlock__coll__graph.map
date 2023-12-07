@@ -1,0 +1,9 @@
+<map id="J2DTexGenBlock" name="J2DTexGenBlock">
+<area shape="rect" id="node1" title=" " alt="" coords="79,269,201,295"/>
+<area shape="rect" id="node2" href="$classJ2DTexCoord.html" title=" " alt="" coords="25,181,125,207"/>
+<area shape="rect" id="node3" href="$structJ2DTexCoordInfo.html" title=" " alt="" coords="5,93,128,119"/>
+<area shape="rect" id="node4" href="$classJ2DTexMtx.html" title=" " alt="" coords="161,181,247,207"/>
+<area shape="rect" id="node5" href="$structJ2DTexMtxInfo.html" title=" " alt="" coords="152,93,261,119"/>
+<area shape="rect" id="node6" href="$structVec.html" title=" " alt="" coords="127,5,172,31"/>
+<area shape="rect" id="node7" href="$structJ2DTextureSRTInfo.html" title=" " alt="" coords="196,5,332,31"/>
+</map>

@@ -1,0 +1,12 @@
+<map id="libs/JSystem/JAudio2/osdsp_task.cpp" name="libs/JSystem/JAudio2/osdsp_task.cpp">
+<area shape="rect" id="node1" title=" " alt="" coords="306,5,454,45"/>
+<area shape="rect" id="node2" href="$osdsp__task_8h.html" title=" " alt="" coords="5,93,168,133"/>
+<area shape="rect" id="node6" href="$dspproc_8h.html" title=" " alt="" coords="192,101,376,126"/>
+<area shape="rect" id="node9" href="$dsp__task_8h.html" title=" " alt="" coords="400,101,555,126"/>
+<area shape="rect" id="node10" href="$OSContext_8h.html" title=" " alt="" coords="479,255,638,280"/>
+<area shape="rect" id="node3" href="$OSInterrupt_8h.html" title=" " alt="" coords="20,181,183,207"/>
+<area shape="rect" id="node4" href="$types_8h.html" title=" " alt="" coords="297,328,405,353"/>
+<area shape="rect" id="node5" href="$stddef_8h.html" title=" " alt="" coords="260,401,441,441"/>
+<area shape="rect" id="node7" href="$dsp_8h.html" title=" " alt="" coords="289,181,412,207"/>
+<area shape="rect" id="node8" href="$OSTime_8h.html" title=" " alt="" coords="279,255,422,280"/>
+</map>

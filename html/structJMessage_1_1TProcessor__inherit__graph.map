@@ -1,0 +1,11 @@
+<map id="JMessage::TProcessor" name="JMessage::TProcessor">
+<area shape="rect" id="node1" title=" " alt="" coords="5,87,160,112"/>
+<area shape="rect" id="node2" href="$structJMessage_1_1TRenderingProcessor.html" title=" " alt="" coords="208,112,421,137"/>
+<area shape="rect" id="node9" href="$structJMessage_1_1TSequenceProcessor.html" title=" " alt="" coords="469,5,683,31"/>
+<area shape="rect" id="node3" href="$structjmessage__string__tMeasureProcessor.html" title=" " alt="" coords="487,105,665,145"/>
+<area shape="rect" id="node5" href="$structjmessage__string__tRenderingProcessor.html" title=" " alt="" coords="483,169,669,209"/>
+<area shape="rect" id="node6" href="$structjmessage__tMeasureProcessor.html" title=" " alt="" coords="477,55,675,80"/>
+<area shape="rect" id="node8" href="$structjmessage__tRenderingProcessor.html" title=" " alt="" coords="473,233,679,259"/>
+<area shape="rect" id="node4" href="$structjmessage__string__tSequenceProcessor.html" title=" " alt="" coords="741,81,927,121"/>
+<area shape="rect" id="node7" href="$structjmessage__tSequenceProcessor.html" title=" " alt="" coords="731,19,937,44"/>
+</map>

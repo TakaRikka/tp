@@ -1,0 +1,8 @@
+<map id="Z2SoundObjAnime" name="Z2SoundObjAnime">
+<area shape="rect" id="node1" title=" " alt="" coords="45,299,176,324"/>
+<area shape="rect" id="node6" href="$classmDoExt__zelAnime.html" title=" " alt="" coords="47,372,174,397"/>
+<area shape="rect" id="node2" href="$classZ2SoundObjBase.html" title=" " alt="" coords="49,225,173,251"/>
+<area shape="rect" id="node3" href="$classZ2SoundHandles.html" title=" " alt="" coords="49,152,172,177"/>
+<area shape="rect" id="node4" href="$classJSUList.html" title=" " alt="" coords="5,79,216,104"/>
+<area shape="rect" id="node5" href="$structJSUPtrList.html" title=" " alt="" coords="67,5,154,31"/>
+</map>

@@ -1,0 +1,8 @@
+<map id="J3DCluster" name="J3DCluster">
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,92,31"/>
+<area shape="rect" id="node3" href="$structJ3DDeformData.html" title=" " alt="" coords="129,93,243,119"/>
+<area shape="rect" id="node2" href="$structJ3DDeformer.html" title=" " alt="" coords="137,181,235,207"/>
+<area shape="rect" id="node4" href="$structJ3DClusterKey.html" title=" " alt="" coords="144,5,252,31"/>
+<area shape="rect" id="node5" href="$structJ3DAnmCluster.html" title=" " alt="" coords="273,93,387,119"/>
+<area shape="rect" id="node6" href="$classJ3DAnmBase.html" title=" " alt="" coords="285,5,388,31"/>
+</map>

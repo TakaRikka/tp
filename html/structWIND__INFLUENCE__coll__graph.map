@@ -1,0 +1,5 @@
+<map id="WIND_INFLUENCE" name="WIND_INFLUENCE">
+<area shape="rect" id="node1" title=" " alt="" coords="5,275,144,300"/>
+<area shape="rect" id="node2" href="$structcXyz.html" title=" " alt="" coords="49,126,100,151"/>
+<area shape="rect" id="node3" href="$structVec.html" title=" " alt="" coords="52,5,97,31"/>
+</map>

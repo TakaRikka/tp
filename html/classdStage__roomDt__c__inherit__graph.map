@@ -1,4 +1,4 @@
 <map id="dStage_roomDt_c" name="dStage_roomDt_c">
-<area shape="rect" id="node1" title=" " alt="" coords="17,5,144,32"/>
-<area shape="rect" id="node2" href="$classdStage__roomStatus__c.html" title=" " alt="" coords="5,80,156,107"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,79,132,104"/>
+<area shape="rect" id="node2" href="$structdStage__dt__c.html" title=" " alt="" coords="21,5,116,31"/>
 </map>

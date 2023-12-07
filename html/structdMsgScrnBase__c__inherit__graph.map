@@ -1,0 +1,8 @@
+<map id="dMsgScrnBase_c" name="dMsgScrnBase_c">
+<area shape="rect" id="node1" title=" " alt="" coords="231,79,356,104"/>
+<area shape="rect" id="node3" href="$structdMsgScrnBoss__c.html" title=" " alt="" coords="5,152,131,177"/>
+<area shape="rect" id="node4" href="$structdMsgScrnPlace__c.html" title=" " alt="" coords="155,152,283,177"/>
+<area shape="rect" id="node5" href="$structdMsgScrnStaff__c.html" title=" " alt="" coords="307,152,429,177"/>
+<area shape="rect" id="node6" href="$structdMsgScrnTree__c.html" title=" " alt="" coords="454,152,575,177"/>
+<area shape="rect" id="node2" href="$structdDlst__base__c.html" title=" " alt="" coords="243,5,344,31"/>
+</map>

@@ -1,4 +1,5 @@
-<map id="include/dvd/dvd.h" name="include/dvd/dvd.h">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,128,32"/>
-<area shape="rect" id="node2" href="$types_8h.html" title=" " alt="" coords="13,80,121,107"/>
+<map id="include/dolphin/dvd/dvd.h" name="include/dolphin/dvd/dvd.h">
+<area shape="rect" id="node1" title=" " alt="" coords="29,5,163,45"/>
+<area shape="rect" id="node2" href="$types_8h.html" title=" " alt="" coords="42,93,150,119"/>
+<area shape="rect" id="node3" href="$stddef_8h.html" title=" " alt="" coords="5,167,187,207"/>
 </map>

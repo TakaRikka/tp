@@ -1,0 +1,13 @@
+<map id="JASTrack::TChannelMgr" name="JASTrack::TChannelMgr">
+<area shape="rect" id="node1" title=" " alt="" coords="657,211,819,236"/>
+<area shape="rect" id="node4" href="$structJASTrack.html" title=" " alt="" coords="423,315,503,341"/>
+<area shape="rect" id="node2" href="$structJASChannel.html" title=" " alt="" coords="623,108,717,133"/>
+<area shape="rect" id="node3" href="$structJASSoundParams.html" title=" " alt="" coords="741,108,871,133"/>
+<area shape="rect" id="node5" href="$classJASSeqCtrl.html" title=" " alt="" coords="70,211,161,236"/>
+<area shape="rect" id="node6" href="$classJASSeqReader.html" title=" " alt="" coords="5,108,116,133"/>
+<area shape="rect" id="node7" href="$structJASSeqParser.html" title=" " alt="" coords="140,108,248,133"/>
+<area shape="rect" id="node8" href="$structJASSeqParser_1_1CmdInfo.html" title=" " alt="" coords="113,5,275,31"/>
+<area shape="rect" id="node9" href="$classJASTrackPort.html" title=" " alt="" coords="185,211,289,236"/>
+<area shape="rect" id="node10" href="$classJASRegisterParam.html" title=" " alt="" coords="313,211,446,236"/>
+<area shape="rect" id="node11" href="$structJASTrack_1_1MoveParam__.html" title=" " alt="" coords="470,211,633,236"/>
+</map>

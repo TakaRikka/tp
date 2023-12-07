@@ -1,0 +1,15 @@
+<map id="include/d/bg/d_bg_s_roof_chk.h" name="include/d/bg/d_bg_s_roof_chk.h">
+<area shape="rect" id="node1" title=" " alt="" coords="192,5,331,45"/>
+<area shape="rect" id="node2" href="$c__bg__s__poly__info_8h.html" title=" " alt="" coords="5,269,160,309"/>
+<area shape="rect" id="node3" href="$types_8h.html" title=" " alt="" coords="271,445,379,471"/>
+<area shape="rect" id="node5" href="$c__xyz_8h.html" title=" " alt="" coords="248,93,403,133"/>
+<area shape="rect" id="node10" href="$d__bg__s__chk_8h.html" title=" " alt="" coords="503,101,633,126"/>
+<area shape="rect" id="node4" href="$stddef_8h.html" title=" " alt="" coords="235,519,416,559"/>
+<area shape="rect" id="node6" href="$math_8h.html" title=" " alt="" coords="271,189,380,214"/>
+<area shape="rect" id="node9" href="$vec_8h.html" title=" " alt="" coords="392,365,515,390"/>
+<area shape="rect" id="node7" href="$MSL__Common_2Src_2float_8h.html" title=" " alt="" coords="235,269,416,309"/>
+<area shape="rect" id="node8" href="$fdlibm_8h.html" title=" " alt="" coords="292,365,359,390"/>
+<area shape="rect" id="node11" href="$d__bg__s__grp__pass__chk_8h.html" title=" " alt="" coords="491,181,645,221"/>
+<area shape="rect" id="node13" href="$d__bg__s__poly__pass__chk_8h.html" title=" " alt="" coords="571,357,730,397"/>
+<area shape="rect" id="node12" href="$c__bg__s__chk_8h.html" title=" " alt="" coords="491,269,645,309"/>
+</map>

@@ -1,0 +1,8 @@
+<map id="map_path_class" name="map_path_class">
+<area shape="rect" id="node1" title=" " alt="" coords="123,387,241,412"/>
+<area shape="rect" id="node2" href="$structdDrawPath__c_1_1room__class.html" title=" " alt="" coords="95,299,269,324"/>
+<area shape="rect" id="node3" href="$structdDrawPath__c_1_1floor__class.html" title=" " alt="" coords="117,196,247,236"/>
+<area shape="rect" id="node4" href="$structdDrawPath__c_1_1group__class.html" title=" " alt="" coords="113,93,251,133"/>
+<area shape="rect" id="node5" href="$structdDrawPath__c_1_1line__class.html" title=" " alt="" coords="5,5,169,31"/>
+<area shape="rect" id="node6" href="$structdDrawPath__c_1_1poly__class.html" title=" " alt="" coords="193,5,360,31"/>
+</map>

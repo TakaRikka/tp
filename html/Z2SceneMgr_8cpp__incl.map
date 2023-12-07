@@ -1,52 +1,52 @@
 <map id="libs/Z2AudioLib/Z2SceneMgr.cpp" name="libs/Z2AudioLib/Z2SceneMgr.cpp">
-<area shape="rect" id="node1" title=" " alt="" coords="4353,5,4567,32"/>
-<area shape="rect" id="node2" href="$Z2SceneMgr_8h.html" title=" " alt="" coords="62,80,229,121"/>
-<area shape="rect" id="node7" href="$JAISoundParamsMove_8h.html" title=" " alt="" coords="893,80,1078,121"/>
-<area shape="rect" id="node8" href="$JAIStreamMgr_8h.html" title=" " alt="" coords="1102,80,1293,121"/>
-<area shape="rect" id="node9" href="$JASWaveArc_8h.html" title=" " alt="" coords="1317,87,1533,114"/>
-<area shape="rect" id="node10" href="$JAUSoundTable_8h.html" title=" " alt="" coords="1558,80,1749,121"/>
-<area shape="rect" id="node11" href="$Z2EnvSeMgr_8h.html" title=" " alt="" coords="650,169,817,211"/>
-<area shape="rect" id="node12" href="$Z2FxLineMgr_8h.html" title=" " alt="" coords="1773,80,1941,121"/>
-<area shape="rect" id="node13" href="$Z2SeMgr_8h.html" title=" " alt="" coords="301,80,446,121"/>
-<area shape="rect" id="node15" href="$Z2SoundObjMgr_8h.html" title=" " alt="" coords="1965,80,2152,121"/>
-<area shape="rect" id="node16" href="$Z2StatusMgr_8h.html" title=" " alt="" coords="714,259,881,300"/>
-<area shape="rect" id="node17" href="$d__com__inf__game_8h.html" title=" " alt="" coords="2177,80,2351,121"/>
-<area shape="rect" id="node18" title=" " alt="" coords="2375,80,2542,121"/>
-<area shape="rect" id="node19" title=" " alt="" coords="2566,80,2733,121"/>
-<area shape="rect" id="node20" title=" " alt="" coords="2757,80,2923,121"/>
-<area shape="rect" id="node21" title=" " alt="" coords="2947,80,3114,121"/>
-<area shape="rect" id="node22" title=" " alt="" coords="3138,80,3305,121"/>
-<area shape="rect" id="node23" title=" " alt="" coords="3329,80,3495,121"/>
-<area shape="rect" id="node24" title=" " alt="" coords="3519,80,3686,121"/>
-<area shape="rect" id="node25" title=" " alt="" coords="3710,80,3877,121"/>
-<area shape="rect" id="node26" title=" " alt="" coords="3901,80,4067,121"/>
-<area shape="rect" id="node27" title=" " alt="" coords="4091,80,4258,121"/>
-<area shape="rect" id="node28" title=" " alt="" coords="4282,80,4449,121"/>
-<area shape="rect" id="node29" title=" " alt="" coords="4473,80,4639,121"/>
-<area shape="rect" id="node30" title=" " alt="" coords="4663,80,4830,121"/>
-<area shape="rect" id="node31" title=" " alt="" coords="4854,80,5021,121"/>
-<area shape="rect" id="node32" title=" " alt="" coords="5045,80,5211,121"/>
-<area shape="rect" id="node33" title=" " alt="" coords="5235,80,5402,121"/>
-<area shape="rect" id="node34" title=" " alt="" coords="5426,80,5593,121"/>
-<area shape="rect" id="node35" title=" " alt="" coords="5617,80,5783,121"/>
-<area shape="rect" id="node36" title=" " alt="" coords="5807,80,5974,121"/>
-<area shape="rect" id="node37" title=" " alt="" coords="5998,80,6165,121"/>
-<area shape="rect" id="node38" title=" " alt="" coords="6189,80,6355,121"/>
-<area shape="rect" id="node39" title=" " alt="" coords="6379,80,6546,121"/>
-<area shape="rect" id="node40" title=" " alt="" coords="6570,80,6737,121"/>
-<area shape="rect" id="node41" title=" " alt="" coords="6761,80,6927,121"/>
-<area shape="rect" id="node42" title=" " alt="" coords="6951,80,7118,121"/>
-<area shape="rect" id="node43" title=" " alt="" coords="7142,80,7309,121"/>
-<area shape="rect" id="node44" title=" " alt="" coords="7333,80,7499,121"/>
-<area shape="rect" id="node45" title=" " alt="" coords="7523,80,7690,121"/>
-<area shape="rect" id="node46" title=" " alt="" coords="7714,80,7881,121"/>
-<area shape="rect" id="node47" title=" " alt="" coords="7905,80,8071,121"/>
-<area shape="rect" id="node48" title=" " alt="" coords="8095,80,8262,121"/>
-<area shape="rect" id="node49" title=" " alt="" coords="8286,80,8453,121"/>
-<area shape="rect" id="node50" title=" " alt="" coords="8477,80,8643,121"/>
-<area shape="rect" id="node3" href="$JAISe_8h.html" title=" " alt="" coords="33,259,197,300"/>
-<area shape="rect" id="node4" href="$global_8h.html" title=" " alt="" coords="312,348,379,375"/>
-<area shape="rect" id="node5" href="$Z2SeqMgr_8h.html" title=" " alt="" coords="159,169,311,211"/>
-<area shape="rect" id="node6" href="$Z2Param_8h.html" title=" " alt="" coords="273,259,418,300"/>
-<area shape="rect" id="node14" href="$JAISoundHandles_8h.html" title=" " alt="" coords="436,169,625,211"/>
+<area shape="rect" id="node1" title=" " alt="" coords="4065,5,4279,31"/>
+<area shape="rect" id="node2" href="$Z2SceneMgr_8h.html" title=" " alt="" coords="851,189,1027,214"/>
+<area shape="rect" id="node6" href="$global_8h.html" title=" " alt="" coords="5,350,72,375"/>
+<area shape="rect" id="node10" href="$Z2SoundMgr_8h.html" title=" " alt="" coords="320,93,496,119"/>
+<area shape="rect" id="node17" href="$Z2SeqMgr_8h.html" title=" " alt="" coords="709,93,872,119"/>
+<area shape="rect" id="node19" href="$Z2SeMgr_8h.html" title=" " alt="" coords="947,93,1101,119"/>
+<area shape="rect" id="node21" href="$dol2asm_8h.html" title=" " alt="" coords="1126,93,1207,119"/>
+<area shape="rect" id="node22" title=" " alt="" coords="1231,86,1467,126"/>
+<area shape="rect" id="node23" title=" " alt="" coords="1492,86,1751,126"/>
+<area shape="rect" id="node24" title=" " alt="" coords="1775,86,2025,126"/>
+<area shape="rect" id="node25" title=" " alt="" coords="2049,86,2308,126"/>
+<area shape="rect" id="node26" title=" " alt="" coords="2332,86,2551,126"/>
+<area shape="rect" id="node27" title=" " alt="" coords="2575,86,2769,126"/>
+<area shape="rect" id="node28" title=" " alt="" coords="2793,86,2988,126"/>
+<area shape="rect" id="node29" title=" " alt="" coords="3013,86,3219,126"/>
+<area shape="rect" id="node30" title=" " alt="" coords="3244,86,3489,126"/>
+<area shape="rect" id="node31" title=" " alt="" coords="3513,86,3748,126"/>
+<area shape="rect" id="node32" title=" " alt="" coords="3772,86,4044,126"/>
+<area shape="rect" id="node33" title=" " alt="" coords="4069,86,4275,126"/>
+<area shape="rect" id="node34" title=" " alt="" coords="4300,86,4516,126"/>
+<area shape="rect" id="node35" title=" " alt="" coords="4541,86,4779,126"/>
+<area shape="rect" id="node36" title=" " alt="" coords="4804,86,5047,126"/>
+<area shape="rect" id="node37" title=" " alt="" coords="5071,79,5358,133"/>
+<area shape="rect" id="node38" title=" " alt="" coords="5382,86,5597,126"/>
+<area shape="rect" id="node39" title=" " alt="" coords="5621,79,5851,133"/>
+<area shape="rect" id="node40" title=" " alt="" coords="5875,79,6106,133"/>
+<area shape="rect" id="node41" title=" " alt="" coords="6130,79,6361,133"/>
+<area shape="rect" id="node42" title=" " alt="" coords="6385,79,6628,133"/>
+<area shape="rect" id="node43" title=" " alt="" coords="6652,79,6887,133"/>
+<area shape="rect" id="node44" title=" " alt="" coords="6911,86,7153,126"/>
+<area shape="rect" id="node45" title=" " alt="" coords="7177,86,7428,126"/>
+<area shape="rect" id="node46" title=" " alt="" coords="7452,86,7692,126"/>
+<area shape="rect" id="node47" title=" " alt="" coords="7716,86,7967,126"/>
+<area shape="rect" id="node48" title=" " alt="" coords="7991,79,8238,133"/>
+<area shape="rect" id="node49" title=" " alt="" coords="8263,86,8495,126"/>
+<area shape="rect" id="node50" title=" " alt="" coords="8519,86,8761,126"/>
+<area shape="rect" id="node3" href="$JAISound_8h.html" title=" " alt="" coords="896,269,1091,295"/>
+<area shape="rect" id="node8" href="$JASGadget_8h.html" title=" " alt="" coords="667,269,872,295"/>
+<area shape="rect" id="node4" href="$JAISoundParams_8h.html" title=" " alt="" coords="606,343,791,383"/>
+<area shape="rect" id="node5" href="$JAIAudible_8h.html" title=" " alt="" coords="1035,350,1237,375"/>
+<area shape="rect" id="node7" href="$types_8h.html" title=" " alt="" coords="646,431,754,456"/>
+<area shape="rect" id="node9" href="$JUTAssert_8h.html" title=" " alt="" coords="816,350,1011,375"/>
+<area shape="rect" id="node11" href="$JAISeMgr_8h.html" title=" " alt="" coords="86,189,282,214"/>
+<area shape="rect" id="node15" href="$JAISeqMgr_8h.html" title=" " alt="" coords="307,189,509,214"/>
+<area shape="rect" id="node16" href="$JAIStreamMgr_8h.html" title=" " alt="" coords="534,181,725,221"/>
+<area shape="rect" id="node12" href="$JAISe_8h.html" title=" " alt="" coords="77,269,251,295"/>
+<area shape="rect" id="node13" href="$JSUList_8h.html" title=" " alt="" coords="391,350,582,375"/>
+<area shape="rect" id="node14" href="$JASHeapCtrl_8h.html" title=" " alt="" coords="275,269,490,295"/>
+<area shape="rect" id="node18" href="$JAISoundHandles_8h.html" title=" " alt="" coords="1051,181,1237,221"/>
+<area shape="rect" id="node20" href="$vec_8h.html" title=" " alt="" coords="1213,269,1336,295"/>
 </map>

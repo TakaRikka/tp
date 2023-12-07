@@ -1,0 +1,12 @@
+<map id="dBgS_Acch" name="dBgS_Acch">
+<area shape="rect" id="node1" title=" " alt="" coords="155,225,246,251"/>
+<area shape="rect" id="node8" href="$classdBgS__LinkAcch.html" title=" " alt="" coords="5,299,121,324"/>
+<area shape="rect" id="node9" href="$classdBgS__ObjAcch.html" title=" " alt="" coords="145,299,256,324"/>
+<area shape="rect" id="node10" href="$classdBgS__StatueAcch.html" title=" " alt="" coords="280,299,409,324"/>
+<area shape="rect" id="node2" href="$classcBgS__Chk.html" title=" " alt="" coords="105,152,189,177"/>
+<area shape="rect" id="node3" href="$classdBgS__Chk.html" title=" " alt="" coords="213,152,297,177"/>
+<area shape="rect" id="node4" href="$classdBgS__PolyPassChk.html" title=" " alt="" coords="106,79,245,104"/>
+<area shape="rect" id="node5" href="$classcBgS__PolyPassChk.html" title=" " alt="" coords="106,5,245,31"/>
+<area shape="rect" id="node6" href="$classdBgS__GrpPassChk.html" title=" " alt="" coords="269,79,404,104"/>
+<area shape="rect" id="node7" href="$classcBgS__GrpPassChk.html" title=" " alt="" coords="269,5,404,31"/>
+</map>

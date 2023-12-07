@@ -1,6 +1,21 @@
 var searchData=
 [
-  ['letter_5finfo_5fbit_32764',['LETTER_INFO_BIT',['../d__save_8h.html#a54347ceb85ca9ecbaad8b3f42bcca65a',1,'d_save.h']]],
-  ['light_5fdrop_5fstage_32765',['LIGHT_DROP_STAGE',['../d__save_8h.html#ab33908adcf0731110db7e2c429a5693f',1,'d_save.h']]],
-  ['logf_32766',['LOGF',['../global_8h.html#a81d5f6c32dcf2185fe6cac2f3e2e4f7b',1,'global.h']]]
+  ['gfx_5ffifo_0',['GFX_FIFO',['../GX_8h.html#a74f31c89c4c221f415afa94edd409aae',1,'GX.h']]],
+  ['glue_1',['GLUE',['../global_8h.html#af3ddc5a73ff88a58733f0879ce37196d',1,'global.h']]],
+  ['glue2_2',['GLUE2',['../global_8h.html#a8aacf963fc7253845c961ed3912d78a2',1,'global.h']]],
+  ['gqr0_3',['GQR0',['../PPCArch_8h.html#a8a408ebcbe783eae8ff7f1f3b72830dd',1,'PPCArch.h']]],
+  ['gqr1_4',['GQR1',['../PPCArch_8h.html#ad0dcd3cf8f5838f6c810b9509af41aa4',1,'PPCArch.h']]],
+  ['gqr2_5',['GQR2',['../PPCArch_8h.html#a44a527d2bf12c875152e204fc9011a68',1,'PPCArch.h']]],
+  ['gqr3_6',['GQR3',['../PPCArch_8h.html#a24dc138a554bfb77c7f8a28b6033e44a',1,'PPCArch.h']]],
+  ['gqr4_7',['GQR4',['../PPCArch_8h.html#af028676197c21c9b4ec776dcf96dffc6',1,'PPCArch.h']]],
+  ['gqr5_8',['GQR5',['../PPCArch_8h.html#ad4d30c68e6ddf6d3c9980d05cf05bc78',1,'PPCArch.h']]],
+  ['gqr6_9',['GQR6',['../PPCArch_8h.html#ab574c987d96c8b5c4f6005a6b59eeb3d',1,'PPCArch.h']]],
+  ['gqr7_10',['GQR7',['../PPCArch_8h.html#a007544dd398f238db998ec41f5f4dddb',1,'PPCArch.h']]],
+  ['gqr_5fload_5fscale_5fmask_11',['GQR_LOAD_SCALE_MASK',['../PPCArch_8h.html#aa59b7fed8d2d397226e6ad721519b0e7',1,'PPCArch.h']]],
+  ['gqr_5fload_5ftype_5fmask_12',['GQR_LOAD_TYPE_MASK',['../PPCArch_8h.html#aa4f2fa4c562f4255fb6e876e632e54f8',1,'PPCArch.h']]],
+  ['gqr_5fstore_5fscale_5fmask_13',['GQR_STORE_SCALE_MASK',['../PPCArch_8h.html#a0d869babb3a8f69515b42eb4bc61030a',1,'PPCArch.h']]],
+  ['gqr_5fstore_5ftype_5fmask_14',['GQR_STORE_TYPE_MASK',['../PPCArch_8h.html#a6ae13599ce320ab4ee64fdd097843c1f',1,'PPCArch.h']]],
+  ['gx_5fbitfield_5fset_15',['GX_BITFIELD_SET',['../GX_8h.html#af949c98422762750a49c767d038cb930',1,'GX.h']]],
+  ['gx_5fload_5fbp_5freg_16',['GX_LOAD_BP_REG',['../GX_8h.html#abf826caf8d8fa06d80f2f6efe7c65a55',1,'GX.h']]],
+  ['gx_5fnop_17',['GX_NOP',['../GX_8h.html#a3449e16a5d271f54f6aff735c58234e3',1,'GX.h']]]
 ];

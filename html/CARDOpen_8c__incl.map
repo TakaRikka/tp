@@ -1,0 +1,15 @@
+<map id="libs/dolphin/card/CARDOpen.c" name="libs/dolphin/card/CARDOpen.c">
+<area shape="rect" id="node1" title=" " alt="" coords="168,5,365,31"/>
+<area shape="rect" id="node2" href="$CARDOpen_8h.html" title=" " alt="" coords="5,79,179,104"/>
+<area shape="rect" id="node3" href="$card_8h.html" title=" " alt="" coords="51,152,181,177"/>
+<area shape="rect" id="node6" href="$dsp_8h.html" title=" " alt="" coords="304,79,427,104"/>
+<area shape="rect" id="node8" href="$dvd_8h.html" title=" " alt="" coords="205,152,328,177"/>
+<area shape="rect" id="node9" href="$CARDPriv_8h.html" title=" " alt="" coords="451,79,616,104"/>
+<area shape="rect" id="node4" href="$types_8h.html" title=" " alt="" coords="311,299,419,324"/>
+<area shape="rect" id="node5" href="$stddef_8h.html" title=" " alt="" coords="275,372,456,412"/>
+<area shape="rect" id="node7" href="$OSTime_8h.html" title=" " alt="" coords="294,225,437,251"/>
+<area shape="rect" id="node10" href="$OSAlarm_8h.html" title=" " alt="" coords="457,152,605,177"/>
+<area shape="rect" id="node12" href="$OSThread_8h.html" title=" " alt="" coords="629,152,784,177"/>
+<area shape="rect" id="node11" href="$OSError_8h.html" title=" " alt="" coords="461,225,603,251"/>
+<area shape="rect" id="node13" href="$OSContext_8h.html" title=" " alt="" coords="627,225,786,251"/>
+</map>

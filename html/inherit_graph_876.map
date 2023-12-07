@@ -1,0 +1,20 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classJ3DAnmBase.html" title=" " alt="" coords="5,203,108,228"/>
+<area shape="rect" id="node2" href="$structJ3DAnmCluster.html" title=" " alt="" coords="181,55,294,80"/>
+<area shape="rect" id="node5" href="$classJ3DAnmColor.html" title=" " alt="" coords="186,104,289,129"/>
+<area shape="rect" id="node8" href="$structJ3DAnmTevRegKey.html" title=" " alt="" coords="168,153,307,179"/>
+<area shape="rect" id="node9" href="$structJ3DAnmTexPattern.html" title=" " alt="" coords="170,203,305,228"/>
+<area shape="rect" id="node10" href="$structJ3DAnmTextureSRTKey.html" title=" " alt="" coords="156,252,319,277"/>
+<area shape="rect" id="node11" href="$structJ3DAnmTransform.html" title=" " alt="" coords="172,301,303,327"/>
+<area shape="rect" id="node16" href="$classJ3DAnmVtxColor.html" title=" " alt="" coords="177,351,298,376"/>
+<area shape="rect" id="node3" href="$structJ3DAnmClusterFull.html" title=" " alt="" coords="376,5,511,31"/>
+<area shape="rect" id="node4" href="$structJ3DAnmClusterKey.html" title=" " alt="" coords="376,55,511,80"/>
+<area shape="rect" id="node6" href="$structJ3DAnmColorFull.html" title=" " alt="" coords="382,104,505,129"/>
+<area shape="rect" id="node7" href="$structJ3DAnmColorKey.html" title=" " alt="" coords="381,153,505,179"/>
+<area shape="rect" id="node12" href="$structJ3DAnmTransformFull.html" title=" " alt="" coords="367,252,519,277"/>
+<area shape="rect" id="node14" href="$structJ3DAnmTransformKey.html" title=" " alt="" coords="367,301,520,327"/>
+<area shape="rect" id="node13" href="$classJ3DAnmTransformFullWithLerp.html" title=" " alt="" coords="568,252,772,277"/>
+<area shape="rect" id="node15" href="$classmDoExt__transAnmBas.html" title=" " alt="" coords="593,301,747,327"/>
+<area shape="rect" id="node17" href="$structJ3DAnmVtxColorFull.html" title=" " alt="" coords="372,351,515,376"/>
+<area shape="rect" id="node18" href="$structJ3DAnmVtxColorKey.html" title=" " alt="" coords="372,400,515,425"/>
+</map>

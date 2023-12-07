@@ -1,0 +1,19 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$structJStudio_1_1TAdaptor.html" title=" " alt="" coords="5,241,131,266"/>
+<area shape="rect" id="node2" href="$structJStudio_1_1TAdaptor__actor.html" title=" " alt="" coords="191,183,352,209"/>
+<area shape="rect" id="node4" href="$structJStudio_1_1TAdaptor__ambientLight.html" title=" " alt="" coords="182,69,361,109"/>
+<area shape="rect" id="node6" href="$structJStudio_1_1TAdaptor__camera.html" title=" " alt="" coords="184,134,359,159"/>
+<area shape="rect" id="node8" href="$structJStudio_1_1TAdaptor__fog.html" title=" " alt="" coords="196,298,347,323"/>
+<area shape="rect" id="node10" href="$structJStudio_1_1TAdaptor__light.html" title=" " alt="" coords="193,347,349,373"/>
+<area shape="rect" id="node12" href="$structJStudio_1_1TAdaptor__message.html" title=" " alt="" coords="179,397,364,422"/>
+<area shape="rect" id="node13" href="$structJStudio_1_1TAdaptor__particle.html" title=" " alt="" coords="184,446,359,471"/>
+<area shape="rect" id="node15" href="$structJStudio_1_1TAdaptor__sound.html" title=" " alt="" coords="188,15,355,41"/>
+<area shape="rect" id="node3" href="$structJStudio__JStage_1_1TAdaptor__actor.html" title=" " alt="" coords="425,216,598,256"/>
+<area shape="rect" id="node5" href="$structJStudio__JStage_1_1TAdaptor__ambientLight.html" title=" " alt="" coords="425,69,598,109"/>
+<area shape="rect" id="node7" href="$structJStudio__JStage_1_1TAdaptor__camera.html" title=" " alt="" coords="425,133,598,173"/>
+<area shape="rect" id="node9" href="$structJStudio__JStage_1_1TAdaptor__fog.html" title=" " alt="" coords="412,294,611,319"/>
+<area shape="rect" id="node11" href="$structJStudio__JStage_1_1TAdaptor__light.html" title=" " alt="" coords="425,344,598,384"/>
+<area shape="rect" id="node14" href="$structJStudio__JParticle_1_1TAdaptor__particle.html" title=" " alt="" coords="446,439,577,479"/>
+<area shape="rect" id="node16" href="$structJStudio__JAudio2_1_1TAdaptor__sound.html" title=" " alt="" coords="422,5,601,45"/>
+<area shape="rect" id="node17" href="$structJStudio__JStage_1_1TAdaptor__object__.html" title=" " alt="" coords="185,233,358,273"/>
+</map>

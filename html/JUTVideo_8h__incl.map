@@ -1,8 +1,12 @@
-<map id="include/JSystem/JUtility/JUTVideo/JUTVideo.h" name="include/JSystem/JUtility/JUTVideo/JUTVideo.h">
-<area shape="rect" id="node1" title=" " alt="" coords="46,5,209,47"/>
-<area shape="rect" id="node2" href="$GX_8h.html" title=" " alt="" coords="5,169,73,196"/>
-<area shape="rect" id="node4" href="$OS_8h.html" title=" " alt="" coords="93,95,162,121"/>
-<area shape="rect" id="node6" href="$VI_8h.html" title=" " alt="" coords="219,95,278,121"/>
-<area shape="rect" id="node3" href="$types_8h.html" title=" " alt="" coords="96,244,204,271"/>
-<area shape="rect" id="node5" href="$dvd_8h.html" title=" " alt="" coords="149,169,228,196"/>
+<map id="include/JSystem/JUtility/JUTVideo.h" name="include/JSystem/JUtility/JUTVideo.h">
+<area shape="rect" id="node1" title=" " alt="" coords="239,5,402,45"/>
+<area shape="rect" id="node2" href="$GXStruct_8h.html" title=" " alt="" coords="5,93,153,119"/>
+<area shape="rect" id="node6" href="$OSMessage_8h.html" title=" " alt="" coords="177,93,344,119"/>
+<area shape="rect" id="node9" href="$OSTime_8h.html" title=" " alt="" coords="307,167,449,192"/>
+<area shape="rect" id="node10" href="$vi_8h.html" title=" " alt="" coords="423,240,525,265"/>
+<area shape="rect" id="node3" href="$global_8h.html" title=" " alt="" coords="69,240,135,265"/>
+<area shape="rect" id="node4" href="$types_8h.html" title=" " alt="" coords="257,313,365,339"/>
+<area shape="rect" id="node5" href="$stddef_8h.html" title=" " alt="" coords="221,387,402,427"/>
+<area shape="rect" id="node7" href="$OSThread_8h.html" title=" " alt="" coords="127,167,282,192"/>
+<area shape="rect" id="node8" href="$OSContext_8h.html" title=" " alt="" coords="171,240,329,265"/>
 </map>

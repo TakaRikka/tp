@@ -1,0 +1,31 @@
+<map id="include/dolphin" name="include/dolphin">
+<area shape="rect" id="node1" href="dir_e464f436794397718a79e116ac090ffa.html" title="MSL_C" alt="" coords="705,136,772,161"/>
+<area shape="rect" id="node2" href="dir_6141ad2e1396b1970c524b101e645d67.html" title="Runtime.PPCEABI.H" alt="" coords="706,283,849,308"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000786_001281.html" title="1" alt="" coords="712,110,720,125"/>
+<area shape="rect" id="node4" href="dir_521291349eb63a0524ef4b13f92d3bb5.html" title="ai" alt="" coords="558,63,597,88"/>
+<area shape="rect" id="node5" href="dir_18e4858151fe0ca0d0b33d25acbbb1c4.html" title="ar" alt="" coords="495,63,534,88"/>
+<area shape="rect" id="node6" href="dir_79a1ec55bd3d63dbffc944250452287c.html" title="base" alt="" coords="420,63,471,88"/>
+<area shape="rect" id="node7" href="dir_0ef040c2f93dc84452aa976ac860f1af.html" title="card" alt="" coords="566,136,613,161"/>
+<area shape="rect" id="node16" href="dir_cae10961887f0d641c054afc85dac474.html" title="os" alt="" coords="501,209,539,235"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000016_001297.html" title="2" alt="" coords="546,194,554,209"/>
+<area shape="rect" id="node8" href="dir_d1528a5e946760f264693e8a3f2d64b5.html" title="db" alt="" coords="357,63,395,88"/>
+<area shape="rect" id="node9" href="dir_09cbebe37d76dbc976deecd2ab12d8d9.html" title="dsp" alt="" coords="499,136,541,161"/>
+<area shape="rect" id="edge3-headlabel" href="dir_000793_001297.html" title="1" alt="" coords="524,183,532,198"/>
+<area shape="rect" id="node10" href="dir_29bcf741baa82324f70900332eca16cc.html" title="dvd" alt="" coords="499,283,541,308"/>
+<area shape="rect" id="node11" href="dir_6f6beed2686d731e2bd60d8768419109.html" title="exi" alt="" coords="294,63,333,88"/>
+<area shape="rect" id="node12" href="dir_a77b964d850efb05d208e24b02ac9b71.html" title="gd" alt="" coords="231,63,270,88"/>
+<area shape="rect" id="node13" href="dir_da4e8bf8a3e0570034fe2e3a47ee8420.html" title="gf" alt="" coords="169,63,207,88"/>
+<area shape="rect" id="node14" href="dir_0a946831413905238e39a80608042579.html" title="gx" alt="" coords="237,136,275,161"/>
+<area shape="rect" id="edge4-headlabel" href="dir_000828_000830.html" title="3" alt="" coords="234,109,242,124"/>
+<area shape="rect" id="node15" href="dir_c18583810381222ac4660cab2f94c87b.html" title="mtx" alt="" coords="235,209,277,235"/>
+<area shape="rect" id="edge5-headlabel" href="dir_000830_001287.html" title="2" alt="" coords="260,183,268,198"/>
+<area shape="rect" id="edge6-headlabel" href="dir_000830_001297.html" title="1" alt="" coords="481,195,489,210"/>
+<area shape="rect" id="edge8-headlabel" href="dir_001297_001701.html" title="1" alt="" coords="715,262,723,276"/>
+<area shape="rect" id="edge7-headlabel" href="dir_001297_000795.html" title="1" alt="" coords="524,257,532,271"/>
+<area shape="rect" id="node17" href="dir_80850d49484b7deac3e56f29f2c142bb.html" title="pad" alt="" coords="101,63,144,88"/>
+<area shape="rect" id="node18" href="dir_b02b9d991b880b57acc1b523a1a5973b.html" title="si" alt="" coords="435,136,474,161"/>
+<area shape="rect" id="edge9-headlabel" href="dir_001713_001297.html" title="2" alt="" coords="499,182,507,197"/>
+<area shape="rect" id="node19" href="dir_644b56497ee721560a7c52bb893b6766.html" title="vi" alt="" coords="38,63,77,88"/>
+<area shape="rect" id="clust2" href="dir_b778c3f297ab88300258a2935792c8cc.html" alt="" coords="27,52,695,319"/>
+<area shape="rect" id="clust1" href="dir_d44c64559bbebec7f509842c48db8b23.html" title="include" alt="" coords="16,16,860,329"/>
+</map>

@@ -1,8 +1,9 @@
 <map id="OSThread" name="OSThread">
-<area shape="rect" id="node1" title=" " alt="" coords="121,199,202,225"/>
-<area shape="rect" id="node2" href="$structOSThreadLink.html" title=" " alt="" coords="5,303,112,329"/>
-<area shape="rect" id="node3" href="$structOSThreadQueue.html" title=" " alt="" coords="206,303,325,329"/>
-<area shape="rect" id="node4" href="$structOSMutexQueue.html" title=" " alt="" coords="107,109,221,136"/>
-<area shape="rect" id="node5" href="$structOSMutex.html" title=" " alt="" coords="27,5,103,32"/>
-<area shape="rect" id="node6" href="$structOSContext.html" title=" " alt="" coords="247,109,332,136"/>
+<area shape="rect" id="node1" title=" " alt="" coords="179,93,260,119"/>
+<area shape="rect" id="node3" href="$structOSThreadQueue.html" title=" " alt="" coords="5,196,124,221"/>
+<area shape="rect" id="node4" href="$structOSThreadLink.html" title=" " alt="" coords="158,196,265,221"/>
+<area shape="rect" id="node5" href="$structOSMutex.html" title=" " alt="" coords="327,284,403,309"/>
+<area shape="rect" id="node2" href="$structOSContext.html" title=" " alt="" coords="177,5,262,31"/>
+<area shape="rect" id="node6" href="$structOSMutexLink.html" title=" " alt="" coords="281,387,382,412"/>
+<area shape="rect" id="node7" href="$structOSMutexQueue.html" title=" " alt="" coords="414,387,529,412"/>
 </map>

@@ -1,0 +1,10 @@
+<map id="include/MSL_C/stdlib.h" name="include/MSL_C/stdlib.h">
+<area shape="rect" id="node1" title=" " alt="" coords="326,5,482,31"/>
+<area shape="rect" id="node2" href="$abort__exit_8h.html" title=" " alt="" coords="5,79,187,119"/>
+<area shape="rect" id="node3" href="$arith_8h.html" title=" " alt="" coords="211,79,392,119"/>
+<area shape="rect" id="node4" href="$mbstring_8h.html" title=" " alt="" coords="416,79,597,119"/>
+<area shape="rect" id="node8" href="$strtoul_8h.html" title=" " alt="" coords="621,79,803,119"/>
+<area shape="rect" id="node5" href="$wchar__io_8h.html" title=" " alt="" coords="416,167,597,207"/>
+<area shape="rect" id="node6" href="$ansi__files_8h.html" title=" " alt="" coords="416,255,597,295"/>
+<area shape="rect" id="node7" href="$stddef_8h.html" title=" " alt="" coords="416,343,597,383"/>
+</map>

@@ -1,0 +1,16 @@
+<map id="CARDControl" name="CARDControl">
+<area shape="rect" id="node1" title=" " alt="" coords="328,112,427,137"/>
+<area shape="rect" id="node2" href="$structDSPTaskInfo.html" title=" " alt="" coords="118,7,218,33"/>
+<area shape="rect" id="node3" href="$structCARDDir.html" title=" " alt="" coords="295,7,369,33"/>
+<area shape="rect" id="node4" href="$structOSThreadQueue.html" title=" " alt="" coords="555,7,674,33"/>
+<area shape="rect" id="node5" href="$structOSThread.html" title=" " alt="" coords="713,112,794,137"/>
+<area shape="rect" id="node8" href="$structOSMutex.html" title=" " alt="" coords="639,215,715,240"/>
+<area shape="rect" id="node7" href="$structOSThreadLink.html" title=" " alt="" coords="752,215,859,240"/>
+<area shape="rect" id="node6" href="$structOSContext.html" title=" " alt="" coords="752,7,837,33"/>
+<area shape="rect" id="node9" href="$structOSMutexLink.html" title=" " alt="" coords="628,317,729,343"/>
+<area shape="rect" id="node10" href="$structOSMutexQueue.html" title=" " alt="" coords="825,317,940,343"/>
+<area shape="rect" id="node11" href="$structCARDFileInfo.html" title=" " alt="" coords="393,7,495,33"/>
+<area shape="rect" id="node12" href="$structOSAlarm.html" title=" " alt="" coords="900,7,975,33"/>
+<area shape="rect" id="node13" href="$structOSAlarmLink.html" title=" " alt="" coords="917,112,1017,137"/>
+<area shape="rect" id="node14" href="$structDVDDiskID.html" title=" " alt="" coords="5,7,93,33"/>
+</map>

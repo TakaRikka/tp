@@ -1,0 +1,13 @@
+<map id="include/dolphin/gx/GXTexture.h" name="include/dolphin/gx/GXTexture.h">
+<area shape="rect" id="node1" title=" " alt="" coords="127,5,252,45"/>
+<area shape="rect" id="node2" href="$GXInit_8h.html" title=" " alt="" coords="124,93,255,119"/>
+<area shape="rect" id="node3" href="$GXEnum_8h.html" title=" " alt="" coords="5,313,152,339"/>
+<area shape="rect" id="node6" href="$GXStruct_8h.html" title=" " alt="" coords="115,167,263,192"/>
+<area shape="rect" id="node8" href="$mtx_8h.html" title=" " alt="" coords="288,167,411,192"/>
+<area shape="rect" id="node4" href="$types_8h.html" title=" " alt="" coords="189,387,297,412"/>
+<area shape="rect" id="node5" href="$stddef_8h.html" title=" " alt="" coords="152,460,333,500"/>
+<area shape="rect" id="node7" href="$global_8h.html" title=" " alt="" coords="139,240,205,265"/>
+<area shape="rect" id="node9" href="$mtx44_8h.html" title=" " alt="" coords="281,313,418,339"/>
+<area shape="rect" id="node10" href="$quat_8h.html" title=" " alt="" coords="414,240,541,265"/>
+<area shape="rect" id="node11" href="$vec_8h.html" title=" " alt="" coords="443,313,565,339"/>
+</map>

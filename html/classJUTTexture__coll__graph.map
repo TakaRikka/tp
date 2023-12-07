@@ -1,0 +1,8 @@
+<map id="JUTTexture" name="JUTTexture">
+<area shape="rect" id="node1" title=" " alt="" coords="113,196,203,221"/>
+<area shape="rect" id="node2" href="$struct__GXTexObj.html" title=" " alt="" coords="5,93,95,119"/>
+<area shape="rect" id="node3" href="$structResTIMG.html" title=" " alt="" coords="119,93,197,119"/>
+<area shape="rect" id="node4" href="$classJUTPalette.html" title=" " alt="" coords="222,93,310,119"/>
+<area shape="rect" id="node5" href="$struct__GXTlutObj.html" title=" " alt="" coords="166,5,257,31"/>
+<area shape="rect" id="node6" href="$structResTLUT.html" title=" " alt="" coords="281,5,360,31"/>
+</map>

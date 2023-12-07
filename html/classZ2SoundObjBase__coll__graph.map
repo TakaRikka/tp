@@ -1,9 +1,12 @@
 <map id="Z2SoundObjBase" name="Z2SoundObjBase">
-<area shape="rect" id="node1" title=" " alt="" coords="191,277,315,304"/>
-<area shape="rect" id="node2" href="$classZ2SoundHandles.html" title=" " alt="" coords="49,188,172,215"/>
-<area shape="rect" id="node3" href="$classJSUList.html" title=" " alt="" coords="5,111,216,137"/>
-<area shape="rect" id="node4" href="$classJSUPtrList.html" title=" " alt="" coords="174,5,261,32"/>
-<area shape="rect" id="node5" href="$classJSUPtrLink.html" title=" " alt="" coords="240,111,331,137"/>
-<area shape="rect" id="node6" href="$structZ2SoundStarter.html" title=" " alt="" coords="197,188,310,215"/>
-<area shape="rect" id="node7" href="$structVec.html" title=" " alt="" coords="352,188,397,215"/>
+<area shape="rect" id="node1" title=" " alt="" coords="363,310,487,335"/>
+<area shape="rect" id="node2" href="$classZ2SoundHandles.html" title=" " alt="" coords="112,207,235,233"/>
+<area shape="rect" id="node3" href="$classJSUList.html" title=" " alt="" coords="5,110,216,135"/>
+<area shape="rect" id="node4" href="$structJSUPtrList.html" title=" " alt="" coords="166,5,253,31"/>
+<area shape="rect" id="node5" href="$structJSUPtrLink.html" title=" " alt="" coords="240,110,331,135"/>
+<area shape="rect" id="node6" href="$structZ2SoundStarter.html" title=" " alt="" coords="565,207,678,233"/>
+<area shape="rect" id="node9" href="$classJASGlobalInstance.html" title=" " alt="" coords="621,303,763,343"/>
+<area shape="rect" id="node7" href="$structJAISoundStarter.html" title=" " alt="" coords="421,110,539,135"/>
+<area shape="rect" id="node8" href="$classJASGlobalInstance.html" title=" " alt="" coords="266,200,409,240"/>
+<area shape="rect" id="node10" href="$structVec.html" title=" " alt="" coords="433,207,479,233"/>
 </map>

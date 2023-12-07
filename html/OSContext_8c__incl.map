@@ -1,0 +1,30 @@
+<map id="libs/dolphin/os/OSContext.c" name="libs/dolphin/os/OSContext.c">
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,188,31"/>
+<area shape="rect" id="node2" href="$OSContext_8h.html" title=" " alt="" coords="155,313,313,339"/>
+<area shape="rect" id="node5" href="$db_8h.html" title=" " alt="" coords="6,313,115,339"/>
+<area shape="rect" id="node6" href="$OS_8h.html" title=" " alt="" coords="1009,79,1123,104"/>
+<area shape="rect" id="node3" href="$types_8h.html" title=" " alt="" coords="1055,387,1163,412"/>
+<area shape="rect" id="node4" href="$stddef_8h.html" title=" " alt="" coords="1018,460,1199,500"/>
+<area shape="rect" id="node7" href="$____va__arg_8h.html" title=" " alt="" coords="363,225,510,265"/>
+<area shape="rect" id="node8" href="$dvd_8h.html" title=" " alt="" coords="599,313,722,339"/>
+<area shape="rect" id="node9" href="$OSAlarm_8h.html" title=" " alt="" coords="753,152,901,177"/>
+<area shape="rect" id="node10" href="$OSError_8h.html" title=" " alt="" coords="585,233,726,258"/>
+<area shape="rect" id="node11" href="$OSTime_8h.html" title=" " alt="" coords="751,233,893,258"/>
+<area shape="rect" id="node12" href="$OSAlloc_8h.html" title=" " alt="" coords="917,233,1060,258"/>
+<area shape="rect" id="node13" href="$OSArena_8h.html" title=" " alt="" coords="1084,233,1232,258"/>
+<area shape="rect" id="node14" href="$OSAudioSystem_8h.html" title=" " alt="" coords="1844,152,2035,177"/>
+<area shape="rect" id="node15" href="$OSCache_8h.html" title=" " alt="" coords="1033,313,1184,339"/>
+<area shape="rect" id="node16" href="$OSExec_8h.html" title=" " alt="" coords="1208,313,1351,339"/>
+<area shape="rect" id="node17" href="$OSFont_8h.html" title=" " alt="" coords="1180,152,1320,177"/>
+<area shape="rect" id="node18" href="$OSInterrupt_8h.html" title=" " alt="" coords="1409,233,1571,258"/>
+<area shape="rect" id="node19" href="$OSLink_8h.html" title=" " alt="" coords="1579,152,1718,177"/>
+<area shape="rect" id="node20" href="$OSMemory_8h.html" title=" " alt="" coords="1345,152,1505,177"/>
+<area shape="rect" id="node21" href="$OSMessage_8h.html" title=" " alt="" coords="409,152,576,177"/>
+<area shape="rect" id="node22" href="$OSThread_8h.html" title=" " alt="" coords="185,233,339,258"/>
+<area shape="rect" id="node23" href="$OSMutex_8h.html" title=" " alt="" coords="235,152,385,177"/>
+<area shape="rect" id="node24" href="$OSReboot_8h.html" title=" " alt="" coords="1646,233,1801,258"/>
+<area shape="rect" id="node25" href="$OSReset_8h.html" title=" " alt="" coords="1747,313,1895,339"/>
+<area shape="rect" id="node26" href="$OSResetSW_8h.html" title=" " alt="" coords="1947,313,2116,339"/>
+<area shape="rect" id="node27" href="$OSRtc_8h.html" title=" " alt="" coords="2195,313,2329,339"/>
+<area shape="rect" id="node28" href="$OSSync_8h.html" title=" " alt="" coords="2059,152,2201,177"/>
+</map>

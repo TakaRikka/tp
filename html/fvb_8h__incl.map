@@ -1,16 +1,14 @@
-<map id="include/JSystem/JStudio/fvb.h" name="include/JSystem/JStudio/fvb.h">
-<area shape="rect" id="node1" title=" " alt="" coords="388,5,555,47"/>
-<area shape="rect" id="node2" href="$binary_8h.html" title=" " alt="" coords="5,244,180,271"/>
-<area shape="rect" id="node4" href="$linklist_8h.html" title=" " alt="" coords="156,95,333,121"/>
-<area shape="rect" id="node5" href="$functionvalue_8h.html" title=" " alt="" coords="365,95,577,121"/>
-<area shape="rect" id="node7" href="$global_8h.html" title=" " alt="" coords="438,244,505,271"/>
-<area shape="rect" id="node14" href="$object-id_8h.html" title=" " alt="" coords="670,393,854,420"/>
-<area shape="rect" id="node3" href="$types_8h.html" title=" " alt="" coords="332,468,440,495"/>
-<area shape="rect" id="node6" href="$search_8h.html" title=" " alt="" coords="255,169,434,196"/>
-<area shape="rect" id="node13" href="$JGadget_2vector_8h.html" title=" " alt="" coords="509,169,685,196"/>
-<area shape="rect" id="node8" href="$AR_8h.html" title=" " alt="" coords="319,319,384,345"/>
-<area shape="rect" id="node9" href="$ARQ_8h.html" title=" " alt="" coords="386,393,461,420"/>
-<area shape="rect" id="node10" href="$mwcc_8h.html" title=" " alt="" coords="459,319,526,345"/>
-<area shape="rect" id="node11" href="$OS_8h.html" title=" " alt="" coords="550,319,619,345"/>
-<area shape="rect" id="node12" href="$dvd_8h.html" title=" " alt="" coords="544,393,623,420"/>
+<map id="include/JSystem/JStudio/JStudio/fvb.h" name="include/JSystem/JStudio/JStudio/fvb.h">
+<area shape="rect" id="node1" title=" " alt="" coords="239,5,405,45"/>
+<area shape="rect" id="node2" href="$linklist_8h.html" title=" " alt="" coords="5,189,183,214"/>
+<area shape="rect" id="node5" href="$fvb-data-parse_8h.html" title=" " alt="" coords="237,93,407,133"/>
+<area shape="rect" id="node12" href="$object-id_8h.html" title=" " alt="" coords="423,431,592,471"/>
+<area shape="rect" id="node3" href="$types_8h.html" title=" " alt="" coords="129,519,237,544"/>
+<area shape="rect" id="node4" href="$stddef_8h.html" title=" " alt="" coords="93,592,274,632"/>
+<area shape="rect" id="node6" href="$fvb-data_8h.html" title=" " alt="" coords="237,181,407,221"/>
+<area shape="rect" id="node7" href="$binary_8h.html" title=" " alt="" coords="100,277,275,302"/>
+<area shape="rect" id="node8" href="$functionvalue_8h.html" title=" " alt="" coords="299,269,468,309"/>
+<area shape="rect" id="node9" href="$search_8h.html" title=" " alt="" coords="158,357,337,383"/>
+<area shape="rect" id="node10" href="$global_8h.html" title=" " alt="" coords="214,438,281,463"/>
+<area shape="rect" id="node11" href="$vector_8h.html" title=" " alt="" coords="411,357,587,383"/>
 </map>

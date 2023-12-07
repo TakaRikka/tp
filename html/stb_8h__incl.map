@@ -1,13 +1,11 @@
-<map id="include/JSystem/JStudio/stb.h" name="include/JSystem/JStudio/stb.h">
-<area shape="rect" id="node1" title=" " alt="" coords="200,5,367,47"/>
-<area shape="rect" id="node2" href="$binary_8h.html" title=" " alt="" coords="5,244,180,271"/>
-<area shape="rect" id="node4" href="$linklist_8h.html" title=" " alt="" coords="132,95,309,121"/>
-<area shape="rect" id="node5" href="$object-id_8h.html" title=" " alt="" coords="255,244,439,271"/>
-<area shape="rect" id="node6" href="$global_8h.html" title=" " alt="" coords="531,95,598,121"/>
-<area shape="rect" id="node3" href="$types_8h.html" title=" " alt="" coords="457,319,565,345"/>
-<area shape="rect" id="node7" href="$AR_8h.html" title=" " alt="" coords="515,244,580,271"/>
-<area shape="rect" id="node8" href="$ARQ_8h.html" title=" " alt="" coords="565,169,639,196"/>
-<area shape="rect" id="node9" href="$mwcc_8h.html" title=" " alt="" coords="663,169,730,196"/>
-<area shape="rect" id="node10" href="$OS_8h.html" title=" " alt="" coords="754,169,823,196"/>
-<area shape="rect" id="node11" href="$dvd_8h.html" title=" " alt="" coords="739,244,817,271"/>
+<map id="include/JSystem/JStudio/JStudio/stb.h" name="include/JSystem/JStudio/JStudio/stb.h">
+<area shape="rect" id="node1" title=" " alt="" coords="233,5,400,45"/>
+<area shape="rect" id="node2" href="$linklist_8h.html" title=" " alt="" coords="5,189,183,214"/>
+<area shape="rect" id="node5" href="$object-id_8h.html" title=" " alt="" coords="136,93,305,133"/>
+<area shape="rect" id="node6" href="$stb-data-parse_8h.html" title=" " alt="" coords="329,93,499,133"/>
+<area shape="rect" id="node9" href="$global_8h.html" title=" " alt="" coords="577,101,643,126"/>
+<area shape="rect" id="node3" href="$types_8h.html" title=" " alt="" coords="292,269,400,295"/>
+<area shape="rect" id="node4" href="$stddef_8h.html" title=" " alt="" coords="255,343,437,383"/>
+<area shape="rect" id="node7" href="$binary_8h.html" title=" " alt="" coords="259,189,433,214"/>
+<area shape="rect" id="node8" href="$stb-data_8h.html" title=" " alt="" coords="457,181,627,221"/>
 </map>

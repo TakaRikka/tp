@@ -1,0 +1,21 @@
+<map id="J2DWindow" name="J2DWindow">
+<area shape="rect" id="node1" title=" " alt="" coords="613,607,704,632"/>
+<area shape="rect" id="node2" href="$structJ2DPane.html" title=" " alt="" coords="339,445,413,471"/>
+<area shape="rect" id="node3" href="$structJGeometry_1_1TBox2.html" title=" " alt="" coords="7,313,175,339"/>
+<area shape="rect" id="node4" href="$structJGeometry_1_1TBox.html" title=" " alt="" coords="5,211,176,251"/>
+<area shape="rect" id="node5" href="$classJSUTree.html" title=" " alt="" coords="199,313,348,339"/>
+<area shape="rect" id="node6" href="$classJSUList.html" title=" " alt="" coords="167,161,267,187"/>
+<area shape="rect" id="node7" href="$structJSUPtrList.html" title=" " alt="" coords="218,5,305,31"/>
+<area shape="rect" id="node8" href="$structJSUPtrLink.html" title=" " alt="" coords="261,110,352,135"/>
+<area shape="rect" id="node9" href="$classJSULink.html" title=" " alt="" coords="255,218,358,243"/>
+<area shape="rect" id="node10" href="$structJ2DAnmTransform.html" title=" " alt="" coords="372,313,503,339"/>
+<area shape="rect" id="node11" href="$structJ2DAnmBase.html" title=" " alt="" coords="386,218,489,243"/>
+<area shape="rect" id="node12" href="$classJUTTexture.html" title=" " alt="" coords="613,445,704,471"/>
+<area shape="rect" id="node13" href="$struct__GXTexObj.html" title=" " alt="" coords="527,313,617,339"/>
+<area shape="rect" id="node14" href="$structResTIMG.html" title=" " alt="" coords="641,313,719,339"/>
+<area shape="rect" id="node15" href="$classJUTPalette.html" title=" " alt="" coords="773,313,861,339"/>
+<area shape="rect" id="node16" href="$struct__GXTlutObj.html" title=" " alt="" coords="717,218,808,243"/>
+<area shape="rect" id="node17" href="$structResTLUT.html" title=" " alt="" coords="833,218,911,243"/>
+<area shape="rect" id="node18" href="$structJUtility_1_1TColor.html" title=" " alt="" coords="925,445,1032,471"/>
+<area shape="rect" id="node19" href="$struct__GXColor.html" title=" " alt="" coords="943,313,1014,339"/>
+</map>

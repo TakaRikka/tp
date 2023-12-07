@@ -1,14 +1,13 @@
-<map id="include/JSystem/JUtility/JUTXfb/JUTXfb.h" name="include/JSystem/JUtility/JUTXfb/JUTXfb.h">
-<area shape="rect" id="node1" title=" " alt="" coords="639,5,801,47"/>
-<area shape="rect" id="node2" href="$JKRHeap_8h.html" title=" " alt="" coords="236,95,417,136"/>
-<area shape="rect" id="node5" href="$types_8h.html" title=" " alt="" coords="389,437,497,464"/>
-<area shape="rect" id="node12" href="$GX_8h.html" title=" " alt="" coords="758,184,826,211"/>
-<area shape="rect" id="node3" href="$JKRDisposer_8h.html" title=" " alt="" coords="35,259,237,300"/>
-<area shape="rect" id="node6" href="$global_8h.html" title=" " alt="" coords="379,184,445,211"/>
-<area shape="rect" id="node4" href="$JSUList_8h.html" title=" " alt="" coords="5,348,187,389"/>
-<area shape="rect" id="node7" href="$AR_8h.html" title=" " alt="" coords="363,355,429,382"/>
-<area shape="rect" id="node8" href="$ARQ_8h.html" title=" " alt="" coords="453,355,528,382"/>
-<area shape="rect" id="node9" href="$mwcc_8h.html" title=" " alt="" coords="475,266,541,293"/>
-<area shape="rect" id="node10" href="$OS_8h.html" title=" " alt="" coords="565,266,635,293"/>
-<area shape="rect" id="node11" href="$dvd_8h.html" title=" " alt="" coords="603,355,682,382"/>
+<map id="include/JSystem/JUtility/JUTXfb.h" name="include/JSystem/JUtility/JUTXfb.h">
+<area shape="rect" id="node1" title=" " alt="" coords="241,5,403,45"/>
+<area shape="rect" id="node2" href="$JUTVideo_8h.html" title=" " alt="" coords="227,93,417,119"/>
+<area shape="rect" id="node3" href="$GXStruct_8h.html" title=" " alt="" coords="5,167,153,192"/>
+<area shape="rect" id="node7" href="$OSMessage_8h.html" title=" " alt="" coords="179,167,345,192"/>
+<area shape="rect" id="node10" href="$OSTime_8h.html" title=" " alt="" coords="313,313,456,339"/>
+<area shape="rect" id="node11" href="$vi_8h.html" title=" " alt="" coords="431,240,533,265"/>
+<area shape="rect" id="node4" href="$global_8h.html" title=" " alt="" coords="39,313,106,339"/>
+<area shape="rect" id="node5" href="$types_8h.html" title=" " alt="" coords="243,387,351,412"/>
+<area shape="rect" id="node6" href="$stddef_8h.html" title=" " alt="" coords="206,460,387,500"/>
+<area shape="rect" id="node8" href="$OSThread_8h.html" title=" " alt="" coords="158,240,313,265"/>
+<area shape="rect" id="node9" href="$OSContext_8h.html" title=" " alt="" coords="131,313,289,339"/>
 </map>

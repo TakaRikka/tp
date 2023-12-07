@@ -1,6 +1,15 @@
 <map id="JStudio::stb::TObject" name="JStudio::stb::TObject">
-<area shape="rect" id="node1" title=" " alt="" coords="23,155,166,181"/>
-<area shape="rect" id="node4" href="$classJStudio_1_1stb_1_1TObject__control.html" title=" " alt="" coords="23,229,166,271"/>
-<area shape="rect" id="node2" href="$structJStudio_1_1object_1_1TObject__ID.html" title=" " alt="" coords="5,80,184,107"/>
-<area shape="rect" id="node3" href="$classJStudio_1_1object_1_1TIDData.html" title=" " alt="" coords="14,5,175,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="441,224,584,249"/>
+<area shape="rect" id="node4" href="$classJStudio_1_1TObject.html" title=" " alt="" coords="644,195,763,220"/>
+<area shape="rect" id="node13" href="$classJStudio_1_1stb_1_1TObject__control.html" title=" " alt="" coords="632,245,775,285"/>
+<area shape="rect" id="node2" href="$structJStudio_1_1object_1_1TObject__ID.html" title=" " alt="" coords="215,224,393,249"/>
+<area shape="rect" id="node3" href="$structJStudio_1_1object_1_1TIDData.html" title=" " alt="" coords="5,224,167,249"/>
+<area shape="rect" id="node5" href="$structJStudio_1_1TObject__actor.html" title=" " alt="" coords="835,5,989,31"/>
+<area shape="rect" id="node6" href="$structJStudio_1_1TObject__ambientLight.html" title=" " alt="" coords="827,55,997,95"/>
+<area shape="rect" id="node7" href="$structJStudio_1_1TObject__camera.html" title=" " alt="" coords="828,120,996,145"/>
+<area shape="rect" id="node8" href="$structJStudio_1_1TObject__fog.html" title=" " alt="" coords="841,169,983,195"/>
+<area shape="rect" id="node9" href="$structJStudio_1_1TObject__light.html" title=" " alt="" coords="837,219,987,244"/>
+<area shape="rect" id="node10" href="$structJStudio_1_1TObject__message.html" title=" " alt="" coords="823,268,1001,293"/>
+<area shape="rect" id="node11" href="$structJStudio_1_1TObject__particle.html" title=" " alt="" coords="829,317,995,343"/>
+<area shape="rect" id="node12" href="$structJStudio_1_1TObject__sound.html" title=" " alt="" coords="832,367,992,392"/>
 </map>

@@ -1,5 +1,6 @@
 <map id="include/JSystem/JSupport/JSUInputStream.h" name="include/JSystem/JSupport/JSUInputStream.h">
-<area shape="rect" id="node1" title=" " alt="" coords="100,5,275,47"/>
-<area shape="rect" id="node2" href="$JSUIosBase_8h.html" title=" " alt="" coords="5,95,223,121"/>
-<area shape="rect" id="node3" href="$types_8h.html" title=" " alt="" coords="133,169,241,196"/>
+<area shape="rect" id="node1" title=" " alt="" coords="27,5,201,45"/>
+<area shape="rect" id="node2" href="$JSUIosBase_8h.html" title=" " alt="" coords="5,93,223,119"/>
+<area shape="rect" id="node3" href="$types_8h.html" title=" " alt="" coords="60,167,168,192"/>
+<area shape="rect" id="node4" href="$stddef_8h.html" title=" " alt="" coords="23,240,205,280"/>
 </map>

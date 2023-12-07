@@ -1,0 +1,11 @@
+<map id="libs/dolphin/dsp/dsp.c" name="libs/dolphin/dsp/dsp.c">
+<area shape="rect" id="node1" title=" " alt="" coords="128,5,275,31"/>
+<area shape="rect" id="node2" href="$dsp_8h.html" title=" " alt="" coords="232,167,355,192"/>
+<area shape="rect" id="node6" href="$dsp__debug_8h.html" title=" " alt="" coords="27,86,192,111"/>
+<area shape="rect" id="node7" href="$dsp__task_8h.html" title=" " alt="" coords="216,86,371,111"/>
+<area shape="rect" id="node8" href="$osdsp__task_8h.html" title=" " alt="" coords="395,79,558,119"/>
+<area shape="rect" id="node3" href="$OSTime_8h.html" title=" " alt="" coords="225,240,368,265"/>
+<area shape="rect" id="node4" href="$types_8h.html" title=" " alt="" coords="330,313,438,339"/>
+<area shape="rect" id="node5" href="$stddef_8h.html" title=" " alt="" coords="294,387,475,427"/>
+<area shape="rect" id="node9" href="$OSInterrupt_8h.html" title=" " alt="" coords="394,240,556,265"/>
+</map>

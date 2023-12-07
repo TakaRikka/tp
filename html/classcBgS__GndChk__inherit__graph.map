@@ -1,4 +1,13 @@
 <map id="cBgS_GndChk" name="cBgS_GndChk">
-<area shape="rect" id="node1" title=" " alt="" coords="5,80,113,107"/>
-<area shape="rect" id="node2" href="$classcBgS__Chk.html" title=" " alt="" coords="17,5,101,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="225,79,333,104"/>
+<area shape="rect" id="node4" href="$classdBgS__GndChk.html" title=" " alt="" coords="225,152,333,177"/>
+<area shape="rect" id="node2" href="$classcBgS__Chk.html" title=" " alt="" coords="177,5,261,31"/>
+<area shape="rect" id="node3" href="$structcBgS__PolyInfo.html" title=" " alt="" coords="285,5,393,31"/>
+<area shape="rect" id="node5" href="$classdBgS__CamGndChk.html" title=" " alt="" coords="42,225,177,251"/>
+<area shape="rect" id="node7" href="$classdBgS__LinkGndChk.html" title=" " alt="" coords="212,225,345,251"/>
+<area shape="rect" id="node8" href="$classdBgS__ObjGndChk.html" title=" " alt="" coords="375,225,503,251"/>
+<area shape="rect" id="node6" href="$classdBgS__CamGndChk__Wtr.html" title=" " alt="" coords="5,299,168,324"/>
+<area shape="rect" id="node9" href="$classdBgS__ObjGndChk__All.html" title=" " alt="" coords="193,299,343,324"/>
+<area shape="rect" id="node10" href="$classdBgS__ObjGndChk__Spl.html" title=" " alt="" coords="368,299,523,324"/>
+<area shape="rect" id="node11" href="$classdBgS__ObjGndChk__Wtr.html" title=" " alt="" coords="547,299,701,324"/>
 </map>

@@ -1,4 +1,7 @@
-<map id="include/msl_c/string.h" name="include/msl_c/string.h">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,153,32"/>
-<area shape="rect" id="node2" href="$types_8h.html" title=" " alt="" coords="25,80,133,107"/>
+<map id="include/MSL_C/string.h" name="include/MSL_C/string.h">
+<area shape="rect" id="node1" title=" " alt="" coords="223,5,380,31"/>
+<area shape="rect" id="node2" href="$extras_8h.html" title=" " alt="" coords="5,79,187,119"/>
+<area shape="rect" id="node3" href="$mem_8h.html" title=" " alt="" coords="211,79,392,119"/>
+<area shape="rect" id="node5" href="$MSL__Common_2Src_2string_8h.html" title=" " alt="" coords="416,79,597,119"/>
+<area shape="rect" id="node4" href="$stddef_8h.html" title=" " alt="" coords="313,167,495,207"/>
 </map>

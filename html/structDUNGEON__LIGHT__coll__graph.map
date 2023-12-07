@@ -1,0 +1,8 @@
+<map id="DUNGEON_LIGHT" name="DUNGEON_LIGHT">
+<area shape="rect" id="node1" title=" " alt="" coords="145,348,281,373"/>
+<area shape="rect" id="node2" href="$structcXyz.html" title=" " alt="" coords="159,126,209,151"/>
+<area shape="rect" id="node5" href="$structLIGHT__INFLUENCE.html" title=" " alt="" coords="21,260,165,285"/>
+<area shape="rect" id="node3" href="$structVec.html" title=" " alt="" coords="161,5,207,31"/>
+<area shape="rect" id="node4" href="$struct__GXColor.html" title=" " alt="" coords="299,260,378,285"/>
+<area shape="rect" id="node6" href="$struct__GXColorS10.html" title=" " alt="" coords="5,126,107,151"/>
+</map>

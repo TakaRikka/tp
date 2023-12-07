@@ -1,0 +1,7 @@
+<map id="scene_class" name="scene_class">
+<area shape="rect" id="node1" title=" " alt="" coords="187,5,281,31"/>
+<area shape="rect" id="node2" href="$classdScnLogo__c.html" title=" " alt="" coords="5,79,100,104"/>
+<area shape="rect" id="node3" href="$classdScnName__c.html" title=" " alt="" coords="125,79,226,104"/>
+<area shape="rect" id="node4" href="$classdScnPly__c.html" title=" " alt="" coords="251,79,335,104"/>
+<area shape="rect" id="node5" href="$classroom__of__scene__class.html" title=" " alt="" coords="359,79,509,104"/>
+</map>

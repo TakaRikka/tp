@@ -1,0 +1,11 @@
+<map id="J3DShapeBlock" name="J3DShapeBlock">
+<area shape="rect" id="node1" title=" " alt="" coords="263,196,378,221"/>
+<area shape="rect" id="node2" href="$structJ3DShapeInitData.html" title=" " alt="" coords="5,108,132,133"/>
+<area shape="rect" id="node3" href="$structVec.html" title=" " alt="" coords="46,5,91,31"/>
+<area shape="rect" id="node4" href="$structResNTAB.html" title=" " alt="" coords="156,108,237,133"/>
+<area shape="rect" id="node5" href="$structResNTAB_1_1Entry.html" title=" " alt="" coords="139,5,255,31"/>
+<area shape="rect" id="node6" href="$struct__GXVtxDescList.html" title=" " alt="" coords="261,108,380,133"/>
+<area shape="rect" id="node7" href="$struct__GXAttr.html" title=" " alt="" coords="286,5,355,31"/>
+<area shape="rect" id="node8" href="$structJ3DShapeMtxInitData.html" title=" " alt="" coords="404,108,552,133"/>
+<area shape="rect" id="node9" href="$structJ3DShapeDrawInitData.html" title=" " alt="" coords="577,108,734,133"/>
+</map>

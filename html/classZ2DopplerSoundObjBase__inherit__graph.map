@@ -1,6 +1,7 @@
 <map id="Z2DopplerSoundObjBase" name="Z2DopplerSoundObjBase">
-<area shape="rect" id="node1" title=" " alt="" coords="27,229,195,256"/>
-<area shape="rect" id="node2" href="$classZ2SoundHandles.html" title=" " alt="" coords="49,155,172,181"/>
-<area shape="rect" id="node3" href="$classJSUList.html" title=" " alt="" coords="5,80,216,107"/>
-<area shape="rect" id="node4" href="$classJSUPtrList.html" title=" " alt="" coords="67,5,154,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="27,225,195,251"/>
+<area shape="rect" id="node5" href="$classZ2SoundObjArrow.html" title=" " alt="" coords="47,299,175,324"/>
+<area shape="rect" id="node2" href="$classZ2SoundHandles.html" title=" " alt="" coords="49,152,172,177"/>
+<area shape="rect" id="node3" href="$classJSUList.html" title=" " alt="" coords="5,79,216,104"/>
+<area shape="rect" id="node4" href="$structJSUPtrList.html" title=" " alt="" coords="67,5,154,31"/>
 </map>
