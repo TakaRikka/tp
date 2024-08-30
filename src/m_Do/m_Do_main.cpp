@@ -541,7 +541,7 @@ void main() {
             u32 consoleType = OSGetConsoleType();
             mDoMain::developmentMode = (consoleType >> 0x1C) & 1;
         } else {
-            mDoMain::developmentMode = 0;
+            mDoMain::developmentMode = 1;
         }
     }
 

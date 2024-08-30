@@ -33,7 +33,10 @@ def printMenu(stdscr, selected_idx, options):
     left = min([(width // 2) - (len(option) // 2) for option in options])
     top = (height // 2) - (len(options) // 2)
 
-    stdscr.addstr(top - 2, left, "Configure Asset Extraction/Packaging (q to save):")
+    try:
+        stdscr.addstr(top - 2, left, "Configure Asset Extraction/Packaging (q to save):")
+    except curses.error:
+        pass
 
     for idx, option in enumerate(options):
         x = left

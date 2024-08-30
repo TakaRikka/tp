@@ -265,16 +265,22 @@ void dScnName_c::brightCheck() {
 void dScnName_c::changeGameScene() {
     if (!mDoRst::isReset() && !fopOvlpM_IsPeek()) {
         dComIfGs_gameStart();
-        fopScnM_ChangeReq(this, field_0x41f == 0 ? PROC_PLAY_SCENE : PROC_PLAY_SCENE, 0, 5);
-        dComIfGp_offEnableNextStage();
 
-        if (dFs_c->isDataNew(dFs_c->getSelectNum())) {
-            dComIfGp_setNextStage("F_SP108", 21, 1, 13);
+        if (dFs_c->getSelectNum() == 0) {
+            fopScnM_ChangeReq(this, PROC_MENU_SCENE, 0, 5);
+            dComIfGs_init();
+        } else {
+            fopScnM_ChangeReq(this, field_0x41f == 0 ? PROC_PLAY_SCENE : PROC_PLAY_SCENE, 0, 5);
+            dComIfGp_offEnableNextStage();
+
+            if (dFs_c->isDataNew(dFs_c->getSelectNum())) {
+                dComIfGp_setNextStage("F_SP108", 21, 1, 13);
+            }
+            
+            dKy_clear_game_init();
+            dComIfGs_resetDan();
+            dComIfGs_setRestartRoomParam(0);
         }
-        
-        dKy_clear_game_init();
-        dComIfGs_resetDan();
-        dComIfGs_setRestartRoomParam(0);
     }
 }
 

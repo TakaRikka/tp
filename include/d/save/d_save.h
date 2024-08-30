@@ -463,6 +463,14 @@ public:
     void setTime(f32 i_time) { mTime = i_time; }
     OSTime getDateIpl() const { return mDateIpl; }
 
+    void offDarkClearLV(int i_no) {
+        mDarkClearLevelFlag &= ~(u8)(1 << i_no);
+    }
+
+    void offTransformLV(int i_no) {
+        mTransformLevelFlag &= ~(u8)(1 << i_no);
+    }
+
 private:
     /* 0x00 */ OSTime mDateIpl;
     /* 0x08 */ u8 mTransformLevelFlag;
@@ -672,6 +680,12 @@ public:
     u8 getLightDropNum(u8 i_nowLevel) const;
     void onLightDropGetFlag(u8 i_nowLevel);
     BOOL isLightDropGetFlag(u8 i_nowLevel) const;
+
+    void offLightDropGetFlag(u8 i_nowLevel) {
+        if (i_nowLevel < LIGHT_DROP_STAGE || i_nowLevel > 6) {
+            mLightDropGetFlag &= ~(u8)(1 << i_nowLevel);
+        }
+    }
 
 private:
     /* 0x0 */ u8 mLightDropNum[4];
