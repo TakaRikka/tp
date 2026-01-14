@@ -28,6 +28,25 @@ class daAlinkHIO_anm_c;
 class daScex_c;
 class fopEn_enemy_c;
 
+class daAlink_Fairy_c {
+public:
+    void setColor(u8 r, u8 g, u8 b, u8 a) {
+        mColor.r = r;
+        mColor.g = g;
+        mColor.b = b;
+        mColor.a = a;
+    }
+
+    mDoExt_McaMorfSO* mpAnmModel;
+    cXyz mPosition;
+    csXyz mAngle;
+    f32 mFollowSpeed;
+    u32 mGlowEmitterID;
+    u32 mStarEmitterID;
+    s16 mMoveHTimer;
+    GXColor mColor;
+};
+
 class daAlink_lockCursor_c : public dDlst_base_c {
 public:
     daAlink_lockCursor_c() {}
@@ -6980,6 +6999,12 @@ public:
     void statusWindowExecute(const cXyz* i_pos, s16 i_angle);
     void statusWindowDraw();
     void resetStatusWindow();
+
+    // Fairy
+    void createFairy();
+    void executeFairy();
+    void drawFairy();
+    
     fopAc_ac_c* getChainGrabActor() { return field_0x2844.getActor(); }
     bool checkCokkoGlide() const {
         return mProcID == PROC_AUTO_JUMP && mProcVar2.field_0x300c != 0;
@@ -8386,6 +8411,8 @@ public:
     /* 0x03848 */ cXyz* field_0x3848;
     /* 0x0384C */ cXyz* field_0x384c;
     /* 0x03850 */ daAlink_procFunc mpProcFunc;
+
+    daAlink_Fairy_c mFairy;
 };  // Size: 0x385C
 
 static bool daAlink_checkLightBallA(fopAc_ac_c* i_actor);
