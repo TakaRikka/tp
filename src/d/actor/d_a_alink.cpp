@@ -15513,6 +15513,14 @@ int daAlink_c::procWait() {
         } else {
             initServiceWaitTime();
         }
+
+        if (doTrigger()) {
+            if (mFairy.mIsHide) {
+                mFairy.show();
+            } else {
+                mFairy.hide();
+            }
+        }
     }
 
     return 1;

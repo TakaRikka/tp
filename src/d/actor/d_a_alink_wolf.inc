@@ -2522,6 +2522,14 @@ int daAlink_c::procWolfWait() {
         } else {
             initServiceWaitTime();
         }
+
+        if (doTrigger()) {
+            if (mFairy.mIsHide) {
+                mFairy.show();
+            } else {
+                mFairy.hide();
+            }
+        }
     }
 
     return 1;

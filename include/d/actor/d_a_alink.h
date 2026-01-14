@@ -37,6 +37,15 @@ public:
         mColor.a = a;
     }
 
+    void hide() {
+        mAction = 1;
+    }
+
+    void show() {
+        mIsHide = false;
+        mAction = 0;
+    }
+
     mDoExt_McaMorfSO* mpAnmModel;
     cXyz mPosition;
     csXyz mAngle;
@@ -45,6 +54,8 @@ public:
     u32 mStarEmitterID;
     s16 mMoveHTimer;
     GXColor mColor;
+    u8 mAction;
+    bool mIsHide;
 };
 
 class daAlink_lockCursor_c : public dDlst_base_c {
