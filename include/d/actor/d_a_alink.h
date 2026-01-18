@@ -8103,6 +8103,8 @@ public:
         s16 field_0x3008;
         s16 mHowlExitID;
         s16 mIceFreezeTimer;
+
+        s16 mCutTurnChargeLevelCounter;
     } /* 0x03008 */ mProcVar0;
     union {
         s16 field_0x300a;
@@ -8424,6 +8426,7 @@ public:
     /* 0x03850 */ daAlink_procFunc mpProcFunc;
 
     daAlink_Fairy_c mFairy;
+    int mCutTurnChargeLevel;
 };  // Size: 0x385C
 
 static bool daAlink_checkLightBallA(fopAc_ac_c* i_actor);

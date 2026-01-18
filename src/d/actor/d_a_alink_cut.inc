@@ -1735,7 +1735,7 @@ int daAlink_c::procCutTurnInit(int param_0, int param_1) {
     setSingleAnime(anmID, anm_data->mSpeed, start_frame, anm_data->mEndFrame, morf);
 
     int atp;
-    if (checkCutLargeTurnState()) {
+    if (checkCutLargeTurnState() && mCutTurnChargeLevel == 2) {
         atp = 4;
         field_0x32cc = Z2SE_AL_KAITEN_L_SLASH;
         setSwordVoiceSe(Z2SE_AL_V_KAITENGIRI_L);
@@ -1747,6 +1747,19 @@ int daAlink_c::procCutTurnInit(int param_0, int param_1) {
         } else {
             setCutType(CUT_TYPE_LARGE_TURN_LEFT);
         }
+    } else if (mCutTurnChargeLevel == 1) {
+        atp = 3;
+        field_0x32cc = Z2SE_AL_KAITENGIRI;
+        setSwordVoiceSe(Z2SE_AL_V_KAITEN);
+
+        if (anmID == ANM_CUT_TURN_RIGHT) {
+            setCutType(CUT_TYPE_TURN_RIGHT);
+        } else {
+            setCutType(CUT_TYPE_TURN_LEFT);
+        }
+
+        field_0x3478 = cutData->mLightAttackRadius;
+        field_0x348c = cutData->mLightAttackRadiusAccel;
     } else {
         atp = 3;
         field_0x32cc = Z2SE_AL_KAITENGIRI;
@@ -1901,10 +1914,25 @@ int daAlink_c::procCutTurnMoveInit(BOOL param_0) {
 }
 
 int daAlink_c::procCutTurnMove() {
+    mCutTurnChargeLevel = 0;
     setShapeAngleToAtnActor(0);
 
     if (!checkWoodSwordEquip()) {
         simpleAnmPlay(m_nSwordBtk);
+
+        if (!mProcVar2.field_0x300c) {
+            // spin attack handling
+            mProcVar0.mCutTurnChargeLevelCounter++;
+            if (mProcVar0.mCutTurnChargeLevelCounter == 40 || mProcVar0.mCutTurnChargeLevelCounter == 80) {
+                m_nSwordBtk->setFrame(0.0f);
+            }
+
+            if (mProcVar0.mCutTurnChargeLevelCounter >= 97) {
+                mCutTurnChargeLevel = 2;
+            } else if (mProcVar0.mCutTurnChargeLevelCounter >= 57) {
+                mCutTurnChargeLevel = 1;
+            }
+        }
     } else {
         mProcVar0.field_0x3008++;
         if (mProcVar0.field_0x3008 >= 14.0f) {
@@ -1941,6 +1969,11 @@ int daAlink_c::procCutTurnMove() {
         f32 var_f30 = 0.0f;
         f32 var_f31 = 1.0f;
         onResetFlg0(RFLG0_UNK_10);
+
+        // turn on light sword effect for extra charge levels
+        if (!mProcVar2.field_0x300c && mCutTurnChargeLevel >= 1) {
+            onNoResetFlg3(FLG3_UNK_100000);
+        }
 
         if (checkInputOnR()) {
             int direction = getDirectionFromAngle(mMoveAngle - field_0x2fe4);

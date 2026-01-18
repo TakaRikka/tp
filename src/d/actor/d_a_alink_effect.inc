@@ -1181,6 +1181,15 @@ void daAlink_c::setLightningSwordEffect() {
             emitter = setEmitter(&field_0x327c[i], effName[i], &current.pos, &shape_angle);
             if (emitter != NULL) {
                 emitter->setGlobalRTMatrix(mSwordModel->getBaseTRMtx());
+
+                // TODO: use a dedicated emitter for this?
+                if (mCutTurnChargeLevel == 1) {
+                    emitter->setGlobalEnvColor(89, 255, 250);
+                    emitter->setGlobalPrmColor(89, 255, 250);
+                } else {
+                    emitter->setGlobalEnvColor(240, 200, 24);
+                    emitter->setGlobalPrmColor(240, 200, 24);
+                }
             }
         }
     } else {
