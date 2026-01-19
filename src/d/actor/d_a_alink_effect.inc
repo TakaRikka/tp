@@ -977,6 +977,11 @@ void daAlink_c::setCutTurnEffect() {
         ID_ZI_J_KAITENGIRID_E,
         ID_ZI_J_KAITENGIRID_F,
     };
+
+    static u16 const effNameMedium[] = {
+        ID_ZI_J_KAITENGIRID_A,
+        ID_ZI_J_KAITENGIRID_B,
+    };
     
     static Vec const leftTransLarge[] = {
         {0.0f, 0.0f, 0.0f},
@@ -1036,6 +1041,11 @@ void daAlink_c::setCutTurnEffect() {
             rot = (JGeometry::TVec3<s16>*)leftRotLarge;
             trans = (JGeometry::TVec3<f32>*)leftTransLarge;
             effNum = 6;
+        } else if ((mCutType == CUT_TYPE_TURN_RIGHT || mCutType == CUT_TYPE_TURN_LEFT) && mCutTurnChargeLevel == 1) {
+            effNameList = effNameMedium;
+            rot = (JGeometry::TVec3<s16>*)leftRotLarge;
+            trans = (JGeometry::TVec3<f32>*)leftTransLarge;
+            effNum = 2;
         } else if (checkNoResetFlg3(FLG3_UNK_100000)) {
             effNameList = effNameLight;
             rot = (JGeometry::TVec3<s16>*)leftRotLight;
@@ -1062,6 +1072,12 @@ void daAlink_c::setCutTurnEffect() {
             if (emitter != NULL) {
                 if (checkMagneBootsOn()) {
                     emitter->setGlobalRTMatrix(mDoMtx_stack_c::get());
+                }
+
+                // TODO: use a dedicated emitter?
+                if (effNameList == effNameMedium) {
+                    emitter->setGlobalEnvColor(0, 0, 255);
+                    emitter->setGlobalPrmColor(0, 0, 255);
                 }
 
                 if (mProcVar4.field_0x3010 == 0) {
