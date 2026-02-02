@@ -48,9 +48,29 @@ VERSIONS = [
 # Versions to disable until properly configured
 DISABLED_VERSIONS = [
     7,  # Wii KOR
-    8,  # Wii USA Kiosk Demo
     9,  # Wii PAL Kiosk Demo
     11, # Shield Production
+]
+
+GCN_VERSIONS = [
+    "GZ2E01", # GCN USA
+    "GZ2P01", # GCN PAL
+    "GZ2J01", # GCN JPN
+]
+
+WII_VERSIONS = [
+    "RZDE01_00", # Wii USA Rev 0
+    "RZDE01_02", # Wii USA Rev 2
+    "RZDP01",    # Wii PAL
+    "RZDJ01",    # Wii JPN
+    "RZDK01",    # Wii KOR
+    "DZDE01",    # Wii USA Kiosk Demo
+    "DZDP01",    # Wii PAL Kiosk Demo
+]
+SHIELD_VERSIONS = [
+    "Shield",    # Shield
+    "ShieldP",   # Shield Production
+    "ShieldD",   # Shield Debug
 ]
 
 parser = argparse.ArgumentParser()
@@ -263,7 +283,7 @@ cflags_base = [
     "-D__GEKKO__",
 ]
 
-if config.version in ["RZDE01_00", "RZDE01_02", "RZDP01", "RZDJ01", "Shield", "ShieldD"]:
+if config.version in WII_VERSIONS or config.version in SHIELD_VERSIONS:
     cflags_base.extend(["-enc SJIS"])
 else:
     cflags_base.extend(["-multibyte"])
@@ -310,7 +330,7 @@ cflags_runtime = [
     "-DMSL_USE_INLINES=1",
 ]
 
-if config.version in ["RZDE01_00", "RZDE01_02", "RZDP01", "RZDJ01", "ShieldD", "Shield"]:
+if config.version in WII_VERSIONS or config.version in SHIELD_VERSIONS:
     cflags_runtime.extend(["-ipa file", "-fp_contract off"])
 else:
     cflags_runtime.extend(["-inline deferred,auto"])
@@ -378,14 +398,14 @@ if config.version != "ShieldD":
 
 if config.version == "ShieldD":
     cflags_framework.extend(["-O0,p", "-inline off", "-RTTI on", "-DDEBUG=1", "-DWIDESCREEN_SUPPORT=1"])
-elif config.version in ["RZDE01_00", "RZDE01_02", "RZDP01", "RZDJ01", "Shield"]:
+elif config.version in WII_VERSIONS or config.version in SHIELD_VERSIONS:
     cflags_framework.extend(["-ipa file", "-RTTI on", "-DWIDESCREEN_SUPPORT=1"])
 
 if config.version in ["RZDE01_00", "ShieldD"] or args.debug or args.reghio:
     cflags_framework.extend(["-DENABLE_REGHIO=1"])
 
 if config.version != "ShieldD":
-    if config.version in ["RZDE01_00", "RZDE01_02", "RZDP01", "RZDJ01"]:
+    if config.version in WII_VERSIONS:
         # TODO: whats the correct inlining flag? deferred looks better in some places, others not. something else wrong?
         cflags_framework.extend(["-inline noauto", "-O4,s", "-sym on"])
     elif config.version in ["Shield"]:
@@ -394,8 +414,15 @@ if config.version != "ShieldD":
     else:
         cflags_framework.extend(["-inline noauto", "-O3,s", "-sym on", "-str reuse,pool,readonly"])
 
-if config.version in ["RZDE01_00", "RZDE01_02", "RZDP01", "RZDJ01"]:
+if config.version in ["RZDE01_00", "RZDE01_02", "RZDP01", "RZDJ01", "DZDE01"]:
     cflags_framework.extend(["-DSDK_SEP2006"])
+
+cflags_jsystem = [
+    *cflags_framework
+]
+
+if config.version in ["RZDE01_00", "RZDE01_02", "RZDP01", "RZDJ01", "DZDE01"]:
+    cflags_jsystem.extend(["-RTTI off"])
 
 
 # REL flags
@@ -415,27 +442,21 @@ cflags_dolzel_rel = [
 
 def MWVersion(cfg_version: str | None) -> str:
     match cfg_version:
-        case "GZ2E01":
+        case "GZ2E01" | "GZ2P01" | "GZ2J01":
             return "GC/2.7"
-        case "GZ2P01":
-            return "GC/2.7"
-        case "GZ2J01":
-            return "GC/2.7"
-        case "RZDE01_00" | "RZDE01_02" | "RZDP01" | "RZDJ01":
+        case "RZDE01_00" | "RZDE01_02" | "RZDP01" | "RZDJ01" | "DZDE01":
             # NOTE: we use a modified version of GC/3.0a3 to be able to handle multi-char constants.
             # This was probably a change made in some compiler version in the early days of transitioning GC to Wii development,
             # but we don't have that version. GC/3.0a3 appears to have the best overall codegen of any available GC/Wii compiler
             # However GC/3.0a5 is required for the linker version, GC/3.0a3 won't work.
             return "GC/3.0a3p1"
-        case "ShieldD":
-            return "Wii/1.0"
-        case "Shield":
+        case "ShieldD" | "Shield":
             return "Wii/1.0"
         case _:
             return "GC/2.7"
 
 # Wii versions specifically need linker GC/3.0a5
-if config.version in ["RZDE01_00", "RZDE01_02", "RZDP01", "RZDJ01"]:
+if config.version in WII_VERSIONS:
     config.linker_version = "GC/3.0a5"
 else:
     config.linker_version = MWVersion(config.version)
@@ -505,7 +526,7 @@ def JSystemLib(lib_name: str, objects: List[Object], progress_category: str="thi
     return {
         "lib": lib_name,
         "mw_version": MWVersion(config.version),
-        "cflags": [*cflags_framework],
+        "cflags": [*cflags_jsystem],
         "progress_category": progress_category,
         "objects": objects,
     }
@@ -614,7 +635,7 @@ config.libs = [
             Object(MatchingFor(ALL), "f_op/f_op_overlap.cpp"),
             Object(MatchingFor(ALL_GCN, ALL_WII, "Shield"), "f_op/f_op_overlap_mng.cpp"),
             Object(MatchingFor(ALL_GCN, ALL_WII, "ShieldD"), "f_op/f_op_overlap_req.cpp"),
-            Object(MatchingFor(ALL_GCN, ALL_WII, "Shield"), "f_op/f_op_scene.cpp"),
+            Object(MatchingFor(ALL), "f_op/f_op_scene.cpp"),
             Object(MatchingFor(ALL_GCN, "ShieldD"), "f_op/f_op_scene_iter.cpp"),
             Object(MatchingFor(ALL), "f_op/f_op_scene_mng.cpp"),
             Object(MatchingFor(ALL), "f_op/f_op_scene_req.cpp"),
@@ -716,9 +737,9 @@ config.libs = [
             Object(MatchingFor(ALL_GCN, "Shield"), "d/d_bg_plc.cpp"),
             Object(MatchingFor(ALL_GCN), "d/d_bg_s.cpp"),
             Object(MatchingFor(ALL_GCN), "d/d_bg_s_acch.cpp"),
-            Object(NonMatching, "d/d_bg_s_capt_poly.cpp"),
+            Object(MatchingFor(ALL_WII), "d/d_bg_s_capt_poly.cpp"),
             Object(MatchingFor(ALL_GCN, "Shield"), "d/d_bg_s_chk.cpp"),
-            Object(NonMatching, "d/d_bg_s_func.cpp"),
+            Object(MatchingFor("ShieldD"), "d/d_bg_s_func.cpp"),
             Object(MatchingFor(ALL_GCN), "d/d_bg_s_gnd_chk.cpp"), # debug weak func order
             Object(MatchingFor(ALL_GCN), "d/d_bg_s_grp_pass_chk.cpp"), # debug weak func order
             Object(MatchingFor(ALL_GCN), "d/d_bg_s_lin_chk.cpp"),
@@ -730,7 +751,7 @@ config.libs = [
             Object(MatchingFor(ALL_GCN, ALL_SHIELD), "d/d_bg_s_wtr_chk.cpp"),
             Object(MatchingFor(ALL_GCN), "d/d_bg_w.cpp"),
             Object(MatchingFor(ALL_GCN), "d/d_bg_w_base.cpp"),
-            Object(NonMatching, "d/d_bg_w_deform.cpp"),
+            Object(MatchingFor("ShieldD"), "d/d_bg_w_deform.cpp"),
             Object(NonMatching, "d/d_bg_w_hf.cpp"),
             Object(MatchingFor(ALL_GCN), "d/d_bg_w_kcol.cpp"),
             Object(MatchingFor(ALL_GCN), "d/d_bg_w_sv.cpp"),
@@ -1351,7 +1372,7 @@ config.libs = [
             Object(MatchingFor(ALL_GCN), "JSystem/J2DGraph/J2DGrafContext.cpp"),
             Object(MatchingFor(ALL_GCN), "JSystem/J2DGraph/J2DOrthoGraph.cpp"),
             Object(MatchingFor(ALL_GCN), "JSystem/J2DGraph/J2DTevs.cpp"),
-            Object(Equivalent, "JSystem/J2DGraph/J2DMaterial.cpp"), # weak func order
+            Object(MatchingFor(ALL_GCN), "JSystem/J2DGraph/J2DMaterial.cpp"),
             Object(MatchingFor(ALL_GCN), "JSystem/J2DGraph/J2DMatBlock.cpp"),
             Object(MatchingFor(ALL_GCN), "JSystem/J2DGraph/J2DMaterialFactory.cpp"),
             Object(MatchingFor(ALL_GCN), "JSystem/J2DGraph/J2DPrint.cpp"),
@@ -1833,7 +1854,17 @@ config.libs = [
         "wpad",
         [
             Object(NonMatching, "revolution/wpad/WPAD.c"),
-            Object(NonMatching, "revolution/wpad/WUD.c"),
+            Object(NonMatching, "revolution/wpad/WPADEncrypt.c"),
+            Object(NonMatching, "revolution/wpad/WPADHIDParser.c"),
+            Object(NonMatching, "revolution/wpad/WPADMem.c"),
+        ]
+    ),
+    RevolutionLib(
+        "wud",
+        [
+            Object(NonMatching, "revolution/wud/WUD.c"),
+            Object(NonMatching, "revolution/wud/WUDHidHost.c"),
+            Object(NonMatching, "revolution/wud/debug_msg.c"),
         ],
     ),
     RevolutionLib(
@@ -1901,7 +1932,6 @@ config.libs = [
         "progress_category": "sdk",
         "host": False,
         "objects": [
-            Object(NonMatching, "PowerPC_EABI_Support/Runtime/Src/GCN_mem_alloc.c"),
             Object(MatchingFor(ALL_GCN), "PowerPC_EABI_Support/Runtime/Src/__mem.c"),
             Object(MatchingFor(ALL_GCN, "Shield"), "PowerPC_EABI_Support/Runtime/Src/__va_arg.c"),
             Object(MatchingFor(ALL_GCN), "PowerPC_EABI_Support/Runtime/Src/global_destructor_chain.c"),
@@ -1911,7 +1941,7 @@ config.libs = [
             Object(MatchingFor(ALL_GCN), "PowerPC_EABI_Support/Runtime/Src/runtime.c"),
             Object(MatchingFor(ALL_GCN), "PowerPC_EABI_Support/Runtime/Src/__init_cpp_exceptions.cpp"),
             Object(MatchingFor(ALL_GCN), "PowerPC_EABI_Support/Runtime/Src/Gecko_ExceptionPPC.cp"),
-            Object(MatchingFor(ALL_GCN), "PowerPC_EABI_Support/Runtime/Src/GCN_Mem_Alloc.c", extra_cflags=["-str reuse,nopool,readonly"]),
+            Object(MatchingFor(ALL_GCN), "PowerPC_EABI_Support/Runtime/Src/GCN_mem_alloc.c", extra_cflags=["-str reuse,nopool,readonly"]),
         ],
     },
     {
@@ -1939,7 +1969,7 @@ config.libs = [
             Object(MatchingFor(ALL_GCN), "PowerPC_EABI_Support/MSL/MSL_C/MSL_Common/Src/mbstring.c"),
             Object(MatchingFor(ALL_GCN), "PowerPC_EABI_Support/MSL/MSL_C/MSL_Common/Src/mem.c"),
             Object(MatchingFor(ALL_GCN), "PowerPC_EABI_Support/MSL/MSL_C/MSL_Common/Src/mem_funcs.c"),
-            Object(NonMatching, "PowerPC_EABI_Support/MSL/MSL_C/MSL_Common/Src/math_api.c"),
+            Object(MatchingFor("Shield"), "PowerPC_EABI_Support/MSL/MSL_C/MSL_Common/Src/math_api.c"),
             Object(MatchingFor(ALL_GCN), "PowerPC_EABI_Support/MSL/MSL_C/MSL_Common/Src/misc_io.c"),
             Object(MatchingFor(ALL_GCN), "PowerPC_EABI_Support/MSL/MSL_C/MSL_Common/Src/printf.c"),
             Object(MatchingFor(ALL_GCN), "PowerPC_EABI_Support/MSL/MSL_C/MSL_Common/Src/scanf.c"),
@@ -1947,11 +1977,15 @@ config.libs = [
             Object(MatchingFor(ALL_GCN), "PowerPC_EABI_Support/MSL/MSL_C/MSL_Common/Src/signal.c"),
             Object(MatchingFor(ALL_GCN), "PowerPC_EABI_Support/MSL/MSL_C/MSL_Common/Src/string.c"),
             Object(NonMatching, "PowerPC_EABI_Support/MSL/MSL_C/MSL_Common/Src/strtold.c"),
-            Object(NonMatching, "PowerPC_EABI_Support/MSL/MSL_C/MSL_Common/Src/wctype.c"),
+            Object(MatchingFor("Shield"), "PowerPC_EABI_Support/MSL/MSL_C/MSL_Common/Src/wcstoul.c"),
+            Object(MatchingFor("Shield"), "PowerPC_EABI_Support/MSL/MSL_C/MSL_Common/Src/wctype.c"),
+            Object(MatchingFor("Shield"), "PowerPC_EABI_Support/MSL/MSL_C/MSL_Common/Src/wmem.c"),
+            Object(MatchingFor("Shield"), "PowerPC_EABI_Support/MSL/MSL_C/MSL_Common/Src/wprintf.c"),
+            Object(MatchingFor("Shield"), "PowerPC_EABI_Support/MSL/MSL_C/MSL_Common/Src/wscanf.c"),
             Object(MatchingFor(ALL_GCN), "PowerPC_EABI_Support/MSL/MSL_C/MSL_Common/Src/strtoul.c"),
             Object(NonMatching, "PowerPC_EABI_Support/MSL/MSL_C/MSL_Common/Src/wstring.c"),
             Object(MatchingFor(ALL_GCN), "PowerPC_EABI_Support/MSL/MSL_C/MSL_Common/Src/wchar_io.c"),
-            Object(NonMatching, "PowerPC_EABI_Support/MSL/MSL_C/MSL_Common/Src/secure_error.c"),
+            Object(MatchingFor("Shield"), "PowerPC_EABI_Support/MSL/MSL_C/MSL_Common/Src/secure_error.c"),
             Object(NonMatching, "PowerPC_EABI_Support/MSL/MSL_C/MSL_Common/Src/math_double.c"),
             Object(MatchingFor(ALL_GCN), "PowerPC_EABI_Support/MSL/MSL_C/PPC_EABI/Src/uart_console_io_gcn.c"),
             Object(MatchingFor(ALL_GCN), "PowerPC_EABI_Support/MSL/MSL_C/MSL_Common_Embedded/Math/Double_precision/e_acos.c"),
@@ -2031,7 +2065,7 @@ config.libs = [
             Object(MatchingFor(ALL_GCN), "TRK_MINNOW_DOLPHIN/gamedev/cust_connection/utils/common/CircleBuffer.c"),
             Object(MatchingFor(ALL_GCN), "TRK_MINNOW_DOLPHIN/gamedev/cust_connection/cc/exi2/GCN/EXI2_GDEV_GCN/main.c", extra_cflags=["-sdata 8"]),
             Object(MatchingFor(ALL_GCN), "TRK_MINNOW_DOLPHIN/gamedev/cust_connection/utils/common/MWTrace.c"),
-            Object(NonMatching, "TRK_MINNOW_DOLPHIN/gamedev/cust_connection/utils/gc/cc_gdev.c"),
+            Object(NonMatching, "TRK_MINNOW_DOLPHIN/gamedev/cust_connection/utils/gc/cc_gdev.c", extra_cflags=["-sdata 8"]),
             Object(MatchingFor(ALL_GCN), "TRK_MINNOW_DOLPHIN/gamedev/cust_connection/utils/gc/MWCriticalSection_gc.c"),
         ],
     },
@@ -2066,14 +2100,15 @@ config.libs = [
         ],
     },
     {
-        "lib": "NdevExi2AD",
+        "lib": "NdevExi2A",
+        # TODO: not sure about the compiler version + flags here
         "mw_version": MWVersion(config.version),
-        "cflags": cflags_dolphin,
+        "cflags": cflags_framework,
         "progress_category": "sdk",
         "host": False,
         "objects": [
-            Object(NonMatching, "NdevExi2AD/DebuggerDriver.c"),
-            Object(NonMatching, "NdevExi2AD/exi2.c"),
+            Object(NonMatching, "NdevExi2A/DebuggerDriver.c"),
+            Object(NonMatching, "NdevExi2A/exi2.c"),
         ],
     },
     {
@@ -2130,19 +2165,19 @@ config.libs = [
     ActorRel(MatchingFor(ALL_GCN), "d_a_set_bgobj"),
     ActorRel(MatchingFor(ALL_GCN), "d_a_swhit0"),
     ActorRel(MatchingFor(ALL_GCN), "d_a_tag_allmato"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_camera"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_chkpoint"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_event"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_evt"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_evtarea"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_evtmsg"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_howl"),
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_camera"), # debug extra weak fns
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_chkpoint"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_event"), # TODO: this is part of Rframework in ShieldD
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_evt"), # debug extra weak fns
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_evtarea"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_evtmsg"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_howl"), # debug weak func order
     ActorRel(MatchingFor(ALL_GCN), "d_a_tag_kmsg"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_lantern"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_mist"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_msg"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_push"),
-    ActorRel(MatchingFor(ALL_GCN, "Shield"), "d_a_tag_telop"),
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_lantern"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_mist"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_msg"), # TODO: this is part of Rframework in ShieldD
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_push"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN, "Shield"), "d_a_tag_telop"), # debug weak func order
     ActorRel(MatchingFor(ALL_GCN), "d_a_tbox"),
     ActorRel(MatchingFor(ALL_GCN), "d_a_tbox2"),
     ActorRel(MatchingFor(ALL_GCN), "d_a_vrbox"),
@@ -2223,19 +2258,19 @@ config.libs = [
     ActorRel(MatchingFor(ALL_GCN), "d_a_shop_item"),
     ActorRel(MatchingFor(ALL_GCN), "d_a_sq"),
     ActorRel(MatchingFor(ALL_GCN), "d_a_swc00"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_CstaSw"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_ajnot"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_attack_item"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_gstart"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_hinit"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_hjump"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_hstop"),
-    ActorRel(MatchingFor(ALL_GCN, "Shield"), "d_a_tag_lv2prchk"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_magne"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_mhint"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_mstop"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_spring"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_statue_evt"),
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_CstaSw"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_ajnot"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_attack_item"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_gstart"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_hinit"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_hjump"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_hstop"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN, "Shield"), "d_a_tag_lv2prchk"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_magne"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_mhint"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_mstop"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_spring"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_statue_evt"), # debug weak func order
     ActorRel(MatchingFor(ALL_GCN), "d_a_ykgr"),
     ActorRel(MatchingFor(ALL_GCN), "d_a_L7demo_dr"),
     ActorRel(MatchingFor(ALL_GCN), "d_a_L7low_dr"),
@@ -2517,7 +2552,7 @@ config.libs = [
     ActorRel(MatchingFor(ALL_GCN), "d_a_obj_bombf"),
     ActorRel(MatchingFor(ALL_GCN), "d_a_obj_boumato"),
     ActorRel(MatchingFor(ALL_GCN), "d_a_obj_brg"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_obj_bsGate"),
+    ActorRel(MatchingFor(ALL_GCN), "d_a_obj_bsGate"), # debug weak func order
     ActorRel(MatchingFor(ALL_GCN), "d_a_obj_bubblePilar"),
     ActorRel(MatchingFor(ALL_GCN), "d_a_obj_catdoor"),
     ActorRel(MatchingFor(ALL_GCN), "d_a_obj_cb"),
@@ -2619,12 +2654,12 @@ config.libs = [
     ActorRel(MatchingFor(ALL_GCN), "d_a_obj_lp"),
     ActorRel(MatchingFor(ALL_GCN), "d_a_obj_lv1Candle00"),
     ActorRel(MatchingFor(ALL_GCN), "d_a_obj_lv1Candle01"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_obj_lv3Candle"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_obj_lv3Water"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_obj_lv3Water2"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_obj_lv3WaterB"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_obj_lv3saka00"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_obj_lv3waterEff"),
+    ActorRel(MatchingFor(ALL_GCN), "d_a_obj_lv3Candle"),    # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_obj_lv3Water"),     # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_obj_lv3Water2"),    # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_obj_lv3WaterB"),    # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_obj_lv3saka00"),    # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_obj_lv3waterEff"),  # debug weak func order
     ActorRel(MatchingFor(ALL_GCN), "d_a_obj_lv4CandleDemoTag"),
     ActorRel(MatchingFor(ALL_GCN), "d_a_obj_lv4CandleTag"),
     ActorRel(MatchingFor(ALL_GCN), "d_a_obj_lv4EdShutter"),
@@ -2750,7 +2785,7 @@ config.libs = [
     ActorRel(MatchingFor(ALL_GCN), "d_a_obj_swpush2"),
     ActorRel(MatchingFor(ALL_GCN), "d_a_obj_swspinner"),
     ActorRel(MatchingFor(ALL_GCN), "d_a_obj_swturn"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_obj_syRock"),
+    ActorRel(MatchingFor(ALL_GCN), "d_a_obj_syRock"), # debug weak func order
     ActorRel(MatchingFor(ALL_GCN), "d_a_obj_szbridge"),
     ActorRel(MatchingFor(ALL_GCN), "d_a_obj_taFence"),
     ActorRel(MatchingFor(ALL_GCN), "d_a_obj_table"),
@@ -2782,8 +2817,8 @@ config.libs = [
     ActorRel(MatchingFor(ALL_GCN), "d_a_obj_warp_kbrg"),
     ActorRel(MatchingFor(ALL_GCN), "d_a_obj_warp_obrg"),
     ActorRel(MatchingFor(ALL_GCN), "d_a_obj_waterGate"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_obj_waterPillar"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_obj_waterfall"),
+    ActorRel(MatchingFor(ALL_GCN), "d_a_obj_waterPillar"),  # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_obj_waterfall"),    # debug weak func order
     ActorRel(MatchingFor(ALL_GCN), "d_a_obj_wchain"),
     ActorRel(MatchingFor(ALL_GCN), "d_a_obj_wdStick"),
     ActorRel(MatchingFor(ALL_GCN), "d_a_obj_web0"),
@@ -2805,7 +2840,7 @@ config.libs = [
     ActorRel(MatchingFor(ALL_GCN), "d_a_obj_zra_freeze"),
     ActorRel(MatchingFor(ALL_GCN), "d_a_obj_zra_rock"),
     ActorRel(MatchingFor(ALL_GCN), "d_a_passer_mng"),
-    ActorRel(MatchingFor(ALL_GCN, "Shield"), "d_a_tag_arena"),
+    ActorRel(MatchingFor(ALL_GCN, "Shield"), "d_a_tag_arena"), # debug weak func order
     ActorRel(MatchingFor(ALL_GCN), "d_a_peru"),
     ActorRel(MatchingFor(ALL_GCN), "d_a_ppolamp"),
     ActorRel(MatchingFor(ALL_GCN), "d_a_skip_2D"),
@@ -2813,49 +2848,49 @@ config.libs = [
     ActorRel(MatchingFor(ALL_GCN), "d_a_swBall"),
     ActorRel(MatchingFor(ALL_GCN), "d_a_swLBall"),
     ActorRel(MatchingFor(ALL_GCN, "Shield"), "d_a_swTime"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_Lv6Gate"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_Lv7Gate"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_Lv8Gate"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_TWgate"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_lv6CstaSw"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_assistance"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_bottle_item"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_chgrestart"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_csw"),
-    ActorRel(MatchingFor(ALL_GCN, "Shield"), "d_a_tag_escape"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_firewall"),
-    ActorRel(MatchingFor(ALL_GCN, "Shield"), "d_a_tag_gra"),
-    ActorRel(MatchingFor(ALL_GCN, "Shield"), "d_a_tag_guard"),
-    ActorRel(MatchingFor(ALL_GCN, "Shield"), "d_a_tag_instruction"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_kago_fall"),
-    ActorRel(MatchingFor(ALL_GCN, "Shield"), "d_a_tag_lightball"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_lv5soup"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_mmsg"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_mwait"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_myna2"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_myna_light"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_pachi"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_poFire"),
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_Lv6Gate"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_Lv7Gate"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_Lv8Gate"), # debug .data + weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_TWgate"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_lv6CstaSw"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_assistance"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_bottle_item"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_chgrestart"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_csw"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN, ALL_WII, "Shield"), "d_a_tag_escape"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_firewall"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN, ALL_WII, "Shield"), "d_a_tag_gra"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN, "Shield"), "d_a_tag_guard"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN, ALL_WII, "Shield"), "d_a_tag_instruction"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN, "Shield"), "d_a_tag_kago_fall"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN, "Shield"), "d_a_tag_lightball"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_lv5soup"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_mmsg"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_mwait"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_myna2"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_myna_light"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_pachi"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_poFire"), # debug weak func order
     ActorRel(MatchingFor(ALL_GCN), "d_a_tag_qs"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_ret_room"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_river_back"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_rmbit_sw"),
-    ActorRel(MatchingFor(ALL_GCN, "Shield"), "d_a_tag_schedule"),
-    ActorRel(MatchingFor(ALL_GCN, "Shield"), "d_a_tag_setBall"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_setrestart"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_shop_camera"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_shop_item"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_smk_emt"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_spinner"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_sppath"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_ss_drink"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_stream"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_theB_hint"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_wara_howl"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_watchge"),
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_waterfall"),
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_ret_room"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_river_back"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_rmbit_sw"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN, ALL_WII, "Shield"), "d_a_tag_schedule"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN, ALL_WII, "Shield"), "d_a_tag_setBall"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_setrestart"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_shop_camera"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_shop_item"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_smk_emt"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_spinner"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_sppath"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_ss_drink"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_stream"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_theB_hint"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_wara_howl"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_watchge"), # debug weak func order
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_waterfall"), # debug weak func order
     ActorRel(MatchingFor(ALL_GCN), "d_a_tag_wljump"), # debug weak func order
-    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_yami"),
+    ActorRel(MatchingFor(ALL_GCN), "d_a_tag_yami"), # debug weak func order
     ActorRel(MatchingFor(ALL_GCN), "d_a_talk"),
     ActorRel(MatchingFor(ALL_GCN, "Shield"), "d_a_tboxSw"),
     ActorRel(MatchingFor(ALL_GCN), "d_a_title"),

@@ -1035,15 +1035,15 @@ u8 dSv_player_config_c::getPalLanguage() const {
 #if VERSION == VERSION_GCN_PAL
     switch (OSGetLanguage()) {
     case 0:
-        return LANGAUGE_ENGLISH;
+        return LANGUAGE_ENGLISH;
     case 1:
-        return LANGAUGE_GERMAN;
+        return LANGUAGE_GERMAN;
     case 2:
-        return LANGAUGE_FRENCH;
+        return LANGUAGE_FRENCH;
     case 3:
-        return LANGAUGE_SPANISH;
+        return LANGUAGE_SPANISH;
     case 4:
-        return LANGAUGE_ITALIAN;
+        return LANGUAGE_ITALIAN;
     }
 #elif VERSION >= VERSION_WII_USA_R0
     switch (SCGetLanguage()) {
@@ -1793,7 +1793,8 @@ int dSv_info_c::card_to_memory(char* i_cardPtr, int i_dataNum) {
     i_cardPtr = i_cardPtr + i_dataNum * QUEST_LOG_SIZE;
     char* var_r30 = i_cardPtr;
 
-    memcpy(dComIfGs_getSaveData(), i_cardPtr, sizeof(dSv_save_c));
+    dSv_save_c* pSave = dComIfGs_getSaveData();
+    memcpy(pSave, i_cardPtr, sizeof(dSv_save_c));
     i_cardPtr += sizeof(dSv_save_c);
 
 #if PLATFORM_GCN
@@ -1846,7 +1847,8 @@ int dSv_info_c::initdata_to_card(char* i_cardPtr, int i_dataNum) {
     save.init();
     save.getPlayer().getPlayerInfo().setPlayerName("");
     save.getPlayer().getPlayerInfo().setHorseName("");
-    memcpy(i_cardPtr, &save, sizeof(dSv_save_c));
+    dSv_save_c* pSave = &save;
+    memcpy(i_cardPtr, pSave, sizeof(dSv_save_c));
     i_cardPtr += sizeof(dSv_save_c);
 
     if (i_cardPtr - var_r30 > (QUEST_LOG_SIZE - 8)) {
@@ -1869,23 +1871,23 @@ flagFile_c::~flagFile_c() {
 }
 
 void flagFile_c::genMessage(JORMContext* mctx) {
-    mctx->genLabel("-", 0, 0, NULL, 0xFFFF, 0xFFFF, 0x200, 24);
-    mctx->genLabel("- フラグデータのデバッグ用一時セーブ", 0, 0, NULL, 0xFFFF, 0xFFFF, 0x200, 24);
-    mctx->genLabel("-", 0, 0, NULL, 0xFFFF, 0xFFFF, 0x200, 24);
-    mctx->genButton(" 読込 ", 101, 0, NULL, 0xFFFF, 0xFFFF, 0x200, 24);
-    mctx->genLabel("-", 0, 0, NULL, 0xFFFF, 0xFFFF, 0x200, 24);
-    mctx->genLabel("-", 0, 0, NULL, 0xFFFF, 0xFFFF, 0x200, 24);
+    mctx->genLabel("-", 0);
+    mctx->genLabel("- フラグデータのデバッグ用一時セーブ", 0);
+    mctx->genLabel("-", 0);
+    mctx->genButton(" 読込 ", 101);
+    mctx->genLabel("-", 0);
+    mctx->genLabel("-", 0);
 
     if (fopScnM_SearchByID(dStage_roomControl_c::getProcID()) != NULL) {
-        mctx->genLabel("- セーブ要素", 0, 0, NULL, 0xFFFF, 0xFFFF, 0x200, 24);
-        mctx->genCheckBox(" ステージ名", &m_flags, FLAG_SCENE_e, 0, NULL, 0xFFFF, 0xFFFF, 0x200, 24);
-        mctx->genCheckBox(" セーブ領域", &m_flags, FLAG_SAVE_e, 0, NULL, 0xFFFF, 0xFFFF, 0x200, 24);
-        mctx->genCheckBox(" セーブ作業領域", &m_flags, FLAG_MEM_e, 0, NULL, 0xFFFF, 0xFFFF, 0x200, 24);
-        mctx->genCheckBox(" ダンジョンセーブ", &m_flags, FLAG_DAN_e, 0, NULL, 0xFFFF, 0xFFFF, 0x200, 24);
-        mctx->genLabel("-", 0, 0, NULL, 0xFFFF, 0xFFFF, 0x200, 24);
-        mctx->genButton(" 書出 ", 102, 0, NULL, 0xFFFF, 0xFFFF, 0x200, 24);
-        mctx->genLabel("-", 0, 0, NULL, 0xFFFF, 0xFFFF, 0x200, 24);
-        mctx->genLabel("-", 0, 0, NULL, 0xFFFF, 0xFFFF, 0x200, 24);
+        mctx->genLabel("- セーブ要素", 0);
+        mctx->genCheckBox(" ステージ名", &m_flags, FLAG_SCENE_e);
+        mctx->genCheckBox(" セーブ領域", &m_flags, FLAG_SAVE_e);
+        mctx->genCheckBox(" セーブ作業領域", &m_flags, FLAG_MEM_e);
+        mctx->genCheckBox(" ダンジョンセーブ", &m_flags, FLAG_DAN_e);
+        mctx->genLabel("-", 0);
+        mctx->genButton(" 書出 ", 102);
+        mctx->genLabel("-", 0);
+        mctx->genLabel("-", 0);
     }
 }
 

@@ -88,8 +88,9 @@ void dFile_info_c::screenSet() {
 }
 
 int dFile_info_c::setSaveData(dSv_save_c* i_savedata, BOOL i_validChksum, u8 i_dataNo) {
+    int result;
     if (i_validChksum) {
-        char* player_name = i_savedata->getPlayer().getPlayerInfo().getLinkName();
+        char* player_name = i_savedata->getPlayer().getPlayerInfo().getPlayerName();
         if (*player_name == 0) {
             if (field_0x22 == 1 && i_dataNo == dComIfGs_getDataNum()) {
                 i_savedata->getPlayer().getPlayerStatusA().setLife(dComIfGs_getLife());
@@ -99,22 +100,23 @@ int dFile_info_c::setSaveData(dSv_save_c* i_savedata, BOOL i_validChksum, u8 i_d
                 strcpy(mSaveDate, "");
                 strcpy(mPlayTime, "");
                 dMeter2Info_getString(0x4D, mSaveStatus, NULL);  // New Quest Log
-                return 2;
+                result = 2;
             } else {
                 dMeter2Info_getString(0x4D, mSaveStatus, NULL);  // New Quest Log
-                return 1;
+                result = 1;
             }
         } else {
             setHeartCnt(i_savedata);
             strcpy(mPlayerName, player_name);
             setSaveDate(i_savedata);
             setPlayTime(i_savedata);
-            return 0;
+            result = 0;
         }
     } else {
         dMeter2Info_getString(0x51, mSaveStatus, NULL);  // This Quest Log is Corrupted
-        return -1;
+        result = -1;
     }
+    return result;
 }
 
 void dFile_info_c::setHeartCnt(dSv_save_c* i_savedata) {
@@ -170,7 +172,7 @@ void dFile_info_c::setSaveDate(dSv_save_c* i_savedata) {
     sprintf(mSaveDate, "%d.%02d.%02d %02d:%02d", time.year, time.mon + 1, time.mday,
             time.hour, time.min);
     #elif VERSION == VERSION_GCN_PAL
-    if (dComIfGs_getPalLanguage() == dSv_player_config_c::LANGAUGE_ENGLISH) {
+    if (dComIfGs_getPalLanguage() == dSv_player_config_c::LANGUAGE_ENGLISH) {
         sprintf(mSaveDate, "%02d/%02d/%d %02d:%02d", time.mon + 1, time.mday, time.year, time.hour,
                 time.min);
     } else {

@@ -1,6 +1,7 @@
 #ifndef J3DJOINT_H
 #define J3DJOINT_H
 
+#include "JSystem/J3DGraphAnimator/J3DAnimation.h"
 #include "JSystem/J3DGraphBase/J3DTransform.h"
 #include "JSystem/J3DGraphBase/J3DMaterial.h"
 
@@ -42,7 +43,10 @@ public:
     virtual void init(const Vec& param_0, const Mtx&) = 0;
     virtual void calc() = 0;
 
-    static J3DMtxBuffer* getMtxBuffer() { return mMtxBuffer; }
+    static J3DMtxBuffer* getMtxBuffer() {
+        J3D_ASSERT_NULLPTR(174, mMtxBuffer != NULL)
+        return mMtxBuffer;
+    }
     static J3DJoint* getJoint() {
         J3D_ASSERT_NULLPTR(185, mJoint != NULL)
         return mJoint;
@@ -145,6 +149,54 @@ public:
     }
 };
 
+struct J3DMtxCalcAnmBase: public J3DMtxCalc {
+    J3DMtxCalcAnmBase(J3DAnmTransform* pAnmTransform) { mAnmTransform = pAnmTransform; }
+    ~J3DMtxCalcAnmBase() {}
+    J3DAnmTransform* getAnmTransform() { return mAnmTransform; }
+    void setAnmTransform(J3DAnmTransform* pAnmTransform) { mAnmTransform = pAnmTransform; }
+
+    J3DAnmTransform* mAnmTransform;
+};
+
+struct J3DMtxCalcAnimationAdaptorBase {
+    J3DMtxCalcAnimationAdaptorBase() {}
+    void change(J3DAnmTransform*) {}
+};
+
+template <typename A0>
+struct J3DMtxCalcAnimationAdaptorDefault : public J3DMtxCalcAnimationAdaptorBase {
+    J3DMtxCalcAnimationAdaptorDefault(J3DAnmTransform* pAnmTransform) {}
+
+    void calc(J3DMtxCalcAnmBase* pMtxCalc) {
+        J3DTransformInfo transform;
+        J3DTransformInfo* transform_p;
+        if (pMtxCalc->getAnmTransform() != NULL) {
+            pMtxCalc->getAnmTransform()->getTransform(J3DMtxCalc::getJoint()->getJntNo(), &transform);
+            transform_p = &transform;
+        } else {
+            transform_p = &J3DMtxCalc::getJoint()->getTransformInfo();
+        }
+
+        A0::calcTransform(*transform_p);
+    }
+};
+
+template <typename A0, typename B0>
+struct J3DMtxCalcAnimation : public J3DMtxCalcAnmBase {
+    J3DMtxCalcAnimation(J3DAnmTransform* pAnmTransform) : J3DMtxCalcAnmBase(pAnmTransform), field_0x8(pAnmTransform) {}
+    ~J3DMtxCalcAnimation() {}
+
+    void setAnmTransform(J3DAnmTransform* pAnmTransform) {
+        mAnmTransform = pAnmTransform;
+        field_0x8.change(pAnmTransform);
+    }
+
+    void init(const Vec& param_0, const Mtx& param_1) { B0::init(param_0, param_1); }
+    void calc() { field_0x8.calc(this); }
+
+    A0 field_0x8;
+};
+
 /**
  * @ingroup jsystem-j3d
  * 
@@ -184,5 +236,13 @@ struct J3DMtxCalcCalcTransformMaya {
 struct J3DMtxCalcCalcTransformBasic {
     static void calcTransform(J3DTransformInfo const&);
 };
+
+inline s32 checkScaleOne(const Vec& param_0) {
+    if (param_0.x == 1.0f && param_0.y == 1.0f && param_0.z == 1.0f) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 #endif /* J3DJOINT_H */

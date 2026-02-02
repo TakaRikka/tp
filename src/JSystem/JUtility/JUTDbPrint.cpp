@@ -50,6 +50,15 @@ void JUTDbPrint::enter(int param_0, int param_1, int param_2, const char* param_
     }
 }
 
+static inline void enter_(int param_0, int param_1, int param_2, const char* fmt, va_list args) {
+    char buf[0x100];
+    int ret = vsnprintf(buf, 0x100, fmt, args);
+
+    if (ret >= 0) {
+        JUTDbPrint::getManager()->enter(param_0, param_1, param_2, buf, ret < 0x100 ? ret : 0xFF);
+    }
+}
+
 void JUTDbPrint::flush() {
     this->flush(0, 0, JUTVideo::getManager()->getFbWidth(), JUTVideo::getManager()->getEfbHeight());
 }
@@ -87,29 +96,19 @@ void JUTDbPrint::drawString(int posX, int posY, int len, const u8* str) {
 }
 
 void JUTReport(int param_0, int param_1, char const* fmt, ...) {
+    UNUSED(fmt); // although not really unused
+    
     va_list args;
     va_start(args, fmt);
-
-    char buf[0x100];
-    int ret = vsnprintf(buf, 0x100, fmt, args);
+    enter_(param_0, param_1, TRUE, fmt, args);
     va_end(args);
-
-    if (ret < 0) {
-        return;
-    }
-    JUTDbPrint::sDebugPrint->enter(param_0, param_1, 1, buf, ret < 0x100 ? ret : 0xFF);
 }
 
 void JUTReport(int param_0, int param_1, int param_2, char const* fmt, ...) {
+    UNUSED(fmt); // although not really unused
+
     va_list args;
     va_start(args, fmt);
-
-    char buf[0x100];
-    int ret = vsnprintf(buf, 0x100, fmt, args);
+    enter_(param_0, param_1, param_2, fmt, args);
     va_end(args);
-
-    if (ret < 0) {
-        return;
-    }
-    JUTDbPrint::sDebugPrint->enter(param_0, param_1, param_2, buf, ret < 0x100 ? ret : 0xFF);
 }

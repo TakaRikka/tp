@@ -1,16 +1,16 @@
 #include "JSystem/JSystem.h" // IWYU pragma: keep
 
 #include "JSystem/JUtility/JUTPalette.h"
-#include "dolphin/gx.h"
-#include "dolphin/os.h"
+#include <dolphin/gx.h>
+#include <dolphin/os.h>
 
 void JUTPalette::storeTLUT(GXTlut param_0, ResTLUT* tlut) {
     if (tlut == NULL) {
         OSPanic("JUTPalette.cpp", 35, "JUTTexture: TLUT is NULL\n");
     }
     mTlutName = param_0;
-    mFormat = tlut->format;
-    mTransparency = tlut->transparency;
+    mFormat = (const u8)tlut->format;
+    mTransparency = (const u8)tlut->transparency;
     mNumColors = tlut->numColors;
     mColorTable = tlut + 8;
     GXInitTlutObj(&mTlutObj, (void*)mColorTable, (GXTlutFmt)mFormat, mNumColors);

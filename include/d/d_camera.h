@@ -1043,9 +1043,9 @@ public:
     int Set(cXyz, cXyz);
     int Set(cXyz, cXyz, f32, s16);
     int Set(cXyz, cXyz, s16, f32);
-    void Reset(cXyz, cXyz);
+    int Reset(cXyz, cXyz);
     int Reset();
-    void Reset(cXyz, cXyz, f32, s16);
+    int Reset(cXyz, cXyz, f32, s16);
     f32 shakeCamera();
     int StartShake(s32, u8*, s32, cXyz);
     int StopShake();
@@ -1136,7 +1136,7 @@ public:
 
     int Gear() { return mGear; }
 
-    bool HideBGPartsOK() {
+    bool HideBGPartsOk() {
         return chkFlag(0x4);
     }
 

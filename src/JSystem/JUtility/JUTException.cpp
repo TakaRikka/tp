@@ -10,7 +10,20 @@
 #include <dolphin/dolphin.h>
 #include <stdint.h>
 
+struct CallbackObject {
+    /* 0x00 */ JUTExceptionUserCallback callback;
+    /* 0x04 */ u16 error;
+    /* 0x08 */ OSContext* context;
+    /* 0x0C */ int param_3;
+    /* 0x10 */ int param_4;
+};
+
 OSMessageQueue JUTException::sMessageQueue = {0};
+
+STATIC_ASSERT(sizeof(CallbackObject) == 0x14);
+static CallbackObject exCallbackObject;
+
+JSUList<JUTException::JUTExMapFile> JUTException::sMapFileList(false);
 
 static OSTime c3bcnt[4] = {0, 0, 0, 0};
 
@@ -38,10 +51,16 @@ JUTException* JUTException::sErrorManager;
 
 JUTExceptionUserCallback JUTException::sPreUserCallback;
 
- JUTExceptionUserCallback JUTException::sPostUserCallback;
+JUTExceptionUserCallback JUTException::sPostUserCallback;
+
+#if PLATFORM_GCN
+const int stack_size = 0x1C00;
+#else
+const int stack_size = 0x4000;
+#endif
 
 JUTException::JUTException(JUTDirectPrint* directPrint)
-    : JKRThread(0x1C00, 0x10, 0), mDirectPrint(directPrint) {
+    : JKRThread(stack_size, 0x10, 0), mDirectPrint(directPrint) {
     OSSetErrorHandler(__OS_EXCEPTION_DSI, (OSErrorHandler)errorHandler);
     OSSetErrorHandler(__OS_EXCEPTION_ISI, (OSErrorHandler)errorHandler);
     OSSetErrorHandler(__OS_EXCEPTION_PROGRAM, (OSErrorHandler)errorHandler);
@@ -73,16 +92,6 @@ JUTException* JUTException::create(JUTDirectPrint* directPrint) {
 }
 
 OSMessage JUTException::sMessageBuffer[1] = {0};
-
-struct CallbackObject {
-    /* 0x00 */ JUTExceptionUserCallback callback;
-    /* 0x04 */ u16 error;
-    /* 0x06 */ u16 pad_0x06;
-    /* 0x08 */ OSContext* context;
-    /* 0x0C */ int param_3;
-    /* 0x10 */ int param_4;
-    /* 0x14 */
-};
 
 void* JUTException::run() {
     u32 msr = PPCMfmsr();
@@ -118,9 +127,6 @@ void* JUTException::run() {
     }
 }
 
-STATIC_ASSERT(sizeof(CallbackObject) == 0x14);
-static CallbackObject exCallbackObject;
-
 void* JUTException::sConsoleBuffer;
 
 u32 JUTException::sConsoleBufferSize;
@@ -154,8 +160,6 @@ void JUTException::errorHandler(OSError error, OSContext* context, u32 param_3, 
     OSYieldThread();
 }
 
-JSUList<JUTException::JUTExMapFile> JUTException::sMapFileList(false);
-
 void JUTException::panic_f_va(char const* file, int line, char const* format, va_list args) {
     char buffer[256];
     vsnprintf(buffer, sizeof(buffer) - 1, format, args);
@@ -186,6 +190,8 @@ void JUTException::panic_f_va(char const* file, int line, char const* format, va
 }
 
 void JUTException::panic_f(char const* file, int line, char const* format, ...) {
+    UNUSED(format);
+
     va_list args;
     va_start(args, format);
     panic_f_va(file, line, format, args);
@@ -304,7 +310,9 @@ void JUTException::showStack(OSContext* context) {
     u32* stackPointer = (u32*)mStackPointer;
     sConsole->print_f("Address:   BackChain   LR save\n");
 
-    for (i = 0; (stackPointer != NULL) && (stackPointer != (u32*)0xFFFFFFFF) && (i++ < 0x100);) {
+    for (i = 0; (stackPointer != NULL) && ((uintptr_t)stackPointer != -1) && (i++ < 0x100);
+         stackPointer = (u32*)stackPointer[0])
+    {
         if (i > mTraceSuppress) {
             sConsole->print("Suppress trace.\n");
             return;
@@ -314,7 +322,6 @@ void JUTException::showStack(OSContext* context) {
         showMapInfo_subroutine(stackPointer[1], false);
         JUTConsoleManager::getManager()->drawDirect(true);
         waitTime(mPrintWaitTime1);
-        stackPointer = (u32*)stackPointer[0];
     }
 }
 
@@ -526,11 +533,9 @@ bool JUTException::readPad(u32* out_trigger, u32* out_button) {
     bool result = false;
     OSTime start_time = OSGetTime();
     OSTime ms;
-    do {
-        OSTime end_time = OSGetTime();
-        OSTime ticks = end_time - start_time;
-        ms = ticks / (OS_TIMER_CLOCK / 1000);
-    } while (ms < 0x32);
+    while (((OSGetTime() - start_time) / (OS_TIMER_CLOCK / 1000)) < 50){
+        // nop
+    }
 
     if (mGamePad == (JUTGamePad*)0xffffffff) {
         JUTGamePad gamePad0(JUTGamePad::EPort1);
@@ -683,7 +688,7 @@ void JUTException::printContext(OSError error, OSContext* context, u32 dsisr, u3
 
         int down = 0;
         int up = 0;
-        do {
+        while (true) {
             readPad(&trigger, &button);
 
             bool draw = false;
@@ -720,7 +725,7 @@ void JUTException::printContext(OSError error, OSContext* context, u32 dsisr, u3
             }
 
             waitTime(30);
-        } while (true);
+        } 
     }
 
     while (true) {
@@ -750,24 +755,19 @@ void JUTException::printContext(OSError error, OSContext* context, u32 dsisr, u3
 }
 
 void JUTException::waitTime(s32 timeout_ms) {
+    OSTime start_time;
     if (timeout_ms) {
-        OSTime start_time = OSGetTime();
-        OSTime ms;
-        do {
-            OSTime end_time = OSGetTime();
-            OSTime ticks = end_time - start_time;
-            ms = ticks / (OS_TIMER_CLOCK / 1000);
-        } while (ms < timeout_ms);
+        start_time = OSGetTime();
+        while (((OSGetTime() - start_time) / (OS_TIMER_CLOCK / 1000)) < timeout_ms) {
+            // nop
+        }
     }
 }
 
 void JUTException::createFB() {
     _GXRenderModeObj* renderMode = &GXNtsc480Int;
     void* end = (void*)OSGetArenaHi();
-    u16 width = ALIGN_NEXT(renderMode->fbWidth, 16);
-    u16 height = renderMode->xfbHeight;
-    u32 pixel_count = width * height;
-    u32 size = pixel_count * 2;
+    u32 size = ((u16)ALIGN_NEXT((u16)renderMode->fbWidth, 16) * renderMode->xfbHeight) * 2;
 
     void* begin = (void*)ALIGN_PREV((uintptr_t)end - size, 32);
     void* object = (void*)ALIGN_PREV((s32)begin - sizeof(JUTExternalFB), 32);
@@ -782,8 +782,9 @@ void JUTException::createFB() {
 
     for (int i = 0; i < 3; i++) {
         u32 start = VIGetRetraceCount();
-        while (start == VIGetRetraceCount())
-            ;
+        while (start == VIGetRetraceCount()) {
+            // nop
+        }
     }
 
     mFrameMemory = (JUTExternalFB*)object;
@@ -807,7 +808,7 @@ void JUTException::appendMapFile(char const* path) {
     }
 
     for (JSUListIterator<JUTExMapFile> iterator = sMapFileList.getFirst(); iterator != sMapFileList.getEnd(); iterator++) {
-        if (strcmp(path, iterator->mPath) == 0) {
+        if (strcmp(path, iterator.getObject()->mPath) == 0) {
             return;
         }
     }
@@ -897,68 +898,74 @@ bool JUTException::queryMapAddress_single(char* mapPath, u32 address, s32 sectio
 		if (section_id >= 0 && section_id != section_idx)
 			continue;
 
-		int length;
+        
+        int length;
+        while (true) {
+            if ((length = file.fgets(buffer, ARRAY_SIZEU(buffer))) <= 4) {
+                break;
+            }
+            if (length >= 28) {
+                u32 addr;
+                if (buffer[28] == '4') {
+                    addr = ((buffer[18] - '0') << 28) | strtol(buffer + 19, NULL, 16);
+                    int size = strtol(buffer + 11, NULL, 16);
+                    if ((addr <= address && address < addr + size)) {
+                        if (out_addr) {
+                            *out_addr = addr;
+                        }
 
-		while (true) {
-			if ((length = file.fgets(buffer, ARRAY_SIZEU(buffer))) <= 4)
-				break;
-			if ((length < 28))
-				continue;
-			if (buffer[28] == '4') {
-				u32 addr = ((buffer[18] - '0') << 28) | strtol(buffer + 19, NULL, 16);
-				int size = strtol(buffer + 11, NULL, 16);
-				if ((addr <= address && address < addr + size)) {
-					if (out_addr)
-						*out_addr = addr;
+                        if (out_size) {
+                            *out_size = size;
+                        }
 
-					if (out_size)
-						*out_size = size;
+                        if (out_line) {
+                            const u8* src = (const u8*)&buffer[30];
+                            u8* dst = (u8*)out_line;
+                            u32 i = 0;
 
-					if (out_line) {
-						const u8* src = (const u8*)&buffer[0x1e];
-						u8* dst       = (u8*)out_line;
-						u32 i         = 0;
+                            for (i = 0; i < line_length - 1; src++) {
+                                if ((u8)*src < (u32)' ' && *src != (u32)'\t') {
+                                    break;
+                                }
+                                if ((*src == ' ' || *src == (u32)'\t') && (i != 0)) {
+                                    if (dst[-1] != ' ') {
+                                        *dst = ' ';
+                                        dst++;
+                                        i++;
+                                    }
+                                } else {
+                                    *dst++ = *src;
+                                    i++;
+                                }
+                            }
+                            if (i != 0 && dst[-1] == ' ') {
+                                dst--;
+                                i--;
+                            }
+                            (void)*src;  // needed to match debug
+                            *dst = 0;
+                            if (print) {
+                                if (begin_with_newline) {
+                                    sConsole->print("\n");
+                                }
+                                sConsole->print_f("  [%08X]: .%s [%08X: %XH]\n  %s\n", address,
+                                                  section_name, addr, size, out_line);
+                                begin_with_newline = false;
+                            }
+                        }
+                        result = true;
+                        break;
+                    }
+                }
+            }
+        }
 
-						for (i = 0; i < line_length - 1; ++src) {
-							if ((u32)(*src) < ' ' && (u32)*src != '\t')
-								break;
-							if ((*src == ' ' || (u32)*src == '\t') && (i != 0)) {
-								if (dst[-1] != ' ') {
-									*dst = ' ';
-									dst++;
-									++i;
-								}
-							} else {
-								*dst++ = *src;
-								i++;
-							}
-						}
-						if (i != 0 && dst[-1] == ' ') {
-							dst--;
-							i--;
-						}
-						*dst = 0;
-						if (print) {
-							if (begin_with_newline) {
-								sConsole->print("\n");
-							}
-							sConsole->print_f("  [%08X]: .%s [%08X: %XH]\n  %s\n", address, section_name, addr, size, out_line);
-							begin_with_newline = false;
-						}
-					}
-					result = true;
-					break;
-				}
-			}
+        if (result || (section_id >= 0 && section_id == section_idx)) {
+            if (print && begin_with_newline) {
+                sConsole->print("\n");
+            }
+            break;
 		}
-
-		if (!result && (section_id < 0 || section_id != section_idx)) {
-			continue;
-		}
-		if (print && begin_with_newline) {
-			sConsole->print("\n");
-		}
-		break;
 	}
 
 	file.fclose();
@@ -966,7 +973,7 @@ bool JUTException::queryMapAddress_single(char* mapPath, u32 address, s32 sectio
 }
 
 void JUTException::createConsole(void* console_buffer, u32 console_buffer_size) {
-    if (!console_buffer || !console_buffer_size) {
+    if (console_buffer == NULL || console_buffer_size == 0) {
         return;
     }
 
