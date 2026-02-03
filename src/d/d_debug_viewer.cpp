@@ -115,7 +115,7 @@ void dDbVw_drawCylinderM(int i_bufferType, Mtx i_mtx, const GXColor& i_color, u8
 }
 
 static bool reportOK() {
-    return !dComIfG_isDebugMode() && !dDebugPad.Active();
+    return !dComIfG_isDebugMode() /* && !dDebugPad.Active() */;
 }
 
 static JUtility::TColor ShadowDarkColor(0, 0, 0, 0x80);

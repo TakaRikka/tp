@@ -51,6 +51,8 @@
 #include "d/actor/d_a_ni.h"
 #include "d/d_s_play.h"
 
+#include "d/d_debug_viewer.h"
+
 #include "res/Object/Alink.h"
 
 static int daAlink_Create(fopAc_ac_c* i_this);
@@ -18715,6 +18717,15 @@ int daAlink_c::execute() {
     }
 
     executeFairy();
+
+    {
+        dDbVw_Report(20, 100, "anm upper[0] resIdx: 0x%X", mUpperAnmHeap[0].getIdx());
+        dDbVw_Report(20, 120, "anm upper[1] resIdx: 0x%X", mUpperAnmHeap[1].getIdx());
+        dDbVw_Report(20, 140, "anm upper[2] resIdx: 0x%X", mUpperAnmHeap[2].getIdx());
+        dDbVw_Report(20, 180, "anm under[0] resIdx: 0x%X", mUnderAnmHeap[0].getIdx());
+        dDbVw_Report(20, 200, "anm under[1] resIdx: 0x%X", mUnderAnmHeap[1].getIdx());
+        dDbVw_Report(20, 220, "anm under[2] resIdx: 0x%X", mUnderAnmHeap[2].getIdx());
+    }
 
     #if DEBUG
     if (checkModeFlg(2)) {

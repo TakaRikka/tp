@@ -2961,11 +2961,14 @@ def link_order_callback(module_id: int, objects: List[str]) -> List[str]:
     if not config.non_matching:
         return objects
     if module_id == 0:  # DOL
-        return objects + ["dummy.c"]
+        return objects + [
+            "d/d_debug_pad.cpp",
+            "d/d_debug_viewer.cpp",
+            ]
     return objects
 
 # Uncomment to enable the link order callback.
-# config.link_order_callback = link_order_callback
+config.link_order_callback = link_order_callback
 
 # Optional extra categories for progress tracking
 config.progress_categories = [

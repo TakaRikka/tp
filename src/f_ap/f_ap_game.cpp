@@ -24,7 +24,7 @@ fapGm_HIO_c::fapGm_HIO_c() {
     mUsingHostIO = true;
 
     if (mDoMain::developmentMode) {
-        mDisplayMeter = true;
+        // mDisplayMeter = true;
         mDisplayPrint = true;
     } else {
         mDisplayMeter = false;
