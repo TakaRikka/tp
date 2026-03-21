@@ -9331,7 +9331,7 @@ BOOL daAlink_c::midnaTalkTrigger() const {
 }
 
 BOOL daAlink_c::swordSwingTrigger() {
-    return swordTrigger();
+    return swordTrigger() && !checkNoResetFlg2(FLG2_UNK_8000000);
 }
 
 void daAlink_c::setItemActionButtonStatus(u8 i_status) {
@@ -11838,10 +11838,13 @@ BOOL daAlink_c::checkItemAction() {
             ) && ((mLinkAcch.ChkGroundHit() || checkMagneBootsOn()) && dComIfGp_getRStatus() == 0)
             )
         {
-            setRStatus(BUTTON_STATUS_SHIELD_ATTACK);
+            if (itemButtonCheck(BTN_R)) {
+                setBStatus(BUTTON_STATUS_SHIELD_ATTACK);
 
-            if (spActionTrigger()) {
-                return procGuardAttackInit();
+                // shield attack with B button
+                if (itemTriggerCheck(BTN_B)) {
+                    return procGuardAttackInit();
+                }
             }
         }
     }
@@ -11850,6 +11853,15 @@ BOOL daAlink_c::checkItemAction() {
 }
 
 BOOL daAlink_c::checkRAction() {
+    if (!checkUpperReadyThrowAnime() && !checkEquipAnime() && !checkGrabAnime()) {
+        if (checkGuardAccept() && !checkAttentionLock()) {
+            if (spActionButton()) {
+                return procCrouchInit();
+            }
+        }
+    }
+    
+
     return false;
 }
 
@@ -17287,6 +17299,10 @@ int daAlink_c::procCrouch() {
         setFaceBasicBck(dRes_ID_ALANM_BCK_FAT_e);
     } else {
         setFaceBasicBck(0);
+    }
+
+    if (!spActionButton() || (checkAttentionLock() && dComIfGs_getSelectEquipShield() != dItemNo_NONE_e)) {
+        return checkNextAction(0);
     }
 
     if (mDemo.getDemoMode() != daPy_demo_c::DEMO_CROUCH_e &&
