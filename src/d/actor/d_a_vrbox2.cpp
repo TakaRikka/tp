@@ -7,11 +7,12 @@
 
 #include "d/actor/d_a_vrbox2.h"
 #include "d/d_com_inf_game.h"
-#include "d/d_procname.h"
+#include "f_pc/f_pc_name.h"
 #include "d/d_kankyo_rain.h"
 #include "f_op/f_op_camera_mng.h"
 #include "JSystem/J3DGraphBase/J3DMaterial.h"
 #include "SSystem/SComponent/c_math.h"
+#include <cstring>
 
 static int daVrbox2_color_set(vrbox2_class* param_0);
 
@@ -141,15 +142,15 @@ static int daVrbox2_Draw(vrbox2_class* i_this) {
 #if !DEBUG
         cXyz sp8;
         if (strcmp(dComIfGp_getStartStageName(), "F_SP102") == 0) {
-            dKyr_get_vectle_calc(&camera_p->lookat.eye, &g_env_light.sun_pos, &sp8);
-            sp14.x = camera_p->lookat.eye.x + (8000.0f * sp8.x);
-            sp14.y = camera_p->lookat.eye.y + (8000.0f * sp8.y);
-            sp14.z = camera_p->lookat.eye.z + (8000.0f * sp8.z);
+            dKyr_get_vectle_calc(&camera_p->view.lookat.eye, &g_env_light.sun_pos, &sp8);
+            sp14.x = camera_p->view.lookat.eye.x + (8000.0f * sp8.x);
+            sp14.y = camera_p->view.lookat.eye.y + (8000.0f * sp8.y);
+            sp14.z = camera_p->view.lookat.eye.z + (8000.0f * sp8.z);
         }
 #endif
 
-        temp_r19 = cLib_targetAngleX(&camera_p->lookat.eye, &sp14);
-        temp_r18 = cLib_targetAngleY(&camera_p->lookat.eye, &sp14);
+        temp_r19 = cLib_targetAngleX(&camera_p->view.lookat.eye, &sp14);
+        temp_r18 = cLib_targetAngleY(&camera_p->view.lookat.eye, &sp14);
         mDoMtx_stack_c::transS(sp14.x, sp14.y, sp14.z);
         mDoMtx_stack_c::YrotM((s16)temp_r18);
         mDoMtx_stack_c::XrotM(0x7FFF + -temp_r19);
@@ -184,8 +185,8 @@ static int daVrbox2_Draw(vrbox2_class* i_this) {
             sp14 = sun_p->mPos[0];
             sp14.y = 300.0f + -(sp14.y * 0.85f);
 
-            temp_r19 = cLib_targetAngleX(&camera_p->lookat.eye, &sp14);
-            temp_r18 = cLib_targetAngleY(&camera_p->lookat.eye, &sp14);
+            temp_r19 = cLib_targetAngleX(&camera_p->view.lookat.eye, &sp14);
+            temp_r18 = cLib_targetAngleY(&camera_p->view.lookat.eye, &sp14);
             mDoMtx_stack_c::transS(sp14.x, sp14.y, sp14.z);
             mDoMtx_stack_c::YrotM((s16)temp_r18);
             mDoMtx_stack_c::XrotM(0x7FFF + -temp_r19);
@@ -195,7 +196,7 @@ static int daVrbox2_Draw(vrbox2_class* i_this) {
             mDoMtx_stack_c::ZrotM(-mangZ);
             sun2_model_p->setBaseTRMtx(mDoMtx_stack_c::get());
             mDoExt_modelUpdateDL(sun2_model_p);
-            mangZ += (s16)(483.0f + cM_rndF(100.0f));
+            ANGLE_ADD(mangZ, 483.0f + cM_rndF(100.0f));
         }
     }
 
@@ -245,8 +246,8 @@ static int daVrbox2_color_set(vrbox2_class* i_this) {
 
     sp10 = dStage_stagInfo_GetSTType(dComIfGp_getStage()->getStagInfo());
 
-    cam_eye = camera_p->lookat.eye;
-    cam_center = camera_p->lookat.center;
+    cam_eye = camera_p->view.lookat.eye;
+    cam_center = camera_p->view.lookat.center;
     cam_eye.y = 0.0f;
     cam_center.y = 0.0f;
 
@@ -453,18 +454,18 @@ static actor_method_class l_daVrbox2_Method = {
 };
 
 actor_process_profile_definition g_profile_VRBOX2 = {
-    fpcLy_CURRENT_e,
-    7,
-    fpcPi_CURRENT_e,
-    PROC_VRBOX2,
-    &g_fpcLf_Method.base,
-    sizeof(vrbox2_class),
-    0,
-    0,
-    &g_fopAc_Method.base,
-    4,
-    &l_daVrbox2_Method,
-    0x44000,
-    fopAc_ACTOR_e,
-    fopAc_CULLBOX_0_e,
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_VRBOX2_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(vrbox2_class),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_VRBOX2_e,
+    /* Actor SubMtd */ &l_daVrbox2_Method,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_UNK_0x4000_e,
+    /* Group        */ fopAc_ACTOR_e,
+    /* Cull Type    */ fopAc_CULLBOX_0_e,
 };

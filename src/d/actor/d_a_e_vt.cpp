@@ -1271,9 +1271,9 @@ void daE_VA_c::onRopeCutStatus(int param_0, int param_1, int param_2) {
 }
 
 void daE_VA_c::setVibRope(f32 param_0, f32 param_1) {
-    field_0x1336 += (s16)(param_1 * 7168.0f);
-    field_0x122c.y += (s16)(param_0 * cM_ssin(field_0x1336));
-    field_0x123e += (s16)(param_0 * 50.0f * cM_ssin(field_0x1336));
+    ANGLE_ADD(field_0x1336, param_1 * 7168.0f);
+    ANGLE_ADD(field_0x122c.y, param_0 * cM_ssin(field_0x1336));
+    ANGLE_ADD(field_0x123e, param_0 * 50.0f * cM_ssin(field_0x1336));
 }
 
 static s16 TAG_VIB_ANGLE[] = {
@@ -1441,7 +1441,7 @@ void daE_VA_c::executeDemoOpWait() {
 }
 
 void daE_VA_c::executeDemoOp() {
-    camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+    camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
     cXyz sp2C;
     cXyz sp38;
     f32 old;
@@ -2917,7 +2917,7 @@ void daE_VA_c::executeOpaciFadeAway() {
 }
 
 void daE_VA_c::executeOpaciDeath() {
-    camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+    camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
     daPy_py_c* player = daPy_getPlayerActorClass();
     cXyz sp24;
     cXyz sp30;
@@ -3903,20 +3903,20 @@ static actor_method_class l_daE_VA_Method = {
 };
 
 actor_process_profile_definition g_profile_E_VT = {
-    fpcLy_CURRENT_e,         // mLayerID
-    7,                       // mListID
-    fpcPi_CURRENT_e,         // mListPrio
-    PROC_E_VT,               // mProcName
-    &g_fpcLf_Method.base,   // sub_method
-    sizeof(daE_VA_c),        // mSize
-    0,                       // mSizeOther
-    0,                       // mParameters
-    &g_fopAc_Method.base,    // sub_method
-    756,                     // mPriority
-    &l_daE_VA_Method,        // sub_method
-    0x00040000,              // mStatus
-    fopAc_ENEMY_e,           // mActorType
-    fopAc_CULLBOX_CUSTOM_e,  // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_E_VT_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daE_VA_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_E_VT_e,
+    /* Actor SubMtd */ &l_daE_VA_Method,
+    /* Status       */ fopAcStts_UNK_0x40000_e,
+    /* Group        */ fopAc_ENEMY_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };
 
 AUDIO_INSTANCES;

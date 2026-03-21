@@ -61,8 +61,8 @@ void daSpinLift_c::setBaseMtx() {
     mpModel->setBaseTRMtx(mDoMtx_stack_c::get());
 }
 
+static u32 const l_bmdIdx[] = {4, 4, 4, 4, 4, 4, 4, 4, 4};
 int daSpinLift_c::CreateHeap() {
-    static u32 const l_bmdIdx[] = {4, 4, 4, 4, 4, 4, 4, 4, 4};
     J3DModelData* modelData =
         (J3DModelData*)dComIfG_getObjectRes(l_resNameIdx[mModelType], l_bmdIdx[mModelType]);
     JUT_ASSERT(222, modelData != NULL);
@@ -73,8 +73,8 @@ int daSpinLift_c::CreateHeap() {
     return 1;
 }
 
+static const int l_dzbIdx[] = {7, 7, 7, 7, 7, 7, 7, 7, 7};
 int daSpinLift_c::create() {
-    static const int l_dzbIdx[] = {7, 7, 7, 7, 7, 7, 7, 7, 7};
     fopAcM_ct(this, daSpinLift_c);
     mModelType = getModelType();
     int phase = dComIfG_resLoad(&mPhase, l_resNameIdx[mModelType]);
@@ -123,7 +123,7 @@ int daSpinLift_c::Execute(Mtx** param_0) {
 }
 
 void daSpinLift_c::moveLift() {
-    static daSpinLift_c::modeFunc mode_proc[] = {
+    static const daSpinLift_c::modeFunc mode_proc[] = {
         &daSpinLift_c::modeWait,
         &daSpinLift_c::modeUpMove,
         &daSpinLift_c::modeDownMove,
@@ -279,18 +279,18 @@ static actor_method_class l_daSpinLift_Method = {
 };
 
 actor_process_profile_definition g_profile_Obj_SpinLift = {
-    fpcLy_CURRENT_e,         // mLayerID
-    3,                       // mListID
-    fpcPi_CURRENT_e,         // mListPrio
-    PROC_Obj_SpinLift,       // mProcName
-    &g_fpcLf_Method.base,    // sub_method
-    sizeof(daSpinLift_c),    // mSize
-    0,                       // mSizeOther
-    0,                       // mParameters
-    &g_fopAc_Method.base,    // sub_method
-    512,                     // mPriority
-    &l_daSpinLift_Method,    // sub_method
-    0x00040100,              // mStatus
-    fopAc_ACTOR_e,           // mActorType
-    fopAc_CULLBOX_CUSTOM_e,  // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 3,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_Obj_SpinLift_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daSpinLift_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_Obj_SpinLift_e,
+    /* Actor SubMtd */ &l_daSpinLift_Method,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_CULL_e,
+    /* Group        */ fopAc_ACTOR_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

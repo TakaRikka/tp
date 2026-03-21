@@ -13,6 +13,7 @@
 #include "d/d_cc_d.h"
 #include "d/d_com_inf_game.h"
 #include "f_op/f_op_actor_mng.h"
+#include <cstring>
 
 daObj_Kago_HIOParam const daObj_Kago_Param_c::m = {
     0.0f,
@@ -298,9 +299,9 @@ int daObj_Kago_c::Execute() {
                 if (field_0xb48 == 0 && mObjAcch.ChkWallHit() != 0) {
                     if (getWallAngle(current.angle.y, &sVar2)) {
                         current.angle.y = sVar2;
-                        current.angle.y += (s16)cM_rndFX(2000.0f);
+                        ANGLE_ADD(current.angle.y, cM_rndFX(2000.0f));
                     } else {
-                        current.angle.y += (s16)cM_rndFX(2000.0f);
+                        ANGLE_ADD(current.angle.y, cM_rndFX(2000.0f));
                         current.angle.y += -0x8000;
                     }
 
@@ -406,7 +407,7 @@ int daObj_Kago_c::Execute() {
                 for (int i = 0; i < 2; i++) {
                     if (field_0x808[i].ChkCoHit() != 0) {
                         actor_p = field_0x808[i].GetCoHitAc();
-                        if (actor_p != NULL && fopAcM_GetName(actor_p) == PROC_ALINK) break;
+                        if (actor_p != NULL && fopAcM_GetName(actor_p) == fpcNm_ALINK_e) break;
                         actor_p = NULL;
                     }
                 }
@@ -684,18 +685,18 @@ static actor_method_class daObj_Kago_MethodTable = {
 };
 
 actor_process_profile_definition g_profile_OBJ_KAGO = {
-  fpcLy_CURRENT_e,         // mLayerID
-  8,                       // mListID
-  fpcPi_CURRENT_e,         // mListPrio
-  PROC_OBJ_KAGO,           // mProcName
-  &g_fpcLf_Method.base,   // sub_method
-  sizeof(daObj_Kago_c),    // mSize
-  0,                       // mSizeOther
-  0,                       // mParameters
-  &g_fopAc_Method.base,    // sub_method
-  717,                     // mPriority
-  &daObj_Kago_MethodTable, // sub_method
-  0x00044100,              // mStatus
-  fopAc_ACTOR_e,           // mActorType
-  fopAc_CULLBOX_CUSTOM_e,  // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 8,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_OBJ_KAGO_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daObj_Kago_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_OBJ_KAGO_e,
+    /* Actor SubMtd */ &daObj_Kago_MethodTable,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_UNK_0x4000_e | fopAcStts_CULL_e,
+    /* Group        */ fopAc_ACTOR_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

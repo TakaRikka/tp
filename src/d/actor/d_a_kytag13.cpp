@@ -10,6 +10,7 @@
 #include "d/d_com_inf_game.h"
 #include "d/d_kankyo_rain.h"
 #include "f_op/f_op_camera_mng.h"
+#include <cstring>
 
 static int daKytag13_Draw(kytag13_class* i_this) {
     return 1;
@@ -66,7 +67,7 @@ static int daKytag13_Execute_standard(kytag13_class* i_this) {
         }
     }
 
-    snow_packet->field_0x6d74 = camera->lookat.eye;
+    snow_packet->field_0x6d74 = camera->view.lookat.eye;
     sp110.x = sp110.y = sp110.z = 0.0f;
 
     cXyz* temp_r27 = dKyw_get_wind_vec();
@@ -86,9 +87,9 @@ static int daKytag13_Execute_standard(kytag13_class* i_this) {
     dKyr_get_vectle_calc(&sp158, &a_this->current.pos, &sp64);
 
     cXyz sp170;
-    sp88.x = camera->lookat.center.x - camera->lookat.eye.x;
+    sp88.x = camera->view.lookat.center.x - camera->view.lookat.eye.x;
     sp88.y = 0.0;
-    sp88.z = camera->lookat.center.z - camera->lookat.eye.z;
+    sp88.z = camera->view.lookat.center.z - camera->view.lookat.eye.z;
     vectle_calc(&sp88, &sp170);
 
     snow_packet->field_0x6d84 = cM3d_VectorProduct2d(0.0f, 0.0f, -sp11c.x, -sp11c.z, sp170.x, sp170.z);
@@ -169,11 +170,11 @@ static int daKytag13_Execute_standard(kytag13_class* i_this) {
                 var_f29 = 0.0f;
             }
 
-            if (camera->lookat.eye.abs(snow_packet->mSnowEff[i].mPosition) < 500.0f) {
+            if (camera->view.lookat.eye.abs(snow_packet->mSnowEff[i].mPosition) < 500.0f) {
                 var_f28 = temp_f30;
             }
 
-            if (camera->lookat.eye.abs(snow_packet->mSnowEff[i].mBasePos) < 500.0f) {
+            if (camera->view.lookat.eye.abs(snow_packet->mSnowEff[i].mBasePos) < 500.0f) {
                 var_f29 = temp_f30;
             }
 
@@ -388,18 +389,18 @@ static actor_method_class l_daKytag13_Method = {
 };
 
 actor_process_profile_definition g_profile_KYTAG13 = {
-  fpcLy_CURRENT_e,       // mLayerID
-  7,                     // mListID
-  fpcPi_CURRENT_e,       // mListPrio
-  PROC_KYTAG13,          // mProcName
-  &g_fpcLf_Method.base,  // sub_method
-  sizeof(kytag13_class), // mSize
-  0,                     // mSizeOther
-  0,                     // mParameters
-  &g_fopAc_Method.base,  // sub_method
-  107,                   // mPriority
-  &l_daKytag13_Method,   // sub_method
-  0x00060000,            // mStatus
-  fopAc_ACTOR_e,         // mActorType
-  fopAc_CULLBOX_0_e,     // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_KYTAG13_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(kytag13_class),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_KYTAG13_e,
+    /* Actor SubMtd */ &l_daKytag13_Method,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_NOPAUSE_e,
+    /* Group        */ fopAc_ACTOR_e,
+    /* Cull Type    */ fopAc_CULLBOX_0_e,
 };

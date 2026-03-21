@@ -1,6 +1,6 @@
 /**
  * @file d_a_npc_coach.cpp
- * 
+ *
 */
 
 #include "d/dolzel_rel.h" // IWYU pragma: keep
@@ -13,6 +13,7 @@
 #include "d/d_bg_w.h"
 #include "d/d_meter2_info.h"
 #include "d/d_tresure.h"
+#include <cstring>
 
 enum Coach_RES_File_ID {
     /* BCK */
@@ -274,7 +275,7 @@ static int jointCoachCallBack(J3DJoint* i_joint, int param_2) {
 }
 
 static void arrowStickCallBack(dBgW* i_bgw, fopAc_ac_c* a_this, fopAc_ac_c* i_actor, cXyz& i_pos) {
-    if (fopAcM_GetName(i_actor) == PROC_E_ARROW) {
+    if (fopAcM_GetName(i_actor) == fpcNm_E_ARROW_e) {
         if (!daPy_getPlayerActorClass()->checkBoarSingleBattleSecond()) {
             ((daNpcCoach_c*)a_this)->hitFireArrow(i_pos);
             fopAcM_delete(i_actor);
@@ -293,7 +294,7 @@ void daNpcCoach_c::hitFireArrow(cXyz i_pos) {
                 cXyz work;
                 mDoMtx_stack_c::copy(mChCoach.field_0x598);
                 mDoMtx_stack_c::multVec(&i_pos, &work);
-                field_0x247c[i] = fopAcM_createChild(PROC_COACH_FIRE, fopAcM_GetID(this),
+                field_0x247c[i] = fopAcM_createChild(fpcNm_COACH_FIRE_e, fopAcM_GetID(this),
                                                      0, &work, fopAcM_GetRoomNo(this),
                                                      NULL, NULL, -1, NULL);
                 mChCoach.mSound.startSound(Z2SE_COACH_HIT_ARROW, 0, -1);
@@ -409,12 +410,12 @@ void daNpcCoach_c::initCoachPosition(Vec& i_pos, SVec& i_angle) {
     work.set(mChCoach.field_0x5e0.x, mChCoach.field_0x5e0.y + 500.0f, mChCoach.field_0x5e0.z);
 
     if (fopAcM_gc_c::gndCheck(&work)) {
-        mChCoach.field_0x5e0.y = fopAcM_gc_c::getGroundY(); 
+        mChCoach.field_0x5e0.y = fopAcM_gc_c::getGroundY();
     }
 }
 
 static void* s_sub(void* i_actor, void* i_data) {
-    if (fopAc_IsActor(i_actor) && fopAcM_GetName(i_actor) == PROC_E_KR && ((e_kr_class*)i_actor)->getId() >= 0) {
+    if (fopAc_IsActor(i_actor) && fopAcM_GetName(i_actor) == fpcNm_E_KR_e && ((e_kr_class*)i_actor)->getId() >= 0) {
         return i_actor;
     }
 
@@ -516,8 +517,7 @@ BOOL daNpcChPath_c::setPath(int path_index, int room_no, cXyz& i_vec, bool param
     mCurrentID = path_index;
     mPntIndex = 0;
 
-    // Is this really what the Nintendo devs wrote?? The debug ROM suggests as such.
-    if (param_4 && &i_vec) {
+    if (param_4 && IS_REF_NONNULL(i_vec)) {
         f32 fVar1 = G_CM3D_F_INF;
         for (int pnt_index = 0; pnt_index < mpPath->m_num; pnt_index++) {
             dPnt* pnt = dPath_GetPnt(mpPath, pnt_index);
@@ -533,8 +533,7 @@ BOOL daNpcChPath_c::setPath(int path_index, int room_no, cXyz& i_vec, bool param
 
     field_0x8 = G_CM3D_F_INF;
 
-    // ditto.
-    if (&i_vec) {
+    if (IS_REF_NONNULL(i_vec)) {
         field_0x4 = &i_vec;
         cXyz targetPoint;
         getTargetPoint(targetPoint);
@@ -748,7 +747,7 @@ int daNpcCoach_c::createHeap() {
     }
 
     modelData = (J3DModelData*)dComIfG_getObjectRes(l_arcName, BMDR_HARNESS);
-    
+
     JUT_ASSERT(2762, modelData != NULL);
 
     mChHarness.mHarnessModel = mDoExt_J3DModel__create(modelData, 0x80000, 0x11000084);
@@ -774,9 +773,9 @@ int daNpcCoach_c::createHeap() {
 
         JUT_ASSERT(2782, FALSE);
     }
-   
+
     modelData = (J3DModelData*)dComIfG_getObjectRes(l_arcName, BMDR_COACH);
-    
+
     JUT_ASSERT(2787, modelData != NULL);
 
     mChCoach.mCoachModel = mDoExt_J3DModel__create(modelData, 0x80000, 0x11000084);
@@ -806,7 +805,7 @@ int daNpcCoach_c::createHeap() {
     }
 
     modelData = (J3DModelData*)dComIfG_getObjectRes(l_arcName, BMDR_YELIA);
-    
+
     JUT_ASSERT(2816, modelData != NULL);
 
     mChYelia.mpModelMorf = new mDoExt_McaMorfSO(modelData, NULL, NULL, (J3DAnmTransform*)dComIfG_getObjectRes(l_arcName, BCK_YELIA_WAIT),
@@ -947,7 +946,7 @@ void daNpcCoach_c::checkCoachDamage() {
     ((daCoach2D_c*)fpcM_SearchByID(field_0x2554))->setHitCount((mTotalDmgRecv / (attr().damage_durability / 20)));
 
     if (mTotalDmgRecv >= attr().damage_durability) {
-        fopAcM_OnStatus(this, fopAcM_STATUS_UNK_0x4000);
+        fopAcM_OnStatus(this, fopAcStts_UNK_0x4000_e);
         mChHorse.field_0x784 = 0.0f;
 
         daNpcTheB_c* telmaB_p = (daNpcTheB_c*)fpcM_SearchByID(parentActorID);
@@ -1471,7 +1470,7 @@ void daNpcCoach_c::calcHarnessMotion() {
 void daNpcCoach_c::calcFrontWheelRotate() {
     if (speedF != 0.0f) {
         f32 fVar1 = mChHarness.field_0x6ec.absXZ(mChHarness.field_0x6e0);
-        int dist_ang = cLib_distanceAngleS(mChHarness.field_0x700.y, 
+        int dist_ang = cLib_distanceAngleS(mChHarness.field_0x700.y,
                                            cLib_targetAngleY(&mChHarness.field_0x6ec, &mChHarness.field_0x6e0));
         f32 fVar2 = (dist_ang < 0x4000) ? fVar1 / 345.5751953125f : -(fVar1 / 345.5751953125f);
 
@@ -1611,9 +1610,9 @@ void daNpcCoach_c::setHorseAnm(int i_index) {
     if (mChHorse.field_0x788 != i_index) {
         mChHorse.field_0x788 = i_index;
 
-        J3DAnmTransform* anm = (J3DAnmTransform*)(l_horseAnmParam[i_index].field_0x0 >= 0 ? 
+        J3DAnmTransform* anm = (J3DAnmTransform*)(l_horseAnmParam[i_index].field_0x0 >= 0 ?
                                  dComIfG_getObjectRes(l_arcName, l_horseAnmParam[i_index].field_0x0) : NULL);
-        J3DAnmTransform* anm_2 = l_horseAnmParam[i_index].field_0xc >= 0 ? 
+        J3DAnmTransform* anm_2 = l_horseAnmParam[i_index].field_0xc >= 0 ?
                                  (J3DAnmTransform*)dComIfG_getObjectRes(l_arcName, l_horseAnmParam[i_index].field_0xc) : NULL;
 
         f32 frame = mChHorse.mpModelMorf->getFrame();
@@ -2026,7 +2025,7 @@ cPhs_Step daNpcCoach_c::create() {
 
 void daNpcCoach_c::create_init() {
     if (strcmp(dComIfGp_getStartStageName(), "F_SP123") == 0) {
-        fopAcM_OnStatus(this, fopAcM_STATUS_UNK_0x4000);
+        fopAcM_OnStatus(this, fopAcStts_UNK_0x4000_e);
     }
 
     fopAcM_setStageLayer(this);
@@ -2098,8 +2097,8 @@ void daNpcCoach_c::create_init() {
     mDoMtx_stack_c::multVecZero(&i_pos);
     mDoMtx_MtxToRot(mDoMtx_stack_c::get(), &i_angle);
     int msg_no = getMessageNo();
-    parentActorID = fopAcM_createChild(PROC_NPC_THEB, fopAcM_GetID(this), msg_no, &i_pos, fopAcM_GetRoomNo(this), &i_angle, NULL, -1, NULL);
-    field_0x2554 = fopAcM_createChild(PROC_COACH2D, fopAcM_GetID(this), 0, &current.pos, fopAcM_GetRoomNo(this), NULL, NULL, -1, NULL);
+    parentActorID = fopAcM_createChild(fpcNm_NPC_THEB_e, fopAcM_GetID(this), msg_no, &i_pos, fopAcM_GetRoomNo(this), &i_angle, NULL, -1, NULL);
+    field_0x2554 = fopAcM_createChild(fpcNm_COACH2D_e, fopAcM_GetID(this), 0, &current.pos, fopAcM_GetRoomNo(this), NULL, NULL, -1, NULL);
     field_0x2558 = 0;
     field_0x2559 = 0;
 
@@ -2176,18 +2175,18 @@ static actor_method_class l_daNpcCoach_Method = {
 };
 
 actor_process_profile_definition g_profile_NPC_COACH = {
-  fpcLy_CURRENT_e,        // mLayerID
-  3,                      // mListID
-  fpcPi_CURRENT_e,        // mListPrio
-  PROC_NPC_COACH,         // mProcName
-  &g_fpcLf_Method.base,  // sub_method
-  sizeof(daNpcCoach_c),   // mSize
-  0,                      // mSizeOther
-  0,                      // mParameters
-  &g_fopAc_Method.base,   // sub_method
-  330,                    // mPriority
-  &l_daNpcCoach_Method,   // sub_method
-  0x00040100,             // mStatus
-  fopAc_ACTOR_e,          // mActorType
-  fopAc_CULLBOX_CUSTOM_e, // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 3,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_NPC_COACH_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daNpcCoach_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_NPC_COACH_e,
+    /* Actor SubMtd */ &l_daNpcCoach_Method,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_CULL_e,
+    /* Group        */ fopAc_ACTOR_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

@@ -8,6 +8,7 @@
 #include "JSystem/JHostIO/JORServer.h"
 #include "JSystem/JUtility/JUTDbPrint.h"
 #include "JSystem/JUtility/JUTReport.h"
+#include <cstring>
 
 namespace zevwork {
     const int CutMaxNum = 32;
@@ -1718,7 +1719,7 @@ JUtility::TColor get_color(JUtility::TColor color) {
         JUtility::TColor(0x80, 0x80, 0xFF, 0xFF),
     };
 
-    (void)(u32)color;
+    UNUSED((u32)color);
     int var_r30 = 1;
 
     if (var_r30 && (u32)color < 9) {

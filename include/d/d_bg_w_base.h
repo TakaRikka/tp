@@ -4,14 +4,14 @@
 #include "SSystem/SComponent/c_bg_s_poly_info.h"
 #include "SSystem/SComponent/c_bg_w.h"
 #include "SSystem/SComponent/c_m3d_g_pla.h"
-#include <dolphin/gx.h>
+#include <gx.h>
 #include "f_pc/f_pc_base.h"
 
 class cBgS_GndChk;
 class cBgS_LinChk;
 class cBgS_ShdwDraw;
 class dBgS_Acch;
-struct dBgS_CaptPoly;
+class dBgS_CaptPoly;
 class dBgS_RoofChk;
 class dBgS_SphChk;
 class dBgS_SplGrpChk;
@@ -106,16 +106,16 @@ public:
     virtual void CallArrowStickCallBack(fopAc_ac_c*, fopAc_ac_c*, cXyz&);
 
     #if DEBUG
-    virtual void DebugDraw() {}
-    virtual void DrawPoly(cBgS_PolyInfo const& param_0, GXColor const& param_1) {}
-    virtual void DebugBox() {}
+    virtual void DebugDraw() const {}
+    virtual void DrawPoly(cBgS_PolyInfo const& param_0, GXColor const& param_1) const {}
+    virtual void DrawBox() const {}
     #endif
 
     PushPull_CallBack GetPushPullCallback() const { return m_pushPull_Callback; }
     s16 GetDiffShapeAngleY() { return m_diff_ShapeAngleY; }
     int GetRoomId() { return m_roomId; }
-    bool chkStickWall() { return field_0xb & 1; }
-    bool chkStickRoof() { return field_0xb & 2; }
+    BOOL chkStickWall() { return field_0xb & 1; }
+    BOOL chkStickRoof() { return field_0xb & 2; }
     bool ChkPushPullOk() const { return m_pushPull_Ok; }
     void SetPushPullCallback(PushPull_CallBack i_callBack) { m_pushPull_Callback = i_callBack; }
     void SetRoomId(int id) { m_roomId = id; }

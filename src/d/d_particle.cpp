@@ -506,7 +506,7 @@ bool dPa_modelEcallBack::model_c::set(J3DModelData* i_modelData, dKy_tevstr_c co
     field_0x8.field_0x344 = param_1.field_0x344;
     typedef struct Arr{
         int field_0x0[2];
-    };
+    } Arr;
     *(Arr*)&field_0x8.AmbCol = *(Arr*)&param_1.AmbCol;
     *(Arr*)&field_0x8.FogCol = *(Arr*)&param_1.FogCol;
     *(Arr*)&field_0x8.TevColor = *(Arr*)&param_1.TevColor;
@@ -838,11 +838,11 @@ u32 dPa_simpleEcallBack::set(cXyz const* i_pos, dKy_tevstr_c const* param_2, u8 
         GXColor local_60;
         GXColor local_64 = {0xff, 0xff, 0xff, 0xff};
         GXColor local_68 = {0xff, 0xff, 0xff, 0xff};
-        if (&param_5 != NULL) {
+        if (IS_REF_NONNULL(param_5)) {
             local_64 = param_5;
         }
 
-        if (&param_4 != NULL) {
+        if (IS_REF_NONNULL(param_4)) {
             local_68 = param_4;
         }
 
@@ -859,11 +859,11 @@ u32 dPa_simpleEcallBack::set(cXyz const* i_pos, dKy_tevstr_c const* param_2, u8 
         GXColor local_70;
         GXColor local_74 = {0xff, 0xff, 0xff, 0xff};
         GXColor local_78 = {0xff, 0xff, 0xff, 0xff};
-        if (&param_5 != NULL) {
+        if (IS_REF_NONNULL(param_5)) {
             local_74 = param_5;
         }
 
-        if (&param_4 != NULL) {
+        if (IS_REF_NONNULL(param_4)) {
             local_78 = param_4;
         }
 
@@ -881,13 +881,13 @@ u32 dPa_simpleEcallBack::set(cXyz const* i_pos, dKy_tevstr_c const* param_2, u8 
         pData->field_0x10.g = local_6c.g;
         pData->field_0x10.b = local_6c.b;
     } else {
-        if (&param_4 != NULL) {
+        if (IS_REF_NONNULL(param_4)) {
             pData->field_0x0c.r = param_4.r;
             pData->field_0x0c.g = param_4.g;
             pData->field_0x0c.b = param_4.b;
         }
 
-        if (&param_5 != NULL) {
+        if (IS_REF_NONNULL(param_5)) {
             pData->field_0x10.r = param_5.r;
             pData->field_0x10.g = param_5.g;
             pData->field_0x10.b = param_5.b;
@@ -1596,7 +1596,7 @@ s32 dPa_control_c::getPolyColor(cBgS_PolyInfo& param_0, int param_1, _GXColor* p
         return 0;
     }
 
-    if (param_1 == NULL) {
+    if (param_1 == 0) {
         dKy_pol_eff_prim_get(&param_0, param_2);
         dKy_pol_eff_env_get(&param_0, param_3);
         *param_4 = dKy_pol_eff_alpha_get(&param_0);
@@ -1907,7 +1907,7 @@ u16 dPa_control_c::setCommonPoly(u32* param_0, cBgS_PolyInfo* param_1, cXyz cons
 void dPa_wbPcallBack_c::execute(JPABaseEmitter* i_emitter, JPABaseParticle* param_1) {
     UNUSED(i_emitter);
     JGeometry::TVec3<f32> local_18;
-    param_1->getGlobalPosition(local_18);
+    param_1->getGlobalPosition(&local_18);
     cXyz cStack_24(local_18.x, local_18.y, local_18.z);
     if (fopAcM_wt_c::waterCheck(&cStack_24) && cStack_24.y > fopAcM_wt_c::getWaterY()) {
         param_1->setInvisibleParticleFlag();
@@ -1992,7 +1992,7 @@ void dPa_light8PcallBack::draw(JPABaseEmitter* param_1, JPABaseParticle* param_2
         MTXRotAxisRad(auStack_90, &local_178, (M_PI / 180.0f) * fVar3);
         MTXConcat(local_60, auStack_90, local_60);
     }
-    param_2->getGlobalPosition(local_100);
+    param_2->getGlobalPosition(&local_100);
     local_60[0][3] = local_100.x;
     local_60[1][3] = local_100.y;
     local_60[2][3] = local_100.z;
@@ -2078,7 +2078,7 @@ void dPa_gen_b_light8PcallBack::draw(JPABaseEmitter* param_1, JPABaseParticle* p
     JGeometry::TVec3<f32> local_e0;
     JGeometry::TVec3<f32> local_ec;
     JGeometry::TVec3<f32> local_f8;
-    param_2->getGlobalPosition(local_8c);
+    param_2->getGlobalPosition(&local_8c);
     MTXMultVec(j3dSys.getViewMtx(), &local_8c, &local_8c);
     f32 dVar9 = JMASSin(param_2->getRotateAngle());
     f32 dVar10 = JMASCos(param_2->getRotateAngle());
@@ -2172,7 +2172,7 @@ void dPa_gen_d_light8PcallBack::draw(JPABaseEmitter* param_1, JPABaseParticle* p
     MTXIdentity(local_60);
     MTXIdentity(auStack_90);
     param_2->getBaseAxis(local_10c);
-    param_2->getLocalPosition(local_118);
+    param_2->getLocalPosition(&local_118);
     if (local_118.isZero()) {
         local_118.set(0.0f, 1.0f, 0.0f);
     } else {
@@ -2201,7 +2201,7 @@ void dPa_gen_d_light8PcallBack::draw(JPABaseEmitter* param_1, JPABaseParticle* p
         MTXRotAxisRad(auStack_90, &local_178, (M_PI / 180.0f) * fVar3);
         MTXConcat(local_60, auStack_90, local_60);
     }
-    param_2->getGlobalPosition(local_100);
+    param_2->getGlobalPosition(&local_100);
     local_60[0][3] = local_100.x;
     local_60[1][3] = local_100.y;
     local_60[2][3] = local_100.z;

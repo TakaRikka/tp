@@ -10,6 +10,7 @@
 #include "d/d_bg_w.h"
 #include "d/d_model.h"
 #include "d/d_com_inf_game.h"
+#include <cstring>
 
 static int daBkyRock_c_createHeap(fopAc_ac_c* i_this) {
     return static_cast<daBkyRock_c*>(i_this)->createHeap();
@@ -67,7 +68,7 @@ int daBkyRock_c::draw() {
         
         mModels[mMode], &tevStr);
     if (field_0x57a) {
-       dMdl_c* dMdl = dMdl_mng_c::entry(mModels[2]->getModelData(), NULL, current.roomNo);
+       dMdl_c* dMdl = dMdl_mng_c::entry(mModels[2]->getModelData(), 0, current.roomNo);
         if (dMdl != NULL) {
             _pieceData* piece = mPieces;
             for (int i = 0; i < 20; i++, piece++) {
@@ -424,18 +425,18 @@ static actor_method_class daBkyRock_METHODS = {
 };
 
 actor_process_profile_definition g_profile_BkyRock = {
-  fpcLy_CURRENT_e,        // mLayerID
-  7,                      // mListID
-  fpcPi_CURRENT_e,        // mListPrio
-  PROC_BkyRock,           // mProcName
-  &g_fpcLf_Method.base,  // sub_method
-  sizeof(daBkyRock_c),    // mSize
-  0,                      // mSizeOther
-  0,                      // mParameters
-  &g_fopAc_Method.base,   // sub_method
-  728,                    // mPriority
-  &daBkyRock_METHODS,     // sub_method
-  0x00044100,             // mStatus
-  fopAc_ENV_e,            // mActorType
-  fopAc_CULLBOX_CUSTOM_e, // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_BkyRock_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daBkyRock_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_BkyRock_e,
+    /* Actor SubMtd */ &daBkyRock_METHODS,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_UNK_0x4000_e | fopAcStts_CULL_e,
+    /* Group        */ fopAc_ENV_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

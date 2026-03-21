@@ -6,16 +6,15 @@
 #include "f_op/f_op_camera_mng.h"
 #include "JSystem/JKernel/JKRExpHeap.h"
 #include "JSystem/JKernel/JKRSolidHeap.h"
+#include <cstring>
 
-// NONMATCHING
 void dBgp_c::material_c::draw() {
-    material_c* material;
+    material_c* material = this;
     do {
-        drawSimple();
-    } while ((material = getNext()) != NULL);
+        material->drawSimple();
+    } while ((material = material->getNext()) != NULL);
 }
 
-// NONMATCHING - regalloc
 void dBgp_c::modelMaterial_c::drawSimple() {
     if (mpMaterial->getInvalid()) {
         OSReport_Warning("Share Material Nothing !!\n");
@@ -33,7 +32,7 @@ void dBgp_c::modelMaterial_c::drawSimple() {
     int spC = 0;
     void* vatCmd = NULL;
 
-    if (getMaterial()->getShape()->checkFlag(1)) {
+    if (modelMaterial->getMaterial()->getShape()->checkFlag(1)) {
         modelMaterial = modelMaterial->getChild();
     }
 
@@ -106,7 +105,7 @@ void dBgp_c::modelMaterial_c::set(J3DModelData* i_modelData, J3DMaterial* i_mate
 
 void dBgp_c::model_c::create(J3DModelData* i_modelData, Mtx i_mtx) {
     const void* binary = i_modelData->getBinary();
-    
+
     mId = *(u32*)((char*)binary + 0x1C);
     if (mId != 0xFFFF) {
         addShare(mId);
@@ -230,7 +229,7 @@ void dBgp_c::share_c::set(u16 i_id) {
     if (mCount++ == 0) {
         mStatus = 1;
         mId = i_id;
-        
+
         int rt = dComIfG_setObjectRes(getArcName(), 0, (JKRHeap*)NULL);
         JUT_ASSERT(446, rt != 0);
     }
@@ -295,7 +294,7 @@ int dBgp_c::share_c::execute() {
         for (u16 i = 0; i < mModelData->getMaterialNum(); i++) {
             J3DMaterial* material = mModelData->getMaterialNodePointer(i);
             mMaterial[i].set(mModelData, material, cMtx_getIdentity());
-            
+
             J3DShape* shape = material->getShape();
             shape->hide();
 
@@ -661,7 +660,7 @@ int dBgp_c::execute(bool param_0) {
                     angle.x = (unitData->field_0x14 << 8) | unitData->field_0x5;
                     angle.z = (unitData->field_0x4 << 8) | unitData->field_0x3;
 
-                    fopAcM_create(PROC_SET_BG_OBJ, parameters, &pos, mPacket.getRoomNo(), &angle, &size, -1);
+                    fopAcM_create(fpcNm_SET_BG_OBJ_e, parameters, &pos, mPacket.getRoomNo(), &angle, &size, -1);
                 }
                 unitData++;
             }
@@ -679,7 +678,7 @@ void dBgp_c::draw(fopAc_ac_c* i_actor) {
     mPacket.reset();
     mDoLib_clipper::changeFar(100000.0f);
 
-    camera_class* sp30 = dComIfGp_getCamera(0);
+    camera_process_class* sp30 = dComIfGp_getCamera(0);
     dCamera_c* camera = &sp30->mCamera;
     JUT_ASSERT(1287, camera != NULL)
 

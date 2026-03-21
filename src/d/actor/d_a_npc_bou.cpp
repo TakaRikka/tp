@@ -11,6 +11,7 @@
 #include "d/actor/d_a_npc_jagar.h"
 #include "d/actor/d_a_tag_push.h"
 #include "d/d_meter2_info.h"
+#include <cstring>
 
 static int l_bmdData[1][2] = {
     {11, 1},
@@ -313,7 +314,7 @@ int daNpc_Bou_c::ctrlJointCallBack(J3DJoint* param_0, int param_1) {
 
 void* daNpc_Bou_c::srchCow(void* arg0, void* arg1) {
     if (mFindCount < 50 && arg0 != NULL && arg0 != arg1) {
-        if (fopAcM_IsExecuting(fopAcM_GetID(arg0)) && fopAcM_GetName(arg0) == PROC_COW) {
+        if (fopAcM_IsExecuting(fopAcM_GetID(arg0)) && fopAcM_GetName(arg0) == fpcNm_COW_e) {
             mFindActorPtrs[mFindCount] = (fopAc_ac_c*)arg0;
             mFindCount++;
         }
@@ -634,7 +635,7 @@ void daNpc_Bou_c::action() {
 
     hit_actor = field_0xba0.getActorP();
     if (hit_actor != NULL) {
-        abs( (s16)(fopAcM_searchPlayerAngleY(this) - mCurAngle.y) );
+        UNUSED(abs((s16)(fopAcM_searchPlayerAngleY(this) - mCurAngle.y)));
         switch (((daTag_Push_c*) hit_actor)->getId()) {
             case 7: {
                 mEvtNo = 8;
@@ -651,9 +652,9 @@ void daNpc_Bou_c::action() {
 }
 
 void daNpc_Bou_c::beforeMove() {
-    fopAcM_OffStatus(this, 0x8000000);
+    fopAcM_OffStatus(this, fopAcStts_UNK_0x8000000_e);
     if (checkHide()) {
-        fopAcM_OnStatus(this, 0x8000000);
+        fopAcM_OnStatus(this, fopAcStts_UNK_0x8000000_e);
     }
 
     if (checkHide() || mNoDraw != 0) {
@@ -1673,18 +1674,18 @@ static actor_method_class daNpc_Bou_MethodTable = {
 };
 
 actor_process_profile_definition g_profile_NPC_BOU = {
-  fpcLy_CURRENT_e,        // mLayerID
-  7,                      // mListID
-  fpcPi_CURRENT_e,        // mListPrio
-  PROC_NPC_BOU,           // mProcName
-  &g_fpcLf_Method.base,  // sub_method
-  sizeof(daNpc_Bou_c),    // mSize
-  0,                      // mSizeOther
-  0,                      // mParameters
-  &g_fopAc_Method.base,   // sub_method
-  324,                    // mPriority
-  &daNpc_Bou_MethodTable, // sub_method
-  0x00040107,             // mStatus
-  fopAc_NPC_e,            // mActorType
-  fopAc_CULLBOX_CUSTOM_e, // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_NPC_BOU_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daNpc_Bou_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_NPC_BOU_e,
+    /* Actor SubMtd */ &daNpc_Bou_MethodTable,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_CULL_e | fopAcStts_UNK_0x4_e | fopAcStts_UNK_0x2_e | fopAcStts_UNK_0x1_e,
+    /* Group        */ fopAc_NPC_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

@@ -7,6 +7,29 @@
 
 struct ResTIMG;
 
+class daPy_frameCtrl_c : public J3DFrameCtrl {
+public:
+    virtual ~daPy_frameCtrl_c() {}
+    daPy_frameCtrl_c() {}
+    bool checkAnmEnd();
+    void updateFrame();
+    void setFrameCtrl(u8 i_attribute, s16 i_start, s16 i_end, f32 i_rate, f32 i_frame);
+
+    u16 getEndFlg() const { return mEndFlg; }
+    u16 getNowSetFlg() const { return mNowSetFlg; }
+    void onEndFlg() { mEndFlg = 1; }
+    void onNowSetFlg() { mNowSetFlg = 1; }
+    void offNowSetFlg() { mNowSetFlg = 0; }
+    void offEndFlg() {
+        mEndFlg = 0;
+        mNowSetFlg = 0;
+    }
+
+private:
+    /* 0x14 */ u16 mEndFlg;
+    /* 0x16 */ u16 mNowSetFlg;
+};
+
 class daPy_sightPacket_c : public dDlst_base_c {
 public:
     daPy_sightPacket_c() {}
@@ -110,29 +133,6 @@ private:
     /* 0x0 */ fpc_ProcID mID;
     /* 0x4 */ fopAc_ac_c* mActor;
 };  // Size: 0x8
-
-class daPy_frameCtrl_c : public J3DFrameCtrl {
-public:
-    virtual ~daPy_frameCtrl_c() {}
-    daPy_frameCtrl_c() {}
-    bool checkAnmEnd();
-    void updateFrame();
-    void setFrameCtrl(u8 i_attribute, s16 i_start, s16 i_end, f32 i_rate, f32 i_frame);
-
-    u16 getEndFlg() const { return mEndFlg; }
-    u16 getNowSetFlg() const { return mNowSetFlg; }
-    void onEndFlg() { mEndFlg = 1; }
-    void onNowSetFlg() { mNowSetFlg = 1; }
-    void offNowSetFlg() { mNowSetFlg = 0; }
-    void offEndFlg() {
-        mEndFlg = 0;
-        mNowSetFlg = 0;
-    }
-
-private:
-    /* 0x14 */ u16 mEndFlg;
-    /* 0x16 */ u16 mNowSetFlg;
-};
 
 class Z2WolfHowlMgr;
 class daBoomerang_c;
@@ -687,8 +687,8 @@ public:
     static void setMidnaMotionNum(int i_motionNum);
     static void setMidnaFaceNum(int i_faceNum);
 
-    static BOOL checkShieldGet() { return dComIfGs_getSelectEquipShield() != fpcNm_ITEM_NONE; }
-    static BOOL checkSwordGet() { return dComIfGs_getSelectEquipSword() != fpcNm_ITEM_NONE; }
+    static BOOL checkShieldGet() { return dComIfGs_getSelectEquipShield() != dItemNo_NONE_e; }
+    static BOOL checkSwordGet() { return dComIfGs_getSelectEquipSword() != dItemNo_NONE_e; }
 
     cXyz getHeadTopPos() const { return mHeadTopPos; }
     u32 checkThrowDamage() const { return checkNoResetFlg1(FLG1_THROW_DAMAGE); }
@@ -1123,40 +1123,40 @@ public:
     static int getLastSceneDamage() { return (dComIfGs_getLastSceneMode() >> 4) & 0x7F; }
     static u32 getLastSceneSwordAtUpTime() { return (dComIfGs_getLastSceneMode() >> 11) & 0xFF; }
 
-    static BOOL checkNormalSwordEquip() { return dComIfGs_getSelectEquipSword() == fpcNm_ITEM_SWORD; }
+    static BOOL checkNormalSwordEquip() { return dComIfGs_getSelectEquipSword() == dItemNo_SWORD_e; }
 
     static u32 getLastSceneMode() {
         return dComIfGs_getLastSceneMode() & 0xF;
     }
 
     static bool checkWoodSwordEquip() {
-        return dComIfGs_getSelectEquipSword() == fpcNm_ITEM_WOOD_STICK;
+        return dComIfGs_getSelectEquipSword() == dItemNo_WOOD_STICK_e;
     }
 
     static bool checkLightMasterSwordEquip() {
-        return dComIfGs_getSelectEquipSword() == fpcNm_ITEM_LIGHT_SWORD;
+        return dComIfGs_getSelectEquipSword() == dItemNo_LIGHT_SWORD_e;
     }
 
     static bool checkCasualWearFlg() {
-        return dComIfGs_getSelectEquipClothes() == fpcNm_ITEM_WEAR_CASUAL;
+        return dComIfGs_getSelectEquipClothes() == dItemNo_WEAR_CASUAL_e;
     }
 
     static u32 checkNowWolf() { return ((daPy_py_c*)dComIfGp_getLinkPlayer())->checkWolf(); }
 
     static bool checkZoraWearFlg() {
-        return dComIfGs_getSelectEquipClothes() == fpcNm_ITEM_WEAR_ZORA;
+        return dComIfGs_getSelectEquipClothes() == dItemNo_WEAR_ZORA_e;
     }
 
     static bool checkMagicArmorWearFlg() {
-        return dComIfGs_getSelectEquipClothes() == fpcNm_ITEM_ARMOR;
+        return dComIfGs_getSelectEquipClothes() == dItemNo_ARMOR_e;
     }
 
     static bool checkCarvingWoodShieldEquip() {
-        return dComIfGs_getSelectEquipShield() == fpcNm_ITEM_WOOD_SHIELD;
+        return dComIfGs_getSelectEquipShield() == dItemNo_WOOD_SHIELD_e;
     }
 
     static bool checkShopWoodShieldEquip() {
-        return dComIfGs_getSelectEquipShield() == fpcNm_ITEM_SHIELD;
+        return dComIfGs_getSelectEquipShield() == dItemNo_SHIELD_e;
     }
 
     static BOOL checkPowerGloveGet() { return false; }

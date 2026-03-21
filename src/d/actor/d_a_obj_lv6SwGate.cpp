@@ -259,7 +259,7 @@ void daLv6SwGate_c::modeBreak() {
     dComIfGp_particle_set(0x8B7D, &p, &shape_angle, 0);
     p.set(-150.0f - mMovementAmount, 0.0f, 0.0f);
     csXyz shapeAngle(shape_angle);
-    shapeAngle.y += 0x8000;
+    ANGLE_ADD_2(shapeAngle.y, 0x8000);
     mDoMtx_stack_c::ZXYrotS(shapeAngle.x, shapeAngle.y, shapeAngle.z);
     mDoMtx_stack_c::multVec(&p, &p);
     p += current.pos;
@@ -304,14 +304,14 @@ static int daLv6SwGate_Execute(daLv6SwGate_c* i_this) {
 }
 
 static int daLv6SwGate_Delete(daLv6SwGate_c* i_this) {
-    fpc_ProcID id = fopAcM_GetID(i_this);
+    fopAcM_RegisterDeleteID(i_this, "daLv6SwGate");
     return i_this->MoveBGDelete();
 }
 
 static int daLv6SwGate_Create(fopAc_ac_c* i_this) {
-    daLv6SwGate_c* this_gate = (daLv6SwGate_c*)i_this;
-    fpc_ProcID id = fopAcM_GetID(i_this);
-    return this_gate->create();
+    daLv6SwGate_c* gate = (daLv6SwGate_c*)i_this;
+    fopAcM_RegisterCreateID(i_this, "daLv6SwGate");
+    return gate->create();
 }
 
 static actor_method_class l_daLv6SwGate_Method = {
@@ -323,18 +323,18 @@ static actor_method_class l_daLv6SwGate_Method = {
 };
 
 actor_process_profile_definition g_profile_Obj_Lv6SwGate = {
-    fpcLy_CURRENT_e,         // mLayerID
-    3,                       // mListID
-    fpcPi_CURRENT_e,         // mListPrio
-    PROC_Obj_Lv6SwGate,      // mProcName
-    &g_fpcLf_Method.base,    // sub_method
-    sizeof(daLv6SwGate_c),   // mSize
-    0,                       // mSizeOther
-    0,                       // mParameters
-    &g_fopAc_Method.base,    // sub_method
-    624,                     // mPriority
-    &l_daLv6SwGate_Method,   // sub_method
-    0x00040000,              // mStatus
-    fopAc_ACTOR_e,           // mActorType
-    fopAc_CULLBOX_CUSTOM_e,  // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 3,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_Obj_Lv6SwGate_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daLv6SwGate_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_Obj_Lv6SwGate_e,
+    /* Actor SubMtd */ &l_daLv6SwGate_Method,
+    /* Status       */ fopAcStts_UNK_0x40000_e,
+    /* Group        */ fopAc_ACTOR_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

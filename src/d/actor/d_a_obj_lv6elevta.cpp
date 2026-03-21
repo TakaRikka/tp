@@ -87,7 +87,7 @@ int daObjLv6ElevtA_c::Create() {
 
 static void* searchObjLv6SwTurn(void* i_turn, void* i_elevta) {
     if (i_turn != NULL && fopAcM_IsActor(i_turn) &&
-        fopAcM_GetProfName(i_turn) == PROC_Obj_Lv6SwTurn)
+        fopAcM_GetProfName(i_turn) == fpcNm_Obj_Lv6SwTurn_e)
     {
         daObjLv6SwTurn_c* this_turn = (daObjLv6SwTurn_c*)i_turn;
         daObjLv6ElevtA_c* this_elevta = (daObjLv6ElevtA_c*)i_elevta;
@@ -172,9 +172,9 @@ int daObjLv6ElevtA_c::Execute(Mtx** i_pMtx) {
 
     if (mMode == 2) {
 #if DEBUG
-        mAngle += (s16)((f32)0x3fff / l_HIO.mRightAngleTurnFrameCount);
+        ANGLE_ADD(mAngle, (f32)0x3fff / l_HIO.mRightAngleTurnFrameCount);
 #else
-        mAngle += (s16)((f32)0x3fff / 150);
+        ANGLE_ADD(mAngle, (f32)0x3fff / 150);
 #endif
         if (mAngle > 0x3fff) {
             mAngle = 0x3fff;
@@ -183,9 +183,9 @@ int daObjLv6ElevtA_c::Execute(Mtx** i_pMtx) {
         moveAngle(found);
     } else if (mMode == 3) {
 #if DEBUG
-        mAngle -= (s16)((f32)0x3fff / l_HIO.mRightAngleTurnFrameCount);
+        ANGLE_SUB(mAngle, (f32)0x3fff / l_HIO.mRightAngleTurnFrameCount);
 #else
-        mAngle -= (s16)((f32)0x3fff / 150);
+        ANGLE_SUB(mAngle, (f32)0x3fff / 150);
 #endif
         if (mAngle < -0x3fff) {
             mAngle = -0x3fff;
@@ -195,9 +195,9 @@ int daObjLv6ElevtA_c::Execute(Mtx** i_pMtx) {
     } else if (mMode == 1) {
         if (mAngle > 0) {
 #if DEBUG
-            mAngle -= (s16)((f32)0x3fff / l_HIO.mRightAngleTurnFrameCount);
+            ANGLE_SUB(mAngle, (f32)0x3fff / l_HIO.mRightAngleTurnFrameCount);
 #else
-            mAngle -= (s16)((f32)0x3fff / 150);
+            ANGLE_SUB(mAngle, (f32)0x3fff / 150);
 #endif
             if (mAngle < 0) {
                 mAngle = 0;
@@ -207,9 +207,9 @@ int daObjLv6ElevtA_c::Execute(Mtx** i_pMtx) {
 
         } else if (mAngle < 0) {
 #if DEBUG
-            mAngle += (s16)((f32)0x3fff / l_HIO.mRightAngleTurnFrameCount);
+            ANGLE_ADD(mAngle, (f32)0x3fff / l_HIO.mRightAngleTurnFrameCount);
 #else
-            mAngle += (s16)((f32)0x3fff / 150);
+            ANGLE_ADD(mAngle, (f32)0x3fff / 150);
 #endif
             if (mAngle > 0) {
                 mAngle = 0;
@@ -272,18 +272,18 @@ static actor_method_class daObjLv6ElevtA_METHODS = {
 };
 
 actor_process_profile_definition g_profile_Obj_Lv6ElevtA = {
-    fpcLy_CURRENT_e,           // mLayerID
-    2,                         // mListID
-    fpcPi_CURRENT_e,           // mListPrio
-    PROC_Obj_Lv6ElevtA,        // mProcName
-    &g_fpcLf_Method.base,      // sub_method
-    sizeof(daObjLv6ElevtA_c),  // mSize
-    0,                         // mSizeOther
-    0,                         // mParameters
-    &g_fopAc_Method.base,      // sub_method
-    669,                       // mPriority
-    &daObjLv6ElevtA_METHODS,   // sub_method
-    0x00040100,                // mStatus
-    fopAc_ACTOR_e,             // mActorType
-    fopAc_CULLBOX_CUSTOM_e,    // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 2,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_Obj_Lv6ElevtA_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daObjLv6ElevtA_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_Obj_Lv6ElevtA_e,
+    /* Actor SubMtd */ &daObjLv6ElevtA_METHODS,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_CULL_e,
+    /* Group        */ fopAc_ACTOR_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

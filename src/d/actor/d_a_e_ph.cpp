@@ -11,6 +11,7 @@
 #include "d/actor/d_a_player.h"
 #include "d/d_s_play.h"
 #include "f_op/f_op_camera_mng.h"
+#include <cstring>
 
 #define PH_BMD 20
 
@@ -83,13 +84,13 @@ static BOOL other_bg_check(daE_PH_c* i_this, fopAc_ac_c* i_other) {
 }
 
 void daE_PH_c::SetStopingCam() {
-    camera_class* camera_p = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+    camera_process_class* camera_p = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
 
     camera_p->mCamera.Set(mCamCenter, mCamEye, mCamFovY, 0);
 }
 
 void daE_PH_c::SetStopCam(cXyz i_center, f32 i_offsetZ, f32 i_offsetY, s16 i_offsetAngle) {
-    camera_class* camera_p = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+    camera_process_class* camera_p = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
     cXyz offset(0.0f, i_offsetY, i_offsetZ);
     cXyz eye_offset(0.0f, 0.0f, 0.0f);
 
@@ -109,7 +110,7 @@ void daE_PH_c::SetCMoveCam(cXyz i_target, f32 i_scale, f32 i_maxStep) {
 }
 
 void daE_PH_c::SetReleaseCam() {
-    camera_class* camera_p = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+    camera_process_class* camera_p = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
 
     camera_p->mCamera.Reset(mCamCenter, mCamEye);
     camera_p->mCamera.Start();
@@ -617,9 +618,9 @@ void daE_PH_c::StopAction() {
     switch (mCAction) {
     case 0:
         if (mAnmID == ANM_HANG_WAIT || mAnmID == ANM_HANG_START) {
-            mHeadRotX += (s16)(field_0x612 + 0x1000);
+            ANGLE_ADD(mHeadRotX, field_0x612 + 0x1000);
         } else {
-            mHeadRotX += (s16)(field_0x612 + 0x500);
+            ANGLE_ADD(mHeadRotX, field_0x612 + 0x500);
         }
 
         mSound.startCreatureSoundLevel(Z2SE_EN_PH_PROPELLER, field_0x612 + 0x500, -1);
@@ -1279,7 +1280,7 @@ int daE_PH_c::create() {
 
         l_HIO.mSpeed = mMoveSpeed;
         mCamAction = 0;
-        fopAcM_OnStatus(this, 0x4000);
+        fopAcM_OnStatus(this, fopAcStts_UNK_0x4000_e);
         daE_PH_Execute(this);
     }
 
@@ -1297,18 +1298,18 @@ static actor_method_class l_daE_PH_Method = {
 };
 
 actor_process_profile_definition g_profile_E_PH = {
-    fpcLy_CURRENT_e,
-    3,
-    fpcPi_CURRENT_e,
-    PROC_E_PH,
-    &g_fpcLf_Method.base,
-    sizeof(daE_PH_c),
-    0,
-    0,
-    &g_fopAc_Method.base,
-    131,
-    &l_daE_PH_Method,
-    0x244100,
-    fopAc_ENEMY_e,
-    fopAc_CULLBOX_CUSTOM_e,
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 3,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_E_PH_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daE_PH_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_E_PH_e,
+    /* Actor SubMtd */ &l_daE_PH_Method,
+    /* Status       */ fopAcStts_UNK_0x200000_e | fopAcStts_UNK_0x40000_e | fopAcStts_UNK_0x4000_e | fopAcStts_CULL_e,
+    /* Group        */ fopAc_ENEMY_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

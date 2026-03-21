@@ -10,8 +10,8 @@
 #include "JSystem/J3DGraphBase/J3DMaterial.h"
 #include "d/actor/d_a_player.h"
 #include "d/d_com_inf_game.h"
-#include <dolphin/gf/GFGeometry.h>
-#include <dolphin/gf/GFLight.h>
+#include <gf/GFGeometry.h>
+#include <gf/GFLight.h>
 #include "m_Do/m_Do_lib.h"
 
 static BOOL daMirror_c_createHeap(fopAc_ac_c* i_this) {
@@ -618,18 +618,18 @@ static actor_method_class daMirror_METHODS = {
 };
 
 actor_process_profile_definition g_profile_MIRROR = {
-    fpcLy_CURRENT_e,
-    7,
-    fpcPi_CURRENT_e,
-    PROC_MIRROR,
-    &g_fpcLf_Method.base,
-    sizeof(daMirror_c),
-    0,
-    0,
-    &g_fopAc_Method.base,
-    757,
-    &daMirror_METHODS,
-    0x60000,
-    fopAc_UNK_GROUP_5_e,
-    fopAc_CULLBOX_0_e,
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_MIRROR_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daMirror_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_MIRROR_e,
+    /* Actor SubMtd */ &daMirror_METHODS,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_NOPAUSE_e,
+    /* Group        */ fopAc_UNK_GROUP_5_e,
+    /* Cull Type    */ fopAc_CULLBOX_0_e,
 };

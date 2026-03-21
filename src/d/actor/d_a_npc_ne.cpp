@@ -9,7 +9,7 @@
 #include "SSystem/SComponent/c_counter.h"
 #include "d/d_com_inf_game.h"
 #include "d/actor/d_a_player.h"
-#include "d/d_procname.h"
+#include "f_pc/f_pc_name.h"
 #include "d/actor/d_a_mg_rod.h"
 #include "d/actor/d_a_mg_fish.h"
 #include "SSystem/SComponent/c_math.h"
@@ -18,6 +18,7 @@
 #include "f_op/f_op_kankyo_mng.h"
 #include "c/c_damagereaction.h"
 #include "Z2AudioLib/Z2Instances.h"
+#include <cstring>
 
 static home_path_pnt home_path[38] = {
     {0, {561.0f, 87.0f, -1110.0f}},
@@ -132,9 +133,15 @@ static int daNpc_Ne_Draw(npc_ne_class* i_this) {
     if (daPy_py_c::linkGrabSubjectNoDraw(i_this)) {
         return 1;
     }
-    
+
     J3DModel* model = i_this->mpMorf->getModel();
+    // This happens to work with MWCC since the member will only ever be initialized a pointer to a
+    // string in this TU's .data section, but comparing against a string literal is still UB.
+#if AVOID_UB
+    if (strcmp(i_this->mResName, "Npc_net") == 0) {
+#else
     if (i_this->mResName == "Npc_net") {
+#endif
         if (!dComIfGs_wolfeye_effect_check()) {
             return 1;
         }
@@ -218,7 +225,7 @@ static int way_bg_check(npc_ne_class* i_this, s16 i_angle) {
             return 1;
         }
     }
-    
+
     mDoMtx_YrotS(*calc_mtx, _this->current.angle.y + i_angle);
     vec3.set(0.0f, 150.0f, 150.0f);
     MtxPosition(&vec3, &vec2);
@@ -312,7 +319,7 @@ static int target_info_count;
 
 static void* s_bl_sub(void* i_proc, void* i_this) {
     if (fopAc_IsActor(i_proc)
-        && (fopAcM_GetName(i_proc) == PROC_OBJ_FOOD || fopAcM_GetName(i_proc) == PROC_BD)
+        && (fopAcM_GetName(i_proc) == fpcNm_OBJ_FOOD_e || fopAcM_GetName(i_proc) == fpcNm_BD_e)
         && target_info_count < 5)
     {
         target_info[target_info_count] = static_cast<fopAc_ac_c*>(i_proc);
@@ -323,7 +330,7 @@ static void* s_bl_sub(void* i_proc, void* i_this) {
 
 static void* s_ss_sub(void* i_proc, void* i_this) {
     if (fopAc_IsActor(i_proc)
-        && (fopAcM_GetName(i_proc) == PROC_NI || fopAcM_GetName(i_proc) == PROC_BD)
+        && (fopAcM_GetName(i_proc) == fpcNm_NI_e || fopAcM_GetName(i_proc) == fpcNm_BD_e)
         && target_info_count < 5)
     {
         target_info[target_info_count] = static_cast<fopAc_ac_c*>(i_proc);
@@ -372,7 +379,7 @@ static fopAc_ac_c* search_bird(npc_ne_class* i_this) {
                     }
                 }
             }
-            
+
             i++;
             if (i == target_info_count) {
                 i = 0;
@@ -425,7 +432,12 @@ static void npc_ne_wait(npc_ne_class* i_this) {
     daPy_py_c* player = static_cast<daPy_py_c*>(dComIfGp_getPlayer(0));
     cLib_addCalc0(&_this->speedF, 1.0f, 1.3f);
 
+    // See comment in daNpc_Ne_Draw
+#if AVOID_UB
+    if (strcmp(i_this->mResName, "Npc_net") == 0) {
+#else
     if (i_this->mResName == "Npc_net") {
+#endif
         switch (i_this->mMode) {
         case 0:
             i_this->mTargetAngleY = cM_rndF(0x10000);
@@ -615,7 +627,7 @@ static void npc_ne_away(npc_ne_class* i_this) {
             way_check(i_this, i_this->mTargetAngleY);
         }
         if (i_this->mTimers[0] == 0) {
-            i_this->mTargetAngleY += (s16)cM_rndFX(4000.0f);
+            ANGLE_ADD(i_this->mTargetAngleY, cM_rndFX(4000.0f));
             i_this->mTimers[0] = cM_rndF(25.0f) + 20.0f;
         }
         if (i_this->mDistToTarget > 400.0f && i_this->mTimers[2] == 0) {
@@ -644,7 +656,7 @@ static void npc_ne_away(npc_ne_class* i_this) {
         }
         i_this->mBackboneTargetAngleY = ang_y;
     }
-    
+
     i_this->mpMorf->setPlaySpeed(i_this->mAnmSpeed);
 }
 
@@ -689,7 +701,7 @@ static cXyz ground_search(npc_ne_class* i_this) {
 
 static void* s_fish_sub(void* i_proc, void* i_this) {
     npc_ne_class* _this = static_cast<npc_ne_class*>(i_this);
-    if (fopAc_IsActor(i_proc) && fopAcM_GetName(i_proc) == PROC_MG_FISH) {
+    if (fopAc_IsActor(i_proc) && fopAcM_GetName(i_proc) == fpcNm_MG_FISH_e) {
         mg_fish_class* fish = (mg_fish_class*)i_proc;
         if (fish->mCurAction == 0x35 && fish->mActionPhase >= 10) {
             _this->mFishID = fopAcM_GetID(fish);
@@ -824,7 +836,7 @@ static void npc_ne_tame(npc_ne_class* i_this) {
                 i_this->mMode++;
                 i_this->mSound.startSound(Z2SE_CAT_CRY_FAMILIER, 0, -1);
                 // fallthrough
-            
+
             case 6:
                 i_this->mTargetAngleY = i_this->mAngleToPlayer;
                 angle_max_step = 0xa00;
@@ -838,7 +850,7 @@ static void npc_ne_tame(npc_ne_class* i_this) {
                     i_this->mMode = 1;
                 }
                 break;
-            
+
             case 7:
                 i_this->mAnmSpeed = 1.0f;
                 anm_init(i_this, npc_ne_class::ANM_RUN, 3.0f, 2, i_this->mAnmSpeed);
@@ -852,7 +864,7 @@ static void npc_ne_tame(npc_ne_class* i_this) {
                 cLib_addCalc2(&i_this->mAnmSpeed, 1.5f, 1.0f, 0.1f);
                 cLib_addCalc2(&_this->speedF, i_this->mAnmSpeed * l_HIO.mRunSpeed,
                               1.0f, 0.5f * l_HIO.mRunSpeed);
-                
+
                 if (i_this->mCounter & 1) {
                     ivar7 = way_bg_check(i_this, 0);
                 }
@@ -860,7 +872,7 @@ static void npc_ne_tame(npc_ne_class* i_this) {
                 {
                     i_this->mTargetAngleY =
                         i_this->mAngleToPlayer + 0x8000 + (s16)cM_rndFX(4000.0f);
-                    way_check(i_this, i_this->mTargetAngleY);    
+                    way_check(i_this, i_this->mTargetAngleY);
                 }
 
                 if (i_this->mDistToTarget > dist3 + 40.0f) {
@@ -869,13 +881,13 @@ static void npc_ne_tame(npc_ne_class* i_this) {
                     i_this->mMode = 1;
                 }
                 break;
-            
+
             case 10:
             case 11:
                 i_this->mTargetAngleY = i_this->mAngleToPlayer;
                 cLib_addCalc0(&_this->speedF, 1.0f, 3.0f);
                 angle_diff = _this->current.angle.y - i_this->mTargetAngleY;
-                
+
                 if (i_this->mMode == 10) {
                     if (angle_diff > 0x400 || angle_diff < -0x400) {
                         i_this->mAnmSpeed = 1.0f;
@@ -1002,7 +1014,7 @@ static void npc_ne_bird(npc_ne_class* i_this) {
         i_this->mMode++;
         i_this->mDistScale = cM_rndFX(0.2f) + 1.0f;
         // fallthrough
-    
+
     case 1:
         max_angle_step = 0x400;
         i_this->mTailTargetAngle = -15000;
@@ -1634,7 +1646,7 @@ static BOOL npc_ne_home(npc_ne_class* i_this) {
     s16 prev_ang_y = i_this->current.angle.y;
     cLib_addCalcAngleS2(&i_this->current.angle.y, i_this->mTargetAngleY, 2, i_this->mAngleYStep);
     cLib_addCalc2(&i_this->mAngleYStep, 5000.0f, 1.0f, 200.0f);
-    
+
     f32 ang_z = i_this->speedF * (i_this->current.angle.y - prev_ang_y) * -0.5f;
     if (ang_z > 4000.0f) {
         ang_z = 4000.0f;
@@ -1642,7 +1654,7 @@ static BOOL npc_ne_home(npc_ne_class* i_this) {
         ang_z = -4000.0f;
     }
     i_this->current.angle.z = ang_z;
-    
+
     if (i_this->mAngleYStep > 1000.0f) {
         f32 ang_y = i_this->speedF * (i_this->current.angle.y - prev_ang_y) * 0.1f;
         if (ang_y > 5000.0f) {
@@ -2172,7 +2184,12 @@ static void action(npc_ne_class* i_this) {
 
     _this->gravity = -7.0f;
 
+    // See comment in daNpc_Ne_Draw
+#if AVOID_UB
+    if (strcmp(i_this->mResName, "Npc_net") == 0) {
+#else
     if (i_this->mResName == "Npc_net") {
+#endif
         i_this->mDistToTarget = 10000.0f;
     } else {
         i_this->mDistToTarget = i_this->mDistScale * fopAcM_searchPlayerDistance(_this);
@@ -2297,9 +2314,15 @@ static void action(npc_ne_class* i_this) {
             break;
         }
 
+        // See comment in daNpc_Ne_Draw
+#if AVOID_UB
+        if (strcmp(i_this->mResName, "Npc_net") != 0) {
+#else
         if (i_this->mResName != "Npc_net") {
-            if (i_this->mMessageState == 1 && daPy_py_c::checkNowWolf()
-                                         && i_this->mDistToTarget < 300.0f) {
+#endif
+            if (i_this->mMessageState == 1 &&
+                daPy_py_c::checkNowWolf() &&
+                i_this->mDistToTarget < 300.0f) {
                 i_this->mAction = npc_ne_class::ACT_MESSAGE;
                 i_this->mMode = 0;
                 bird_check = false;
@@ -2308,7 +2331,7 @@ static void action(npc_ne_class* i_this) {
             if (bird_check && !i_this->mWantsFish) {
                 fopAc_ac_c* bird_or_ball = search_bird(i_this);
                 if (bird_or_ball != NULL) {
-                    if (fopAcM_GetName(bird_or_ball) == PROC_OBJ_FOOD) {
+                    if (fopAcM_GetName(bird_or_ball) == fpcNm_OBJ_FOOD_e) {
                         i_this->mAction = npc_ne_class::ACT_BALL;
                         i_this->mMode = 0;
                         carry_check = true;
@@ -2334,7 +2357,7 @@ static void action(npc_ne_class* i_this) {
     cXyz vec1, vec2;
     if (i_this->mWantsFish && i_this->mAction != npc_ne_class::ACT_SANBASI
                             && player->current.pos.z > -2800.0f) {
-        dmg_rod_class* rod = ((dmg_rod_class*)fopAcM_SearchByName(PROC_MG_ROD));
+        dmg_rod_class* rod = ((dmg_rod_class*)fopAcM_SearchByName(fpcNm_MG_ROD_e));
         if (rod != NULL && rod->kind == 1 && rod->action != 5
                         && rod->play_cam_mode != 0 && !i_this->mNoFollow) {
             if (i_this->mDistToTarget > 500.0f) {
@@ -2344,13 +2367,13 @@ static void action(npc_ne_class* i_this) {
         } else if (!i_this->mNoFollow) {
             if (i_this->mDistToTarget > 700.0f && fopAcM_CheckCondition(_this, 4)
                                              && player->speedF > 2.0f) {
-                camera_class* camera = dComIfGp_getCamera(0);
-                vec1.x = camera->lookat.eye.x - camera->lookat.center.x;
-                vec1.z = camera->lookat.eye.z - camera->lookat.center.z;
+                camera_process_class* camera = dComIfGp_getCamera(0);
+                vec1.x = camera->view.lookat.eye.x - camera->view.lookat.center.x;
+                vec1.z = camera->view.lookat.eye.z - camera->view.lookat.center.z;
                 mDoMtx_YrotS(*calc_mtx, cM_atan2s(vec1.x, vec1.z));
                 vec1.set(0.0f, -50.0f, 100.0f);
                 MtxPosition(&vec1, &vec2);
-                vec2 += camera->lookat.eye;
+                vec2 += camera->view.lookat.eye;
                 dBgS_ObjGndChk_Spl gnd_chk_spl;
                 gnd_chk_spl.SetPos(&vec2);
                 f32 cross = dComIfG_Bgsp().GroundCross(&gnd_chk_spl);
@@ -2602,7 +2625,7 @@ static void action(npc_ne_class* i_this) {
 static void demo_camera(npc_ne_class* i_this) {
     fopAc_ac_c* _this = static_cast<fopAc_ac_c*>(i_this);
     daPy_py_c* player = static_cast<daPy_py_c*>(dComIfGp_getPlayer(0));
-    camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+    camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
 
     if (i_this->mDemoTimer != 0) {
         i_this->mDemoTimer--;
@@ -2637,7 +2660,7 @@ static void demo_camera(npc_ne_class* i_this) {
     case 2:
         daPy_getPlayerActorClass()->setPlayerPosAndAngle(&player->current.pos,
                                                          i_this->mAngleToPlayer + 0x8000, 0);
-        
+
         center = _this->current.pos;
         eye = _this->current.pos;
         eye.y += 200.0f;
@@ -2663,7 +2686,7 @@ static void demo_camera(npc_ne_class* i_this) {
         }
 
         if (i_this->mDemoCounter == 12) {
-            fopAc_ac_c* door = fopAcM_SearchByName(PROC_OBJ_NDOOR);
+            fopAc_ac_c* door = fopAcM_SearchByName(fpcNm_OBJ_NDOOR_e);
             if (door != NULL) {
                 door->field_0x567 = 10;
                 Z2GetAudioMgr()->seStart(Z2SE_OBJ_CAT_DOOR, &door->current.pos,
@@ -2701,7 +2724,7 @@ static void demo_camera(npc_ne_class* i_this) {
     case 11:
         daPy_getPlayerActorClass()->setPlayerPosAndAngle(&player->current.pos,
                                                          i_this->mAngleToPlayer + 0x8000, 0);
-        
+
         mDoMtx_YrotS(*calc_mtx, _this->current.angle.y);
 
         if (i_this->mMode >= 13) {
@@ -2837,7 +2860,7 @@ static void demo_camera(npc_ne_class* i_this) {
         }
 
         i_this->mDemoCounter++;
-        
+
         if (i_this->mDemoMode < 10 && i_this->mAction != npc_ne_class::ACT_HOME) {
             i_this->mDemoMode = 100;
         }
@@ -2845,8 +2868,15 @@ static void demo_camera(npc_ne_class* i_this) {
 }
 
 static int message(npc_ne_class* i_this) {
-    if (i_this->mResName == "Npc_net" && !dComIfGs_wolfeye_effect_check()) {
-        i_this->mMessageState = 0;
+    // See comment in daNpc_Ne_Draw
+#if AVOID_UB
+    if (strcmp(i_this->mResName, "Npc_net") == 0) {
+#else
+    if (i_this->mResName == "Npc_net") {
+#endif
+        if (!dComIfGs_wolfeye_effect_check()) {
+            i_this->mMessageState = 0;
+        }
     }
 
     if (i_this->mIsTalking) {
@@ -2856,7 +2886,7 @@ static int message(npc_ne_class* i_this) {
             i_this->mIsTalking = 0;
             if (i_this->mIsGengle == 1 && (i_this->mMsgFlow.getNowMsgNo() == 0x18a1 ||
                                            i_this->mMsgFlow.getNowMsgNo() == 0x18a2)) {
-                fopAcM_createItem(&dComIfGp_getPlayer(0)->eyePos, fpcNm_ITEM_SILVER_RUPEE, -1,
+                fopAcM_createItem(&dComIfGp_getPlayer(0)->eyePos, dItemNo_SILVER_RUPEE_e, -1,
                                   fopAcM_GetRoomNo(i_this), NULL, NULL, 3);
             }
         }
@@ -2871,7 +2901,12 @@ static int message(npc_ne_class* i_this) {
                                 !fopAcM_otherBgCheck(daPy_getLinkPlayerActorClass(), i_this)) {
             fopAcM_OnStatus(i_this, 0);
             cLib_onBit<u32>(i_this->attention_info.flags, fopAc_AttnFlag_SPEAK_e | fopAc_AttnFlag_TALK_e);
+            // See comment in daNpc_Ne_Draw
+#if AVOID_UB
+            if (strcmp(i_this->mResName, "Npc_net") == 0) {
+#else
             if (i_this->mResName == "Npc_net") {
+#endif
                 cLib_onBit<u32>(i_this->attention_info.flags, fopAc_AttnFlag_UNK_0x800000 | fopAc_AttnFlag_UNK_0x400000);
             }
             i_this->eventInfo.onCondition(dEvtCnd_CANTALK_e);
@@ -2896,7 +2931,7 @@ static int daNpc_Ne_Execute(npc_ne_class* i_this) {
             /* dSv_event_flag_c::F_0470 - Fishing Pond - Reserved for fishing */
         if (dComIfGs_isEventBit(dSv_event_flag_c::saveBitLabels[470])
                                     && i_this->mDistToTarget < 1500.0f) {
-            if (fopAcM_SearchByName(PROC_MG_ROD) != NULL) {
+            if (fopAcM_SearchByName(fpcNm_MG_ROD_e) != NULL) {
                 i_this->mNoFollow = false;
             } else {
                 i_this->mNoFollow = true;
@@ -2977,14 +3012,21 @@ static int daNpc_Ne_Execute(npc_ne_class* i_this) {
     message(i_this);
     demo_camera(i_this);
 
-    if (i_this->mResName == "Npc_net" && !dComIfGs_wolfeye_effect_check()) {
-        static u16 e_name[2] = {0x8497, 0x8498};
-        for (int i = 0; i < 2; i++) {
-            i_this->mParticle[i] = dComIfGp_particle_set(i_this->mParticle[i], e_name[i],
-                                                        &i_this->eyePos, NULL, NULL);
-            JPABaseEmitter* emitter = dComIfGp_particle_getEmitter(i_this->mParticle[i]);
-            if (emitter != NULL) {
-                emitter->setGlobalAlpha(!dComIfGs_wolfeye_effect_check() ? 0xff : 0);
+    // See comment in daNpc_Ne_Draw
+#if AVOID_UB
+    if (strcmp(i_this->mResName, "Npc_net") == 0) {
+#else
+    if (i_this->mResName == "Npc_net") {
+#endif
+        if (!dComIfGs_wolfeye_effect_check()) {
+            static u16 e_name[2] = {0x8497, 0x8498};
+            for (int i = 0; i < 2; i++) {
+                i_this->mParticle[i] = dComIfGp_particle_set(i_this->mParticle[i], e_name[i],
+                                                            &i_this->eyePos, NULL, NULL);
+                JPABaseEmitter* emitter = dComIfGp_particle_getEmitter(i_this->mParticle[i]);
+                if (emitter != NULL) {
+                    emitter->setGlobalAlpha(!dComIfGs_wolfeye_effect_check() ? 0xff : 0);
+                }
             }
         }
     }
@@ -3113,7 +3155,7 @@ static cPhs_Step daNpc_Ne_Create(fopAc_ac_c* i_this) {
         _this->mPathIndex = (u8)(fopAcM_GetParam(_this) >> 0x10);
         _this->mIsGengle = (u8)(fopAcM_GetParam(_this) >> 0x18);
 
-        if (_this->mIsGengle == 1 
+        if (_this->mIsGengle == 1
                 /* dSv_event_flag_c::F_0457 - Castle Town - Revived cat */
             && !dComIfGs_isEventBit(dSv_event_flag_c::saveBitLabels[457])) {
             return cPhs_ERROR_e;
@@ -3230,7 +3272,12 @@ static cPhs_Step daNpc_Ne_Create(fopAc_ac_c* i_this) {
         _this->mAcchCir.SetWall(_this->mBaseScale.y * 30.0f, _this->mBaseScale.z * 35.0f);
         _this->mDistScale = cM_rndFX(0.2f) + 1.0f;
         _this->mGroundY = i_this->current.pos.y;
+        // See comment in daNpc_Ne_Draw
+#if AVOID_UB
+        if (strcmp(_this->mResName, "Npc_net") == 0) {
+#else
         if (_this->mResName == "Npc_net") {
+#endif
             _this->mAction = npc_ne_class::ACT_WAIT;
             _this->mMode = 0;
         }
@@ -3255,20 +3302,20 @@ static actor_method_class l_daNpc_Ne_Method = {
 };
 
 actor_process_profile_definition g_profile_NPC_NE = {
-    fpcLy_CURRENT_e,
-    7,
-    fpcPi_CURRENT_e,
-    PROC_NPC_NE,
-    &g_fpcLf_Method.base,
-    sizeof(npc_ne_class),
-    0,
-    0,
-    &g_fopAc_Method.base,
-    0x2BC,
-    &l_daNpc_Ne_Method,
-    0x8044000,
-    fopAc_NPC_e,
-    fopAc_CULLBOX_0_e,
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_NPC_NE_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(npc_ne_class),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_NPC_NE_e,
+    /* Actor SubMtd */ &l_daNpc_Ne_Method,
+    /* Status       */ fopAcStts_UNK_0x8000000_e | fopAcStts_UNK_0x40000_e | fopAcStts_UNK_0x4000_e,
+    /* Group        */ fopAc_NPC_e,
+    /* Cull Type    */ fopAc_CULLBOX_0_e,
 };
 
 AUDIO_INSTANCES;

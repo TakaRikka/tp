@@ -8,6 +8,7 @@
 #include "d/actor/d_a_obj_ganonwall.h"
 #include "d/d_com_inf_game.h"
 #include "f_op/f_op_actor_mng.h"
+#include <cstring>
 
 static u8 const l_idx[24][4] = {
     {0x17, 0x05, 0x06, 0x01}, {0x17, 0x05, 0x06, 0x02}, {0x17, 0x05, 0x06, 0x03},
@@ -188,18 +189,18 @@ static actor_method_class l_daObjGWall_Method = {
 };
 
 actor_process_profile_definition g_profile_Obj_GanonWall = {
-    fpcLy_CURRENT_e,         // mLayerID
-    7,                       // mListID
-    fpcPi_CURRENT_e,         // mListPrio
-    PROC_Obj_GanonWall,      // mProcName
-    &g_fpcLf_Method.base,    // sub_method
-    sizeof(daObjGWall_c),    // mSize
-    0,                       // mSizeOther
-    0,                       // mParameters
-    &g_fopAc_Method.base,    // sub_method
-    570,                     // mPriority
-    &l_daObjGWall_Method,    // sub_method
-    0x00040100,              // mStatus
-    fopAc_ACTOR_e,           // mActorType
-    fopAc_CULLBOX_CUSTOM_e,  // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_Obj_GanonWall_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daObjGWall_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_Obj_GanonWall_e,
+    /* Actor SubMtd */ &l_daObjGWall_Method,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_CULL_e,
+    /* Group        */ fopAc_ACTOR_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

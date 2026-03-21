@@ -12,8 +12,8 @@
 
 static int fopKy_KANKYO_TYPE;
 
-void fopKy_IsKankyo(void* i_this) {
-    fpcM_IsJustType(fopKy_KANKYO_TYPE, ((kankyo_class*)i_this)->type);
+BOOL fopKy_IsKankyo(void* i_this) {
+    return fpcM_IsJustType(fopKy_KANKYO_TYPE, ((kankyo_class*)i_this)->type);
 }
 
 static int fopKy_Draw(void* i_this) {
@@ -42,7 +42,7 @@ static int fopKy_Execute(void* i_this) {
     fapGm_HIO_c::startCpuTimer();
 #endif
 
-    if (!dScnPly_c::isPause() && (!dComIfGp_isPauseFlag() || fpcM_GetName(a_this) == PROC_ENVSE)) {
+    if (!dScnPly_c::isPause() && (!dComIfGp_isPauseFlag() || fpcM_GetName(a_this) == fpcNm_ENVSE_e)) {
         ret = fpcMtd_Execute(&((kankyo_class*)i_this)->sub_method->base, i_this);
     }
 

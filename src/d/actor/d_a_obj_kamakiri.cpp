@@ -13,6 +13,7 @@
 #include "d/d_s_play.h"
 #include "f_op/f_op_camera_mng.h"
 #include "m_Do/m_Do_lib.h"
+#include <cstring>
 
 static u8 hio_set;
 
@@ -273,10 +274,10 @@ void daObjKAM_c::WallWalk() {
             field_0x99a.z = -cM_atan2s(normal->x, normYzMag);
             field_0x99a.x = cM_atan2s(normal->z, normal->y);
         } else {
-            field_0x990 += (s16)0x100;
+            ANGLE_ADD(field_0x990, 0x100);
         }
     } else {
-        field_0x990 += (s16)0x100;
+        ANGLE_ADD(field_0x990, 0x100);
     }
 
     cLib_addCalcAngleS2(&current.angle.y, field_0x990, 0x10, 0x50);
@@ -505,7 +506,7 @@ void daObjKAM_c::Insect_Release() {
     field_0x980 = 1;
 }
 
-static u8 const l_kam_itemno[2] = {fpcNm_ITEM_M_MANTIS, fpcNm_ITEM_F_MANTIS};
+static u8 const l_kam_itemno[2] = {dItemNo_M_MANTIS_e, dItemNo_F_MANTIS_e};
 
 f32 floatDummy() {
     return -9.0f;
@@ -517,7 +518,7 @@ void daObjKAM_c::Z_BufferChk() {
     currentOffset = current.pos;
     currentOffset.y += 20.0f;
     mDoLib_project(&currentOffset, &currentProj);
-    camera_class* camera = dComIfGp_getCamera(0);
+    camera_process_class* camera = dComIfGp_getCamera(0);
     f32 cameraHeight;
     if (camera != NULL) {
         cameraHeight = camera->mCamera.TrimHeight();
@@ -773,8 +774,8 @@ int daObjKAM_c::create() {
         field_0x9c0 = fopAcM_GetParam(this) & 0xf;
         if (field_0x9c0 == 2) {
             field_0x56c = 0;
-            shape_angle.x -= (s16)0x2000;
-            fopAcM_OnStatus(this, fopAcM_STATUS_UNK_0x4000);
+            ANGLE_SUB(shape_angle.x, 0x2000);
+            fopAcM_OnStatus(this, fopAcStts_UNK_0x4000_e);
         } else {
             mDraw = true;
         }
@@ -904,18 +905,18 @@ static actor_method_class l_daObjKAM_Method = {
 };
 
 actor_process_profile_definition g_profile_Obj_Kam = {
-    fpcLy_CURRENT_e,         // mLayerID
-    7,                       // mListID
-    fpcPi_CURRENT_e,         // mListPrio
-    PROC_Obj_Kam,            // mProcName
-    &g_fpcLf_Method.base,    // sub_method
-    sizeof(daObjKAM_c),      // mSize
-    0,                       // mSizeOther
-    0,                       // mParameters
-    &g_fopAc_Method.base,    // sub_method
-    482,                     // mPriority
-    &l_daObjKAM_Method,      // sub_method
-    0x000C0120,              // mStatus
-    fopAc_ENV_e,             // mActorType
-    fopAc_CULLBOX_CUSTOM_e,  // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_Obj_Kam_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daObjKAM_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_Obj_Kam_e,
+    /* Actor SubMtd */ &l_daObjKAM_Method,
+    /* Status       */ fopAcStts_UNK_0x80000_e | fopAcStts_UNK_0x40000_e | fopAcStts_CULL_e | fopAcStts_UNK_0x20_e,
+    /* Group        */ fopAc_ENV_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

@@ -9,7 +9,7 @@
 #include "d/actor/d_a_player.h"
 #include "d/d_bg_w.h"
 #include "d/d_debug_viewer.h"
-#include "d/d_procname.h"
+#include "f_pc/f_pc_name.h"
 #include "d/d_s_play.h"
 
 
@@ -66,7 +66,7 @@ int daObjFallObj_c::Create() {
         cXyz acStack_30(0.0f, -300.0f, 0.0f);
         u32 params = uVar1 | (getTime() << 8);
         mChildId = fopAcM_createChildFromOffset(
-            PROC_Obj_FallObj, fopAcM_GetID(this), params, &acStack_30, fopAcM_GetRoomNo(this), &shape_angle,
+            fpcNm_Obj_FallObj_e, fopAcM_GetID(this), params, &acStack_30, fopAcM_GetRoomNo(this), &shape_angle,
             &scale, -1, 0);
     } else {
         mChildId = fpcM_ERROR_PROCESS_ID_e;
@@ -125,7 +125,7 @@ int daObjFallObj_c::create1st() {
         if (phase == cPhs_ERROR_e) {
             return phase;
         }
-              
+
         #if DEBUG
         // Falling obj
         l_HIO.entryHIO("落下ＯＢＪ");
@@ -134,7 +134,6 @@ int daObjFallObj_c::create1st() {
     return phase;
 }
 
-// TODO: Debug Nonmatching / Fakematch (bVar1)
 int daObjFallObj_c::Execute(Mtx** i_mtx) {
     cXyz cStack_d8(0.0f, 150.0f, 160.0f + KREG_F(0));
 
@@ -147,38 +146,32 @@ int daObjFallObj_c::Execute(Mtx** i_mtx) {
 
     daPy_py_c* player = daPy_getPlayerActorClass();
 
-    f32 dVar12 = std::fabs(player->current.pos.y - cStack_d8.y);
-    f32 dVar13 = cStack_d8.absXZ(player->current.pos);
-    f32 dVar14 = player->current.pos.abs(cStack_d8);
+    f32 var_f31 = std::fabs(player->current.pos.y - cStack_d8.y);
+    f32 var_f30 = cStack_d8.absXZ(player->current.pos);
+    f32 var_f29 = player->current.pos.abs(cStack_d8);
 
     dBgS_LinChk linChk;
     linChk.Set(&player->eyePos, &attention_info.position, this);
 
-    bool bVar1 = false;
-
+    //TODO: fakematch
 #if DEBUG
-    int check3 = 0;
-    int check2 = 0;
-    int check1 = 0;
-    if (!dComIfG_Bgsp().LineCross(&linChk) && !checkHang2()) {
-        check1 = 1;
-    }
-    if (check1 && dVar12 - KREG_F(4) < dVar13) {
-        check2 = 1;
-    }
-    if (check2 && dVar14 < 2150.0f - KREG_F(5)) {
-        check3 = 1;
-    }
-    if (check3 && mAction == ACTION_WAIT) {
-        bVar1 = true;
-    }
+    bool temp = !dComIfG_Bgsp().LineCross(&linChk) &&
+        !checkHang2() &&
+        var_f31 - KREG_F(4) < var_f30 &&
+        var_f29 < 2150.0f - KREG_F(5) &&
+        mAction == ACTION_WAIT;
 #else
-    if (!dComIfG_Bgsp().LineCross(&linChk) && !checkHang2() && dVar12 - KREG_F(4) < dVar13 && dVar14 < 2150.0f - KREG_F(5) && mAction == ACTION_WAIT)  {
-        bVar1 = true;
+    bool temp = false;
+    if (!dComIfG_Bgsp().LineCross(&linChk) &&
+        !checkHang2() &&
+        var_f31 - KREG_F(4) < var_f30 &&
+        var_f29 < 2150.0f - KREG_F(5) &&
+        mAction == ACTION_WAIT) {
+        temp = true;
     }
 #endif
 
-    if (((bool) bVar1) != 0) {
+    if (temp) {
         attention_info.distances[fopAc_attn_BATTLE_e] = 0x22;
         attention_info.flags |= fopAc_AttnFlag_BATTLE_e;
     } else {
@@ -217,7 +210,7 @@ void daObjFallObj_c::action() {
         action_follow_fall();
         break;
     }
-    
+
     if (mVibrationOn && !field_0x5e4) {
         dComIfGp_getVibration().StopQuake(0x1f);
         mVibrationOn = false;
@@ -344,7 +337,7 @@ void daObjFallObj_c::action_follow_fall() {
 bool daObjFallObj_c::checkHang() {
     bool rv = false;
     daPy_py_c* player = daPy_getPlayerActorClass();
-    
+
     u32 status = dComIfGp_checkPlayerStatus1(0, 0x2000000);
     if (status && fopAcM_searchPlayerDistanceXZ(this) < 250.0f &&
         player->current.pos.y > current.pos.y - 100.0f &&
@@ -395,7 +388,7 @@ bool daObjFallObj_c::checkHang2() {
             return false;
         }
     }
-    
+
     return false;
 }
 
@@ -456,18 +449,18 @@ static actor_method_class daObjFallObj_METHODS = {
 };
 
 actor_process_profile_definition g_profile_Obj_FallObj = {
-  fpcLy_CURRENT_e,        // mLayerID
-  3,                      // mListID
-  fpcPi_CURRENT_e,        // mListPrio
-  PROC_Obj_FallObj,       // mProcName
-  &g_fpcLf_Method.base,  // sub_method
-  sizeof(daObjFallObj_c), // mSize
-  0,                      // mSizeOther
-  0,                      // mParameters
-  &g_fopAc_Method.base,   // sub_method
-  552,                    // mPriority
-  &daObjFallObj_METHODS,  // sub_method
-  0x00040100,             // mStatus
-  fopAc_ACTOR_e,          // mActorType
-  fopAc_CULLBOX_CUSTOM_e, // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 3,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_Obj_FallObj_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daObjFallObj_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_Obj_FallObj_e,
+    /* Actor SubMtd */ &daObjFallObj_METHODS,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_CULL_e,
+    /* Group        */ fopAc_ACTOR_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

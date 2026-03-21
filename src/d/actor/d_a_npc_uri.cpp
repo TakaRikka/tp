@@ -8,6 +8,7 @@
 #include "Z2AudioLib/Z2Instances.h"
 #include "d/actor/d_a_npc_uri.h"
 #include "m_Do/m_Do_graphic.h"
+#include <cstring>
 
 const daNpc_Uri_HIOParam daNpc_Uri_Param_c::m = {
     200.0f,   // attention_offset
@@ -711,9 +712,9 @@ void daNpc_Uri_c::action() {
 }
 
 void daNpc_Uri_c::beforeMove() {
-    fopAcM_OffStatus(this, 0x8000000);
+    fopAcM_OffStatus(this, fopAcStts_UNK_0x8000000_e);
     if (checkHide()) {
-        fopAcM_OnStatus(this, 0x8000000);
+        fopAcM_OnStatus(this, fopAcStts_UNK_0x8000000_e);
     }
 
     if (checkHide() || mNoDraw != 0) {
@@ -903,12 +904,12 @@ int daNpc_Uri_c::selectAction() {
 
     switch (mType) {
     case TYPE_1:
-        if (field_0x100d != NULL) {
+        if (field_0x100d != 0) {
             field_0xfc0[0] = &daNpc_Uri_c::sitWait;
         } else {
-            if (field_0x100e != NULL) {
+            if (field_0x100e != 0) {
                 /* T_0007 - Ordon Village - During Uli's pick-up tutorial */
-                if (daNpcT_chkTmpBit(7) && field_0x100f == NULL) {
+                if (daNpcT_chkTmpBit(7) && field_0x100f == 0) {
                     field_0xfc0[0] = &daNpc_Uri_c::walk;
                 } else {
                     field_0xfc0[0] = &daNpc_Uri_c::wait;
@@ -951,7 +952,7 @@ BOOL daNpc_Uri_c::chkPlayerCarryBasket() {
     fopAc_ac_c* actor = NULL;
     daPy_py_c* player = daPy_getPlayerActorClass();
     if (fopAcM_SearchByID(player->getGrabActorID(), &actor) && actor != NULL &&
-        fopAcM_GetName(actor) == PROC_OBJ_KAGO)
+        fopAcM_GetName(actor) == fpcNm_OBJ_KAGO_e)
     {
         return TRUE;
     }
@@ -980,7 +981,7 @@ int daNpc_Uri_c::getTutorialCond(cXyz param_1) {
             field_0x1000 = mpHIO->m.field_0xa8 - 100.0f;
             return 5;
         }
-        if (field_0x1009 != NULL) {
+        if (field_0x1009 != 0) {
             return 8;
         }
     }
@@ -1919,20 +1920,20 @@ static actor_method_class daNpc_Uri_MethodTable = {
 };
 
 actor_process_profile_definition g_profile_NPC_URI = {
-    fpcLy_CURRENT_e,         // mLayerID
-    7,                       // mListID
-    fpcPi_CURRENT_e,         // mListPrio
-    PROC_NPC_URI,            // mProcName
-    &g_fpcLf_Method.base,    // sub_method
-    sizeof(daNpc_Uri_c),     // mSize
-    0,                       // mSizeOther
-    0,                       // mParameters
-    &g_fopAc_Method.base,    // sub_method
-    378,                     // mPriority
-    &daNpc_Uri_MethodTable,  // sub_method
-    0x00040107,              // mStatus
-    fopAc_NPC_e,             // mActorType
-    fopAc_CULLBOX_CUSTOM_e,  // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_NPC_URI_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daNpc_Uri_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_NPC_URI_e,
+    /* Actor SubMtd */ &daNpc_Uri_MethodTable,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_CULL_e | fopAcStts_UNK_0x4_e | fopAcStts_UNK_0x2_e | fopAcStts_UNK_0x1_e,
+    /* Group        */ fopAc_NPC_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };
 
 AUDIO_INSTANCES;

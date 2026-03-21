@@ -104,6 +104,8 @@ void daObjDust_c::setBaseMtx() {
 }
 
 static void rideCallBack(dBgW* i_bgw, fopAc_ac_c* i_bgActor, fopAc_ac_c* i_rideActor) {
+    UNUSED(i_bgw);
+    UNUSED(i_bgActor);
     fopAc_ac_c* ride_actor = (fopAc_ac_c*)i_rideActor;
     daObjDust_c* a_this = (daObjDust_c*)i_bgActor;
 
@@ -127,6 +129,18 @@ static int daObjDust_IsDelete(daObjDust_c* i_this) {
 static int daObjDust_Delete(daObjDust_c* i_this) {
     fpc_ProcID id = fopAcM_GetID(i_this);
     i_this->MoveBGDelete();
+    return 1;
+}
+
+int daObjDust_c::CreateHeap() {
+    J3DModelData* modelData = (J3DModelData*)dComIfG_getObjectRes(l_arcName, "M_FloatingDust01.bmd");
+    JUT_ASSERT(86, modelData != NULL);
+
+    mpModel = mDoExt_J3DModel__create(modelData, 0x80000, 0x11000084);
+    if (mpModel == NULL) {
+        return 0;
+    }
+
     return 1;
 }
 
@@ -168,18 +182,6 @@ static int daObjDust_Create(fopAc_ac_c* i_this) {
     return a_this->create();
 }
 
-int daObjDust_c::CreateHeap() {
-    J3DModelData* modelData = (J3DModelData*)dComIfG_getObjectRes(l_arcName, "M_FloatingDust01.bmd");
-    JUT_ASSERT(86, modelData != NULL);
-
-    mpModel = mDoExt_J3DModel__create(modelData, 0x80000, 0x11000084);
-    if (mpModel == NULL) {
-        return 0;
-    }
-
-    return 1;
-}
-
 int daObjDust_c::Create() {
     initBaseMtx();
     mpBgW->SetRideCallback(rideCallBack);
@@ -193,7 +195,7 @@ int daObjDust_c::Execute(Mtx** i_mtx) {
     cXyz& player_pos = fopAcM_GetPosition(player);
     cXyz& player_speed = fopAcM_GetSpeed(player);
 
-    if (fopAcM_SearchByName(PROC_E_YMB, &e_ymb) && e_ymb != NULL) {
+    if (fopAcM_SearchByName(fpcNm_E_YMB_e, &e_ymb) && e_ymb != NULL) {
         e_ymb_Pos = &fopAcM_GetPosition(e_ymb);
     }
    
@@ -251,18 +253,18 @@ static actor_method_class l_daObjDust_Method = {
 
 
 actor_process_profile_definition g_profile_Obj_DUST = {
-    fpcLy_CURRENT_e,        // mLayerID
-    3,                      // mListID
-    fpcPi_CURRENT_e,        // mListPrio
-    PROC_Obj_DUST,          // mProcName
-    &g_fpcLf_Method.base,   // sub_method
-    sizeof(daObjDust_c),    // mSize
-    0,                      // mSizeOther
-    0,                      // mParameters
-    &g_fopAc_Method.base,   // sub_method
-    473,                    // mPriority
-    &l_daObjDust_Method,    // sub_method
-    0x00040180,             // mStatus
-    fopAc_ACTOR_e,          // mActorType
-    fopAc_CULLBOX_CUSTOM_e, // cullType
-  };
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 3,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_Obj_DUST_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daObjDust_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_Obj_DUST_e,
+    /* Actor SubMtd */ &l_daObjDust_Method,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_CULL_e | fopAcStts_NOEXEC_e,
+    /* Group        */ fopAc_ACTOR_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
+};

@@ -221,7 +221,7 @@ private:
     /* 0x14 */ J3DAnmCluster* mpAnm;
 };
 
-class J3DTransformInfo;
+struct J3DTransformInfo;
 
 class mDoExt_AnmRatioPack {
 public:
@@ -557,6 +557,16 @@ public:
     int init(u16, u16, int);
     void update(int, f32, _GXColor&, u16, dKy_tevstr_c*);
     void update(int, _GXColor&, dKy_tevstr_c*);
+    // some calls to these functions define i_color inline which is illegal in C++ for a non-const
+    // reference parameter - we add these overloads to enable standard compiler compatibility
+#if !__MWERKS__
+    void update(int param_0, f32 param_1, const _GXColor& i_color, u16 param_3, dKy_tevstr_c* i_tevStr) {
+        update(param_0, param_1, const_cast<_GXColor&>(i_color), param_3, i_tevStr);
+    }
+    void update(int param_0, const _GXColor& i_color, dKy_tevstr_c* i_tevStr) {
+        update(param_0, const_cast<_GXColor&>(i_color), i_tevStr);
+    }
+#endif
 
     virtual int getMaterialID() { return 0; }
     virtual void setMaterial();
@@ -774,6 +784,12 @@ void mDoExt_restoreCurrentHeap();
 JKRExpHeap* mDoExt_getGameHeap();
 void mDoExt_setSafeGameHeapSize();
 size_t mDoExt_getSafeGameHeapSize();
+intptr_t mDoExt_getSafeArchiveHeapSize();
+intptr_t mDoExt_getSafeJ2dHeapSize();
+intptr_t mDoExt_getSafeCommandHeapSize();
+void mDoExt_setSafeCommandHeapSize();
+void mDoExt_setSafeArchiveHeapSize();
+void mDoExt_setSafeJ2dHeapSize();
 void mDoExt_destroySolidHeap(JKRSolidHeap* i_heap);
 JKRHeap* mDoExt_setCurrentHeap(JKRHeap* i_heap);
 JKRExpHeap* mDoExt_getArchiveHeap();
@@ -832,7 +848,7 @@ intptr_t mDoExt_getSafeZeldaHeapSize();
 JKRHeap* mDoExt_createHostIOHeap(u32, JKRHeap*);
 #endif
 
-struct JUTFont;
+class JUTFont;
 JUTFont* mDoExt_getMesgFont();
 JUTFont* mDoExt_getSubFont();
 JUTFont* mDoExt_getRubyFont();

@@ -23,7 +23,7 @@ int daPasserMng_c::execute() {
             csXyz cStack_20(field_0x596 != 0 ? 0xff : endTime, current.angle.y, 0);
             childProcIds[currentChildIndex] =
                 fopAcM_createChild(npcId, fopAcM_GetID(this), getPasserParam(), &current.pos,
-                                   fopAcM_GetRoomNo(this), &cStack_20, 0, 0xffffffff, 0);
+                                   fopAcM_GetRoomNo(this), &cStack_20, 0, -1, 0);
             currentChildIndex = (currentChildIndex + 1) % getMaxNum();
         }
         mTime = time + intervalTime;
@@ -38,33 +38,40 @@ int daPasserMng_c::execute() {
     return 1;
 }
 
-static u8 const groupA[32] = {
-    0x07, 0x00, 0x00, 0x00, 0x11, 0x00, 0x00, 0x04, 0x50, 0x00, 0x00, 0x06, 0x01, 0x00, 0x00, 0x07,
-    0x01, 0x00, 0x00, 0x05, 0x01, 0x00, 0x00, 0x1B, 0x01, 0x00, 0x00, 0x1C, 0x00, 0x00, 0x00, 0x1D,
+// this is based off of daPasserMng_c::Group, any changes here should also be changed there
+template <int N>
+struct SizedGroup {
+    u8 field_0x00;
+    int field_0x04[N];
 };
 
-static u8 const groupB[36] = {
-    0x08, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x10, 0x10, 0x00, 0x00, 0x11,
-    0x11, 0x00, 0x00, 0x12, 0x10, 0x00, 0x00, 0x13, 0x40, 0x00, 0x00, 0x09,
-    0x40, 0x00, 0x00, 0x08, 0x50, 0x00, 0x00, 0x0A, 0x01, 0x00, 0x00, 0x0B,
+static SizedGroup<7> const groupA = {
+    7,
+    {0x11000004, 0x50000006, 0x01000007, 0x01000005, 0x0100001B, 0x0100001C, 0x0000001D},
 };
 
-static u8 const groupC[36] = {
-    0x08, 0x00, 0x00, 0x00, 0x11, 0x00, 0x00, 0x00, 0x11, 0x00, 0x00, 0x01,
-    0x50, 0x00, 0x00, 0x02, 0x01, 0x00, 0x00, 0x03, 0x21, 0x00, 0x00, 0x17,
-    0x10, 0x00, 0x00, 0x18, 0x01, 0x00, 0x00, 0x19, 0x10, 0x00, 0x00, 0x1A,
+static SizedGroup<8> const groupB = {
+    8,
+    {0x01000010, 0x10000011, 0x11000012, 0x10000013, 0x40000009, 0x40000008, 0x5000000A,
+     0x0100000B},
 };
 
-static u8 const groupD[32] = {
-    0x07, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x14, 0x21, 0x00, 0x00, 0x15, 0x00, 0x00, 0x00, 0x16,
-    0x11, 0x00, 0x00, 0x0C, 0x50, 0x00, 0x00, 0x0E, 0x40, 0x00, 0x00, 0x0F, 0x01, 0x00, 0x00, 0x0D,
+static SizedGroup<8> const groupC = {
+    8,
+    {0x11000000, 0x11000001, 0x50000002, 0x01000003, 0x21000017, 0x10000018, 0x01000019,
+     0x1000001A},
 };
 
-daPasserMng_c::Group* daPasserMng_c::mGroupTbl[4] = {
-    (Group*)groupA,
-    (Group*)groupB,
-    (Group*)groupC,
-    (Group*)groupD,
+static SizedGroup<7> const groupD = {
+    7,
+    {0x01000014, 0x21000015, 0x00000016, 0x1100000C, 0x5000000E, 0x4000000F, 0x0100000D},
+};
+
+const daPasserMng_c::Group* daPasserMng_c::mGroupTbl[4] = {
+    (const Group*)&groupA,
+    (const Group*)&groupB,
+    (const Group*)&groupC,
+    (const Group*)&groupD,
 };
 
 int daPasserMng_c::getPasserParam() {
@@ -84,7 +91,7 @@ int daPasserMng_c::getPasserParam() {
     } else {
         groupInd = 0;
     }
-    Group* pGroup = mGroupTbl[groupInd];
+    const Group* pGroup = mGroupTbl[groupInd];
     int iVar5;
     do {
         iVar5 = cLib_getRndValue(0, (int)pGroup->field_0x00);
@@ -518,7 +525,7 @@ int daPasserMng_c::create() {
 }
 
 void daPasserMng_c::create_init() {
-    npcId = getDetailLevel() == 0 ? PROC_NPC_PASSER : PROC_NPC_PASSER2;
+    npcId = getDetailLevel() == 0 ? fpcNm_NPC_PASSER_e : fpcNm_NPC_PASSER2_e;
     mPath = dPath_GetRoomPath(getPathID(), fopAcM_GetHomeRoomNo(this));
     JUT_ASSERT(542, mPath != NULL);
     dPnt* pnt0 = dPath_GetPnt(mPath, 0);
@@ -602,18 +609,18 @@ static actor_method_class l_daPasserMng_Method = {
 };
 
 actor_process_profile_definition g_profile_PASSER_MNG = {
-  fpcLy_CURRENT_e,       // mLayerID
-  7,                     // mListID
-  fpcPi_CURRENT_e,       // mListPrio
-  PROC_PASSER_MNG,       // mProcName
-  &g_fpcLf_Method.base, // sub_method
-  sizeof(daPasserMng_c), // mSize
-  0,                     // mSizeOther
-  0,                     // mParameters
-  &g_fopAc_Method.base,  // sub_method
-  405,                   // mPriority
-  &l_daPasserMng_Method, // sub_method
-  0x00040100,            // mStatus
-  fopAc_ACTOR_e,         // mActorType
-  fopAc_CULLBOX_0_e,     // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_PASSER_MNG_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daPasserMng_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_PASSER_MNG_e,
+    /* Actor SubMtd */ &l_daPasserMng_Method,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_CULL_e,
+    /* Group        */ fopAc_ACTOR_e,
+    /* Cull Type    */ fopAc_CULLBOX_0_e,
 };

@@ -12,6 +12,7 @@
 #include "d/d_pane_class.h"
 #include "JSystem/J2DGraph/J2DTextBox.h"
 #include "JSystem/J2DGraph/J2DGrafContext.h"
+#include <cstring>
 
 class dGov_HIO_c : public mDoHIO_entry_c {
 public:
@@ -149,7 +150,7 @@ int dGameover_c::_create() {
             if (!strcmp(dComIfGp_getLastPlayStageName(), "D_MN10A")) {
                 // Last stage was Stallord Arena
                 // Remove Ooccoo from inventory
-                dComIfGs_setItem(SLOT_18, fpcNm_ITEM_NONE);
+                dComIfGs_setItem(SLOT_18, dItemNo_NONE_e);
                 dComIfGs_resetLastWarpAcceptStage();
             }
 
@@ -304,8 +305,8 @@ void dGameover_c::saveClose_proc() {
         }
 
         // Reset Lantern and oil status back into inventory if gameover during monkey steal sequence
-        if (dComIfGs_isItemFirstBit(fpcNm_ITEM_KANTERA) && dComIfGs_getItem(SLOT_1, true) == fpcNm_ITEM_NONE) {
-            dComIfGs_setItem(SLOT_1, fpcNm_ITEM_KANTERA);
+        if (dComIfGs_isItemFirstBit(dItemNo_KANTERA_e) && dComIfGs_getItem(SLOT_1, true) == dItemNo_NONE_e) {
+            dComIfGs_setItem(SLOT_1, dItemNo_KANTERA_e);
             dComIfGs_setOil(dMeter2Info_getOilGaugeBackUp());
         }
 
@@ -368,14 +369,14 @@ dDlst_GameOverScrnDraw_c::dDlst_GameOverScrnDraw_c(JKRArchive* i_archive) {
     mFadeColor.set(0, 0, 0, 0);
 
     if (dMeter2Info_getGameOverType() != 0) {
-        mpScreen->search('n_base')->hide();
+        mpScreen->search(MULTI_CHAR('n_base'))->hide();
 
         if (mDoGph_gInf_c::getFadeRate() == 1.0f) {
             mFadeColor = mDoGph_gInf_c::getFadeColor();
         }
     }
 
-    mpScreen->search('base_b')->hide();
+    mpScreen->search(MULTI_CHAR('base_b'))->hide();
 
     JUtility::TColor img_white(mFadeColor);
     JUtility::TColor img_black(mFadeColor);
@@ -384,10 +385,10 @@ dDlst_GameOverScrnDraw_c::dDlst_GameOverScrnDraw_c(JKRArchive* i_archive) {
 
     ResTIMG* img = (ResTIMG*)dComIfGp_getMain2DArchive()->getResource('TIMG', "tt_block8x8.bti");
     mpBackImg =
-        new J2DPicture('PICT01', JGeometry::TBox2<f32>(0.0f, 486.0f, 0.0f, 660.0f), img, NULL);
+        new J2DPicture(MULTI_CHAR('PICT01'), JGeometry::TBox2<f32>(0.0f, 486.0f, 0.0f, 660.0f), img, NULL);
     mpBackImg->setBlackWhite(img_white, img_black);
 
-    J2DTextBox* gold_tbox = (J2DTextBox*)mpScreen->search('gold_00');
+    J2DTextBox* gold_tbox = (J2DTextBox*)mpScreen->search(MULTI_CHAR('gold_00'));
     gold_tbox->setFont(mDoExt_getSubFont());
 
     char string[64];
@@ -475,7 +476,7 @@ static int dGameover_Create(msg_class* i_this) {
 
 s32 d_GameOver_Create(u8 i_gameoverType) {
     dMeter2Info_setGameOverType(i_gameoverType);
-    return fopMsgM_create(PROC_GAMEOVER, NULL, NULL, NULL, NULL, NULL);
+    return fopMsgM_create(fpcNm_GAMEOVER_e, NULL, NULL, NULL, NULL, NULL);
 }
 
 bool d_GameOver_Delete(fpc_ProcID& i_id) {
@@ -498,15 +499,15 @@ static leafdraw_method_class l_dGameover_Method = {
 };
 
 msg_process_profile_definition g_profile_GAMEOVER = {
-    fpcLy_CURRENT_e,
-    0x0C,
-    fpcPi_CURRENT_e,
-    PROC_GAMEOVER,
-    &g_fpcLf_Method.base,
-    sizeof(dGameover_c),
-    0,
-    0,
-    &g_fopMsg_Method,
-    0x303,
-    &l_dGameover_Method,
+    /* Layer ID    */ fpcLy_CURRENT_e,
+    /* List ID     */ 12,
+    /* List Prio   */ fpcPi_CURRENT_e,
+    /* Proc Name   */ fpcNm_GAMEOVER_e,
+    /* Proc SubMtd */ &g_fpcLf_Method.base,
+    /* Size        */ sizeof(dGameover_c),
+    /* Size Other  */ 0,
+    /* Parameters  */ 0,
+    /* Leaf SubMtd */ &g_fopMsg_Method,
+    /* Draw Prio   */ fpcDwPi_GAMEOVER_e,
+    /* Msg SubMtd  */ &l_dGameover_Method,
 };

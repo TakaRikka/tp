@@ -105,7 +105,7 @@ static dPath* set_path_info(fopAc_ac_c* i_actor) {
 }
 
 static void getSound_pos(fopAc_ac_c* i_actor) {
-    camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+    camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
     cXyz eye = camera->mCamera.Eye();
     cXyz sp28;
 
@@ -161,8 +161,8 @@ static void odour_move(kytag03_class* i_this) {
         if (path != NULL) {
             int sp40;
             int sp38;
-            var_r27 = get_Extent_pos_start_get(i_this, path, &camera->lookat.eye, 1000.0f, &sp40);
-            var_r25 = get_Extent_pos_end_get(i_this, path, &camera->lookat.eye, 1000.0f, &sp38);
+            var_r27 = get_Extent_pos_start_get(i_this, path, &camera->view.lookat.eye, 1000.0f, &sp40);
+            var_r25 = get_Extent_pos_end_get(i_this, path, &camera->view.lookat.eye, 1000.0f, &sp38);
 
             s16 spA;
             s16 sp8;
@@ -214,7 +214,7 @@ static void odour_move(kytag03_class* i_this) {
                         temp_f22 *= temp_f22;
                         var_f23 *= i_this->field_0x57c;
 
-                        f32 var_f1_4 = camera->lookat.eye.abs(sp94);
+                        f32 var_f1_4 = camera->view.lookat.eye.abs(sp94);
                         if (var_f23 > 0.0f && var_f1_4 < 4000.0f) {
                             csXyz spFC;
                             cXyz spB8;
@@ -296,7 +296,7 @@ static int daKytag03_Execute(kytag03_class* i_this) {
         cLib_addCalc(&i_this->field_0x578, 1.0f, 0.1f, 0.025f, 0.000001f);
 
         if (i_this->field_0x585 == 0xB5) {
-            fopAc_ac_c* actor = (fopAc_ac_c*)fpcM_SearchByName(PROC_Obj_Movebox);
+            fopAc_ac_c* actor = (fopAc_ac_c*)fpcM_SearchByName(fpcNm_Obj_Movebox_e);
             if (actor != NULL && actor->current.pos.x < 7425.0f) {
                 i_this->field_0x578 = 0.0f;
                 var_r28 = true;
@@ -457,18 +457,18 @@ static actor_method_class l_daKytag03_Method = {
 };
 
 actor_process_profile_definition g_profile_KYTAG03 = {
-    fpcLy_CURRENT_e,
-    7,
-    fpcPi_CURRENT_e,
-    PROC_KYTAG03,
-    &g_fpcLf_Method.base,
-    sizeof(kytag03_class),
-    0,
-    0,
-    &g_fopAc_Method.base,
-    97,
-    &l_daKytag03_Method,
-    0x44000,
-    fopAc_ACTOR_e,
-    fopAc_CULLBOX_0_e,
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_KYTAG03_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(kytag03_class),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_KYTAG03_e,
+    /* Actor SubMtd */ &l_daKytag03_Method,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_UNK_0x4000_e,
+    /* Group        */ fopAc_ACTOR_e,
+    /* Cull Type    */ fopAc_CULLBOX_0_e,
 };

@@ -6,6 +6,7 @@
 #include "d/dolzel_rel.h" // IWYU pragma: keep
 
 #include "d/actor/d_a_obj_picture.h"
+#include <cstring>
 
 static int daObjPicture_c_createHeap(fopAc_ac_c* i_this) {
     return ((daObjPicture_c*)i_this)->createHeap();
@@ -294,7 +295,7 @@ int daObjPicture_c::execute() {
         cXyz sp8(current.pos);
         fopAcM_gc_c::gndCheck(&sp8);
 
-        shape_angle.x += 0x400;
+        ANGLE_ADD_2(shape_angle.x, 0x400);
         if (shape_angle.x > 0x4000) {
             shape_angle.x = 0x4000;
         }
@@ -308,7 +309,6 @@ int daObjPicture_c::execute() {
         cLib_chaseF(&current.pos.x, field_0xca0.x, 1.0f);
         cLib_chaseF(&current.pos.z, field_0xca0.z, 1.0f);
         setPicAtCol();
-        break;
     }
     case 3:
         break;
@@ -557,18 +557,18 @@ static actor_method_class daObjPicture_METHODS = {
 };
 
 actor_process_profile_definition g_profile_Obj_Picture = {
-  fpcLy_CURRENT_e,        // mLayerID
-  7,                      // mListID
-  fpcPi_CURRENT_e,        // mListPrio
-  PROC_Obj_Picture,       // mProcName
-  &g_fpcLf_Method.base,  // sub_method
-  sizeof(daObjPicture_c), // mSize
-  0,                      // mSizeOther
-  0,                      // mParameters
-  &g_fopAc_Method.base,   // sub_method
-  742,                    // mPriority
-  &daObjPicture_METHODS,  // sub_method
-  0x00040180,             // mStatus
-  fopAc_ENV_e,            // mActorType
-  fopAc_CULLBOX_CUSTOM_e, // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_Obj_Picture_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daObjPicture_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_Obj_Picture_e,
+    /* Actor SubMtd */ &daObjPicture_METHODS,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_CULL_e | fopAcStts_NOEXEC_e,
+    /* Group        */ fopAc_ENV_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

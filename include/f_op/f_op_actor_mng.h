@@ -11,6 +11,7 @@
 #include "f_op/f_op_draw_tag.h"
 #include "f_pc/f_pc_manager.h"
 #include "m_Do/m_Do_hostIO.h"
+#include "SSystem/SComponent/c_phase.h"
 
 #define fopAcM_ct(ptr, ClassName)                                           \
     if (!fopAcM_CheckCondition(ptr, fopAcCnd_INIT_e)) {                     \
@@ -73,7 +74,7 @@ struct fopAcM_search4ev_prm {
     void clear() {
         name[0] = 0;
         event_id = -1;
-        procname = PROC_PLAY_SCENE;
+        procname = fpcNm_PLAY_SCENE_e;
         argument = 0;
     }
 
@@ -120,39 +121,6 @@ struct DOUBLE_POS {
     double x, y, z;
 };
 
-enum fopAcM_STATUS {
-    /* 0x00000001 */ fopAcM_STATUS_UNK_0x1          = 1 << 0,
-    /* 0x00000002 */ fopAcM_STATUS_UNK_0x2          = 1 << 1,
-    /* 0x00000004 */ fopAcM_STATUS_UNK_0x4          = 1 << 2,
-    /* 0x00000008 */ fopAcM_STATUS_UNK_0x8          = 1 << 3,
-    /* 0x00000010 */ fopAcM_STATUS_UNK_0x10         = 1 << 4,
-    /* 0x00000020 */ fopAcM_STATUS_UNK_0x20         = 1 << 5,
-    /* 0x00000040 */ fopAcM_STATUS_UNK_0x40         = 1 << 6,
-    /* 0x00000080 */ fopAcM_STATUS_UNK_0x80         = 1 << 7,
-    /* 0x00000100 */ fopAcM_STATUS_UNK_0x100        = 1 << 8,
-    /* 0x00000200 */ fopAcM_STATUS_UNK_0x200        = 1 << 9,
-    /* 0x00000400 */ fopAcM_STATUS_UNK_0x400        = 1 << 10,
-    /* 0x00000800 */ fopAcM_STATUS_UNK_0x800        = 1 << 11,
-    /* 0x00001000 */ fopAcM_STATUS_UNK_0x1000       = 1 << 12,
-    /* 0x00002000 */ fopAcM_STATUS_CARRY_NOW        = 1 << 13,
-    /* 0x00004000 */ fopAcM_STATUS_UNK_0x4000       = 1 << 14,
-    /* 0x00008000 */ fopAcM_STATUS_UNK_0x8000       = 1 << 15,
-    /* 0x00010000 */ fopAcM_STATUS_UNK_0x10000      = 1 << 16,
-    /* 0x00020000 */ fopAcM_STATUS_UNK_0x20000      = 1 << 17,
-    /* 0x00040000 */ fopAcM_STATUS_UNK_0x40000      = 1 << 18,
-    /* 0x00080000 */ fopAcM_STATUS_UNK_0x80000      = 1 << 19,
-    /* 0x00100000 */ fopAcM_STATUS_HOOK_CARRY_NOW   = 1 << 20,
-    /* 0x00200000 */ fopAcM_STATUS_UNK_0x200000     = 1 << 21,
-    /* 0x00400000 */ fopAcM_STATUS_UNK_0x400000     = 1 << 22,
-    /* 0x00800000 */ fopAcM_STATUS_UNK_0x800000     = 1 << 23,
-    /* 0x01000000 */ fopAcM_STATUS_UNK_0x1000000    = 1 << 24,
-    /* 0x02000000 */ fopAcM_STATUS_UNK_0x2000000    = 1 << 25,
-    /* 0x04000000 */ fopAcM_STATUS_UNK_0x4000000    = 1 << 26,
-    /* 0x08000000 */ fopAcM_STATUS_UNK_0x8000000    = 1 << 27,
-
-    /* 0x80000000 */ fopAcM_STATUS_HAWK_CARRY_NOW   = 1 << 31,
-};
-
 inline s8 fopAcM_GetRoomNo(const fopAc_ac_c* i_actor) {
     return i_actor->current.roomNo;
 }
@@ -174,11 +142,11 @@ inline u32 fopAcM_CheckStatus(fopAc_ac_c* i_actor, u32 actor_status) {
 }
 
 inline u32 fopAcM_checkCarryNow(fopAc_ac_c* i_actor) {
-    return i_actor->actor_status & fopAcM_STATUS_CARRY_NOW;
+    return i_actor->actor_status & fopAcStts_CARRY_NOW_e;
 }
 
 inline u32 fopAcM_checkHawkCarryNow(fopAc_ac_c* actor) {
-    return fopAcM_CheckStatus(actor, 0x80000000);
+    return fopAcM_CheckStatus(actor, fopAcStts_HAWK_CARRY_NOW_e);
 }
 
 enum fopAcM_CARRY {
@@ -198,7 +166,7 @@ inline u32 fopAcM_CheckCarryType(const fopAc_ac_c* actor, fopAcM_CARRY type) {
 }
 
 inline u32 fopAcM_checkHookCarryNow(fopAc_ac_c* i_actor) {
-    return fopAcM_CheckStatus(i_actor, fopAcM_STATUS_HOOK_CARRY_NOW);
+    return fopAcM_CheckStatus(i_actor, fopAcStts_HOOK_CARRY_NOW_e);
 }
 
 inline u32 fopAcM_GetParam(const void* i_actor) {
@@ -294,19 +262,19 @@ inline void fopAcM_SetRoomNo(fopAc_ac_c* actor, s8 roomNo) {
 }
 
 inline void fopAcM_setHookCarryNow(fopAc_ac_c* actor) {
-    fopAcM_OnStatus(actor, fopAcM_STATUS_HOOK_CARRY_NOW);
+    fopAcM_OnStatus(actor, fopAcStts_HOOK_CARRY_NOW_e);
 }
 
 inline void fopAcM_cancelHookCarryNow(fopAc_ac_c* actor) {
-    fopAcM_OffStatus(actor, fopAcM_STATUS_HOOK_CARRY_NOW);
+    fopAcM_OffStatus(actor, fopAcStts_HOOK_CARRY_NOW_e);
 }
 
 inline void fopAcM_setHawkCarryNow(fopAc_ac_c* actor) {
-    fopAcM_OnStatus(actor, fopAcM_STATUS_HAWK_CARRY_NOW);
+    fopAcM_OnStatus(actor, fopAcStts_HAWK_CARRY_NOW_e);
 }
 
 inline void fopAcM_cancelHawkCarryNow(fopAc_ac_c* actor) {
-    fopAcM_OffStatus(actor, fopAcM_STATUS_HAWK_CARRY_NOW);
+    fopAcM_OffStatus(actor, fopAcStts_HAWK_CARRY_NOW_e);
 }
 
 inline s8 fopAcM_GetHomeRoomNo(const fopAc_ac_c* i_actor) {
@@ -422,7 +390,14 @@ inline BOOL fopAcM_CULLSIZE_IS_BOX(int i_culltype) {
            i_culltype == fopAc_CULLBOX_CUSTOM_e;
 }
 
-inline const cXyz& fopAcM_getCullSizeSphereCenter(const fopAc_ac_c* i_actor) {
+inline
+#ifdef __MWERKS__
+// In the original code, this constructs a temporary and returns a reference to it
+const cXyz&
+#else
+const Vec&
+#endif
+fopAcM_getCullSizeSphereCenter(const fopAc_ac_c* i_actor) {
     return i_actor->cull.sphere.center;
 }
 
@@ -450,11 +425,11 @@ inline void fopAcM_SetAngle(fopAc_ac_c* i_actor, s16 x, s16 y, s16 z) {
     i_actor->current.angle.set(x, y, z);
 }
 
-inline void dComIfGs_onSwitch(int i_no, int i_roomNo);
-inline void dComIfGs_offSwitch(int i_no, int i_roomNo);
-inline void dComIfGs_revSwitch(int i_no, int i_roomNo);
-inline BOOL dComIfGs_isSwitch(int i_no, int i_roomNo);
-inline void dComIfGs_offActor(int i_no, int i_roomNo);
+void dComIfGs_onSwitch(int i_no, int i_roomNo);
+void dComIfGs_offSwitch(int i_no, int i_roomNo);
+void dComIfGs_revSwitch(int i_no, int i_roomNo);
+BOOL dComIfGs_isSwitch(int i_no, int i_roomNo);
+void dComIfGs_offActor(int i_no, int i_roomNo);
 
 inline void fopAcM_onSwitch(const fopAc_ac_c* i_actor, int sw) {
     return dComIfGs_onSwitch(sw, fopAcM_GetHomeRoomNo(i_actor));
@@ -476,12 +451,12 @@ inline fopAc_ac_c* fopAcM_SearchByName(s16 proc_id) {
     return (fopAc_ac_c*)fopAcIt_Judge(fpcSch_JudgeForPName, &proc_id);
 }
 
-inline void dComIfGs_onItem(int bitNo, int roomNo);
+void dComIfGs_onItem(int bitNo, int roomNo);
 inline void fopAcM_onItem(const fopAc_ac_c* item, int bitNo) {
     dComIfGs_onItem(bitNo, fopAcM_GetHomeRoomNo(item));
 }
 
-inline bool dComIfGs_isItem(int bitNo, int roomNo);
+bool dComIfGs_isItem(int bitNo, int roomNo);
 inline bool fopAcM_isItem(const fopAc_ac_c* item, int bitNo) {
     return dComIfGs_isItem(bitNo, fopAcM_GetHomeRoomNo(item));
 }
@@ -494,7 +469,7 @@ inline int fopAcM_GetSetId(const fopAc_ac_c* i_actor) {
     return i_actor->setID;
 }
 
-inline void dComIfGs_onActor(int bitNo, int roomNo);
+void dComIfGs_onActor(int bitNo, int roomNo);
 
 inline void fopAcM_onActor(const fopAc_ac_c* i_actor) {
     dComIfGs_onActor(fopAcM_GetSetId(i_actor), fopAcM_GetHomeRoomNo(i_actor));
@@ -729,7 +704,7 @@ inline void make_prm_warp_hole(u32* o_params, u8 prm1, u8 prm2, u8 prm3) {
     *o_params = pprm2 | pprm3 | pprm1;
 }
 
-inline fopAc_ac_c* dComIfGp_getPlayer(int);
+fopAc_ac_c* dComIfGp_getPlayer(int);
 
 inline s16 fopAcM_searchPlayerAngleY(const fopAc_ac_c* actor) {
     return fopAcM_searchActorAngleY(actor, dComIfGp_getPlayer(0));
@@ -838,6 +813,9 @@ void fopAcM_setWarningMessage_f(const fopAc_ac_c* i_actor, const char* i_filenam
 BOOL fopAcM_getNameString(const fopAc_ac_c*, char*);
 
 inline void fopAcM_SetStatusMap(fopAc_ac_c*, u32) {}
+
+extern cull_box l_cullSizeBox[fopAc_CULLBOX_MAX_e];
+extern cull_sphere l_cullSizeSphere[fopAc_CULLSPHERE_MAX_e];
 
 class fopAcM_lc_c {
 public:

@@ -9,6 +9,7 @@
 #include "d/actor/d_a_npc.h"
 #include "d/actor/d_a_player.h"
 #include "Z2AudioLib/Z2Instances.h"
+#include <cstring>
 
 enum {
     NUM_EVT_CUTS_e = 5,
@@ -188,10 +189,13 @@ int daNpc_myna2_c::create() {
     mType = getTypeFromParam();
     field_0xe0d = (fopAcM_GetParam(this) & 0xFF00) >> 8;
 
+    // !@bug home.angle.x is promoted to a 32-bit signed integer prior
+    //       to being compared, so the compared value can never exceed
+    //       SHORT_MAX and the condition always passes.
     if (home.angle.x != 0xFFFF) {
-        field_0xe04 = home.angle.x;
+        mFlowID = home.angle.x;
     } else {
-        field_0xe04 = -1;
+        mFlowID = -1;
     }
 
     if (isDelete()) {
@@ -852,7 +856,7 @@ int daNpc_myna2_c::waitHovering(void* param_0) {
 }
 
 static void* s_sub(void* i_actor, void* i_data) {
-    if (fopAcM_IsActor(i_actor) && fopAcM_GetName(i_actor) == PROC_MYNA2 && ((daNpc_myna2_c*)i_actor)->getType() == 1) {
+    if (fopAcM_IsActor(i_actor) && fopAcM_GetName(i_actor) == fpcNm_MYNA2_e && ((daNpc_myna2_c*)i_actor)->getType() == 1) {
         return i_actor;
     }
 
@@ -927,7 +931,7 @@ int daNpc_myna2_c::talk(void* param_0) {
     switch (mMode) {
     case 0:
         if (!mIsDamaged) {
-            initTalk(field_0xe04, NULL);
+            initTalk(mFlowID, NULL);
             mTurnMode = 0;
             mAnm_p->setPlaySpeed(1.0f);
             mMode = 2;
@@ -1013,7 +1017,7 @@ int daNpc_myna2_c::ECut_firstTalk(int i_staffId) {
         case 10:
             break;
         case 20:
-            initTalk(field_0xe04, NULL);
+            initTalk(mFlowID, NULL);
             break;
         }
     }
@@ -1062,7 +1066,7 @@ int daNpc_myna2_c::ECut_gameFailure(int i_staffId) {
         case 20:
             break;
         case 10:
-            initTalk(field_0xe04, NULL);
+            initTalk(mFlowID, NULL);
             break;
         }
     }
@@ -1120,7 +1124,7 @@ int daNpc_myna2_c::ECut_gameGoal(int i_staffId) {
             }
             break;
         case 10:
-            initTalk(field_0xe04, NULL);
+            initTalk(mFlowID, NULL);
             break;
         case 20:
             break;
@@ -1182,7 +1186,7 @@ int daNpc_myna2_c::ECut_gameGoalSuccess(int i_staffId) {
             }
             break;
         case 10:
-            initTalk(field_0xe04, NULL);
+            initTalk(mFlowID, NULL);
             break;
         case 20: {
             int itemNo = 0;
@@ -1192,7 +1196,7 @@ int daNpc_myna2_c::ECut_gameGoalSuccess(int i_staffId) {
             break;
         }
         case 25:
-            initTalk(field_0xe04, NULL);
+            initTalk(mFlowID, NULL);
             break;
         case 30:
             break;
@@ -1361,20 +1365,20 @@ static actor_method_class daNpc_myna2_MethodTable = {
 };
 
 actor_process_profile_definition g_profile_MYNA2 = {
-  fpcLy_CURRENT_e,          // mLayerID
-  7,                        // mListID
-  fpcPi_CURRENT_e,          // mListPrio
-  PROC_MYNA2,               // mProcName
-  &g_fpcLf_Method.base,    // sub_method
-  sizeof(daNpc_myna2_c),    // mSize
-  0,                        // mSizeOther
-  0,                        // mParameters
-  &g_fopAc_Method.base,     // sub_method
-  393,                      // mPriority
-  &daNpc_myna2_MethodTable, // sub_method
-  0x08044100,               // mStatus
-  fopAc_NPC_e,              // mActorType
-  fopAc_CULLBOX_CUSTOM_e,   // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_MYNA2_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daNpc_myna2_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_MYNA2_e,
+    /* Actor SubMtd */ &daNpc_myna2_MethodTable,
+    /* Status       */ fopAcStts_UNK_0x8000000_e | fopAcStts_UNK_0x40000_e | fopAcStts_UNK_0x4000_e | fopAcStts_CULL_e,
+    /* Group        */ fopAc_NPC_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };
 
 AUDIO_INSTANCES

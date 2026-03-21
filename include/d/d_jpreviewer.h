@@ -1,7 +1,7 @@
 #ifndef D_JPREVIEWER_H
 #define D_JPREVIEWER_H
 
-#include <dolphin/mtx.h>
+#include <mtx.h>
 #include "JSystem/JStudio/JStudio_JPreviewer/control.h"
 
 namespace JStudio {
@@ -10,7 +10,7 @@ namespace JStudio {
 
 class J2DOrthoGraph;
 class JKRExpHeap;
-class JUTGamePad;
+struct JUTGamePad;
 class JUTResFont;
 class tParse_;
 
@@ -26,8 +26,8 @@ public:
 
     void show3D(Mtx);
     void show2D();
-    void create(JStudio::TControl* pControl, const JUTGamePad& pad);
-    void remove();
+    static void create(JStudio::TControl* pControl, const JUTGamePad& pad);
+    static void remove();
     void update();
 
     static dJprev_c* get() { return m_myObj; }

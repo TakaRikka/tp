@@ -13,6 +13,7 @@
 #include "Z2AudioLib/Z2Instances.h"
 #include "SSystem/SComponent/c_counter.h"
 #include "JSystem/JHostIO/JORFile.h"
+#include <cstring>
 
 #if DEBUG
 #define PARAM field_0x568->mAttr
@@ -305,7 +306,8 @@ int daObj_Gadget_c::Execute() {
                         if (getWallAngle(current.angle.y, &wallAngle)) {
                             field_0x9f4 = 10;
                             s16 angleDiff = current.angle.y - wallAngle;
-                            current.angle.y += (s16)((0x8000 - (angleDiff * 2)) + (s16)cM_rndFX(2000.0f));
+                            ANGLE_ADD(current.angle.y,
+                                      (0x8000 - (angleDiff * 2)) + (s16)cM_rndFX(2000.0f));
                             field_0x9ec.y = -field_0x9ec.y / 2;
                             speedF *= 0.3f;
                         }
@@ -318,7 +320,8 @@ int daObj_Gadget_c::Execute() {
                 if (mAcch.ChkWallHit()) {
                     if (getWallAngle(current.angle.y, &wallAngle)) {
                         s16 angleDiff = current.angle.y - wallAngle;
-                        current.angle.y += (s16)((0x8000 - (angleDiff << 1)) + (s16)cM_rndFX(1000.0f));
+                        ANGLE_ADD(current.angle.y,
+                                  (0x8000 - (angleDiff << 1)) + (s16)cM_rndFX(1000.0f));
                         speedF *= 0.5f;
                     }
                 }
@@ -607,18 +610,18 @@ static actor_method_class daObj_Gadget_MethodTable = {
 };
 
 actor_process_profile_definition g_profile_OBJ_GADGET = {
-  fpcLy_CURRENT_e,           // mLayerID
-  8,                         // mListID
-  fpcPi_CURRENT_e,           // mListPrio
-  PROC_OBJ_GADGET,           // mProcName
-  &g_fpcLf_Method.base,     // sub_method
-  sizeof(daObj_Gadget_c),    // mSize
-  0,                         // mSizeOther
-  0,                         // mParameters
-  &g_fopAc_Method.base,      // sub_method
-  82,                        // mPriority
-  &daObj_Gadget_MethodTable, // sub_method
-  0x00044100,                // mStatus
-  fopAc_ACTOR_e,             // mActorType
-  fopAc_CULLBOX_CUSTOM_e,    // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 8,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_OBJ_GADGET_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daObj_Gadget_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_OBJ_GADGET_e,
+    /* Actor SubMtd */ &daObj_Gadget_MethodTable,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_UNK_0x4000_e | fopAcStts_CULL_e,
+    /* Group        */ fopAc_ACTOR_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

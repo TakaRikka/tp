@@ -12,6 +12,7 @@
 #include "d/d_bomb.h"
 #include "f_op/f_op_camera_mng.h"
 #include "Z2AudioLib/Z2Instances.h"
+#include <cstring>
 
 #if DEBUG
 daObjTobyHouse_HIO_c l_HIO;
@@ -63,7 +64,7 @@ static void* s_b_sub(void* i_actor, void* i_data) {
                 bomb->deleteBombAndEffect();
             }
         } else {
-            if (fopAcM_GetName(i_actor) == PROC_Obj_Carry) {
+            if (fopAcM_GetName(i_actor) == fpcNm_Obj_Carry_e) {
                 daObjCarry_c* carry = (daObjCarry_c*)i_actor;
                 if (carry != NULL && data != NULL &&
                     carry->getType() == 2 && carry->current.pos.absXZ(data->current.pos) < 1000.0f)
@@ -325,9 +326,9 @@ void daObjTobyHouse_c::demoProc() {
     static Vec l_shotSmokeOffset = {0.0f, 2500.0f, -600.0f};
     cXyz cStack_24;
     csXyz cStack_98;
-    fopAcM_SearchByName(PROC_NPC_TOBY);
+    fopAcM_SearchByName(fpcNm_NPC_TOBY_e);
     cXyz cStack_30(-600.0f, 70.0f, 380.0f);
-    camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+    camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
     cXyz* pCamEye = fopCamM_GetEye_p(camera);
     csXyz local_a0(dCam_getAngleX(camera), dCam_getAngleY(camera), 0);
     int actIdx = dComIfGp_evmng_getMyActIdx(mStaffId, (char**)action_table, 7, 0, 0);
@@ -533,7 +534,7 @@ BOOL daObjTobyHouse_c::checkLODModel() {
         return FALSE;
     }
     
-    camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+    camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
     if (camera != NULL && fopCamM_GetEye_p(camera)->abs(current.pos) > 20000.0f) {
         return TRUE;
     }
@@ -600,20 +601,20 @@ static actor_method_class daObjTobyHouse_METHODS = {
 };
 
 actor_process_profile_definition g_profile_Obj_TobyHouse = {
-  fpcLy_CURRENT_e,          // mLayerID
-  3,                        // mListID
-  fpcPi_CURRENT_e,          // mListPrio
-  PROC_Obj_TobyHouse,       // mProcName
-  &g_fpcLf_Method.base,    // sub_method
-  sizeof(daObjTobyHouse_c), // mSize
-  0,                        // mSizeOther
-  0,                        // mParameters
-  &g_fopAc_Method.base,     // sub_method
-  546,                      // mPriority
-  &daObjTobyHouse_METHODS,  // sub_method
-  0x00040100,               // mStatus
-  fopAc_ACTOR_e,            // mActorType
-  fopAc_CULLBOX_CUSTOM_e,   // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 3,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_Obj_TobyHouse_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daObjTobyHouse_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_Obj_TobyHouse_e,
+    /* Actor SubMtd */ &daObjTobyHouse_METHODS,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_CULL_e,
+    /* Group        */ fopAc_ACTOR_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };
 
 AUDIO_INSTANCES;

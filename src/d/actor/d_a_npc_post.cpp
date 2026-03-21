@@ -1,6 +1,6 @@
 /**
  * @file d_a_npc_post.cpp
- * 
+ *
 */
 
 #include "d/dolzel_rel.h" // IWYU pragma: keep
@@ -12,6 +12,7 @@
 #include "d/actor/d_a_tag_evtarea.h"
 #include "d/d_debug_viewer.h"
 #include "Z2AudioLib/Z2Instances.h"
+#include <cstring>
 
 enum post_RES_File_ID {
     /* BCK */
@@ -60,7 +61,7 @@ enum post1_RES_File_ID {
     /* 0x17 */ BCK_POST_HELLO,
     /* 0x18 */ BCK_POST_REGRET,
     /* 0x19 */ BCK_POST_RUN,
-    
+
     /* BTK */
     /* 0x1C */ BTK_POST_HAND = 0x1C,
     /* 0x1D */ BTK_POST_RUN,
@@ -158,6 +159,52 @@ enum Type {
     /* 0x3 */ TYPE_DEFAULT,
 };
 
+daNpc_Post_HIOParam const daNpc_Post_Param_c::m = {
+    190.0f,
+    -3.0f,
+    1.0f,
+    700.0f,
+    255.0f,
+    180.0f,
+    35.0f,
+    30.0f,
+    0.0f,
+    0.0f,
+    10.0f,
+    -10.0f,
+    30.0f,
+    -10.0f,
+    45.0f,
+    -45.0f,
+    0.6f,
+    12.0f,
+    3,
+    6,
+    5,
+    6,
+    110.0f,
+    0.0f,
+    0.0f,
+    0.0f,
+    60,
+    8,
+    0,
+    0,
+    0,
+    false,
+    false,
+    4.0f,
+    0.0f,
+    0.0f,
+    0.0f,
+    0.0f,
+    0.0f,
+    0.0f,
+    0.0f,
+    16.0f,
+    60,
+};
+
 #if DEBUG
 daNpc_Post_HIO_c::daNpc_Post_HIO_c() {
     m = daNpc_Post_Param_c::m;
@@ -172,11 +219,11 @@ void daNpc_Post_HIO_c::listenPropertyEvent(const JORPropertyEvent* evt) {
 
     switch ((u32)evt->id) {
         case 0x40000002:
-            if (jorFile.open(6, "", NULL, NULL, NULL)) {
+            if (jorFile.open(6, "すべてのファイル(*.*)\0*.*\0", NULL, NULL, NULL)) {
                 memset(&buffer, 0, sizeof(buffer));
                 len = 0;
                 daNpcT_cmnListenPropertyEvent(buffer, &len, &m.common);
-                
+
                 sprintf(buffer + len, "%.3ff,\t//  走り速度\n", m.run_spd);
                 len = strlen(buffer);
                 sprintf(buffer + len, "%d,   \t//  頷き間隔\n", m.nod_interval);
@@ -320,7 +367,7 @@ daNpc_Post_c::cutFunc daNpc_Post_c::mCutList[2] = {
 static NPC_POST_HIO_CLASS l_HIO;
 
 daNpc_Post_c::~daNpc_Post_c() {
-    OS_REPORT("|%06d:%x|daNpc_Post_c -> コンストラクト\n", g_Counter.mCounter0, this);
+    OS_REPORT("|%06d:%x|daNpc_Post_c -> デストラクト\n", g_Counter.mCounter0, this);
 
     if (mpMorf[0] != NULL) {
         mpMorf[0]->stopZelAnime();
@@ -338,52 +385,6 @@ daNpc_Post_c::~daNpc_Post_c() {
 
     deleteRes(l_loadResPtrnList[mType], (const char**)l_resNameList);
 }
-
-daNpc_Post_HIOParam const daNpc_Post_Param_c::m = {
-    190.0f,
-    -3.0f,
-    1.0f,
-    700.0f,
-    255.0f,
-    180.0f,
-    35.0f,
-    30.0f,
-    0.0f,
-    0.0f,
-    10.0f,
-    -10.0f,
-    30.0f,
-    -10.0f,
-    45.0f,
-    -45.0f,
-    0.6f,
-    12.0f,
-    3,
-    6,
-    5,
-    6,
-    110.0f,
-    0.0f,
-    0.0f,
-    0.0f,
-    60,
-    8,
-    0,
-    0,
-    0,
-    false,
-    false,
-    4.0f,
-    0.0f,
-    0.0f,
-    0.0f,
-    0.0f,
-    0.0f,
-    0.0f,
-    0.0f,
-    16.0f,
-    60,
-};
 
 cPhs_Step daNpc_Post_c::create() {
     daNpcT_ct(this, daNpc_Post_c, l_faceMotionAnmData, l_motionAnmData, l_faceMotionSequenceData,
@@ -404,7 +405,7 @@ cPhs_Step daNpc_Post_c::create() {
         }
 
         OS_REPORT("\n");
-        
+
         static int const heapSize[4] = {
             0x0, 0x5060, 0x4EC0, 0x0,
         };
@@ -413,7 +414,7 @@ cPhs_Step daNpc_Post_c::create() {
             return cPhs_ERROR_e;
         }
 
-        J3DModel* model = mpMorf[0]->getModel();
+        J3DModelData* modelData = mpMorf[0]->getModel()->getModelData();
         fopAcM_SetMtx(this, mpMorf[0]->getModel()->getBaseTRMtx());
         fopAcM_setCullSizeBox(this, -200.0f, -100.0f, -200.0f, 200.0f, 300.0f, 200.0f);
 
@@ -453,21 +454,24 @@ cPhs_Step daNpc_Post_c::create() {
 }
 
 int daNpc_Post_c::CreateHeap() {
+    J3DModelData* modelData = NULL;
+    J3DModel* model = NULL;
     int bmdIdx = 0;
     int resIdx = l_bmdData[bmdIdx][1];
     int idx = l_bmdData[bmdIdx][0];
-    J3DModelData* modelData = static_cast<J3DModelData*>(dComIfG_getObjectRes(l_resNameList[resIdx], idx));
+    modelData = static_cast<J3DModelData*>(dComIfG_getObjectRes(l_resNameList[resIdx], idx));
     if (modelData == NULL) {
         return 0;
     }
 
-    u32 uVar1 = 0x11020284;
-    mpMorf[0] = new mDoExt_McaMorfSO(modelData, NULL, NULL, NULL, -1, 1.0f, 0, -1, &mSound, 0x80000, uVar1);
+    u32 sp28 = 0x11020284;
+    mpMorf[0] = new mDoExt_McaMorfSO(modelData, NULL, NULL, NULL, -1, 1.0f, 0, -1, &mSound, 0x80000,
+                                     sp28);
     if (mpMorf[0] == NULL || mpMorf[0]->getModel() == NULL) {
         return 0;
     }
 
-    J3DModel* model = mpMorf[0]->getModel();
+    model = mpMorf[0]->getModel();
     for (u16 i = 0; i < modelData->getJointNum(); i++) {
         modelData->getJointNodePointer(i)->setCallBack(ctrlJointCallBack);
     }
@@ -487,8 +491,9 @@ int daNpc_Post_c::CreateHeap() {
     }
 
     if (mType != TYPE_BAR) {
-        u32 uVar2 = 0x11000084;
-        mpFlagModelMorf = new mDoExt_McaMorfSO(modelData, NULL, NULL, NULL, -1, 1.0f, 0, -1, NULL, J3DMdlFlag_DifferedDLBuffer, uVar2);
+        sp28 = 0x11000084;
+        mpFlagModelMorf = new mDoExt_McaMorfSO(modelData, NULL, NULL, NULL, -1, 1.0f, 0, -1, NULL,
+                                               J3DMdlFlag_DifferedDLBuffer, sp28);
         if (mpFlagModelMorf == NULL || mpFlagModelMorf->getModel() == NULL) {
             return 0;
         }
@@ -500,13 +505,16 @@ int daNpc_Post_c::CreateHeap() {
 
     for (int i = 0; i < 2; i++) {
         if (l_bmdData[bmdTypeList[i]][0] >= 0) {
-            modelData = (J3DModelData*)dComIfG_getObjectRes(l_resNameList[l_bmdData[bmdTypeList[i]][1]], l_bmdData[bmdTypeList[i]][0]);
+            modelData =
+                (J3DModelData*)dComIfG_getObjectRes(l_resNameList[l_bmdData[bmdTypeList[i]][1]],
+                                                    l_bmdData[bmdTypeList[i]][0]);
         } else {
             modelData = NULL;
         }
 
         if (modelData != NULL) {
-            mpLetterModels[i] = mDoExt_J3DModel__create(modelData, J3DMdlFlag_DifferedDLBuffer, 0x11000084);
+            mpLetterModels[i] = mDoExt_J3DModel__create(modelData, J3DMdlFlag_DifferedDLBuffer,
+                                                        0x11000084);
         } else {
             mpLetterModels[i] = NULL;
         }
@@ -520,7 +528,7 @@ int daNpc_Post_c::CreateHeap() {
 }
 
 int daNpc_Post_c::Delete() {
-    OS_REPORT("|%06d:%x|daNpc_Post_c -> コンストラクト\n", g_Counter.mCounter0, this);
+    OS_REPORT("|%06d:%x|daNpc_Post_c -> Delete\n", g_Counter.mCounter0, this);
     fopAcM_RegisterDeleteID(this, "NPC_POST");
     this->~daNpc_Post_c();
     return 1;
@@ -561,7 +569,7 @@ u8 daNpc_Post_c::getType() {
     switch (param) {
         case 0:
             return TYPE_0;
-        
+
         case 1:
             return TYPE_DELIVER;
 
@@ -615,7 +623,7 @@ void daNpc_Post_c::reset() {
     switch (mType) {
         case TYPE_0:
             break;
-        
+
         case TYPE_DELIVER:
             mHide = true;
             break;
@@ -687,6 +695,8 @@ BOOL daNpc_Post_c::checkChangeEvt() {
 
             return TRUE;
         }
+
+        UNUSED((int)mType);
     }
 
     return FALSE;
@@ -699,7 +709,7 @@ void daNpc_Post_c::setAfterTalkMotion() {
         case FACE_MOT_REGRET:
             idx = FACE_MOT_H_REGRET;
             break;
-        
+
         case FACE_MOT_HAPPY:
             idx = FACE_MOT_H_HAPPY;
             break;
@@ -707,7 +717,7 @@ void daNpc_Post_c::setAfterTalkMotion() {
         case FACE_MOT_SAD:
             idx = FACE_MOT_H_SAD;
             break;
-            
+
         case FACE_MOT_ANGRY:
             idx = FACE_MOT_H_ANGRY;
             break;
@@ -720,7 +730,7 @@ void daNpc_Post_c::srchActors() {
     switch (mType) {
         case TYPE_0:
             break;
-        
+
         case TYPE_DELIVER:
             for (int i = 0; i < 4; i++) {
                 if (mActorMngrs[i].getActorP() == NULL) {
@@ -802,10 +812,10 @@ void daNpc_Post_c::action() {
 }
 
 void daNpc_Post_c::beforeMove() {
-    fopAcM_OffStatus(this, fopAcM_STATUS_UNK_0x8000000);
+    fopAcM_OffStatus(this, fopAcStts_UNK_0x8000000_e);
 
     if (checkHide()) {
-        fopAcM_OnStatus(this, fopAcM_STATUS_UNK_0x8000000);
+        fopAcM_OnStatus(this, fopAcStts_UNK_0x8000000_e);
     }
 
     if (checkHide() || mNoDraw) {
@@ -846,14 +856,14 @@ void daNpc_Post_c::setAttnPos() {
                      mHIO->m.common.head_angleY_min, mHIO->m.common.head_angleY_max,
                      mHIO->m.common.neck_rotation_ratio, rad_val, &sp7c);
     mJntAnm.calcJntRad(0.2f, 1.0f, rad_val);
-    
+
     setMtx();
 
     if (mpFlagModelMorf != NULL) {
         mpFlagModelMorf->play(0, 0);
         mDoMtx_stack_c::copy(mpMorf[0]->getModel()->getAnmMtx(JNT_BACKBONE2));
         Mtx mtx;
-        MTXCopy(mDoMtx_stack_c::get(), mtx);
+        cMtx_copy(mDoMtx_stack_c::get(), mtx);
         mpFlagModelMorf->getModel()->setBaseTRMtx(mtx);
         mpFlagModelMorf->modelCalc();
     }
@@ -939,7 +949,7 @@ int daNpc_Post_c::drawDbgInfo() {
         dDbVw_drawSphereXlu(attention_info.position, 9.0f, (GXColor){0x80, 0x80, 0x80, 0xA0}, 1);
     }
     #endif
-    
+
     return 0;
 }
 
@@ -969,7 +979,7 @@ void daNpc_Post_c::drawOtherMdl() {
             mDoMtx_stack_c::copy(model->getAnmMtx(jointNo[i]));
 
             Mtx mtx;
-            MTXCopy(mDoMtx_stack_c::get(), mtx);
+            cMtx_copy(mDoMtx_stack_c::get(), mtx);
             mpLetterModels[i]->setBaseTRMtx(mtx);
             mDoExt_modelUpdateDL(mpLetterModels[i]);
             dComIfGd_addRealShadow(mShadowKey, mpLetterModels[i]);
@@ -995,9 +1005,10 @@ bool daNpc_Post_c::setFlagAnm(int i_idx, int i_attr, f32 i_morf) {
     };
 
     J3DAnmTransform* anm = NULL;
+    int idx = i_idx;
     if (mpFlagModelMorf != NULL) {
-        if (flagAnmData[i_idx].fileIdx > 0) {
-            anm = getTrnsfrmKeyAnmP(l_resNameList[flagAnmData[i_idx].arcIdx], flagAnmData[i_idx].fileIdx);
+        if (flagAnmData[idx].fileIdx > 0) {
+            anm = getTrnsfrmKeyAnmP(l_resNameList[flagAnmData[idx].arcIdx], flagAnmData[idx].fileIdx);
         }
 
         if (anm != NULL) {
@@ -1092,10 +1103,6 @@ void daNpc_Post_c::pullOutLetter() {
     }
 }
 
-static int const dummy[2] = {
-    -1, -1,
-};
-
 int daNpc_Post_c::cutDeliver(int i_staffId) {
     cXyz work;
     csXyz angle;
@@ -1103,7 +1110,7 @@ int daNpc_Post_c::cutDeliver(int i_staffId) {
     int* piVar1 = NULL;
     int prm = -1;
     int timer = 0;
-    
+
     piVar1 = dComIfGp_evmng_getMyIntegerP(i_staffId, "prm");
     if (piVar1 != NULL) {
         prm = *piVar1;
@@ -1123,7 +1130,7 @@ int daNpc_Post_c::cutDeliver(int i_staffId) {
                 current.pos.x = work.x;
                 current.pos.z = work.z;
                 work.y = dComIfG_Bgsp().GroundCross(&mGndChk);
-                
+
                 if (work.y != -1e9f) {
                     current.pos.y = work.y;
                 }
@@ -1254,6 +1261,8 @@ int daNpc_Post_c::cutDeliver(int i_staffId) {
         }
     }
 
+    int arr[2] = {-1, -1};
+
     switch (prm) {
         case 0:
             mJntAnm.lookPlayer(0);
@@ -1359,6 +1368,7 @@ int daNpc_Post_c::cutDeliver(int i_staffId) {
 }
 
 int daNpc_Post_c::wait(void* param_1) {
+    daTag_EvtArea_c* actor_p = NULL;
     daPy_py_c* player = daPy_getPlayerActorClass();
     f32 fVar1 = mHIO->m.nod_interval;
 
@@ -1387,16 +1397,17 @@ int daNpc_Post_c::wait(void* param_1) {
                 )
             ) {
                 for (int i = 0; i < 4; i++) {
-                    daTag_EvtArea_c* actor_p = (daTag_EvtArea_c*)mActorMngrs[i].getActorP();
+                    actor_p = (daTag_EvtArea_c*)mActorMngrs[i].getActorP();
                     if (actor_p != NULL) {
                         if (actor_p->chkPointInArea(player->current.pos)) {
                             if (daPy_getPlayerActorClass()->checkBoarRide()) {
                                 actor_p->noEffect();
                             } else if (daPy_getPlayerActorClass()->eventInfo.chkCondition(1) != FALSE && dMeter2Info_getNewLetterNum()) {
                                 mActorPos = actor_p->current.pos;
-                                
+
                                 f32 fVar2 = player->current.pos.absXZ(actor_p->current.pos);
-                                if (actor_p->scale.x - 700.0f <= fVar2) {
+                                f32 adjustedScale = actor_p->scale.x - 700.0f;
+                                if (adjustedScale <= fVar2) {
                                     if (daPy_getPlayerActorClass()->checkHorseRide()) {
                                         mEvtNo = EVT_DELIVERTO_PLAYER_ON_HORSE;
                                     } else if (daPy_py_c::checkNowWolf()) {
@@ -1419,7 +1430,7 @@ int daNpc_Post_c::wait(void* param_1) {
 
                 if (mPlayerActorMngr.getActorP() != NULL && !mTwilight) {
                     mJntAnm.lookPlayer(0);
-                    
+
                     if (!chkActorInSight(mPlayerActorMngr.getActorP(), mAttnFovY, mCurAngle.y)) {
                         mJntAnm.lookNone(0);
                     }
@@ -1496,7 +1507,7 @@ int daNpc_Post_c::talk(void* param_1) {
             }
             break;
 
-        case MODE_EXIT: 
+        case MODE_EXIT:
             break;
     }
 
@@ -1556,18 +1567,18 @@ static actor_method_class daNpc_Post_MethodTable = {
 };
 
 actor_process_profile_definition g_profile_NPC_POST = {
-  fpcLy_CURRENT_e,         // mLayerID
-  7,                       // mListID
-  fpcPi_CURRENT_e,         // mListPrio
-  PROC_NPC_POST,           // mProcName
-  &g_fpcLf_Method.base,   // sub_method
-  sizeof(daNpc_Post_c),    // mSize
-  0,                       // mSizeOther
-  0,                       // mParameters
-  &g_fopAc_Method.base,    // sub_method
-  403,                     // mPriority
-  &daNpc_Post_MethodTable, // sub_method
-  0x00040107,              // mStatus
-  fopAc_NPC_e,             // mActorType
-  fopAc_CULLBOX_CUSTOM_e,  // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_NPC_POST_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daNpc_Post_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_NPC_POST_e,
+    /* Actor SubMtd */ &daNpc_Post_MethodTable,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_CULL_e | fopAcStts_UNK_0x4_e | fopAcStts_UNK_0x2_e | fopAcStts_UNK_0x1_e,
+    /* Group        */ fopAc_NPC_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

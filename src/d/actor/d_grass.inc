@@ -1,11 +1,12 @@
-#include "d/actor/d_a_grass.h"
+#include "d/actor/d_grass.h"
 #include "d/d_com_inf_game.h"
 #include "d/actor/d_a_player.h"
 #include "d/d_s_play.h"
 #include "JSystem/J3DGraphBase/J3DDrawBuffer.h"
 #include "SSystem/SComponent/c_lib.h"
 #include "f_op/f_op_overlap_mng.h"
-#include <dolphin/gf.h>
+#include <gf.h>
+#include <cstring>
 
 #include "d/d_camera.h"
 #include "f_op/f_op_camera_mng.h"
@@ -372,7 +373,7 @@ void dGrass_data_c::hitCheck(int i_roomNo, u16 i_particleName) {
     fopAc_ac_c* hit_actor;
 
     u32 mass_flags = dComIfG_Ccsp()->ChkMass(&m_pos, &hit_actor, &hitinf);
-    bool at_hit = (mass_flags & 1) && (hit_actor != NULL && fopAcM_GetName(hit_actor) != PROC_Obj_Carry);
+    bool at_hit = (mass_flags & 1) && (hit_actor != NULL && fopAcM_GetName(hit_actor) != fpcNm_Obj_Carry_e);
 
     if (!(mass_flags & 2) && !at_hit) {
         if (field_0x02 >= 16) {
@@ -610,13 +611,13 @@ void dGrass_packet_c::draw() {
             f32 temp1 = 0.001953125f; // fakematch
 
 #if DEBUG
-            camera_class* sp34 = dComIfGp_getCamera(0);
+            camera_process_class* sp34 = dComIfGp_getCamera(0);
             int sp30 = 0;
             if (dCam_getBody() != NULL &&
                 (dCam_getBody()->Mode() == 7 || dCam_getBody()->Mode() == 8) &&
                 sp34 != NULL &&
                 dCam_getBody()->V() < -750.0f &&
-                var_r29->m_pos.abs(sp34->lookat.eye) < 200.0f) {
+                var_r29->m_pos.abs(sp34->view.lookat.eye) < 200.0f) {
                 sp30 = 1;
             }
 #endif

@@ -5,7 +5,7 @@
 #include "d/d_kankyo.h"
 #include "f_op/f_op_actor_mng.h"
 
-class dPath;
+struct dPath;
 
 /**
  * @ingroup actors-unsorted
@@ -251,12 +251,13 @@ public:
         return paramLow << 8;
     }
 
+    // SizedGroup in d_a_passer_mng.cpp relies on this layout, any changes here should also be changed there
     struct Group {
         u8 field_0x00;
         int field_0x04[0];
     };
 
-    static Group* mGroupTbl[4];
+    static const Group* mGroupTbl[4];
 
 private:
     /* 0x568 */ fpc_ProcID* childProcIds;

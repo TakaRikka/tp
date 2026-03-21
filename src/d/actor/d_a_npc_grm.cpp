@@ -6,6 +6,7 @@
 #include "d/dolzel_rel.h"  // IWYU pragma: keep
 
 #include "d/actor/d_a_npc_grm.h"
+#include <cstring>
 
 enum grA_Base_RES_File_ID {
     /* BCK */
@@ -447,8 +448,8 @@ BOOL daNpc_grM_c::evtProc() {
         int face_motion, motion;
         if (ctrlMsgAnm(&face_motion, &motion, this, field_0xe2d)) {
             if (field_0xe26) {
-                mFaceMotionSeqMngr.setNo(face_motion, -1.0f, TRUE, NULL);
-                mMotionSeqMngr.setNo(motion, -1.0f, TRUE, NULL);
+                mFaceMotionSeqMngr.setNo(face_motion, -1.0f, TRUE, 0);
+                mMotionSeqMngr.setNo(motion, -1.0f, TRUE, 0);
             }
         } else if (tmp != 0 && field_0xe26) {
             setAfterTalkMotion();
@@ -818,18 +819,18 @@ static actor_method_class daNpc_grM_MethodTable = {
 };
 
 actor_process_profile_definition g_profile_NPC_GRM = {
-    fpcLy_CURRENT_e,         // mLayerID
-    7,                       // mListID
-    fpcPi_CURRENT_e,         // mListPrio
-    PROC_NPC_GRM,            // mProcName
-    &g_fpcLf_Method.base,    // sub_method
-    sizeof(daNpc_grM_c),     // mSize
-    0,                       // mSizeOther
-    0,                       // mParameters
-    &g_fopAc_Method.base,    // sub_method
-    309,                     // mPriority
-    &daNpc_grM_MethodTable,  // sub_method
-    0x00044107,              // mStatus
-    fopAc_NPC_e,             // mActorType
-    fopAc_CULLBOX_CUSTOM_e,  // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_NPC_GRM_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daNpc_grM_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_NPC_GRM_e,
+    /* Actor SubMtd */ &daNpc_grM_MethodTable,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_UNK_0x4000_e | fopAcStts_CULL_e | fopAcStts_UNK_0x4_e | fopAcStts_UNK_0x2_e | fopAcStts_UNK_0x1_e,
+    /* Group        */ fopAc_NPC_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

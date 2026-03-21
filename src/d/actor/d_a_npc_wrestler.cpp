@@ -7,7 +7,8 @@
 
 #include "d/actor/d_a_npc_wrestler.h"
 #include "d/d_timer.h"
-#include <dolphin/types.h>
+#include <types.h>
+#include <cstring>
 #include "d/actor/d_a_tag_arena.h"
 #include "d/actor/d_a_npc_gra.h"
 #include "d/actor/d_a_npc_bouS.h"
@@ -1298,7 +1299,7 @@ int daNpcWrestler_c::setAction(actionFunc action) {
 }
 
 static void* s_sub1(void* i_actor, void* i_data) {
-    if (fopAcM_IsActor(i_actor) && fopAcM_GetName(i_actor) == PROC_Tag_Arena
+    if (fopAcM_IsActor(i_actor) && fopAcM_GetName(i_actor) == fpcNm_Tag_Arena_e
         && ((daNpcWrestler_c*)i_data)->checkArenaSub((daNpcWrestler_c*)i_actor)) {
         return i_actor;
     }
@@ -1332,7 +1333,7 @@ bool daNpcWrestler_c::checkArenaSub(fopAc_ac_c* actor) {
 
 static void* s_sub2(void* i_actor, void* i_data) {
     (void) i_data;
-    if (fopAcM_IsActor(i_actor) && fopAcM_GetName(i_actor) == PROC_NPC_GRA) {
+    if (fopAcM_IsActor(i_actor) && fopAcM_GetName(i_actor) == fpcNm_NPC_GRA_e) {
         daNpc_grA_c* goron = (daNpc_grA_c*)i_actor;
         if (goron->getType() == 3) {
             goron->setTagJump();
@@ -2218,8 +2219,8 @@ bool daNpcWrestler_c::sumouReady(void* param_1) {
                     // fallthrough
                 case 2:
                     field_0xe5e += field_0xbd8->field_0xac;
-                    field_0xe54 -= fabsf(field_0xbd8->field_0xac);
-                    if (field_0xe54 < fabsf(field_0xbd8->field_0xac)) {
+                    field_0xe54 -= fabsf((f32)field_0xbd8->field_0xac);
+                    if (field_0xe54 < fabsf((f32)field_0xbd8->field_0xac)) {
                         field_0xe80 = 1;
                         field_0xe84++;
                     }
@@ -5220,18 +5221,18 @@ static actor_method_class daNpcWrestler_MethodTable = {
 };
 
 actor_process_profile_definition g_profile_NPC_WRESTLER = {
-  fpcLy_CURRENT_e,            // mLayerID
-  7,                          // mListID
-  fpcPi_CURRENT_e,            // mListPrio
-  PROC_NPC_WRESTLER,          // mProcName
-  &g_fpcLf_Method.base,      // sub_method
-  0xEA0,                      // mSize (fix this)
-  0,                          // mSizeOther
-  0,                          // mParameters
-  &g_fopAc_Method.base,       // sub_method
-  329,                        // mPriority
-  &daNpcWrestler_MethodTable, // sub_method
-  0x00044007,                 // mStatus
-  fopAc_NPC_e,                // mActorType
-  fopAc_CULLBOX_CUSTOM_e,     // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_NPC_WRESTLER_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daNpcWrestler_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_NPC_WRESTLER_e,
+    /* Actor SubMtd */ &daNpcWrestler_MethodTable,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_UNK_0x4000_e | fopAcStts_UNK_0x4_e | fopAcStts_UNK_0x2_e | fopAcStts_UNK_0x1_e,
+    /* Group        */ fopAc_NPC_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

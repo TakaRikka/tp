@@ -136,7 +136,7 @@ void daObjMarm_c::setBaseMtx() {
 }
 
 void rideCallBack(dBgW* param_0, fopAc_ac_c* i_this, fopAc_ac_c* i_rideActor) {
-    if (fopAcM_GetName(i_rideActor) == PROC_ALINK) {
+    if (fopAcM_GetName(i_rideActor) == fpcNm_ALINK_e) {
         static_cast<daObjMarm_c*>(i_this)->mPlayerRide = TRUE;
     }
 }
@@ -186,8 +186,8 @@ int daObjMarm_c::Create() {
         mIsYRotForward = 0;
     }
 
-    if (dComIfG_Bgsp().Regist((dBgW_Base*)mpBgW1, this) != NULL ||
-        dComIfG_Bgsp().Regist((dBgW_Base*)mpBgW2, this) != NULL)
+    if (dComIfG_Bgsp().Regist((dBgW_Base*)mpBgW1, this) != false ||
+        dComIfG_Bgsp().Regist((dBgW_Base*)mpBgW2, this) != false)
     {
         return FALSE;
     }
@@ -347,7 +347,7 @@ cPhs_Step daObjMarm_c::phase_0() {
 
 cPhs_Step daObjMarm_c::phase_1() {
     cXyz scale(1.0f, 1.0f, 1.0f);
-    mID = fopAcM_create(PROC_Obj_MHole, 0x12FF, &current.pos, fopAcM_GetRoomNo(this),
+    mID = fopAcM_create(fpcNm_Obj_MHole_e, 0x12FF, &current.pos, fopAcM_GetRoomNo(this),
                         &current.angle, &scale, -1);
 
     if (mID == fpcM_ERROR_PROCESS_ID_e) {
@@ -947,7 +947,7 @@ void daObjMarm_c::calcHimo() {
 
     getRopeStartPos(&offset1);
     getFpartsOffset(&offset2);
-    fabs(offset1.y - offset2.y);
+    UNUSED(fabs(offset1.y - offset2.y));
 
     cXyz* line_mat1_pos = mpRope1->getPos(0);
     *line_mat1_pos = offset1;
@@ -1060,11 +1060,11 @@ void daObjMarm_c::debugDraw() {
 }
 
 int daObjMarm_c::Delete() {
-    if (mpBgW1 != NULL && mpBgW1->ChkUsed() != NULL) {
+    if (mpBgW1 != NULL && mpBgW1->ChkUsed() != false) {
         dComIfG_Bgsp().Release(mpBgW1);
     }
 
-    if (mpBgW2 != NULL && mpBgW2->ChkUsed() != NULL) {
+    if (mpBgW2 != NULL && mpBgW2->ChkUsed() != false) {
         dComIfG_Bgsp().Release(mpBgW2);
     }
     endMagneHoleEffect();
@@ -1099,20 +1099,20 @@ static actor_method_class daObjMarm_METHODS = {
 };
 
 actor_process_profile_definition g_profile_Obj_MagneArm = {
-    fpcLy_CURRENT_e,         // mLayerID
-    3,                       // mListID
-    fpcPi_CURRENT_e,         // mListPrio
-    PROC_Obj_MagneArm,       // mProcName
-    &g_fpcLf_Method.base,    // sub_method
-    sizeof(daObjMarm_c),     // mSize
-    0,                       // mSizeOther
-    0,                       // mParameters
-    &g_fopAc_Method.base,    // sub_method
-    614,                     // mPriority
-    &daObjMarm_METHODS,      // sub_method
-    0x00040100,              // mStatus
-    fopAc_ACTOR_e,           // mActorType
-    fopAc_CULLBOX_CUSTOM_e,  // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 3,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_Obj_MagneArm_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daObjMarm_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_Obj_MagneArm_e,
+    /* Actor SubMtd */ &daObjMarm_METHODS,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_CULL_e,
+    /* Group        */ fopAc_ACTOR_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };
 
 AUDIO_INSTANCES;

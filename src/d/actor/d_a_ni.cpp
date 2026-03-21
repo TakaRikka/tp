@@ -13,6 +13,7 @@
 #include "c/c_damagereaction.h"
 #include "Z2AudioLib/Z2Instances.h"
 #include "f_op/f_op_camera_mng.h"
+#include <cstring>
 
 enum Joint {
     /* 0x0 */ JNT_WAIST,
@@ -137,7 +138,7 @@ static int daNi_Draw(ni_class* i_this) {
 }
 
 static void* s_play_sub(void* i_actor, void* i_data) {
-    if (fopAcM_IsActor(i_actor) && fopAcM_GetName(i_actor) == PROC_NI) {
+    if (fopAcM_IsActor(i_actor) && fopAcM_GetName(i_actor) == fpcNm_NI_e) {
         ni_class* a_actor = (ni_class*)i_actor;
 
         if (a_actor->mAction == ACTION_PLAY_e) {
@@ -211,7 +212,7 @@ static fopAc_ac_c* target_info[10];
 static int target_info_count;
 
 static void* s_t_sub(void* i_actor, void* i_data) {
-    if (fopAcM_IsActor(i_actor) && fopAcM_GetName(i_actor) == PROC_NPC_NE && target_info_count < 10)
+    if (fopAcM_IsActor(i_actor) && fopAcM_GetName(i_actor) == fpcNm_NPC_NE_e && target_info_count < 10)
     {
         target_info[target_info_count] = (fopAc_ac_c*)i_actor;
         target_info_count++;
@@ -377,7 +378,7 @@ static void ni_normal(ni_class* i_this) {
         }
     }
 
-    fopAc_ac_c* cow = fopAcM_SearchByName(PROC_COW);
+    fopAc_ac_c* cow = fopAcM_SearchByName(fpcNm_COW_e);
     if (cow != NULL && cow->speedF > 1.0f) {
         sp50 = cow->current.pos - a_this->current.pos;
         f32 var_f30 = sp50.abs();
@@ -754,7 +755,7 @@ static void ni_damage(ni_class* i_this) {
 static void* s_b_sub(void* i_actor, void* i_data) {
     fopAc_ac_c* player = dComIfGp_getPlayer(0);
 
-    if (fopAcM_IsActor(i_actor) && fopAcM_GetName(i_actor) == PROC_BOOMERANG &&
+    if (fopAcM_IsActor(i_actor) && fopAcM_GetName(i_actor) == fpcNm_BOOMERANG_e &&
         daPy_py_c::checkBoomerangCharge() && fopAcM_GetParam(i_actor) == 1)
     {
         return i_actor;
@@ -806,7 +807,7 @@ static void ni_windspin(ni_class* i_this) {
 static int ni_demo0(ni_class* i_this) {
     cXyz sp28;
     cXyz sp34;
-    daNpcMoiR_c* moi = (daNpcMoiR_c*)fopAcM_SearchByName(PROC_NPC_MOIR);
+    daNpcMoiR_c* moi = (daNpcMoiR_c*)fopAcM_SearchByName(fpcNm_NPC_MOIR_e);
 
     if (i_this->mTimers[0] == 0 && moi != NULL) {
         mDoMtx_stack_c::copy(moi->getHandRMtx());
@@ -1039,8 +1040,8 @@ static int ni_play(ni_class* i_this) {
     sp78.y = 0.0f;
     sp78.z = -i_this->mPadMainStickY;
 
-    camera_class* camera = dComIfGp_getCamera(0);
-    sp84 = camera->lookat.center - camera->lookat.eye;
+    camera_process_class* camera = dComIfGp_getCamera(0);
+    sp84 = camera->view.lookat.center - camera->view.lookat.eye;
 
     cMtx_YrotS(*calc_mtx, cM_atan2s(-sp84.x, -sp84.z));
     MtxPosition(&sp78, &sp84);
@@ -1158,7 +1159,7 @@ static int ni_play(ni_class* i_this) {
 static void play_camera(ni_class* i_this) {
     fopAc_ac_c* a_this = (fopAc_ac_c*)i_this;
 
-    camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+    camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
     camera_class* camera0 = (camera_class*)dComIfGp_getCamera(0);
     daPy_py_c* player = (daPy_py_c*)dComIfGp_getPlayer(0);
     cXyz sp1D8;
@@ -1199,8 +1200,8 @@ static void play_camera(ni_class* i_this) {
         camera->mCamera.Stop();
 
         i_this->field_0xafc = 500.0f;
-        i_this->field_0xac8 = camera0->lookat.eye;
-        i_this->field_0xad4 = camera0->lookat.center;
+        i_this->field_0xac8 = camera0->view.lookat.eye;
+        i_this->field_0xad4 = camera0->view.lookat.center;
         i_this->field_0xaec = dComIfGd_getView()->fovy;
 
         player->changeOriginalDemo();
@@ -1243,7 +1244,7 @@ static void play_camera(ni_class* i_this) {
             temp = i_this->mPadSubStickX;
 
             temp *= TREG_F(3) + 5000.0f;
-            i_this->field_0xaf4 += (s16)temp;
+            S16_ADD(i_this->field_0xaf4, temp);
             i_this->field_0xafc += i_this->mPadSubStickY * (TREG_F(7) + -25.0f);
 
             if (i_this->field_0xafc > (TREG_F(8) + 800.0f)) {
@@ -1997,18 +1998,18 @@ static actor_method_class l_daNi_Method = {
 };
 
 actor_process_profile_definition g_profile_NI = {
-  fpcLy_CURRENT_e,          // mLayerID
-  7,                        // mListID
-  fpcPi_CURRENT_e,          // mListPrio
-  PROC_NI,                  // mProcName
-  &g_fpcLf_Method.base,     // sub_method
-  sizeof(ni_class),         // mSize
-  0,                        // mSizeOther
-  0,                        // mParameters
-  &g_fopAc_Method.base,     // sub_method
-  695,                      // mPriority
-  &l_daNi_Method,           // sub_method
-  0x80c4000,                // mStatus
-  fopAc_NPC_e,              // mActorType
-  fopAc_ACTOR_e,            // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_NI_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(ni_class),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_NI_e,
+    /* Actor SubMtd */ &l_daNi_Method,
+    /* Status       */ fopAcStts_UNK_0x8000000_e | fopAcStts_UNK_0x80000_e | fopAcStts_UNK_0x40000_e | fopAcStts_UNK_0x4000_e,
+    /* Group        */ fopAc_NPC_e,
+    /* Cull Type    */ fopAc_ACTOR_e,
 };

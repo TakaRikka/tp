@@ -29,7 +29,7 @@ static bool hio_set;
 static daObj_Kbox_HIO_c l_HIO;
 
 static void ride_call_back(dBgW* param_1, fopAc_ac_c* param_2, fopAc_ac_c* param_3) {
-    if (fopAcM_GetName(param_3) == PROC_ALINK) {
+    if (fopAcM_GetName(param_3) == fpcNm_ALINK_e) {
         obj_kbox_class* i_this = (obj_kbox_class*) param_2;
         if (i_this->field_0x5a0 == 0) {
             i_this->field_0x5a8 = -50.0f;
@@ -62,7 +62,7 @@ static void break_eff(obj_kbox_class* i_this) {
                                                              fopAcM_GetRoomNo(&i_this->mActor), NULL, NULL, &particleScale);
     dPa_modelEcallBack::setModel(pEmitter, kibako_bmd, i_this->mActor.tevStr, 3, NULL, 0, 0);
     for (int i = 0; i < 3; i++) {
-        dComIfGp_particle_set(particle_id[i], &emitterPos, 0, &particleScale, 0xff, 0, 0xffffffff,
+        dComIfGp_particle_set(particle_id[i], &emitterPos, 0, &particleScale, 0xff, 0, -1,
                               0, 0, 0);
     }
 }
@@ -213,7 +213,7 @@ static void kbox_float(obj_kbox_class* i_this) {
             i_this->field_0x5a4 + i_this->field_0x590 + i_this->field_0x58c + i_this->field_0x5ac;
         i_this->field_0x9e8 = dComIfGp_particle_set(i_this->field_0x9e8, 0x86c3,
                                                   &cStack_88, &a_this->tevStr, &a_this->shape_angle,
-                                                  &cStack_7c, 0xff, 0, 0xffffffff, 0, 0, 0);
+                                                  &cStack_7c, 0xff, 0, -1, 0, 0, 0);
         if (i_this->field_0x5ac <= -50.0f) {
             fopAcM_delete(a_this);
             dComIfGp_particle_set(0x86c4, &cStack_88, &a_this->tevStr, &a_this->shape_angle,
@@ -232,8 +232,8 @@ static void kbox_float(obj_kbox_class* i_this) {
     a_this->shape_angle.x = i_this->field_0x594 * cM_ssin((i_this->field_0x578 * 1000));
     a_this->shape_angle.z = i_this->field_0x594 * cM_ssin((i_this->field_0x578 * 1100));
     cLib_addCalc2(&i_this->field_0x594, 500.0f, 0.1f, 30.0f);
-    a_this->shape_angle.x += (s16)(i_this->field_0x598 * cM_ssin((i_this->field_0x578 * 4000)));
-    a_this->shape_angle.z += (s16)(i_this->field_0x598 * cM_ssin((i_this->field_0x578 * 4200)));
+    ANGLE_ADD(a_this->shape_angle.x, i_this->field_0x598 * cM_ssin(i_this->field_0x578 * 4000));
+    ANGLE_ADD(a_this->shape_angle.z, i_this->field_0x598 * cM_ssin(i_this->field_0x578 * 4200));
     cLib_addCalc2(&i_this->field_0x598, 0, 0.1f, 30.0f);
     i_this->field_0x58c = 30.0f;
     cLib_addCalc2(&i_this->field_0x5a4, i_this->field_0x5a8, 0.2f, 20.0f);
@@ -529,20 +529,20 @@ static actor_method_class l_daObj_Kbox_Method = {
 };
 
 actor_process_profile_definition g_profile_OBJ_KBOX = {
-  fpcLy_CURRENT_e,        // mLayerID
-  8,                      // mListID
-  fpcPi_CURRENT_e,        // mListPrio
-  PROC_OBJ_KBOX,          // mProcName
-  &g_fpcLf_Method.base,  // sub_method
-  sizeof(obj_kbox_class), // mSize
-  0,                      // mSizeOther
-  0,                      // mParameters
-  &g_fopAc_Method.base,   // sub_method
-  43,                     // mPriority
-  &l_daObj_Kbox_Method,   // sub_method
-  0x00040100,             // mStatus
-  fopAc_ACTOR_e,          // mActorType
-  fopAc_CULLBOX_CUSTOM_e, // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 8,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_OBJ_KBOX_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(obj_kbox_class),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_OBJ_KBOX_e,
+    /* Actor SubMtd */ &l_daObj_Kbox_Method,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_CULL_e,
+    /* Group        */ fopAc_ACTOR_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };
 
 AUDIO_INSTANCES;

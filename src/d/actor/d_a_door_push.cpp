@@ -8,10 +8,10 @@
 #include "d/actor/d_a_door_push.h"
 #include "SSystem/SComponent/c_math.h"
 #include "d/d_bg_w.h"
-#include "d/d_procname.h"
+#include "f_pc/f_pc_name.h"
 #include "f_op/f_op_actor_mng.h"
 
-static void PPCallBack(fopAc_ac_c* i_this, fopAc_ac_c* i_unused, s16 i_unused2,
+static fopAc_ac_c* PPCallBack(fopAc_ac_c* i_this, fopAc_ac_c* i_unused, s16 i_unused2,
                        dBgW_Base::PushPullLabel param_3) {
     if (cLib_checkBit(param_3, dBgW_Base::PPLABEL_PUSH) != 0) {
         daDoorPush_c* l_this = (daDoorPush_c*)i_this;
@@ -19,9 +19,11 @@ static void PPCallBack(fopAc_ac_c* i_this, fopAc_ac_c* i_unused, s16 i_unused2,
         l_this->field_0x62e[1] = 0;
         l_this->field_0x62c[0] = 1;
     }
+
+    return i_this;
 }
 
-static void PPCallBack2(fopAc_ac_c* i_this, fopAc_ac_c* i_unused, s16 i_unused2,
+static fopAc_ac_c* PPCallBack2(fopAc_ac_c* i_this, fopAc_ac_c* i_unused, s16 i_unused2,
                         dBgW_Base::PushPullLabel param_3) {
     if (cLib_checkBit(param_3, dBgW_Base::PPLABEL_PUSH) != 0) {
         daDoorPush_c* l_this = (daDoorPush_c*)i_this;
@@ -29,6 +31,8 @@ static void PPCallBack2(fopAc_ac_c* i_this, fopAc_ac_c* i_unused, s16 i_unused2,
         l_this->field_0x62e[0] = 0;
         l_this->field_0x62c[1] = 1;
     }
+
+    return i_this;
 }
 
 void daDoorPush_c::initBaseMtx() {
@@ -367,18 +371,18 @@ static actor_method_class daDoorPush_METHODS = {
 };
 
 actor_process_profile_definition g_profile_PushDoor = {
-    fpcLy_CURRENT_e,
-    3,
-    fpcPi_CURRENT_e,
-    PROC_PushDoor,
-    &g_fpcLf_Method.base,
-    sizeof(daDoorPush_c),
-    0,
-    0,
-    &g_fopAc_Method.base,
-    578,
-    &daDoorPush_METHODS,
-    0x40100,
-    fopAc_ACTOR_e,
-    fopAc_CULLBOX_CUSTOM_e,
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 3,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_PushDoor_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daDoorPush_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_PushDoor_e,
+    /* Actor SubMtd */ &daDoorPush_METHODS,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_CULL_e,
+    /* Group        */ fopAc_ACTOR_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

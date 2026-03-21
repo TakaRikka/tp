@@ -38,11 +38,11 @@ void daObj_Msima_HIO_c::genMessage(JORMContext* context) {
 #endif
 
 static void ride_call_back(dBgW* i_bgw, fopAc_ac_c* a_this, fopAc_ac_c* param_3) {
-    if (fopAcM_GetName(param_3) == PROC_ALINK || fopAcM_GetName(param_3) == PROC_E_GOB ||
-    fopAcM_GetName(param_3) == PROC_B_ZANT)
+    if (fopAcM_GetName(param_3) == fpcNm_ALINK_e || fopAcM_GetName(param_3) == fpcNm_E_GOB_e ||
+    fopAcM_GetName(param_3) == fpcNm_B_ZANT_e)
     {
         int idx = 0;
-        if (fopAcM_GetName(param_3) != PROC_ALINK) {
+        if (fopAcM_GetName(param_3) != fpcNm_ALINK_e) {
             idx = 1;
         }
         
@@ -265,7 +265,7 @@ static void chain_move(obj_msima_class* i_this, ms_chain_s* param_2, int param_3
     mDoMtx_stack_c::YrotM(a_this->shape_angle.y + (param_3 << 14));
     s16 zRot = 0;
     for (int i = 0; i < 35; i++) {
-        zRot += (s16)((s16)cM_rndFX2(3000.0f) + 0x4000);
+        ANGLE_ADD(zRot, (s16)cM_rndFX2(3000.0f) + 0x4000);
         mDoMtx_stack_c::push();
         mDoMtx_stack_c::scaleM(scale, scale, scale);
         mDoMtx_stack_c::XrotM(0x4000);
@@ -298,7 +298,7 @@ static void chain_move2(obj_msima_class* i_this, ms_chain_s* param_2, int param_
     mDoMtx_stack_c::transS(local_5c.x, local_5c.y, local_5c.z);
     f32 dVar10 = 1.0f;
     for (int i = 0; i < 35; i++) {
-        zRot += (s16)((s16)cM_rndFX2(3000.0f) + 0x4000);
+        ANGLE_ADD(zRot, (s16)cM_rndFX2(3000.0f) + 0x4000);
         if (i > 5) {
             dVar10 = 0.8f * (i - 5) + 1.0f;
         }
@@ -487,7 +487,7 @@ static int daObj_Msima_Create(fopAc_ac_c* a_this) {
             a_this->shape_angle.y = 0x2000;
             daObj_Msima_Execute(i_this);
             cXyz cStack_2c(0.0f, 0.0f, 0.0f);
-            fopAcM_createChild(PROC_OBJ_MYOGAN, fopAcM_GetID(a_this), 0, &cStack_2c,
+            fopAcM_createChild(fpcNm_OBJ_MYOGAN_e, fopAcM_GetID(a_this), 0, &cStack_2c,
                                fopAcM_GetRoomNo(a_this), 0, 0, -1, 0);
         } else {
             for (int i = 0; i < 4; i++) {
@@ -509,20 +509,20 @@ static actor_method_class l_daObj_Msima_Method = {
 };
 
 actor_process_profile_definition g_profile_OBJ_MSIMA = {
-  fpcLy_CURRENT_e,         // mLayerID
-  3,                       // mListID
-  fpcPi_CURRENT_e,         // mListPrio
-  PROC_OBJ_MSIMA,          // mProcName
-  &g_fpcLf_Method.base,   // sub_method
-  sizeof(obj_msima_class), // mSize
-  0,                       // mSizeOther
-  0,                       // mParameters
-  &g_fopAc_Method.base,    // sub_method
-  51,                      // mPriority
-  &l_daObj_Msima_Method,   // sub_method
-  0x00044000,              // mStatus
-  fopAc_ACTOR_e,           // mActorType
-  fopAc_CULLBOX_CUSTOM_e,  // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 3,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_OBJ_MSIMA_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(obj_msima_class),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_OBJ_MSIMA_e,
+    /* Actor SubMtd */ &l_daObj_Msima_Method,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_UNK_0x4000_e,
+    /* Group        */ fopAc_ACTOR_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };
 
 AUDIO_INSTANCES;

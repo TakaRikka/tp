@@ -393,7 +393,7 @@ static void e_kr_ground_pos_move(e_kr_class* i_this) {
 }
 
 static BOOL coach_path_check(e_kr_class* i_this) {
-    fopAc_ac_c* coach = fopAcM_SearchByName(PROC_NPC_COACH);
+    fopAc_ac_c* coach = fopAcM_SearchByName(fpcNm_NPC_COACH_e);
     if (coach == NULL) {
         return FALSE;
     }
@@ -496,6 +496,7 @@ static s8 e_kr_path_move(e_kr_class* i_this) {
         if (totalDiff < 10.0f * TREG_F(10) + 300.0f) {
             point = &i_this->field_0x6e4->m_points[i_this->field_0x6e2];
             u8 pointArg1 = point->mArg1;
+            // !@bug Comparison of u8 with -1 will always evaluate to false
             if (pointArg1 == -1) {
                 i_this->field_0x684 = 50.0f * 1.2f;
             } else {
@@ -2258,7 +2259,7 @@ static int daE_Kr_Create(fopAc_ac_c* i_this) {
     };
     static dCcD_SrcSph head_tg_sph_src = {
         {
-            {0x0, {{0x0, 0x1, 0x0}, {(s32)0xd8fbfdff, 0x3}, 0x0}},  // mObj
+            {0x0, {{0x0, 0x1, 0x0}, {0xd8fbfdff, 0x3}, 0x0}},  // mObj
             {dCcD_SE_NONE, 0x0, 0x0, 0x0, 0x0},                     // mGObjAt
             {dCcD_SE_NONE, 0x0, 0x0, 0x0, 0x2},                     // mGObjTg
             {0x0},                                                  // mGObjCo
@@ -2270,7 +2271,7 @@ static int daE_Kr_Create(fopAc_ac_c* i_this) {
 
     static dCcD_SrcSph body_tg_sph_src = {
         {
-            {0x0, {{0x0, 0x1, 0x0}, {(s32)0xd8fbfdff, 0x3}, 0x0}},  // mObj
+            {0x0, {{0x0, 0x1, 0x0}, {0xd8fbfdff, 0x3}, 0x0}},  // mObj
             {dCcD_SE_NONE, 0x0, 0x0, 0x0, 0x0},                // mGObjAt
             {dCcD_SE_NONE, 0x0, 0x0, 0x0, 0x2},                // mGObjTg
             {0x0},                                             // mGObjCo
@@ -2391,18 +2392,18 @@ static actor_method_class l_daE_Kr_Method = {
 };
 
 actor_process_profile_definition g_profile_E_KR = {
-    fpcLy_CURRENT_e,         // mLayerID
-    7,                       // mListID
-    fpcPi_CURRENT_e,         // mListPrio
-    PROC_E_KR,               // mProcName
-    &g_fpcLf_Method.base,    // sub_method
-    sizeof(e_kr_class),      // mSize
-    0,                       // mSizeOther
-    0,                       // mParameters
-    &g_fopAc_Method.base,    // sub_method
-    186,                     // mPriority
-    &l_daE_Kr_Method,        // sub_method
-    0x10040120,              // mStatus
-    fopAc_ENEMY_e,           // mActorType
-    fopAc_CULLBOX_CUSTOM_e,  // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_E_KR_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(e_kr_class),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_E_KR_e,
+    /* Actor SubMtd */ &l_daE_Kr_Method,
+    /* Status       */ fopAcStts_UNK_0x10000000_e | fopAcStts_UNK_0x40000_e | fopAcStts_CULL_e | fopAcStts_UNK_0x20_e,
+    /* Group        */ fopAc_ENEMY_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

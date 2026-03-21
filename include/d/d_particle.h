@@ -6,7 +6,8 @@
 #include "JSystem/JParticle/JPAEmitter.h"
 #include "JSystem/JParticle/JPAParticle.h"
 #include "d/d_particle_name.h"
-#include "d/d_kankyo.h"
+#include "d/d_kankyo_tev_str.h"
+#include "JSystem/JKernel/JKRSolidHeap.h"
 
 void dPa_cleanupGX();
 
@@ -425,6 +426,10 @@ public:
     JKRSolidHeap* getHeap() { return mHeap; }
     JKRExpHeap* getResHeap() { return m_resHeap; }
     JKRSolidHeap* getSceneHeap() { return mSceneHeap; }
+    void* getSceneRes() { return m_sceneRes; }
+
+    u32 getHeapSize() { return mHeap->getTotalFreeSize(); }
+    u32 getSceneHeapSize() { return mSceneHeap->getTotalFreeSize(); }
 
     void levelAllForceOnEventMove() { field_0x210.allForceOnEventMove(); }
 
@@ -452,6 +457,7 @@ public:
 
     static JPAEmitterManager* getEmitterManager() { return mEmitterMng; }
     int getEmitterNum() { return mEmitterMng->getEmitterNumber(); };
+    int getParticleNum() { return mEmitterMng->getParticleNumber(); }
 
     static dPa_light8PcallBack* getLight8PcallBack() { 
         return &mLight8PcallBack; 

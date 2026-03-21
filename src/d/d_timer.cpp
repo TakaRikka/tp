@@ -21,6 +21,7 @@
 #include "d/d_pane_class.h"
 #include "f_op/f_op_msg_mng.h"
 #include "m_Do/m_Do_lib.h"
+#include <cstring>
 
 static int dTimer_createStart2D(s32 param_0, u16 param_1);
 
@@ -602,17 +603,17 @@ void dDlst_TimerScrnDraw_c::setScreen(s32 param_0, JKRArchive* i_archive) {
     mpGetInBck = (J2DAnmTransform*)J2DAnmLoaderDataBase::load(
         JKRGetNameResource("zelda_game_image_cow_get_in.bck", mpArchive));
 
-    mpGetInParent = new CPaneMgr(mpGetInScreen, 'get_in_n', 2, NULL);
+    mpGetInParent = new CPaneMgr(mpGetInScreen, MULTI_CHAR('get_in_n'), 2, NULL);
     JUT_ASSERT(0, mpGetInParent != NULL);
 
-    mpGetInRoot = new CPaneMgr(mpGetInScreen, 'n_all', 0, NULL);
+    mpGetInRoot = new CPaneMgr(mpGetInScreen, MULTI_CHAR('n_all'), 0, NULL);
     JUT_ASSERT(0, mpGetInRoot != NULL);
 
-    mpGetInText = new CPaneMgr(mpGetInScreen, 'get_in', 0, NULL);
+    mpGetInText = new CPaneMgr(mpGetInScreen, MULTI_CHAR('get_in'), 0, NULL);
     JUT_ASSERT(0, mpGetInText != NULL);
 
-    static_cast<J2DTextBox*>(mpGetInScreen->search('get_in_s'))->setFont(mDoExt_getMesgFont());
-    static_cast<J2DTextBox*>(mpGetInScreen->search('get_in'))->setFont(mDoExt_getMesgFont());
+    static_cast<J2DTextBox*>(mpGetInScreen->search(MULTI_CHAR('get_in_s')))->setFont(mDoExt_getMesgFont());
+    static_cast<J2DTextBox*>(mpGetInScreen->search(MULTI_CHAR('get_in')))->setFont(mDoExt_getMesgFont());
 
     for (int i = 0; i < 51; i++) {
         m_getin_info[i].bck_frame = 0.0f;
@@ -639,40 +640,40 @@ void dDlst_TimerScrnDraw_c::setScreenBase() {
 
     mpParent = NULL;
 
-    mpCowParent = new CPaneMgr(mpScreen, 'cow_n', 2, NULL);
+    mpCowParent = new CPaneMgr(mpScreen, MULTI_CHAR('cow_n'), 2, NULL);
     JUT_ASSERT(0, mpCowParent != NULL);
     mpCowParent->setAlphaRate(0.0f);
 
-    mpTimeParent = new CPaneMgr(mpScreen, 'time_n', 2, NULL);
+    mpTimeParent = new CPaneMgr(mpScreen, MULTI_CHAR('time_n'), 2, NULL);
     JUT_ASSERT(0, mpTimeParent != NULL);
     mpTimeParent->setAlphaRate(0.0f);
 
-    mpImageParent = new CPaneMgr(mpScreen, 'cow_i_n', 2, NULL);
+    mpImageParent = new CPaneMgr(mpScreen, MULTI_CHAR('cow_i_n'), 2, NULL);
     JUT_ASSERT(0, mpImageParent != NULL);
     mpImageParent->setAlphaRate(0.0f);
 
-    field_0x5c[0][0] = mpScreen->search('c_n_2');
-    field_0x5c[0][1] = mpScreen->search('c_n_2_s');
-    field_0x5c[1][0] = mpScreen->search('c_n_1');
-    field_0x5c[1][1] = mpScreen->search('c_n_1_s');
+    field_0x5c[0][0] = mpScreen->search(MULTI_CHAR('c_n_2'));
+    field_0x5c[0][1] = mpScreen->search(MULTI_CHAR('c_n_2_s'));
+    field_0x5c[1][0] = mpScreen->search(MULTI_CHAR('c_n_1'));
+    field_0x5c[1][1] = mpScreen->search(MULTI_CHAR('c_n_1_s'));
 
-    field_0x6c[0] = static_cast<J2DPicture*>(mpScreen->search('c_n_4'));
-    field_0x6c[1] = static_cast<J2DPicture*>(mpScreen->search('c_n_4_s'));
-    field_0x74[0] = static_cast<J2DPicture*>(mpScreen->search('c_n_3'));
-    field_0x74[1] = static_cast<J2DPicture*>(mpScreen->search('c_n_3_s'));
+    field_0x6c[0] = static_cast<J2DPicture*>(mpScreen->search(MULTI_CHAR('c_n_4')));
+    field_0x6c[1] = static_cast<J2DPicture*>(mpScreen->search(MULTI_CHAR('c_n_4_s')));
+    field_0x74[0] = static_cast<J2DPicture*>(mpScreen->search(MULTI_CHAR('c_n_3')));
+    field_0x74[1] = static_cast<J2DPicture*>(mpScreen->search(MULTI_CHAR('c_n_3_s')));
 
-    mTimerText[0][0] = mpScreen->search('t_n_6');
-    mTimerText[0][1] = mpScreen->search('t_n_6_s');
-    mTimerText[1][0] = mpScreen->search('t_n_5');
-    mTimerText[1][1] = mpScreen->search('t_n_5_s');
-    mTimerText[2][0] = mpScreen->search('t_n_4');
-    mTimerText[2][1] = mpScreen->search('t_n_4_s');
-    mTimerText[3][0] = mpScreen->search('t_n_3');
-    mTimerText[3][1] = mpScreen->search('t_n_3_s');
-    mTimerText[4][0] = mpScreen->search('t_n_2');
-    mTimerText[4][1] = mpScreen->search('t_n_2_s');
-    mTimerText[5][0] = mpScreen->search('t_n_1');
-    mTimerText[5][1] = mpScreen->search('t_n_1_s');
+    mTimerText[0][0] = mpScreen->search(MULTI_CHAR('t_n_6'));
+    mTimerText[0][1] = mpScreen->search(MULTI_CHAR('t_n_6_s'));
+    mTimerText[1][0] = mpScreen->search(MULTI_CHAR('t_n_5'));
+    mTimerText[1][1] = mpScreen->search(MULTI_CHAR('t_n_5_s'));
+    mTimerText[2][0] = mpScreen->search(MULTI_CHAR('t_n_4'));
+    mTimerText[2][1] = mpScreen->search(MULTI_CHAR('t_n_4_s'));
+    mTimerText[3][0] = mpScreen->search(MULTI_CHAR('t_n_3'));
+    mTimerText[3][1] = mpScreen->search(MULTI_CHAR('t_n_3_s'));
+    mTimerText[4][0] = mpScreen->search(MULTI_CHAR('t_n_2'));
+    mTimerText[4][1] = mpScreen->search(MULTI_CHAR('t_n_2_s'));
+    mTimerText[5][0] = mpScreen->search(MULTI_CHAR('t_n_1'));
+    mTimerText[5][1] = mpScreen->search(MULTI_CHAR('t_n_1_s'));
 }
 
 void dDlst_TimerScrnDraw_c::setScreenBoatRace() {
@@ -683,21 +684,21 @@ void dDlst_TimerScrnDraw_c::setScreenBoatRace() {
     JUT_ASSERT(0, fg != false);
     dPaneClass_showNullPane(mpScreen);
 
-    mpParent = new CPaneMgr(mpScreen, 'ta_co_n', 2, NULL);
+    mpParent = new CPaneMgr(mpScreen, MULTI_CHAR('ta_co_n'), 2, NULL);
     JUT_ASSERT(0, mpParent != NULL);
 
-    mpCowParent = new CPaneMgr(mpScreen, 'num_n', 2, NULL);
+    mpCowParent = new CPaneMgr(mpScreen, MULTI_CHAR('num_n'), 2, NULL);
     JUT_ASSERT(0, mpCowParent != NULL);
     mpCowParent->setAlphaRate(0.0f);
 
     mpTimeParent = NULL;
 
-    mpImageParent = new CPaneMgr(mpScreen, 'target_n', 2, NULL);
+    mpImageParent = new CPaneMgr(mpScreen, MULTI_CHAR('target_n'), 2, NULL);
     JUT_ASSERT(0, mpImageParent != NULL);
     mpImageParent->setAlphaRate(0.0f);
 
-    mpScreen->search('w_target')->hide();
-    mpScreen->search('target')->show();
+    mpScreen->search(MULTI_CHAR('w_target'))->hide();
+    mpScreen->search(MULTI_CHAR('target'))->show();
 
     for (int i = 0; i < 2; i++) {
         for (int j = 0; j < 2; j++) {
@@ -705,9 +706,9 @@ void dDlst_TimerScrnDraw_c::setScreenBoatRace() {
         }
     }
 
-    field_0x6c[0] = static_cast<J2DPicture*>(mpScreen->search('num_1'));
+    field_0x6c[0] = static_cast<J2DPicture*>(mpScreen->search(MULTI_CHAR('num_1')));
     field_0x6c[1] = NULL;
-    field_0x74[0] = static_cast<J2DPicture*>(mpScreen->search('num_0'));
+    field_0x74[0] = static_cast<J2DPicture*>(mpScreen->search(MULTI_CHAR('num_0')));
     field_0x74[1] = NULL;
 
     for (int i = 0; i < 6; i++) {
@@ -727,25 +728,25 @@ void dDlst_TimerScrnDraw_c::setScreenRider() {
 
     mpParent = NULL;
 
-    mpCowParent = new CPaneMgr(mpScreen, 'num_n', 2, NULL);
+    mpCowParent = new CPaneMgr(mpScreen, MULTI_CHAR('num_n'), 2, NULL);
     JUT_ASSERT(0, mpCowParent != NULL);
     mpCowParent->setAlphaRate(0.0f);
 
     mpTimeParent = NULL;
 
-    mpImageParent = new CPaneMgr(mpScreen, 'rid_i_n', 2, NULL);
+    mpImageParent = new CPaneMgr(mpScreen, MULTI_CHAR('rid_i_n'), 2, NULL);
     JUT_ASSERT(0, mpImageParent != NULL);
     mpImageParent->setAlphaRate(0.0f);
 
-    field_0x5c[0][0] = mpScreen->search('n_n_2');
-    field_0x5c[0][1] = mpScreen->search('n_n_2_s');
-    field_0x5c[1][0] = mpScreen->search('n_n_1');
-    field_0x5c[1][1] = mpScreen->search('n_n_1_s');
+    field_0x5c[0][0] = mpScreen->search(MULTI_CHAR('n_n_2'));
+    field_0x5c[0][1] = mpScreen->search(MULTI_CHAR('n_n_2_s'));
+    field_0x5c[1][0] = mpScreen->search(MULTI_CHAR('n_n_1'));
+    field_0x5c[1][1] = mpScreen->search(MULTI_CHAR('n_n_1_s'));
 
-    field_0x6c[0] = static_cast<J2DPicture*>(mpScreen->search('n_n_4'));
-    field_0x6c[1] = static_cast<J2DPicture*>(mpScreen->search('n_n_4_s'));
-    field_0x74[0] = static_cast<J2DPicture*>(mpScreen->search('n_n_3'));
-    field_0x74[1] = static_cast<J2DPicture*>(mpScreen->search('n_n_3_s'));
+    field_0x6c[0] = static_cast<J2DPicture*>(mpScreen->search(MULTI_CHAR('n_n_4')));
+    field_0x6c[1] = static_cast<J2DPicture*>(mpScreen->search(MULTI_CHAR('n_n_4_s')));
+    field_0x74[0] = static_cast<J2DPicture*>(mpScreen->search(MULTI_CHAR('n_n_3')));
+    field_0x74[1] = static_cast<J2DPicture*>(mpScreen->search(MULTI_CHAR('n_n_3_s')));
 
     for (int i = 0; i < 6; i++) {
         for (int j = 0; j < 2; j++) {
@@ -764,10 +765,10 @@ void dDlst_TimerScrnDraw_c::hideDenominator() {
     }
 
     if (field_0x3C8 == 8) {
-        mpScreen->search('n_sl_s')->hide();
+        mpScreen->search(MULTI_CHAR('n_sl_s'))->hide();
         mpScreen->search('n_sl')->hide();
     } else {
-        J2DPane* sl_s = mpScreen->search('c_sl_s');
+        J2DPane* sl_s = mpScreen->search(MULTI_CHAR('c_sl_s'));
         J2DPane* sl = mpScreen->search('c_sl');
 
         if (sl_s != NULL) {
@@ -1220,8 +1221,8 @@ BOOL dDlst_TimerScrnDraw_c::closeAnime() {
 int dDlst_TimerScrnDraw_c::createGetIn(cXyz i_pos) {
     char string[104];
     dMeter2Info_getString(0x3E4, string, NULL);  // "GOAT IN!"
-    strcpy(static_cast<J2DTextBox*>(mpGetInScreen->search('get_in_s'))->getStringPtr(), string);
-    strcpy(static_cast<J2DTextBox*>(mpGetInScreen->search('get_in'))->getStringPtr(), string);
+    strcpy(static_cast<J2DTextBox*>(mpGetInScreen->search(MULTI_CHAR('get_in_s')))->getStringPtr(), string);
+    strcpy(static_cast<J2DTextBox*>(mpGetInScreen->search(MULTI_CHAR('get_in')))->getStringPtr(), string);
 
     if (mCowID < 50) {
         m_getin_info[mCowID].bck_frame = 40.0f;
@@ -1309,8 +1310,8 @@ int dDlst_TimerScrnDraw_c::createGetIn(cXyz i_pos) {
 s32 dDlst_TimerScrnDraw_c::createStart(u16 i_messageID) {
     char string[112];
     dMeter2Info_getString(i_messageID, string, NULL);
-    strcpy(static_cast<J2DTextBox*>(mpGetInScreen->search('get_in_s'))->getStringPtr(), string);
-    strcpy(static_cast<J2DTextBox*>(mpGetInScreen->search('get_in'))->getStringPtr(), string);
+    strcpy(static_cast<J2DTextBox*>(mpGetInScreen->search(MULTI_CHAR('get_in_s')))->getStringPtr(), string);
+    strcpy(static_cast<J2DTextBox*>(mpGetInScreen->search(MULTI_CHAR('get_in')))->getStringPtr(), string);
 
     if (mCowID == 0) {
         m_getin_info[mCowID].bck_frame = 40.0f;
@@ -1538,7 +1539,7 @@ static int dTimer_Create(msg_class* i_this) {
 fpc_ProcID dTimer_createTimer(s32 i_mode, u32 i_limitMs, u8 i_type, u8 param_3, f32 param_4, f32 param_5,
                        f32 param_6, f32 param_7) {
     if (dComIfG_getTimerMode() == -1) {
-        return fopMsgM_Timer_create(PROC_TIMER, i_mode, i_limitMs, i_type, param_3, param_4,
+        return fopMsgM_Timer_create(fpcNm_TIMER_e, i_mode, i_limitMs, i_type, param_3, param_4,
                                     param_5, param_6, param_7, NULL);
     }
 
@@ -1554,7 +1555,7 @@ s32 dTimer_createStockTimer() {
             return -1;
         } else {
             u8 timer_type = dComIfG_getTimerType();
-            return fopMsgM_Timer_create(PROC_TIMER, 10, 0, timer_type, 0, 221.0f, 439.0f, 32.0f,
+            return fopMsgM_Timer_create(fpcNm_TIMER_e, 10, 0, timer_type, 0, 221.0f, 439.0f, 32.0f,
                                         419.0f, NULL);
         }
     } else {
@@ -1633,15 +1634,15 @@ static leafdraw_method_class l_dTimer_Method = {
 };
 
 msg_process_profile_definition g_profile_TIMER = {
-    fpcLy_CURRENT_e,
-    12,
-    fpcPi_CURRENT_e,
-    PROC_TIMER,
-    &g_fpcLf_Method.base,
-    sizeof(dTimer_c),
-    0,
-    0,
-    &g_fopMsg_Method,
-    768,
-    &l_dTimer_Method,
+    /* Layer ID    */ fpcLy_CURRENT_e,
+    /* List ID     */ 12,
+    /* List Prio   */ fpcPi_CURRENT_e,
+    /* Proc Name   */ fpcNm_TIMER_e,
+    /* Proc SubMtd */ &g_fpcLf_Method.base,
+    /* Size        */ sizeof(dTimer_c),
+    /* Size Other  */ 0,
+    /* Parameters  */ 0,
+    /* Leaf SubMtd */ &g_fopMsg_Method,
+    /* Draw Prio   */ fpcDwPi_TIMER_e,
+    /* Msg SubMtd  */ &l_dTimer_Method,
 };

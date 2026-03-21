@@ -11,6 +11,7 @@
 #include "d/d_com_inf_game.h"
 #include "d/d_camera.h"
 #include "d/d_s_play.h"
+#include <cstring>
 
 enum E_bm6_RES_File_ID {
     /* BCK */
@@ -399,7 +400,7 @@ void daObjLv6Bm_c::action() {
     if (field_0x87c.ChkTgHit()) {
         hitObj = field_0x87c.GetTgHitObj();
         if (hitObj != NULL && hitObj->ChkAtType(AT_TYPE_CSTATUE_SWING)) {
-            if (fopAcM_GetName(field_0x87c.GetTgHitAc()) == PROC_CSTATUE) {
+            if (fopAcM_GetName(field_0x87c.GetTgHitAc()) == fpcNm_CSTATUE_e) {
                 for (int i = 0; i < 3; i++) {
                     dComIfGp_particle_set(l_particle_id[i], &current.pos, NULL, &scale, 0xFF, NULL, -1, NULL, NULL, NULL);
                 }
@@ -493,7 +494,7 @@ void daObjLv6Bm_c::calcBeam() {
 
     if (field_0xa19 > 0) {
         cXyz sp84(field_0x9f8);
-        if (fopAcM_lc_c::lineCheck(&field_0x9e4, &field_0x9f8, this) != NULL && fopAcM_lc_c::checkGroundHit()) {
+        if (fopAcM_lc_c::lineCheck(&field_0x9e4, &field_0x9f8, this) != false && fopAcM_lc_c::checkGroundHit()) {
             sp84 = fopAcM_lc_c::getCross();
         }
 
@@ -1175,18 +1176,18 @@ static actor_method_class daObjLv6Bm_METHODS = {
 };
 
 actor_process_profile_definition g_profile_Obj_Lv6bemos2 = {
-  fpcLy_CURRENT_e,        // mLayerID
-  3,                      // mListID
-  fpcPi_CURRENT_e,        // mListPrio
-  PROC_Obj_Lv6bemos2,     // mProcName
-  &g_fpcLf_Method.base,  // sub_method
-  sizeof(daObjLv6Bm_c),   // mSize
-  0,                      // mSizeOther
-  0,                      // mParameters
-  &g_fopAc_Method.base,   // sub_method
-  631,                    // mPriority
-  &daObjLv6Bm_METHODS,    // sub_method
-  0x00040100,             // mStatus
-  fopAc_ACTOR_e,          // mActorType
-  fopAc_CULLBOX_CUSTOM_e, // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 3,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_Obj_Lv6bemos2_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daObjLv6Bm_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_Obj_Lv6bemos2_e,
+    /* Actor SubMtd */ &daObjLv6Bm_METHODS,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_CULL_e,
+    /* Group        */ fopAc_ACTOR_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

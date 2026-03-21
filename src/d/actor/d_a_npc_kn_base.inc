@@ -1,13 +1,14 @@
 #include "d/actor/d_a_npc_kn.h"
 #include "d/d_msg_object.h"
 #include "d/d_k_wmark.h"
+#include <cstring>
 
 void daNpc_Kn_c::tgHitCallBack(fopAc_ac_c* i_tgActor, dCcD_GObjInf* i_tgObjInf,
                                fopAc_ac_c* i_atActor, dCcD_GObjInf* i_atObjInf) {
     daNpc_Kn_c* kn_actor = (daNpc_Kn_c*)i_tgActor;
     u8 cut_type = 0;
     if (i_atActor != NULL) {
-        if (fopAcM_GetProfName(i_atActor) == PROC_ALINK) {
+        if (fopAcM_GetProfName(i_atActor) == fpcNm_ALINK_e) {
             cut_type = ((daPy_py_c*)i_atActor)->getCutType();
         } else {
             cut_type = 1;
@@ -1004,7 +1005,7 @@ BOOL daNpc_Kn_c::srchPlayerActor() {
 cXyz daNpc_Kn_c::getAttnPos(fopAc_ac_c* i_actor) {
     cXyz attn_pos(i_actor->attention_info.position);
 
-    if (fopAcM_GetName(i_actor) == PROC_ALINK) {
+    if (fopAcM_GetName(i_actor) == fpcNm_ALINK_e) {
         attn_pos.y -= static_cast<daPy_py_c*>(i_actor)->getAttentionOffsetY();
     }
 
@@ -1033,7 +1034,7 @@ BOOL daNpc_Kn_c::turn(s16 i_angle, int i_count, int i_direction) {
     }
 
     int offset = angle_diff * cM_ssin((s16)mTurnAmount);
-    mTurnAmount += (s16)(16384.0f / mTurnCount);
+    ANGLE_ADD(mTurnAmount, 16384.0f / mTurnCount);
 
     if ((u16)mTurnAmount < 0x4000) {
         mCurAngle.y = mStartAngle + offset;

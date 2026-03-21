@@ -23,6 +23,7 @@
 #include "SSystem/SComponent/c_counter.h"
 #include "Z2AudioLib/Z2Instances.h"
 #include <cmath>
+#include <cstring>
 
 class dmg_rod_HIO_c : public JORReflexible {
 public:
@@ -220,9 +221,9 @@ static int dmg_rod_Draw(dmg_rod_class* i_this) {
     } else {
         if (dComIfGp_checkPlayerStatus0(0, 0x2000)) {
             fopAc_ac_c* player = dComIfGp_getPlayer(0);
-            camera_class* camera = dComIfGp_getCamera(0);
-            f32 dx = player->current.pos.x - camera->lookat.eye.x;
-            f32 dz = player->current.pos.z - camera->lookat.eye.z;
+            camera_process_class* camera = dComIfGp_getCamera(0);
+            f32 dx = player->current.pos.x - camera->view.lookat.eye.x;
+            f32 dz = player->current.pos.z - camera->view.lookat.eye.z;
 
             if ((SQUARE(dx) + SQUARE(dz)) < 5000.0f) {
                 return 1;
@@ -290,9 +291,9 @@ static void rod_control(dmg_rod_class* i_this) {
     s16 segPitch, segYaw, rodPitchAdj, rodRollAdj;
 
     f32 var_f31;
-    f32 var_f29;
     f32 var_f26;
     f32 var_f30;
+    f32 var_f29;
     f32 var_f25;
 
     rodJointPos = i_this->mg_rod.field_0x0;
@@ -1035,7 +1036,7 @@ static void sibuki_set(dmg_rod_class* i_this, f32 i_size, cXyz* i_pos, BOOL para
 }
 
 static void* s_boat_sub(void* i_actor, void* i_data) {
-    if (fopAcM_IsActor(i_actor) && fopAcM_GetName(i_actor) == PROC_CANOE) {
+    if (fopAcM_IsActor(i_actor) && fopAcM_GetName(i_actor) == fpcNm_CANOE_e) {
         cXyz spC = ((fopAc_ac_c*)i_actor)->current.pos - ((fopAc_ac_c*)i_data)->current.pos;
         return i_actor;
     }
@@ -1084,9 +1085,9 @@ static void lure_onboat(dmg_rod_class* i_this) {
         i_this->timers[1] = 10;
         i_this->field_0x14f8 = 0;
 
-        camera_class* camera = dComIfGp_getCamera(0);
-        f32 x_delta = camera->lookat.center.x - camera->lookat.eye.x;
-        f32 z_delta = camera->lookat.center.z - camera->lookat.eye.z;
+        camera_process_class* camera = dComIfGp_getCamera(0);
+        f32 x_delta = camera->view.lookat.center.x - camera->view.lookat.eye.x;
+        f32 z_delta = camera->view.lookat.center.z - camera->view.lookat.eye.z;
         i_this->field_0x1418 = cM_atan2s(x_delta, z_delta);
 
         daAlink_getAlinkActorClass()->setCanoeFishingWaitAngle(i_this->field_0x1418);
@@ -1266,7 +1267,7 @@ static int lure_standby(dmg_rod_class* i_this) {
         i_this->action = ACTION_LURE_ONBOAT;
         i_this->play_cam_mode = 0;
 
-        camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+        camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
         camera->mCamera.Reset(i_this->play_cam_center, i_this->play_cam_eye, i_this->play_cam_fovy, 0);
         camera->mCamera.Start();
         camera->mCamera.SetTrimSize(0);
@@ -1300,7 +1301,7 @@ static void lure_cast(dmg_rod_class* i_this) {
         i_this->action = ACTION_LURE_ONBOAT;
         i_this->play_cam_mode = 0;
 
-        camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+        camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
         camera->mCamera.Reset(i_this->play_cam_center, i_this->play_cam_eye, i_this->play_cam_fovy, 0);
         camera->mCamera.Start();
         camera->mCamera.SetTrimSize(0);
@@ -1318,13 +1319,13 @@ static void lure_cast(dmg_rod_class* i_this) {
         actor->speedF *= 0.95f + VREG_F(11);
         sp40.x = 50.0f + VREG_F(12);
         sp40.y = (0.0105f + TREG_F(10)) * sp4C.abs();
-        i_this->field_0x75c += (s16)0x1100;
-        i_this->field_0x75e += (s16)0x880;
+        ANGLE_ADD(i_this->field_0x75c, 0x1100);
+        ANGLE_ADD(i_this->field_0x75e, 0x880);
     } else {
         sp40.x = 0.0f;
         sp40.y = (0.011f + TREG_F(11)) * sp4C.abs();
-        i_this->field_0x75c += (s16)0x2200;
-        i_this->field_0x75e += (s16)0x1100;
+        ANGLE_ADD(i_this->field_0x75c, 0x2200);
+        ANGLE_ADD(i_this->field_0x75e, 0x1100);
     }
 
     cLib_addCalc2(&i_this->field_0x6f8, sp40.x, 0.1f, 5.0f);
@@ -1490,7 +1491,7 @@ static int simple_bg_check(dmg_rod_class* i_this, f32 param_1) {
 
 static void* s_wd_sub(void* i_actor, void* i_data) {
     UNUSED(i_data);
-    if (fopAcM_IsActor(i_actor) && fopAcM_GetName(i_actor) == PROC_OBJ_LP) {
+    if (fopAcM_IsActor(i_actor) && fopAcM_GetName(i_actor) == fpcNm_OBJ_LP_e) {
         return i_actor;
     }
 
@@ -1677,7 +1678,7 @@ static void po_action(dmg_rod_class* i_this, f32 param_1) {
     }
 
     if (i_this->timers[0] == 1) {
-        i_this->lure_yaw_target += (s16)cM_rndFX(5000.0f);
+        ANGLE_ADD(i_this->lure_yaw_target, cM_rndFX(5000.0f));
     }
 
     cLib_addCalcAngleS2(&i_this->lure_yaw_offset, i_this->lure_yaw_target, 4, var_r26);
@@ -1891,8 +1892,8 @@ static void ground_action(dmg_rod_class* i_this) {
             }
         }
     } else if (i_this->field_0x10a8 == 1) {
-        i_this->lure_yaw_offset += (s16)3200;
-        i_this->lure_pitch_offset += (s16)4000;
+        ANGLE_ADD(i_this->lure_yaw_offset, 3200);
+        ANGLE_ADD(i_this->lure_pitch_offset, 4000);
     }
 
     cLib_addCalc2(&actor->speedF, reelSpeed, 1.0f, 5.0f + BREG_F(12));
@@ -1972,9 +1973,9 @@ static void wd_action(dmg_rod_class* i_this, f32 param_1, wd_ss* i_wd_s) {
             sp8 -= actor->shape_angle.y;
 
             if (sp8 < 0) {
-                i_wd_s->field_0x38 += (s16)200;
+                ANGLE_ADD(i_wd_s->field_0x38, 200);
             } else {
-                i_wd_s->field_0x38 -= (s16)200;
+                ANGLE_SUB(i_wd_s->field_0x38, 200);
             }
         }
     }
@@ -2300,7 +2301,7 @@ static void lure_action(dmg_rod_class* i_this) {
             i_this->play_cam_mode = 20;
             i_this->play_cam_timer = 0;
 
-            camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+            camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
             camera->mCamera.SetTrimSize(1);
 
             i_this->action = ACTION_LURE_BARE;
@@ -2525,7 +2526,7 @@ static void lure_catch(dmg_rod_class* i_this) {
     if (mgfish->mActionPhase < 2 && i_this->play_cam_timer > 25) {
         s16 target = DREG_S(6) + 2000;
         if (mgfish->mJointScale > 0.5f) {
-            target += (s16)((mgfish->mJointScale - 0.5f) * (20000.0f + DREG_F(19)));
+            ANGLE_ADD(target, (mgfish->mJointScale - 0.5f) * (20000.0f + DREG_F(19)));
         }
 
         if (target > 6000) {
@@ -2689,7 +2690,7 @@ static void lure_catch(dmg_rod_class* i_this) {
                     i_this->field_0x1418 = daAlink_getAlinkActorClass()->shape_angle.y;
                     i_this->camera_morf_rate = 0.0f;
 
-                    camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+                    camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
                     camera->mCamera.SetTrimSize(1);
                     daAlink_getAlinkActorClass()->onFishingKeep();
                     data_80450C9B = 2;
@@ -2777,7 +2778,7 @@ static void lure_bare(dmg_rod_class* i_this) {
             i_this->play_cam_mode = 5;
             i_this->camera_morf_rate = 1.0f;
             i_this->field_0x1407 = 110;
-            camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+            camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
             camera->mCamera.SetTrimSize(1);
             i_this->action = ACTION_LURE_ACTION;
             i_this->field_0x1006 = 0;
@@ -2832,7 +2833,7 @@ static void lure_heart(dmg_rod_class* i_this) {
     sp8.y = 0;
     sp8.z = i_this->field_0x10b0;
 
-    fopAc_ac_c* obj_life = (fopAc_ac_c*)fopAcM_SearchByName(PROC_Obj_LifeContainer);
+    fopAc_ac_c* obj_life = (fopAc_ac_c*)fopAcM_SearchByName(fpcNm_Obj_LifeContainer_e);
     if (obj_life != NULL) {
         fopAc_ac_c* player = (fopAc_ac_c*)dComIfGp_getPlayer(0);
         cXyz sp10;
@@ -2883,7 +2884,7 @@ static void lure_heart(dmg_rod_class* i_this) {
             i_this->field_0x1418 = daAlink_getAlinkActorClass()->shape_angle.y;
             i_this->camera_morf_rate = 0.0f;
 
-            camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+            camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
             camera->mCamera.SetTrimSize(1);
             daAlink_getAlinkActorClass()->onFishingKeep();
 
@@ -2899,7 +2900,7 @@ static void lure_heart(dmg_rod_class* i_this) {
             if (obj_life != NULL) {
                 fopAcM_delete(obj_life);
                 fopAcM_onItem(obj_life, 0x80);
-                execItemGet(fpcNm_ITEM_KAKERA_HEART);
+                execItemGet(dItemNo_KAKERA_HEART_e);
                 u8 eventReg = dComIfGs_getEventReg(0xECFF);
                 eventReg |= (u8)0x40;
                 dComIfGs_setEventReg(0xECFF, eventReg);
@@ -2976,8 +2977,8 @@ static void hook_set(dmg_rod_class* i_this, cXyz* param_1, int param_2) {
         mDoMtx_stack_c::XrotM(-0x4000);
 
         if (param_2 == 1 && (i_this->action <= ACTION_LURE_STANDBY || (i_this->lure_type != MG_LURE_SP && i_this->action == ACTION_LURE_CATCH))) {
-            sp38.x = fabsf(hook->field_0x18.y);
-            sp38.z = fabsf(hook->field_0x18.x - 0x4000);
+            sp38.x = fabsf((f32)hook->field_0x18.y);
+            sp38.z = fabsf((f32)(hook->field_0x18.x - 0x4000));
 
             f32 var_f31 = JMAFastSqrt(SQUARE(sp38.x) + SQUARE(sp38.z));
             if (var_f31 > 7000.0f) {
@@ -3634,15 +3635,15 @@ static void uki_pl_arm_calc(dmg_rod_class* i_this) {
     sp10.y = WREG_S(4) - 5000;
     sp10.z = WREG_S(5) + 2000;
 
-    sp8.y += (s16)(-15000.0f * i_this->field_0x1508);
-    sp8.z += (s16)(3500.0f * i_this->field_0x1508);
+    ANGLE_ADD(sp8.y, -15000.0f * i_this->field_0x1508);
+    ANGLE_ADD(sp8.z,   3500.0f * i_this->field_0x1508);
 
-    sp10.y += (s16)(-4000.0f * i_this->field_0x1508);
-    sp10.z += (s16)((3500.0f * i_this->field_0x1508) + ((-11000.0f + WREG_F(8)) * (i_this->field_0x150c * i_this->field_0x1508)));
+    ANGLE_ADD(sp10.y, -4000.0f * i_this->field_0x1508);
+    ANGLE_ADD(sp10.z, (3500.0f * i_this->field_0x1508) + ((-11000.0f + WREG_F(8)) * (i_this->field_0x150c * i_this->field_0x1508)));
 
     if (i_this->action == ACTION_UKI_HIT && i_this->field_0xf60 > 140.0f + JREG_F(14)) {
-        sp8.y += (s16)((50.0f + nREG_F(0)) * cM_ssin(i_this->counter * 0x6200));
-        sp8.z += (s16)((50.0f + nREG_F(0)) * cM_ssin(i_this->counter * 0x6500));
+        ANGLE_ADD(sp8.y, (50.0f + nREG_F(0)) * cM_ssin(i_this->counter * 0x6200));
+        ANGLE_ADD(sp8.z, (50.0f + nREG_F(0)) * cM_ssin(i_this->counter * 0x6500));
         daAlink_getAlinkActorClass()->seStartOnlyReverbLevel(Z2SE_AL_ROD_BEND);
     }
 
@@ -3668,7 +3669,7 @@ static void uki_standby(dmg_rod_class* i_this) {
     cLib_addCalc2(&i_this->field_0x150c, substickX, 0.5f, 0.2f);
 
     if (i_this->field_0x1508 > 0.3f && i_this->play_cam_mode < 5) {
-        i_this->field_0x1418 += (s16)((-500.0f + VREG_F(3)) * mDoCPd_c::getStickX3D(PAD_1));
+        ANGLE_ADD(i_this->field_0x1418, (-500.0f + VREG_F(3)) * mDoCPd_c::getStickX3D(PAD_1));
     }
 
     cMtx_YrotS(*calc_mtx, i_this->field_0x1418);
@@ -3911,11 +3912,11 @@ static int bb_get(dmg_rod_class* i_this) {
     fopAc_ac_c* actor = (fopAc_ac_c*)i_this;
     for (int i = 0; i < 3; i++) {
         u8 itemno =  dComIfGs_getItem(i + 15, false);
-        if (itemno != fpcNm_ITEM_NONE) {
-            if (itemno == fpcNm_ITEM_BOMB_BAG_LV1) {
-                dComIfGs_setEmptyBombBagItemIn(fpcNm_ITEM_WATER_BOMB, 1, true);
+        if (itemno != dItemNo_NONE_e) {
+            if (itemno == dItemNo_BOMB_BAG_LV1_e) {
+                dComIfGs_setEmptyBombBagItemIn(dItemNo_WATER_BOMB_e, 1, true);
                 return 1;
-            } else if (itemno == fpcNm_ITEM_WATER_BOMB) {
+            } else if (itemno == dItemNo_WATER_BOMB_e) {
                 if (dComIfGs_getBombNum(i) < dComIfGs_getBombMax(itemno)) {
                     dComIfGp_setItemBombNumCount(i, 1);
                     return 1;
@@ -4123,7 +4124,7 @@ static void uki_catch(dmg_rod_class* i_this) {
 
 static void* s_sg_sub(void* i_actor, void* i_data) {
     UNUSED(i_data);
-    if (fopAcM_IsActor(i_actor) && fopAcM_GetName(i_actor) == PROC_E_SG && ((fopAc_ac_c*)i_actor)->current.pos.y < ((dmg_rod_class*)i_data)->water_surface_y - 50.0f) {
+    if (fopAcM_IsActor(i_actor) && fopAcM_GetName(i_actor) == fpcNm_E_SG_e && ((fopAc_ac_c*)i_actor)->current.pos.y < ((dmg_rod_class*)i_data)->water_surface_y - 50.0f) {
         return i_actor;
     }
 
@@ -4131,7 +4132,7 @@ static void* s_sg_sub(void* i_actor, void* i_data) {
 }
 
 static void* s_bb_sub(void* i_actor, void* i_data) {
-    if (fopAcM_IsActor(i_actor) && fopAcM_GetName(i_actor) == PROC_E_BG && ((fopAc_ac_c*)i_actor)->current.pos.y < ((dmg_rod_class*)i_data)->water_surface_y - 50.0f) {
+    if (fopAcM_IsActor(i_actor) && fopAcM_GetName(i_actor) == fpcNm_E_BG_e && ((fopAc_ac_c*)i_actor)->current.pos.y < ((dmg_rod_class*)i_data)->water_surface_y - 50.0f) {
         return i_actor;
     }
 
@@ -4140,7 +4141,7 @@ static void* s_bb_sub(void* i_actor, void* i_data) {
 
 static void* s_lh_sub(void* i_actor, void* i_data) {
     UNUSED(i_data);
-    if (fopAcM_IsActor(i_actor) && fopAcM_GetName(i_actor) == PROC_MG_FISH) {
+    if (fopAcM_IsActor(i_actor) && fopAcM_GetName(i_actor) == fpcNm_MG_FISH_e) {
         mg_fish_class* fish = (mg_fish_class*)i_actor;
         if (fish->mGedouKind == 21) {
             if ((fish->actor.current.pos - ((fopAc_ac_c*)i_data)->current.pos).abs() < fish->mJointScale) {
@@ -4154,7 +4155,7 @@ static void* s_lh_sub(void* i_actor, void* i_data) {
 
 static void* s_bt_sub(void* i_actor, void* i_data) {
     UNUSED(i_data);
-    if (fopAcM_IsActor(i_actor) && fopAcM_GetName(i_actor) == PROC_MG_FISH) {
+    if (fopAcM_IsActor(i_actor) && fopAcM_GetName(i_actor) == fpcNm_MG_FISH_e) {
         mg_fish_class* fish = (mg_fish_class*)i_actor;
         if (fish->mGedouKind == 20) {
             if ((fish->actor.current.pos - ((fopAc_ac_c*)i_data)->current.pos).abs() < fish->mJointScale) {
@@ -4227,7 +4228,9 @@ static void uki_main(dmg_rod_class* i_this) {
         break;
     }
 
-    if (i_this->rod_substick_y <= -0.5f && (i_this->rod_substick_y - i_this->prev_rod_substick_y) <= -0.5f && i_this->action == ACTION_UKI_STANDBY) {
+    if (i_this->rod_substick_y <= -0.5f &&
+        i_this->rod_substick_y - i_this->prev_rod_substick_y <= -0.5f &&
+        i_this->action == ACTION_UKI_STANDBY) {
         if (i_this->is_hook_in_water != 0) {
             daAlink_getAlinkActorClass()->seStartOnlyReverb(Z2SE_AL_ROD_SWING_LURE);
         }
@@ -4375,7 +4378,7 @@ static void uki_main(dmg_rod_class* i_this) {
     mDoMtx_stack_c::XrotM(spC);
     mDoMtx_stack_c::scaleM(l_HIO.field_0xc, l_HIO.field_0xc, l_HIO.field_0xc);
     mDoMtx_stack_c::transM(0.0f, 0.0f, l_HIO.field_0x10);
-    mDoMtx_stack_c::XrotM(XREG_S(8));
+    mDoMtx_stack_c::XrotM((s16)XREG_S(8));
     i_this->uki_model->setBaseTRMtx(mDoMtx_stack_c::get());
 
     mDoMtx_stack_c::transM(0.0f, 0.0f, l_HIO.field_0x14);
@@ -4469,8 +4472,8 @@ static void play_camera(dmg_rod_class* i_this) {
     daPy_py_c* player = (daPy_py_c*)dComIfGp_getPlayer(0);
     fopAc_ac_c* mgfish_a = fopAcM_SearchByID(i_this->mg_fish_id);
     mg_fish_class* mgfish = (mg_fish_class*)mgfish_a;
-    camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
-    camera_class* camera0 = dComIfGp_getCamera(0);
+    camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+    camera_process_class* camera0 = dComIfGp_getCamera(0);
 
     dBgS_GndChk gndChk;
     dBgS_ObjGndChk_Spl sp1F0;
@@ -4490,6 +4493,8 @@ static void play_camera(dmg_rod_class* i_this) {
     f32 sp60;
     f32 sp5C;
     camera_class* sp58;
+    // debug indicates these case bodies are likely unscoped despite containing declarations
+    // (due to extra an b instruction at the end)
     switch (i_this->play_cam_mode) {
     case 0:
         if (dComIfGp_checkPlayerStatus0(0, 0x2000) || dComIfGp_event_runCheck()) {
@@ -4521,7 +4526,7 @@ static void play_camera(dmg_rod_class* i_this) {
             }
         }
         break;
-    case 1: {
+    case 1:
         i_this->play_cam_mode = 2;
         camera->mCamera.Stop();
         i_this->play_cam_timer = 0;
@@ -4530,8 +4535,8 @@ static void play_camera(dmg_rod_class* i_this) {
         i_this->field_0x1428 = 100.0f + WREG_F(1);
 
         sp58 = (camera_class*)dComIfGp_getCamera(0);
-        i_this->field_0x144c = sp58->lookat.eye;
-        i_this->field_0x1458 = sp58->lookat.center;
+        i_this->field_0x144c = sp58->view.lookat.eye;
+        i_this->field_0x1458 = sp58->view.lookat.center;
         i_this->play_cam_eye = i_this->field_0x144c;
         i_this->play_cam_center = i_this->field_0x1458;
 
@@ -4539,8 +4544,7 @@ static void play_camera(dmg_rod_class* i_this) {
         camera->mCamera.SetTrimSize(1);
         i_this->play_cam_fovy = 55.0f;
         /* fallthrough */
-    }
-    case 2: {
+    case 2:
         sp70 = 1;
         sp6C = 0.3f + NREG_F(3);
         sp68 = i_this->field_0x1420;
@@ -4604,8 +4608,7 @@ static void play_camera(dmg_rod_class* i_this) {
         i_this->field_0x141a = i_this->field_0x1418 - daAlink_getAlinkActorClass()->getFishingRodAngleY();
         i_this->field_0x140c = i_this->play_cam_fovy;
         break;
-    }
-    case 5: {
+    case 5:
         sp70 = 1;
         cLib_addCalc2(&i_this->field_0x141c, 400.0f + BREG_F(7), 0.1f, (20.0f + YREG_F(8)) * i_this->camera_morf_rate);
 
@@ -4638,7 +4641,7 @@ static void play_camera(dmg_rod_class* i_this) {
         f32 sp40 = i_this->field_0x13ac;
         sp40 *= 1000.0f + BREG_F(3);
 
-        i_this->field_0x141a += (s16)sp40;
+        ANGLE_ADD(i_this->field_0x141a, sp40);
         if (i_this->field_0x141a > 0x1000) {
             i_this->field_0x141a = 0x1000;
         } else if (i_this->field_0x141a < -0x1000) {
@@ -4734,8 +4737,7 @@ static void play_camera(dmg_rod_class* i_this) {
             }
         }
         break;
-    }
-    case 10: {
+    case 10:
         cMtx_YrotS(*calc_mtx, player->shape_angle.y);
         sp174.x = (25.0f + (100.0f + DREG_F(0))) - 50.0f;
         sp174.y = (10.0f + DREG_F(1)) - 10.0f;
@@ -4777,12 +4779,11 @@ static void play_camera(dmg_rod_class* i_this) {
         f32 sp2C = -20.0f + (20.0f * cM_ssin(i_this->counter * 700));
         actor->eyePos.y = actor->current.pos.y + sp2C;
         if (TREG_S(7) != 0) {
-            camera_class* sp28 = dComIfGp_getCamera(0);
-            actor->eyePos = sp28->lookat.eye;
+            camera_process_class* sp28 = dComIfGp_getCamera(0);
+            actor->eyePos = sp28->view.lookat.eye;
         }
         i_this->field_0xf78 = 0.05f;
         break;
-    }
     case 11:
         cLib_addCalc2(&i_this->play_cam_fovy, 55.0f + DREG_F(6), 0.05f, 1.0f);
 
@@ -4908,9 +4909,9 @@ static void play_camera(dmg_rod_class* i_this) {
         player->changeOriginalDemo();
         player->changeDemoMode(1, 1, 0, 0);
 
-        sp174.x = camera0->lookat.eye.x - camera0->lookat.center.x;
-        sp174.y = camera0->lookat.eye.y - camera0->lookat.center.y;
-        sp174.z = camera0->lookat.eye.z - camera0->lookat.center.z;
+        sp174.x = camera0->view.lookat.eye.x - camera0->view.lookat.center.x;
+        sp174.y = camera0->view.lookat.eye.y - camera0->view.lookat.center.y;
+        sp174.z = camera0->view.lookat.eye.z - camera0->view.lookat.center.z;
 
         i_this->field_0x1400 = cM_atan2s(sp174.x, sp174.z) - player->shape_angle.y;
         if (i_this->field_0x1400 >= 0) {
@@ -4921,7 +4922,7 @@ static void play_camera(dmg_rod_class* i_this) {
 
         i_this->field_0x1404 = -cM_atan2s(sp174.y, JMAFastSqrt(SQUARE(sp174.x) + SQUARE(sp174.z)));
         i_this->field_0x1464 = sp174.abs();
-        i_this->play_cam_center_target = camera0->lookat.center;
+        i_this->play_cam_center_target = camera0->view.lookat.center;
     case 901:
         if (daAlink_getAlinkActorClass()->checkCanoeRide()) {
             fopAc_ac_c* sp24 = fopAcM_SearchByID(i_this->boat_actor_id);
@@ -5299,7 +5300,7 @@ static void play_camera_u(dmg_rod_class* i_this) {
     fopAc_ac_c* actor = (fopAc_ac_c*)&i_this->actor;
     fopAc_ac_c* player = (fopAc_ac_c*)dComIfGp_getPlayer(0);
     fopAc_ac_c* mgfish_a = fopAcM_SearchByID(i_this->mg_fish_id);
-    camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+    camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
 
     i_this->field_0x13b0 = i_this->rod_substick_y;
     i_this->field_0x13ac = i_this->rod_substick_x;
@@ -5313,10 +5314,12 @@ static void play_camera_u(dmg_rod_class* i_this) {
     int sp14 = 0;
 
     f32 var_f31;
+    // debug indicates these case bodies are likely unscoped despite containing declarations
+    // (due to extra an b instruction at the end)
     switch (i_this->play_cam_mode) {
     case 0:
         break;
-    case 1: {
+    case 1:
         i_this->play_cam_mode = 2;
         camera->mCamera.Stop();
         i_this->play_cam_timer = 0;
@@ -5326,10 +5329,9 @@ static void play_camera_u(dmg_rod_class* i_this) {
         camera_class* sp10 = (camera_class*)dComIfGp_getCamera(0);
         camera->mCamera.SetTrimSize(1);
 
-        i_this->play_cam_eye = sp10->lookat.eye;
-        i_this->play_cam_center = sp10->lookat.center;
+        i_this->play_cam_eye = sp10->view.lookat.eye;
+        i_this->play_cam_center = sp10->view.lookat.center;
         i_this->camera_morf_rate = 1000.0f;
-    }
         /* fallthrough */
     case 2:
         sp14 = 1;
@@ -5492,8 +5494,9 @@ static void play_camera_u(dmg_rod_class* i_this) {
         cLib_addCalc2(&i_this->play_cam_fovy, 55.0f, 0.1f, 10.0f);
         break;
     }
+    // debug indicates this case body is unscoped despite containing declarations
     case 20:
-    case 21: {
+    case 21:
         if (!actor->eventInfo.checkCommandDemoAccrpt()) {
             fopAcM_orderPotentialEvent(actor, 2, 0xFFFF, 0);
             actor->eventInfo.onCondition(dEvtCnd_CANDEMO_e);
@@ -5646,8 +5649,8 @@ static void play_camera_u(dmg_rod_class* i_this) {
             i_this->field_0xf64 = -30.0f;
             daAlink_getAlinkActorClass()->changeFishGetFace(0);
         }
+        (void)0;
         break;
-    }
     case 90:
         sp18 = 1;
         break;
@@ -5758,7 +5761,7 @@ static int dmg_rod_Execute(dmg_rod_class* i_this) {
     if (strcmp(dComIfGp_getStartStageName(), "F_SP127") == 0 && i_this->kind == 0) {
     }
 
-    henna = (npc_henna_class*)fopAcM_SearchByName(PROC_NPC_HENNA);
+    henna = (npc_henna_class*)fopAcM_SearchByName(fpcNm_NPC_HENNA_e);
     if (henna != NULL && henna->field_0x734 != 0) {
         henna = NULL;
     }
@@ -5985,7 +5988,7 @@ static int dmg_rod_Execute(dmg_rod_class* i_this) {
     i_this->field_0x1406 = i_this->play_cam_fovy;
 
     if (i_this->kind == MG_ROD_KIND_LURE) {
-        daObjLife_c* obj_life = (daObjLife_c*)fopAcM_SearchByName(PROC_Obj_LifeContainer);
+        daObjLife_c* obj_life = (daObjLife_c*)fopAcM_SearchByName(fpcNm_Obj_LifeContainer_e);
         if (obj_life != NULL) {
             if (i_this->field_0x10a9 != 0) {
                 if (i_this->field_0x10a9 == 2) {
@@ -6012,7 +6015,7 @@ static int dmg_rod_Execute(dmg_rod_class* i_this) {
 
                     s16 sp8 = 500.0f * cM_ssin(i_this->counter * 1100);
                     if (i_this->reel_btn_flags != 0) {
-                        sp8 += (s16)0x2000;
+                        ANGLE_ADD(sp8, 0x2000);
                     }
 
                     cLib_addCalcAngleS2(&obj_life->shape_angle.x, sp8, 15, 0x200);
@@ -6047,7 +6050,7 @@ static int dmg_rod_Execute(dmg_rod_class* i_this) {
 
 static int dmg_rod_IsDelete(dmg_rod_class* i_this) {
     if (i_this->play_cam_mode != 0) {
-        camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+        camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
         camera->mCamera.Reset(i_this->play_cam_center, i_this->play_cam_eye, i_this->play_cam_fovy, 0);
         camera->mCamera.Start();
         camera->mCamera.SetTrimSize(0);
@@ -6411,20 +6414,20 @@ static actor_method_class l_dmg_rod_Method = {
 };
 
 actor_process_profile_definition g_profile_MG_ROD = {
-  fpcLy_CURRENT_e,            // mLayerID
-  8,                          // mListID
-  fpcPi_CURRENT_e,            // mListPrio
-  PROC_MG_ROD,                // mProcName
-  &g_fpcLf_Method.base,      // sub_method
-  sizeof(dmg_rod_class),      // mSize
-  0,                          // mSizeOther
-  0,                          // mParameters
-  &g_fopAc_Method.base,       // sub_method
-  438,                        // mPriority
-  &l_dmg_rod_Method,          // sub_method
-  0x00060000,                 // mStatus
-  fopAc_ACTOR_e,              // mActorType
-  fopAc_CULLBOX_0_e,          // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 8,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_MG_ROD_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(dmg_rod_class),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_MG_ROD_e,
+    /* Actor SubMtd */ &l_dmg_rod_Method,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_NOPAUSE_e,
+    /* Group        */ fopAc_ACTOR_e,
+    /* Cull Type    */ fopAc_CULLBOX_0_e,
 };
 
 AUDIO_INSTANCES

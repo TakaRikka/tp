@@ -24,7 +24,7 @@ void daHoZelda_hio_c::genMessage(JORMContext* context) {
 
 static void* daHoZelda_searchGanon(fopAc_ac_c* i_actor, void* i_data) {
     UNUSED(i_data);
-    if (fopAcM_GetName(i_actor) == PROC_B_GND) {
+    if (fopAcM_GetName(i_actor) == fpcNm_B_GND_e) {
         return i_actor;
     }
 
@@ -825,8 +825,8 @@ void daHoZelda_c::setNeckAngle() {
         angle_x_target = var_r27;
         angle_y_target = var_r26;
 
-        var_r27 += (s16)(spA - spE);
-        var_r26 += (s16)(sp8 - spC);
+        ANGLE_ADD(var_r27, spA - spE);
+        ANGLE_ADD(var_r26, sp8 - spC);
     }
 
     daPy_addCalcShort(&mNeckAngle.x, angle_x_target, 3, 0x1000, 0x100);
@@ -939,18 +939,18 @@ static actor_method_class l_daHoZelda_Method = {
 };
 
 actor_process_profile_definition g_profile_HOZELDA = {
-    fpcLy_CURRENT_e,        // mLayerID
-    7,                      // mListID
-    fpcPi_CURRENT_e,        // mListPrio
-    PROC_HOZELDA,             // mProcName
-    &g_fpcLf_Method.base,  // sub_method
-    sizeof(daHoZelda_c),      // mSize
-    0,                      // mSizeOther
-    0,                      // mParameters
-    &g_fopAc_Method.base,   // sub_method
-    275,                     // mPriority
-    &l_daHoZelda_Method,      // sub_method
-    0x00060000,             // mStatus
-    fopAc_NPC_e,    // mActorType
-    fopAc_CULLBOX_0_e, // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_HOZELDA_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daHoZelda_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_HOZELDA_e,
+    /* Actor SubMtd */ &l_daHoZelda_Method,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_NOPAUSE_e,
+    /* Group        */ fopAc_NPC_e,
+    /* Cull Type    */ fopAc_CULLBOX_0_e,
 };

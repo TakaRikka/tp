@@ -14,6 +14,7 @@
 #if DEBUG
 #include "SSystem/SComponent/c_counter.h"
 #include "JSystem/JHostIO/JORFile.h"
+#include <cstring>
 #endif
 
 const daObj_Pumpkin_HIOParam daObj_Pumpkin_Param_c::m = {
@@ -287,8 +288,9 @@ int daObj_Pumpkin_c::Execute() {
     if (field_0xBAE) {
         int item_table_no = getItemTableNo();
         if (item_table_no >= 0 && mItemProcId == fpcM_ERROR_PROCESS_ID_e) {
-            mItemProcId = fopAcM_createItemFromTable(&current.pos, item_table_no, -1, fopAcM_GetRoomNo(this),
-                                                     NULL, 0, NULL, NULL, NULL, NULL);
+            mItemProcId = fopAcM_createItemFromTable(&current.pos, item_table_no, -1,
+                                                     fopAcM_GetRoomNo(this), NULL, 0, NULL, NULL,
+                                                     NULL, false);
         }
 
         if (mItemProcId == fpcM_ERROR_PROCESS_ID_e || fopAcM_IsExecuting(mItemProcId)) {
@@ -346,7 +348,7 @@ int daObj_Pumpkin_c::Execute() {
             }
         } else if (field_0xBAD && cM3d_IsZero(speedF) == 0 && mCyl0.ChkCoHit()) {
             fopAc_ac_c* actor_p = dCc_GetAc(mCyl0.GetCoHitObj()->GetAc());
-            if (fopAcM_GetName(actor_p) != PROC_ALINK) {
+            if (fopAcM_GetName(actor_p) != fpcNm_ALINK_e) {
                 sp_0x28 = 1;
             }
         }
@@ -450,7 +452,7 @@ int daObj_Pumpkin_c::Execute() {
                                     current.angle.y = cM_atan2s(sp_0x4C.x, sp_0x4C.z);
                                 }
 
-                                MULT_ANGLE_2(sp_0x10, streamPower);
+                                ANGLE_MULT_2(sp_0x10, streamPower);
                                 cLib_chaseAngleS(&field_0xB38.y, (field_0xB38.y < 0) ? sp_0x10*-1 : sp_0x10, 0x10);
                                 if (field_0xBAB) {
                                     cLib_addCalc2(&speedF, streamPower * 1.55f, 0.15f, 1.0f);
@@ -840,7 +842,7 @@ void daObj_Pumpkin_c::setHamonPrtcl() {
 void daObj_Pumpkin_c::crash() {
     fopAc_ac_c* actor_p = NULL;
     s32 reg_r30 = 0;
-    reg_r30 = fopAcM_SearchByName(PROC_NPC_JAGAR, &actor_p);
+    reg_r30 = fopAcM_SearchByName(fpcNm_NPC_JAGAR_e, &actor_p);
     if (reg_r30 && actor_p != NULL) {
         ((daNpc_Jagar_c*)actor_p)->crashPumpkin(this);
     }
@@ -890,18 +892,18 @@ static actor_method_class daObj_Pumpkin_MethodTable = {
 };
 
 actor_process_profile_definition g_profile_OBJ_PUMPKIN = {
-  fpcLy_CURRENT_e,            // mLayerID
-  8,                          // mListID
-  fpcPi_CURRENT_e,            // mListPrio
-  PROC_OBJ_PUMPKIN,           // mProcName
-  &g_fpcLf_Method.base,      // sub_method
-  sizeof(daObj_Pumpkin_c),    // mSize
-  0,                          // mSizeOther
-  0,                          // mParameters
-  &g_fopAc_Method.base,       // sub_method
-  716,                        // mPriority
-  &daObj_Pumpkin_MethodTable, // sub_method
-  0x00044100,                 // mStatus
-  fopAc_ACTOR_e,              // mActorType
-  fopAc_CULLBOX_CUSTOM_e,     // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 8,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_OBJ_PUMPKIN_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daObj_Pumpkin_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_OBJ_PUMPKIN_e,
+    /* Actor SubMtd */ &daObj_Pumpkin_MethodTable,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_UNK_0x4000_e | fopAcStts_CULL_e,
+    /* Group        */ fopAc_ACTOR_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

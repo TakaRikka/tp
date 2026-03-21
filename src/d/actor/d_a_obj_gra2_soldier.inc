@@ -2,6 +2,7 @@
 #include "d/d_camera.h"
 #include "d/actor/d_a_tag_gra.h"
 #include <cmath>
+#include <cstring>
 
 f32 daObj_GrA_c::getSrchCircleR() {
     f32 srchCircleR;
@@ -318,7 +319,7 @@ int daObj_GrA_c::toStone(void* param_1) {
     }
 
     field_0x10c4 = 0;
-    
+
     return 1;
 }
 
@@ -767,7 +768,7 @@ int daObj_GrA_c::rollDemo(void* param_1) {
                         field_0x91a.y = current.angle.y;
 
                         if (mDemoCamMode >= 5) {
-                            field_0x848 = 4;
+                            mFlowID = 4;
                             evtcutTalk(-1, 1);
                             field_0x2000 = 0;
                         }
@@ -953,7 +954,7 @@ int daObj_GrA_c::rollAttack(void* param_1) {
                     cLib_chaseF(&speedF, getSpeed(), mpHIO->m.field_0xa8);
 
                     if (field_0x201c < 10) {
-                        cLib_addCalcAngleS2(&current.angle.y, cLib_targetAngleY(&current.pos, &sp6c), 
+                        cLib_addCalcAngleS2(&current.angle.y, cLib_targetAngleY(&current.pos, &sp6c),
                                             1, mpHIO->m.field_0x88);
                         shape_angle.y = current.angle.y;
                         field_0x91a.y = current.angle.y;
@@ -1052,7 +1053,7 @@ int daObj_GrA_c::rollAttack(void* param_1) {
 
             if (field_0x1fe9 == 0 && field_0xf50.ChkCoHit() != 0) {
                 fopAc_ac_c* hitobj_p = dCc_GetAc(field_0xf50.GetCoHitObj()->GetAc());
-                if (fopAcM_GetName(hitobj_p) == PROC_ALINK) {
+                if (fopAcM_GetName(hitobj_p) == fpcNm_ALINK_e) {
                     field_0x1fe9 = 1;
                     player->offGoronSideMove();
                     player->offGoronUpStopCancel();
@@ -1168,7 +1169,7 @@ int daObj_GrA_c::rollAttacked(void* param_1) {
 
                 case 2:
                     if (mDemoCamMode >= 5) {
-                        field_0x848 = 5;
+                        mFlowID = 5;
                         evtcutTalk(-1, 1);
                         field_0x2018 = 3;
                     }
@@ -1229,7 +1230,7 @@ int daObj_GrA_c::rollAttacked(void* param_1) {
                         cXyz sp3c = field_0x1528.getPntPos(field_0x1528.getIdx() & 0xFFFF);
                         sVar1 = current.angle.y;
                         cLib_chaseF(&speedF, getSpeed(), mpHIO->m.field_0xa8);
-                        cLib_addCalcAngleS2(&current.angle.y, cLib_targetAngleY(&current.pos, &sp3c), 
+                        cLib_addCalcAngleS2(&current.angle.y, cLib_targetAngleY(&current.pos, &sp3c),
                                             8, field_0x1528.field_0xa14);
                         field_0x1528.field_0xa14 = abs(current.angle.y - sVar1);
                         cLib_addCalcAngleS2(&field_0x1528.field_0xa14, mpHIO->m.field_0x88,
@@ -1299,7 +1300,7 @@ int daObj_GrA_c::rollEscape(void* param_1) {
                     }
                 }
 
-                if (field_0x2030 == 1 && field_0x2005 == 0 && 
+                if (field_0x2030 == 1 && field_0x2005 == 0 &&
                     (fopAcM_otherBgCheck(this, dComIfGp_getPlayer(0)) || fopAcM_CheckCondition(this, 4) != 0)) {
                     if (dComIfGp_getVibration().CheckQuake()) {
                         dComIfGp_getVibration().StopQuake(31);
@@ -1328,7 +1329,7 @@ int daObj_GrA_c::rollEscape(void* param_1) {
                 cXyz vec_0x48 = field_0x1528.getPntPos(field_0x1528.getIdx() & 0xFFFF);
                 sVar1 = current.angle.y;
                 cLib_chaseF(&speedF, getSpeed(), mpHIO->m.field_0xa8);
-                cLib_addCalcAngleS2(&current.angle.y, cLib_targetAngleY(&current.pos, &vec_0x48), 
+                cLib_addCalcAngleS2(&current.angle.y, cLib_targetAngleY(&current.pos, &vec_0x48),
                                     8, field_0x1528.field_0xa14);
                 field_0x1528.field_0xa14 = abs(current.angle.y - sVar1);
                 cLib_addCalcAngleS2(&field_0x1528.field_0xa14, mpHIO->m.field_0x88, 8, 0x40);
@@ -1396,7 +1397,7 @@ int daObj_GrA_c::thrown(void* param_1) {
 
     switch (field_0xa7c) {
         case 0:
-            fopAcM_OnStatus(this, fopAcM_STATUS_UNK_0x4000);
+            fopAcM_OnStatus(this, fopAcStts_UNK_0x4000_e);
             field_0x1ff0 = 1;
             mDemoCamMode = 0;
             field_0x209c = 1;
@@ -1439,7 +1440,7 @@ void daObj_GrA_c::demo_camera() {
     f32 fVar1;
     int prm_short;
     daPy_py_c* player = daPy_getPlayerActorClass();
-    camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+    camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
     dCamera_c* camBody = dCam_getBody();
 
     switch (mDemoCamMode) {
@@ -1580,7 +1581,7 @@ void daObj_GrA_c::rollAttackedDemo() {
 
     daPy_py_c* player = daPy_getPlayerActorClass();
     int cmp_val;
-    camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+    camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
     dCamera_c* camBody = dCam_getBody();
 
     switch (mDemoCamMode) {
@@ -1700,7 +1701,7 @@ void daObj_GrA_c::rollAttackedDemo() {
 void daObj_GrA_c::graThrowDemo() {
     cXyz sp2c;
     daPy_py_c* player = daPy_getPlayerActorClass();
-    camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+    camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
     dCamera_c* camBody = dCam_getBody();
 
     switch (mDemoCamMode) {
@@ -2020,7 +2021,7 @@ void daObj_GrA_c::executeCrazyThrow() {
 }
 
 void daObj_GrA_c::initCrazyAttack() {
-    camera_class* camera;
+    camera_process_class* camera;
 
     if (field_0x1ff0 == 3 && field_0x1ff8 == 0) {
         field_0x1ff0 = 4;

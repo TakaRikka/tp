@@ -8,7 +8,7 @@
 #include "d/actor/d_a_obj_chandelier.h"
 #include "SSystem/SComponent/c_math.h"
 #include "d/d_com_inf_game.h"
-#include "d/d_procname.h"
+#include "f_pc/f_pc_name.h"
 
 static char* l_arcName = "L9Chand";
 
@@ -182,8 +182,8 @@ void daObjChandelier_c::setModelMtx() {
 
 void daObjChandelier_c::moveSwing(f32 param_0, f32 param_1, f32 param_2, f32 param_3) {
     f32 f1 = -param_1 + param_0 * field_0x5fc;
-    shape_angle.z += (s16)(field_0x608 * (f1 * field_0x5ec));
-    shape_angle.y += (s16)(field_0x608 * field_0x604 * field_0x5ec);
+    ANGLE_ADD(shape_angle.z, field_0x608 * (f1 * field_0x5ec));
+    ANGLE_ADD(shape_angle.y, field_0x608 * field_0x604 * field_0x5ec);
     if (f1 > param_1) {
         field_0x5fc = 0;
         field_0x608 *= -1;
@@ -209,7 +209,7 @@ void daObjChandelier_c::moveSwingFall() {
     cLib_chaseF(&field_0x5ec, 0.0f, 0.04f);
     field_0x608 *= -1;
     shape_angle.z = field_0x608 * 50.0f * field_0x5ec;
-    shape_angle.y += (s16)cM_rndFX(50.0f);
+    ANGLE_ADD(shape_angle.y, cM_rndFX(50.0f));
     cXyz vec1 = field_0x5a8;
     mDoMtx_stack_c::transS(vec1);
     mDoMtx_stack_c::ZXYrotM(shape_angle);
@@ -257,18 +257,18 @@ static actor_method_class daObjChandelier_METHODS = {
 };
 
 actor_process_profile_definition g_profile_Obj_Chandelier = {
-    fpcLy_CURRENT_e,
-    3,
-    fpcPi_CURRENT_e,
-    PROC_Obj_Chandelier,
-    &g_fpcLf_Method.base,
-    sizeof(daObjChandelier_c),
-    0,
-    0,
-    &g_fopAc_Method.base,
-    0x2E5,
-    &daObjChandelier_METHODS,
-    0x40080,
-    fopAc_ACTOR_e,
-    fopAc_CULLBOX_CUSTOM_e,
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 3,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_Obj_Chandelier_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daObjChandelier_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_Obj_Chandelier_e,
+    /* Actor SubMtd */ &daObjChandelier_METHODS,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_NOEXEC_e,
+    /* Group        */ fopAc_ACTOR_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

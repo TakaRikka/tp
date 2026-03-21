@@ -6,7 +6,7 @@
 #include "d/dolzel_rel.h" // IWYU pragma: keep
 
 #include "d/actor/d_a_obj_vground.h"
-#include "d/d_procname.h"
+#include "f_pc/f_pc_name.h"
 
 static int CheckCreateHeap(fopAc_ac_c* a_this) {
     daObjVGnd_c* i_this = static_cast<daObjVGnd_c*>(a_this);
@@ -47,7 +47,7 @@ int daObjVGnd_c::CreateHeap() {
         J3DAnmTextureSRTKey* pbtk = (J3DAnmTextureSRTKey*)dComIfG_getObjectRes(l_arcName, 0xb);
         JUT_ASSERT(198, pbtk != NULL);
         mpBtk = new mDoExt_btkAnm();
-        if ((!mpBtk) || (!mpBtk->init(modelData, pbtk, 1, NULL, 1.0f, NULL, -1))) {
+        if ((!mpBtk) || (!mpBtk->init(modelData, pbtk, 1, 0, 1.0f, 0, -1))) {
             return 0;
         }
     }
@@ -56,7 +56,7 @@ int daObjVGnd_c::CreateHeap() {
         J3DAnmTevRegKey* pbrk = (J3DAnmTevRegKey*)dComIfG_getObjectRes(l_arcName, 0x8);
         JUT_ASSERT(212, pbrk != NULL);
         mpBrk = new mDoExt_brkAnm();
-        if ((!mpBrk) || (!mpBrk->init(modelData, pbrk, 1, NULL, 1.0f, NULL, -1))) {
+        if ((!mpBrk) || (!mpBrk->init(modelData, pbrk, 1, 0, 1.0f, 0, -1))) {
             return 0;
         }
     }
@@ -137,18 +137,18 @@ static actor_method_class l_daObjVGnd_Method = {
 };
 
 actor_process_profile_definition g_profile_Obj_VolcGnd = {
-    fpcLy_CURRENT_e,
-    3,
-    fpcPi_CURRENT_e,
-    PROC_Obj_VolcGnd,
-    &g_fpcLf_Method.base,
-    sizeof(daObjVGnd_c),
-    0,
-    0,
-    &g_fopAc_Method.base,
-    595,
-    &l_daObjVGnd_Method,
-    0x40100,
-    fopAc_ACTOR_e,
-    fopAc_CULLBOX_CUSTOM_e,
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 3,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_Obj_VolcGnd_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daObjVGnd_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_Obj_VolcGnd_e,
+    /* Actor SubMtd */ &l_daObjVGnd_Method,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_CULL_e,
+    /* Group        */ fopAc_ACTOR_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

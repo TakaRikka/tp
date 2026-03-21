@@ -11,6 +11,7 @@
 #include "d/actor/d_a_player.h"
 #include "d/d_cc_d.h"
 #include "d/d_com_inf_game.h"
+#include <cstring>
 
 static s32 l_bmdData[4] = { 8, 0, 9, 0 };
 
@@ -21,7 +22,7 @@ const daObj_KBacket_HIOParam daObj_KBacket_Param_c::m = {
 };
 
 static const dCcD_SrcGObjInf l_ccDObjData = {
-    {0x0, {{0x0, 0x0, 0x0}, {(s32)0xd8fbfdff, 0x0}, 0x79}}, // mObj
+    {0x0, {{0x0, 0x0, 0x0}, {0xd8fbfdff, 0x0}, 0x79}}, // mObj
     {dCcD_SE_NONE, 0x0, 0x0, 0x0, 0x0}, // mGObjAt
     {dCcD_SE_STONE, 0x0, 0x0, 0x0, 0x0}, // mGObjTg
     {0x0}, // mGObjCo
@@ -284,9 +285,9 @@ int daObj_KBacket_c::Execute() {
                 if (field_0x9f4 == 0 && mObjAcch.ChkWallHit() != 0) {
                     if (getWallAngle(current.angle.y, &wallAngle) != 0) {
                         current.angle.y = wallAngle;
-                        current.angle.y += (s16)cM_rndFX(2000.0f);
+                        ANGLE_ADD(current.angle.y, cM_rndFX(2000.0f));
                     } else {
-                        current.angle.y += (s16)cM_rndFX(2000.0f);
+                        ANGLE_ADD(current.angle.y, cM_rndFX(2000.0f));
                         current.angle.y += -0x8000;
                     }
 
@@ -340,8 +341,7 @@ int daObj_KBacket_c::Execute() {
                             wallAngleDiff = current.angle.y;
                         }
 
-                        current.angle.y += (s16)((s16)cM_rndFX(1000.0f) + (0x8000 - wallAngleDiff * 2));
-
+                        ANGLE_ADD(current.angle.y, (s16)cM_rndFX(1000.0f) + (0x8000 - wallAngleDiff * 2));
                         speedF *= 0.5f;
 
                         field_0xa47 = 0;
@@ -417,7 +417,7 @@ int daObj_KBacket_c::Execute() {
         }
 
         shape_angle.x = field_0xa10 * cM_ssin(field_0xa14 * 1000);
-        shape_angle.z += (s16)(field_0xa10 * cM_scos(field_0xa14 * 1000));
+        ANGLE_ADD(shape_angle.z, field_0xa10 * cM_scos(field_0xa14 * 1000));
         cLib_chaseAngleS(&field_0x9ec.y, 0, 10);
         shape_angle.y += field_0x9ec.y;
 
@@ -694,18 +694,18 @@ static actor_method_class daObj_KBacket_MethodTable = {
 };
 
 actor_process_profile_definition g_profile_OBJ_KBACKET = {
-    fpcLy_CURRENT_e,            // mLayerID
-    8,                          // mListID
-    fpcPi_CURRENT_e,            // mListPrio
-    PROC_OBJ_KBACKET,           // mProcName
-    &g_fpcLf_Method.base,      // sub_method
-    sizeof(daObj_KBacket_c),    // mSize
-    0,                          // mSizeOther
-    0,                          // mParameters
-    &g_fopAc_Method.base,       // sub_method
-    714,                        // mPriority
-    &daObj_KBacket_MethodTable, // sub_method
-    0x00044100,                 // mStatus
-    fopAc_ACTOR_e,              // mActorType
-    fopAc_CULLBOX_CUSTOM_e,     // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 8,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_OBJ_KBACKET_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daObj_KBacket_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_OBJ_KBACKET_e,
+    /* Actor SubMtd */ &daObj_KBacket_MethodTable,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_UNK_0x4000_e | fopAcStts_CULL_e,
+    /* Group        */ fopAc_ACTOR_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

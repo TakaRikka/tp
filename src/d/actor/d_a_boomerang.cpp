@@ -158,10 +158,10 @@ static const u32 l_lockSeFlg[BOOMERANG_LOCK_MAX] = {
 };
 
 void daBoomerang_sight_c::initialize() {
-    m_cursorYellowAllPane = m_cursorYellowScrn->search('n_all');
-    m_cursorYellow0Pane = m_cursorYellowScrn->search('cursor0');
-    m_cursorYellow1Pane = m_cursorYellowScrn->search('cursor1');
-    m_cursorYellow2Pane = m_cursorYellowScrn->search('cursor2');
+    m_cursorYellowAllPane = m_cursorYellowScrn->search(MULTI_CHAR('n_all'));
+    m_cursorYellow0Pane = m_cursorYellowScrn->search(MULTI_CHAR('cursor0'));
+    m_cursorYellow1Pane = m_cursorYellowScrn->search(MULTI_CHAR('cursor1'));
+    m_cursorYellow2Pane = m_cursorYellowScrn->search(MULTI_CHAR('cursor2'));
 
     m_cursorYellowBck->searchUpdateMaterialID(m_cursorYellowScrn);
     m_cursorYellowAllPane->setAnimation(m_cursorYellowBck);
@@ -174,7 +174,7 @@ void daBoomerang_sight_c::initialize() {
     m_cursorYellow0Pane->setAnimation(m_cursorYellowBpk);
     m_cursorYellow1Pane->setAnimation(m_cursorYellowBpk);
     m_cursorYellow2Pane->setAnimation(m_cursorYellowBpk);
-    m_cursorYellowScrn->search('flash')->setAnimation(m_cursorYellowBpk);
+    m_cursorYellowScrn->search(MULTI_CHAR('flash'))->setAnimation(m_cursorYellowBpk);
     m_cursorYellowBpk->setFrame(0.0f);
 
     m_cursorYellow2Brk->searchUpdateMaterialID(m_cursorYellowScrn);
@@ -192,10 +192,10 @@ void daBoomerang_sight_c::initialize() {
     m_cursorYellowScrn->setUserInfo('n_43');
     m_cursorYellowAllPane->setUserInfo(' ');
 
-    m_cursorRedAllPane = m_cursorRedScrn->search('n_all');
-    m_cursorRed0Pane = m_cursorRedScrn->search('cursor0');
-    m_cursorRed1Pane = m_cursorRedScrn->search('cursor1');
-    m_cursorRed2Pane = m_cursorRedScrn->search('cursor2');
+    m_cursorRedAllPane = m_cursorRedScrn->search(MULTI_CHAR('n_all'));
+    m_cursorRed0Pane = m_cursorRedScrn->search(MULTI_CHAR('cursor0'));
+    m_cursorRed1Pane = m_cursorRedScrn->search(MULTI_CHAR('cursor1'));
+    m_cursorRed2Pane = m_cursorRedScrn->search(MULTI_CHAR('cursor2'));
 
     m_cursorRedAllPane->setAnimation(m_cursorYellowBck);
     m_cursorRed0Pane->setAnimation(m_cursorYellowBck);
@@ -204,7 +204,7 @@ void daBoomerang_sight_c::initialize() {
     m_cursorRed0Pane->setAnimation(m_cursorYellowBpk);
     m_cursorRed1Pane->setAnimation(m_cursorYellowBpk);
     m_cursorRed2Pane->setAnimation(m_cursorYellowBpk);
-    m_cursorRedScrn->search('flash')->setAnimation(m_cursorYellowBpk);
+    m_cursorRedScrn->search(MULTI_CHAR('flash'))->setAnimation(m_cursorYellowBpk);
 
     m_cursorRed2Brk->searchUpdateMaterialID(m_cursorRedScrn);
     m_cursorRedBrk->searchUpdateMaterialID(m_cursorRedScrn);
@@ -221,10 +221,10 @@ void daBoomerang_sight_c::initialize() {
     m_cursorRedScrn->setUserInfo('n_43');
     m_cursorRedAllPane->setUserInfo(' ');
 
-    m_cursorOrangeAllPane = m_cursorOrangeScrn->search('n_all');
-    m_cursorOrange0Pane = m_cursorOrangeScrn->search('cursor0');
-    m_cursorOrange1Pane = m_cursorOrangeScrn->search('cursor1');
-    m_cursorOrange2Pane = m_cursorOrangeScrn->search('cursor2');
+    m_cursorOrangeAllPane = m_cursorOrangeScrn->search(MULTI_CHAR('n_all'));
+    m_cursorOrange0Pane = m_cursorOrangeScrn->search(MULTI_CHAR('cursor0'));
+    m_cursorOrange1Pane = m_cursorOrangeScrn->search(MULTI_CHAR('cursor1'));
+    m_cursorOrange2Pane = m_cursorOrangeScrn->search(MULTI_CHAR('cursor2'));
 
     m_cursorOrangeAllPane->setAnimation(m_cursorYellowBck);
     m_cursorOrange0Pane->setAnimation(m_cursorYellowBck);
@@ -233,7 +233,7 @@ void daBoomerang_sight_c::initialize() {
     m_cursorOrange0Pane->setAnimation(m_cursorYellowBpk);
     m_cursorOrange1Pane->setAnimation(m_cursorYellowBpk);
     m_cursorOrange2Pane->setAnimation(m_cursorYellowBpk);
-    m_cursorOrangeScrn->search('flash')->setAnimation(m_cursorYellowBpk);
+    m_cursorOrangeScrn->search(MULTI_CHAR('flash'))->setAnimation(m_cursorYellowBpk);
 
     m_cursorOrange2Brk->searchUpdateMaterialID(m_cursorOrangeScrn);
     m_cursorOrangeBrk->searchUpdateMaterialID(m_cursorOrangeScrn);
@@ -495,8 +495,8 @@ static int daBoomerang_Draw(daBoomerang_c* i_this) {
 }
 
 void daBoomerang_c::lockLineCallback(fopAc_ac_c* i_actor) {
-    if (i_actor != NULL && fopAcM_GetName(i_actor) != PROC_Obj_glowSphere &&
-        fopAcM_GetName(i_actor) != PROC_E_VT && fopAcM_GetName(i_actor) != PROC_OBJ_BRG)
+    if (i_actor != NULL && fopAcM_GetName(i_actor) != fpcNm_Obj_glowSphere_e &&
+        fopAcM_GetName(i_actor) != fpcNm_E_VT_e && fopAcM_GetName(i_actor) != fpcNm_OBJ_BRG_e)
     {
         setLockActor(i_actor, TRUE);
     }
@@ -918,8 +918,8 @@ int daBoomerang_c::procWait() {
         } else {
             offStateFlg0(FLG0_10);
         }
-    
-        current.angle.y += (s16)0x1830;
+
+        ANGLE_ADD(current.angle.y, 0x1830);
         shape_angle.x = current.angle.x;
         shape_angle.y = current.angle.y;
         shape_angle.z = 0x1000;
@@ -993,7 +993,7 @@ int daBoomerang_c::procWait() {
             field_0x6d8 = lock_line_actor;
         }
     
-        camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+        camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
         f32 cps_size;
         if (field_0x6d8 != NULL) {
             cps_size = 30.0f;
@@ -1261,7 +1261,7 @@ int daBoomerang_c::execute() {
         field_0x962--;
     }
 
-    camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+    camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
     s16 cam_angleY = fopCamM_GetAngleY(camera);
     s16 cam_angleX = fopCamM_GetAngleX(camera);
 
@@ -1498,20 +1498,20 @@ static actor_method_class l_daBoomerang_Method = {
 };
 
 actor_process_profile_definition g_profile_BOOMERANG = {
-  fpcLy_CURRENT_e,       // mLayerID
-  6,                     // mListID
-  fpcPi_CURRENT_e,       // mListPrio
-  PROC_BOOMERANG,        // mProcName
-  &g_fpcLf_Method.base, // sub_method
-  sizeof(daBoomerang_c),            // mSize
-  0,                     // mSizeOther
-  0,                     // mParameters
-  &g_fopAc_Method.base,  // sub_method
-  686,                   // mPriority
-  &l_daBoomerang_Method, // sub_method
-  0x00060000,            // mStatus
-  fopAc_UNK_GROUP_5_e,   // mActorType
-  fopAc_CULLBOX_0_e,     // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 6,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_BOOMERANG_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daBoomerang_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_BOOMERANG_e,
+    /* Actor SubMtd */ &l_daBoomerang_Method,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_NOPAUSE_e,
+    /* Group        */ fopAc_UNK_GROUP_5_e,
+    /* Cull Type    */ fopAc_CULLBOX_0_e,
 };
 
 AUDIO_INSTANCES;

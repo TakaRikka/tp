@@ -74,9 +74,9 @@ int daObjDigholl_c::execute() {
     }
 
     if (player->current.pos.abs(current.pos) < 1000.0f) {
-        dComIfGp_particle_setSimple(0x70f, &current.pos, 0xff, g_whiteColor, g_whiteColor, NULL,
+        dComIfGp_particle_setSimple(0x70f, &current.pos, 0xff, g_whiteColor, g_whiteColor, 0,
                                     0.0f);
-        dComIfGp_particle_setSimple(0x73d, &current.pos, 0xff, g_whiteColor, g_whiteColor, NULL,
+        dComIfGp_particle_setSimple(0x73d, &current.pos, 0xff, g_whiteColor, g_whiteColor, 0,
                                     0.0f);
     }
 
@@ -102,18 +102,18 @@ static actor_method_class l_daObjDigholl_Method = {
 };
 
 actor_process_profile_definition g_profile_Obj_Digholl = {
-    fpcLy_CURRENT_e,
-    3,
-    fpcPi_CURRENT_e,
-    PROC_Obj_Digholl,
-    &g_fpcLf_Method.base,
-    sizeof(daObjDigholl_c),
-    0,
-    0,
-    &g_fopAc_Method.base,
-    249,
-    &l_daObjDigholl_Method,
-    0x44100,
-    fopAc_ENV_e,
-    fopAc_CULLBOX_CUSTOM_e,
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 3,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_Obj_Digholl_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daObjDigholl_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_Obj_Digholl_e,
+    /* Actor SubMtd */ &l_daObjDigholl_Method,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_UNK_0x4000_e | fopAcStts_CULL_e,
+    /* Group        */ fopAc_ENV_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

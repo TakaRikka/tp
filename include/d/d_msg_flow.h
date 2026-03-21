@@ -1,7 +1,7 @@
 #ifndef D_MSG_D_MSG_FLOW_H
 #define D_MSG_D_MSG_FLOW_H
 
-#include <dolphin/types.h>
+#include <types.h>
 
 enum {
     NODETYPE_MESSAGE_e = 1,
@@ -16,7 +16,7 @@ enum {
 };
 
 class fopAc_ac_c;
-class msg_class;
+struct msg_class;
 
 // all mesg_flow_node structs members might be wrong
 struct mesg_flow_node {

@@ -20,6 +20,7 @@
 #include "m_Do/m_Do_controller_pad.h"
 #include "m_Do/m_Do_graphic.h"
 #include <cstdio>
+#include <cstring>
 
 typedef void (dMenu_Insect_c::*initFunc)();
 static initFunc map_init_process[] = {
@@ -440,20 +441,20 @@ void dMenu_Insect_c::explain_close_move() {
 
 void dMenu_Insect_c::screenSetBase() {
     static const u64 insect_tag[MAX_INSECT_NUM] = {
-        'ari_os',  'ari_ms',   'kag_os',  'kag_ms',   'kab_os', 'kab_ms',  'kam_os',  'kam_mes',
-        'kuwa_os', 'kuwa_mes', 'dan_os',  'dan_mes',  'cho_os', 'cho_ms',  'tent_os', 'tent_mes',
-        'kata_os', 'kata_mes', 'nana_os', 'nana_mes', 'bat_os', 'bat_mes', 'tonb_os', 'tonb_mes',
+        MULTI_CHAR('ari_os'),  MULTI_CHAR('ari_ms'),   MULTI_CHAR('kag_os'),  MULTI_CHAR('kag_ms'),   MULTI_CHAR('kab_os'), MULTI_CHAR('kab_ms'),  MULTI_CHAR('kam_os'),  MULTI_CHAR('kam_mes'),
+        MULTI_CHAR('kuwa_os'), MULTI_CHAR('kuwa_mes'), MULTI_CHAR('dan_os'),  MULTI_CHAR('dan_mes'),  MULTI_CHAR('cho_os'), MULTI_CHAR('cho_ms'),  MULTI_CHAR('tent_os'), MULTI_CHAR('tent_mes'),
+        MULTI_CHAR('kata_os'), MULTI_CHAR('kata_mes'), MULTI_CHAR('nana_os'), MULTI_CHAR('nana_mes'), MULTI_CHAR('bat_os'), MULTI_CHAR('bat_mes'), MULTI_CHAR('tonb_os'), MULTI_CHAR('tonb_mes'),
     };
     static const u64 ageha_tag[MAX_INSECT_NUM] = {
-        'ageha00', 'ageha01', 'ageha02', 'ageha03', 'ageha04', 'ageha05', 'ageha06', 'ageha07',
-        'ageha08', 'ageha09', 'ageha10', 'ageha11', 'ageha12', 'ageha13', 'ageha14', 'ageha15',
-        'ageha16', 'ageha17', 'ageha18', 'ageha19', 'ageha20', 'ageha21', 'ageha22', 'ageha23',
+        MULTI_CHAR('ageha00'), MULTI_CHAR('ageha01'), MULTI_CHAR('ageha02'), MULTI_CHAR('ageha03'), MULTI_CHAR('ageha04'), MULTI_CHAR('ageha05'), MULTI_CHAR('ageha06'), MULTI_CHAR('ageha07'),
+        MULTI_CHAR('ageha08'), MULTI_CHAR('ageha09'), MULTI_CHAR('ageha10'), MULTI_CHAR('ageha11'), MULTI_CHAR('ageha12'), MULTI_CHAR('ageha13'), MULTI_CHAR('ageha14'), MULTI_CHAR('ageha15'),
+        MULTI_CHAR('ageha16'), MULTI_CHAR('ageha17'), MULTI_CHAR('ageha18'), MULTI_CHAR('ageha19'), MULTI_CHAR('ageha20'), MULTI_CHAR('ageha21'), MULTI_CHAR('ageha22'), MULTI_CHAR('ageha23'),
     };
 
     mpScreen = new J2DScreen();
     mpScreen->setPriority("zelda_gold_insects.blo", 0x20000, mpArchive);
     dPaneClass_showNullPane(mpScreen);
-    mpParent = new CPaneMgr(mpScreen, 'n_all', 2, NULL);
+    mpParent = new CPaneMgr(mpScreen, MULTI_CHAR('n_all'), 2, NULL);
     mpParent->setAlphaRate(0.0f);
     for (int i = 0; i < MAX_INSECT_NUM; i++) {
         mpINSParent[i] = new CPaneMgr(mpScreen, insect_tag[i], 0, NULL);
@@ -474,11 +475,11 @@ void dMenu_Insect_c::screenSetBase() {
         }
     }
 #if VERSION == VERSION_GCN_JPN
-    J2DTextBox* textBox = (J2DTextBox*)mpScreen->search('t_t00');
-    mpScreen->search('f_t00')->hide();
+    J2DTextBox* textBox = (J2DTextBox*)mpScreen->search(MULTI_CHAR('t_t00'));
+    mpScreen->search(MULTI_CHAR('f_t00'))->hide();
 #else
-    J2DTextBox* textBox = (J2DTextBox*)mpScreen->search('f_t00');
-    mpScreen->search('t_t00')->hide();
+    J2DTextBox* textBox = (J2DTextBox*)mpScreen->search(MULTI_CHAR('f_t00'));
+    mpScreen->search(MULTI_CHAR('t_t00'))->hide();
 #endif
     textBox->setFont(mDoExt_getSubFont());
     textBox->setString(0x200, "");
@@ -489,27 +490,27 @@ void dMenu_Insect_c::screenSetExplain() {
     mpExpScreen = new J2DScreen();
     mpExpScreen->setPriority("zelda_gold_insects_info.blo", 0x20000, mpArchive);
     dPaneClass_showNullPane(mpExpScreen);
-    mpExpParent = new CPaneMgr(mpExpScreen, 'n_all', 2, NULL);
+    mpExpParent = new CPaneMgr(mpExpScreen, MULTI_CHAR('n_all'), 2, NULL);
     mpExpParent->setAlphaRate(0.0f);
-    mpExpSubWin[0] = new CPaneMgr(mpExpScreen, 'in_win_n', 0, NULL);
-    mpExpSubWin[1] = new CPaneMgr(mpExpScreen, 'w_d_mo_n', 0, NULL);
+    mpExpSubWin[0] = new CPaneMgr(mpExpScreen, MULTI_CHAR('in_win_n'), 0, NULL);
+    mpExpSubWin[1] = new CPaneMgr(mpExpScreen, MULTI_CHAR('w_d_mo_n'), 0, NULL);
     if (field_0xf6 == 0) {
         mpExpSubWin[1]->hide();
     }
 #if VERSION == VERSION_GCN_JPN
-    mpInfoText = new CPaneMgr(mpExpScreen, 'mg_3line', 0, NULL);
-    mpExpScreen->search('n_e4line')->hide();
-    field_0x5c = (J2DTextBox*)mpExpScreen->search('w_msg_jp');
-    mpExpScreen->search('ms_for_2')->hide();
+    mpInfoText = new CPaneMgr(mpExpScreen, MULTI_CHAR('mg_3line'), 0, NULL);
+    mpExpScreen->search(MULTI_CHAR('n_e4line'))->hide();
+    field_0x5c = (J2DTextBox*)mpExpScreen->search(MULTI_CHAR('w_msg_jp'));
+    mpExpScreen->search(MULTI_CHAR('ms_for_2'))->hide();
 #else
-    mpInfoText = new CPaneMgr(mpExpScreen, 'mg_e4lin', 0, NULL);
-    mpExpScreen->search('n_3line')->hide();
-    field_0x5c = (J2DTextBox*)mpExpScreen->search('ms_for_2');
-    mpExpScreen->search('w_msg_jp')->hide();
+    mpInfoText = new CPaneMgr(mpExpScreen, MULTI_CHAR('mg_e4lin'), 0, NULL);
+    mpExpScreen->search(MULTI_CHAR('n_3line'))->hide();
+    field_0x5c = (J2DTextBox*)mpExpScreen->search(MULTI_CHAR('ms_for_2'));
+    mpExpScreen->search(MULTI_CHAR('w_msg_jp'))->hide();
 #endif
-    mpExpScreen->search('ms_for_3')->hide();
-    field_0x54[0] = (J2DPicture*)mpExpScreen->search('insects');
-    field_0x54[1] = (J2DPicture*)mpExpScreen->search('insectss');
+    mpExpScreen->search(MULTI_CHAR('ms_for_3'))->hide();
+    field_0x54[0] = (J2DPicture*)mpExpScreen->search(MULTI_CHAR('insects'));
+    field_0x54[1] = (J2DPicture*)mpExpScreen->search(MULTI_CHAR('insectss'));
     J2DTextBox* textBox = (J2DTextBox*)mpInfoText->getPanePtr();
     textBox->setFont(mDoExt_getMesgFont());
     J2DTextBox* textBox2 = (J2DTextBox*)mpInfoText->getPanePtr();
@@ -520,10 +521,10 @@ void dMenu_Insect_c::screenSetExplain() {
 
 void dMenu_Insect_c::screenSetDoIcon() {
     static const u64 text_a_tag[5] = {
-        'atext1_1', 'atext1_2', 'atext1_3', 'atext1_4', 'atext1_5',
+        MULTI_CHAR('atext1_1'), MULTI_CHAR('atext1_2'), MULTI_CHAR('atext1_3'), MULTI_CHAR('atext1_4'), MULTI_CHAR('atext1_5'),
     };
     static const u64 text_b_tag[5] = {
-        'btext1_1', 'btext1_2', 'btext1_3', 'btext1_4', 'btext1_5',
+        MULTI_CHAR('btext1_1'), MULTI_CHAR('btext1_2'), MULTI_CHAR('btext1_3'), MULTI_CHAR('btext1_4'), MULTI_CHAR('btext1_5'),
     };
 
     mpIconScreen = new J2DScreen();
@@ -545,10 +546,10 @@ void dMenu_Insect_c::screenSetDoIcon() {
 
 u8 dMenu_Insect_c::getGetInsectNum() {
     static u8 l_itemno[MAX_INSECT_NUM] = {
-        fpcNm_ITEM_M_BEETLE,      fpcNm_ITEM_F_BEETLE,      fpcNm_ITEM_M_BUTTERFLY, fpcNm_ITEM_F_BUTTERFLY, fpcNm_ITEM_M_STAG_BEETLE, fpcNm_ITEM_F_STAG_BEETLE,
-        fpcNm_ITEM_M_GRASSHOPPER, fpcNm_ITEM_F_GRASSHOPPER, fpcNm_ITEM_M_NANAFUSHI, fpcNm_ITEM_F_NANAFUSHI, fpcNm_ITEM_M_DANGOMUSHI,  fpcNm_ITEM_F_DANGOMUSHI,
-        fpcNm_ITEM_M_MANTIS,      fpcNm_ITEM_F_MANTIS,      fpcNm_ITEM_M_LADYBUG,   fpcNm_ITEM_F_LADYBUG,   fpcNm_ITEM_M_SNAIL,       fpcNm_ITEM_F_SNAIL,
-        fpcNm_ITEM_M_DRAGONFLY,   fpcNm_ITEM_F_DRAGONFLY,   fpcNm_ITEM_M_ANT,       fpcNm_ITEM_F_ANT,       fpcNm_ITEM_M_MAYFLY,      fpcNm_ITEM_F_MAYFLY,
+        dItemNo_M_BEETLE_e,      dItemNo_F_BEETLE_e,      dItemNo_M_BUTTERFLY_e, dItemNo_F_BUTTERFLY_e, dItemNo_M_STAG_BEETLE_e, dItemNo_F_STAG_BEETLE_e,
+        dItemNo_M_GRASSHOPPER_e, dItemNo_F_GRASSHOPPER_e, dItemNo_M_NANAFUSHI_e, dItemNo_F_NANAFUSHI_e, dItemNo_M_DANGOMUSHI_e,  dItemNo_F_DANGOMUSHI_e,
+        dItemNo_M_MANTIS_e,      dItemNo_F_MANTIS_e,      dItemNo_M_LADYBUG_e,   dItemNo_F_LADYBUG_e,   dItemNo_M_SNAIL_e,       dItemNo_F_SNAIL_e,
+        dItemNo_M_DRAGONFLY_e,   dItemNo_F_DRAGONFLY_e,   dItemNo_M_ANT_e,       dItemNo_F_ANT_e,       dItemNo_M_MAYFLY_e,      dItemNo_F_MAYFLY_e,
     };
 
     u8 insectNum = 0;
@@ -566,10 +567,10 @@ u8 dMenu_Insect_c::getGetInsectNum() {
 
 u8 dMenu_Insect_c::getInsectItemID(int param_0, int param_1) {
     static u8 l_itemno[MAX_INSECT_NUM] = {
-        fpcNm_ITEM_M_ANT,       fpcNm_ITEM_F_ANT,       fpcNm_ITEM_M_MAYFLY,      fpcNm_ITEM_F_MAYFLY,      fpcNm_ITEM_M_BEETLE,     fpcNm_ITEM_F_BEETLE,
-        fpcNm_ITEM_M_MANTIS,    fpcNm_ITEM_F_MANTIS,    fpcNm_ITEM_M_STAG_BEETLE, fpcNm_ITEM_F_STAG_BEETLE, fpcNm_ITEM_M_DANGOMUSHI, fpcNm_ITEM_F_DANGOMUSHI,
-        fpcNm_ITEM_M_BUTTERFLY, fpcNm_ITEM_F_BUTTERFLY, fpcNm_ITEM_M_LADYBUG,     fpcNm_ITEM_F_LADYBUG,     fpcNm_ITEM_M_SNAIL,      fpcNm_ITEM_F_SNAIL,
-        fpcNm_ITEM_M_NANAFUSHI, fpcNm_ITEM_F_NANAFUSHI, fpcNm_ITEM_M_GRASSHOPPER, fpcNm_ITEM_F_GRASSHOPPER, fpcNm_ITEM_M_DRAGONFLY,  fpcNm_ITEM_F_DRAGONFLY,
+        dItemNo_M_ANT_e,       dItemNo_F_ANT_e,       dItemNo_M_MAYFLY_e,      dItemNo_F_MAYFLY_e,      dItemNo_M_BEETLE_e,     dItemNo_F_BEETLE_e,
+        dItemNo_M_MANTIS_e,    dItemNo_F_MANTIS_e,    dItemNo_M_STAG_BEETLE_e, dItemNo_F_STAG_BEETLE_e, dItemNo_M_DANGOMUSHI_e, dItemNo_F_DANGOMUSHI_e,
+        dItemNo_M_BUTTERFLY_e, dItemNo_F_BUTTERFLY_e, dItemNo_M_LADYBUG_e,     dItemNo_F_LADYBUG_e,     dItemNo_M_SNAIL_e,      dItemNo_F_SNAIL_e,
+        dItemNo_M_NANAFUSHI_e, dItemNo_F_NANAFUSHI_e, dItemNo_M_GRASSHOPPER_e, dItemNo_F_GRASSHOPPER_e, dItemNo_M_DRAGONFLY_e,  dItemNo_F_DRAGONFLY_e,
     };
 
     int index = param_0 + param_1 * 6;
@@ -612,14 +613,14 @@ bool dMenu_Insect_c::isGiveInsect(int param_0, int param_1) {
 }
 
 bool dMenu_Insect_c::isCatchInsect(u8 i_insectID) {
-    if (i_insectID >= fpcNm_ITEM_M_BEETLE && i_insectID <= fpcNm_ITEM_F_MAYFLY) {
+    if (i_insectID >= dItemNo_M_BEETLE_e && i_insectID <= dItemNo_F_MAYFLY_e) {
         return dComIfGs_isItemFirstBit(i_insectID);
     }
     return false;
 }
 
 bool dMenu_Insect_c::isGiveInsect(u8 i_insectID) {
-    if (i_insectID >= fpcNm_ITEM_M_BEETLE && i_insectID <= fpcNm_ITEM_F_MAYFLY) {
+    if (i_insectID >= dItemNo_M_BEETLE_e && i_insectID <= dItemNo_F_MAYFLY_e) {
         int label = i_insectID + 0xd1;
         return dComIfGs_isEventBit(dSv_event_flag_c::saveBitLabels[label]);
     }

@@ -9,6 +9,7 @@
 #include "JSystem/JHostIO/JORFile.h"
 #include "d/d_debug_viewer.h"
 #include "d/actor/d_a_npc_pachi_taro.h"
+#include <cstring>
 
 enum Maro_RES_File_ID {
     /* BCK */
@@ -751,8 +752,11 @@ void daNpc_Pachi_Maro_c::setParam() {
     u32 flags = fopAc_AttnFlag_SPEAK_e | fopAc_AttnFlag_TALK_e;
     s16 talk_distance = mpHIO->m.common.talk_distance;
     s16 talk_angle = mpHIO->m.common.talk_angle;
+    s16 attn_dist = mpHIO->m.common.attention_distance;
+    s16 attn_angle = mpHIO->m.common.attention_angle;
 
-    attention_info.distances[fopAc_attn_LOCK_e] = daNpcT_getDistTableIdx(mpHIO->m.common.attention_distance, mpHIO->m.common.attention_angle);
+    attention_info.distances[fopAc_attn_LOCK_e] =
+        daNpcT_getDistTableIdx(attn_dist, attn_angle);
     attention_info.distances[fopAc_attn_TALK_e] = attention_info.distances[fopAc_attn_LOCK_e];
     attention_info.distances[fopAc_attn_SPEAK_e] = daNpcT_getDistTableIdx(talk_distance, talk_angle);
     attention_info.flags = flags;
@@ -805,11 +809,11 @@ void daNpc_Pachi_Maro_c::srchActors() {
     switch (mType) {
         case TYPE_0:
             if (mActorMngrs[0].getActorP() == NULL) {
-                mActorMngrs[0].entry(getNearestActorP(PROC_NPC_PACHI_TARO));
+                mActorMngrs[0].entry(getNearestActorP(fpcNm_NPC_PACHI_TARO_e));
             }
 
             if (mActorMngrs[1].getActorP() == NULL) {
-                mActorMngrs[1].entry(getNearestActorP(PROC_NPC_PACHI_BESU));
+                mActorMngrs[1].entry(getNearestActorP(fpcNm_NPC_PACHI_BESU_e));
             }
             break;
     }
@@ -1092,11 +1096,9 @@ int daNpc_Pachi_Maro_c::wait(void* param_1) {
                         srchPlayerActor();
                     }
                 }
-            
-                switch (mJntAnm.getMode()) {
-                    case 0:
-                    default:
-                        break;
+
+                if (mJntAnm.getMode() == 0) {
+                    UNUSED((int)mType);
                 }
             }
             break;
@@ -1197,18 +1199,26 @@ BOOL daNpc_Pachi_Maro_c::cutTutrialBegin(int i_staffId) {
 
 BOOL daNpc_Pachi_Maro_c::_cutTutrialBegin_Init(int const& i_cutId) {
     switch (i_cutId) {
-        default:
-            return TRUE;
+    case 10:
+        break;
+    default:
+        break;
     }
+
+    return TRUE;
 }
 
 BOOL daNpc_Pachi_Maro_c::_cutTutrialBegin_Main(int const& i_cutId) {
     BOOL rv = FALSE;
 
     switch (i_cutId) {
-        default:
-            return rv;;
+    case 10:
+        break;
+    default:
+        break;
     }
+
+    return rv;
 }
 
 BOOL daNpc_Pachi_Maro_c::cutTutrialBegin_Skip(int i_staffId) {
@@ -1229,18 +1239,26 @@ BOOL daNpc_Pachi_Maro_c::cutTutrialBegin_Skip(int i_staffId) {
 
 BOOL daNpc_Pachi_Maro_c::_cutTutrialBegin_Skip_Init(int const& i_cutId) {
     switch (i_cutId) {
-        default:
-            return TRUE;
+    case 10:
+        break;
+    default:
+        break;
     }
+
+    return TRUE;
 }
 
 BOOL daNpc_Pachi_Maro_c::_cutTutrialBegin_Skip_Main(int const& i_cutId) {
     BOOL rv = FALSE;
 
     switch (i_cutId) {
-        default:
-            return rv;
+    case 10:
+    break;
+    default:
+        break;
     }
+
+    return rv;
 }
 
 BOOL daNpc_Pachi_Maro_c::cutTutrialClear(int i_staffId) {
@@ -1564,9 +1582,12 @@ BOOL daNpc_Pachi_Maro_c::cutTutrialContinue(int i_staffId) {
 
 BOOL daNpc_Pachi_Maro_c::_cutTutrialContinue_Init(int const& i_cutId) {
     switch (i_cutId) {
-        default:
-            return TRUE;
+    case 10:
+        break;
+    default:
+        break;
     }
+    return TRUE;
 }
 
 BOOL daNpc_Pachi_Maro_c::_cutTutrialContinue_Main(int const& i_cutId) {
@@ -1656,18 +1677,18 @@ static actor_method_class daNpc_Pachi_Maro_MethodTable = {
 };
 
 actor_process_profile_definition g_profile_NPC_PACHI_MARO = {
-  fpcLy_CURRENT_e,               // mLayerID
-  7,                             // mListID
-  fpcPi_CURRENT_e,               // mListPrio
-  PROC_NPC_PACHI_MARO,           // mProcName
-  &g_fpcLf_Method.base,         // sub_method
-  sizeof(daNpc_Pachi_Maro_c),    // mSize
-  0,                             // mSizeOther
-  0,                             // mParameters
-  &g_fopAc_Method.base,          // sub_method
-  370,                           // mPriority
-  &daNpc_Pachi_Maro_MethodTable, // sub_method
-  0x00044107,                    // mStatus
-  fopAc_NPC_e,                   // mActorType
-  fopAc_CULLBOX_CUSTOM_e,        // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_NPC_PACHI_MARO_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daNpc_Pachi_Maro_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_NPC_PACHI_MARO_e,
+    /* Actor SubMtd */ &daNpc_Pachi_Maro_MethodTable,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_UNK_0x4000_e | fopAcStts_CULL_e | fopAcStts_UNK_0x4_e | fopAcStts_UNK_0x2_e | fopAcStts_UNK_0x1_e,
+    /* Group        */ fopAc_NPC_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

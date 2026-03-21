@@ -15,6 +15,7 @@
 #include "d/d_cc_uty.h"
 #include "d/d_s_play.h"
 #include "f_op/f_op_camera_mng.h"
+#include <cstring>
 
 daObj_So_HIO_c::daObj_So_HIO_c() {
     field_0x4 = -1;
@@ -64,7 +65,7 @@ static void ride_call_back_1(dBgW* i_BgW, fopAc_ac_c* a_this, fopAc_ac_c* param_
 
 static void so_hasira(obj_so_class* i_this) {
     fopAc_ac_c* a_this = &i_this->actor;
-    daPillar_c* pillar_p = (daPillar_c*)fopAcM_SearchByName(PROC_Obj_Pillar);
+    daPillar_c* pillar_p = (daPillar_c*)fopAcM_SearchByName(fpcNm_Obj_Pillar_e);
     if (pillar_p != NULL) {
         mDoMtx_stack_c::transS(pillar_p->current.pos.x, pillar_p->current.pos.y, pillar_p->current.pos.z);
         mDoMtx_stack_c::YrotM(pillar_p->mRotY);
@@ -502,8 +503,8 @@ static void part_move(obj_so_class* i_this) {
                         i_this->field_0x8f0[i].z *= 0.5f;
 
                         if (i >= 2) {
-                            i_this->field_0xa28[i].x += (s16)cM_rndFX(i_this->field_0x8f0[i].y * 400.0f);
-                            i_this->field_0xbc8[i] += (s16)cM_rndFX(i_this->field_0x8f0[i].y * 200.0f);
+                            ANGLE_ADD(i_this->field_0xa28[i].x, cM_rndFX(i_this->field_0x8f0[i].y * 400.0f));
+                            ANGLE_ADD(i_this->field_0xbc8[i], cM_rndFX(i_this->field_0x8f0[i].y * 200.0f));
                         }
                     } else {
                         i_this->field_0x8f0[i].y = -10.0f;
@@ -804,7 +805,7 @@ static void part_move(obj_so_class* i_this) {
 
 static void demo_camera(obj_so_class* i_this) {
     fopAc_ac_c* a_this = &i_this->actor;
-    camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+    camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
     cXyz sp30, sp3c;
 
     switch (i_this->mDemoMode) {
@@ -830,7 +831,7 @@ static void demo_camera(obj_so_class* i_this) {
             // fallthrough
         case 2:
             sp3c.set(12459.0f, 3152.0f, 4628.0f);
-            daPy_getPlayerActorClass()->setPlayerPosAndAngle(&sp3c, 0xfffffaee, 0);
+            daPy_getPlayerActorClass()->setPlayerPosAndAngle(&sp3c, -1298, 0);
             i_this->mDemoCamCenter.x = a_this->current.pos.x;
             i_this->mDemoCamCenter.z = a_this->current.pos.z;
             sp3c.y = (a_this->current.pos.y + 150.0f) - 50.0f;
@@ -848,10 +849,10 @@ static void demo_camera(obj_so_class* i_this) {
                 cXyz sp48(-4264.0f, 302.0f, -2330.0f);
                 cXyz sp54(16400.0f, 3529.0f, 8385.0f);
                 sp54 += sp48;
-                fpc_ProcID i_parentID = fopAcM_create(PROC_E_OC, 0xFFFF0103, &sp54, fopAcM_GetRoomNo(a_this), &i_angle, 0, -1);
+                fpc_ProcID i_parentID = fopAcM_create(fpcNm_E_OC_e, 0xFFFF0103, &sp54, fopAcM_GetRoomNo(a_this), &i_angle, 0, -1);
                 sp54.set(16200.0f, 3481.0f, 8418.0f);
                 sp54 += sp48;
-                fopAcM_createChild(PROC_E_OC, i_parentID, 0xFFFF0104, &sp54, fopAcM_GetRoomNo(a_this), &i_angle, NULL, -1, NULL);
+                fopAcM_createChild(fpcNm_E_OC_e, i_parentID, 0xFFFF0104, &sp54, fopAcM_GetRoomNo(a_this), &i_angle, NULL, -1, NULL);
             } else if (i_this->field_0x1ba2 == 125) {
                 i_this->mDemoMode = 100;
             }
@@ -1062,7 +1063,7 @@ static int daObj_So_Create(fopAc_ac_c* a_this) {
                 i_this->field_0xdae = 3;
                 if (fopAcM_GetRoomNo(a_this) == 4) {
                     cXyz sp2c(-5374.0f, 4280.0f, -2342.0f);
-                    i_this->field_0x1b94 = fopAcM_create(PROC_OBJ_GM, 0x600, &sp2c, fopAcM_GetRoomNo(a_this),
+                    i_this->field_0x1b94 = fopAcM_create(fpcNm_OBJ_GM_e, 0x600, &sp2c, fopAcM_GetRoomNo(a_this),
                                                          NULL, NULL, -1);
                 }
             }
@@ -1088,18 +1089,18 @@ static actor_method_class l_daObj_So_Method = {
 };
 
 actor_process_profile_definition g_profile_OBJ_SO = {
-  fpcLy_CURRENT_e,        // mLayerID
-  2,                      // mListID
-  fpcPi_CURRENT_e,        // mListPrio
-  PROC_OBJ_SO,            // mProcName
-  &g_fpcLf_Method.base,  // sub_method
-  sizeof(obj_so_class),   // mSize
-  0,                      // mSizeOther
-  0,                      // mParameters
-  &g_fopAc_Method.base,   // sub_method
-  55,                     // mPriority
-  &l_daObj_So_Method,     // sub_method
-  0x00044000,             // mStatus
-  fopAc_ACTOR_e,          // mActorType
-  fopAc_CULLBOX_CUSTOM_e, // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 2,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_OBJ_SO_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(obj_so_class),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_OBJ_SO_e,
+    /* Actor SubMtd */ &l_daObj_So_Method,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_UNK_0x4000_e,
+    /* Group        */ fopAc_ACTOR_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

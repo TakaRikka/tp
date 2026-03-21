@@ -10,6 +10,7 @@
 #include "SSystem/SComponent/c_math.h"
 #include "d/d_bg_w.h"
 #include "d/d_com_inf_game.h"
+#include <cstring>
 
 static int daObj_Gb_Draw(obj_gb_class* i_this) {
     g_env_light.settingTevStruct(0x10, &i_this->current.pos, &i_this->tevStr);
@@ -229,18 +230,18 @@ static actor_method_class l_daObj_Gb_Method = {
 };
 
 actor_process_profile_definition g_profile_OBJ_GB = {
-  fpcLy_CURRENT_e,        // mLayerID
-  3,                      // mListID
-  fpcPi_CURRENT_e,        // mListPrio
-  PROC_OBJ_GB,            // mProcName
-  &g_fpcLf_Method.base,  // sub_method
-  sizeof(obj_gb_class),   // mSize
-  0,                      // mSizeOther
-  0,                      // mParameters
-  &g_fopAc_Method.base,   // sub_method
-  56,                     // mPriority
-  &l_daObj_Gb_Method,     // sub_method
-  0x00044000,             // mStatus
-  fopAc_ACTOR_e,          // mActorType
-  fopAc_CULLBOX_CUSTOM_e, // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 3,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_OBJ_GB_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(obj_gb_class),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_OBJ_GB_e,
+    /* Actor SubMtd */ &l_daObj_Gb_Method,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_UNK_0x4000_e,
+    /* Group        */ fopAc_ACTOR_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

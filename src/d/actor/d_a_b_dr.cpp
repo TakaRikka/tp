@@ -527,18 +527,18 @@ void daB_DR_c::mStatusONOFF(int i_status) {
         attention_info.distances[fopAc_attn_BATTLE_e] = 0;
         attention_info.flags &= ~fopAc_AttnFlag_BATTLE_e;
         fopAcM_OffStatus(this, 0);
-        fopAcM_OffStatus(this, 0x200000);
+        fopAcM_OffStatus(this, fopAcStts_UNK_0x200000_e);
         return;
     case 1:
         attention_info.distances[fopAc_attn_BATTLE_e] = 85;
         attention_info.flags |= fopAc_AttnFlag_BATTLE_e;
         fopAcM_OnStatus(this, 0);
-        fopAcM_OnStatus(this, 0x200000);
+        fopAcM_OnStatus(this, fopAcStts_UNK_0x200000_e);
         return;
     case 2:
         attention_info.distances[fopAc_attn_BATTLE_e] = 60;
         fopAcM_OnStatus(this, 0);
-        fopAcM_OffStatus(this, 0x200000);
+        fopAcM_OffStatus(this, fopAcStts_UNK_0x200000_e);
         attention_info.flags |= fopAc_AttnFlag_BATTLE_e;
         return;
     }    
@@ -842,7 +842,7 @@ void daB_DR_c::chkPartCreate(bool param_0) {
 
             prm |= (BREAK_PARTS_DT[part_no].prm << 8);
             size.x = size.y = size.z = BREAK_PARTS_DT[part_no].size;
-            fopAcM_create(PROC_B_DR, prm, &pos, fopAcM_GetRoomNo(this), &rot, &size, -1);
+            fopAcM_create(fpcNm_B_DR_e, prm, &pos, fopAcM_GetRoomNo(this), &rot, &size, -1);
 
             field_0x7e0++;
             part_no++;
@@ -988,7 +988,7 @@ void daB_DR_c::tail_hit_check() {
     if (health > 0) {
         daPy_getPlayerActorClass()->onBossRoomWait();
 
-        if (fopAcM_CheckStatus(this, 0x200000) && cLib_calcTimer<u8>(&field_0x7d0) == 0 && mActionMode != ACTION_TAIL_HIT && field_0x7d1 != 2) {
+        if (fopAcM_CheckStatus(this, fopAcStts_UNK_0x200000_e) && cLib_calcTimer<u8>(&field_0x7d0) == 0 && mActionMode != ACTION_TAIL_HIT && field_0x7d1 != 2) {
             if (mTailCc.ChkTgHit()) {
                 speedF = 0.0f;
                 dComIfGs_onZoneSwitch(21, fopAcM_GetRoomNo(this));
@@ -1004,7 +1004,7 @@ void daB_DR_c::week_hit_check() {
     if (mWeekCc.ChkTgSet()) {
         daPy_getPlayerActorClass()->onBossRoomWait();
 
-        if (health > 0 && fopAcM_CheckStatus(this, 0x200000) && cLib_calcTimer<u8>(&field_0x7d0) == 0 && mActionMode != ACTION_WEEK_HIT && field_0x7d1 == 2) {
+        if (health > 0 && fopAcM_CheckStatus(this, fopAcStts_UNK_0x200000_e) && cLib_calcTimer<u8>(&field_0x7d0) == 0 && mActionMode != ACTION_WEEK_HIT && field_0x7d1 == 2) {
             if (mWeekCc.ChkTgHit() && mWeekCc.GetTgHitObj()->ChkAtType(AT_TYPE_HOOKSHOT)) {
                 speedF = 0.0f;
                 Z2GetAudioMgr()->changeBgmStatus(2);
@@ -1384,7 +1384,7 @@ void daB_DR_c::executeFlyWait() {
 
 void daB_DR_c::executeTailHit() {
     daPy_py_c* player = (daPy_py_c*)dComIfGp_getPlayer(0);
-    camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+    camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
     cXyz mae;
     cXyz ato;
 
@@ -1624,7 +1624,7 @@ void daB_DR_c::executeTailHit() {
         mMoveMode++;
     case 15:
         ato = current.pos + mBoot_c_trance;
-        parentActorID = fopAcM_createChild(PROC_B_DRE, fopAcM_GetID(this), 1, &ato, fopAcM_GetRoomNo(this), &shape_angle, NULL, -1, NULL);
+        parentActorID = fopAcM_createChild(fpcNm_B_DRE_e, fopAcM_GetID(this), 1, &ato, fopAcM_GetRoomNo(this), &shape_angle, NULL, -1, NULL);
 
         Z2GetAudioMgr()->subBgmStart(Z2BGM_DRAGON_D02);
         dComIfGs_onZoneSwitch(23, fopAcM_GetRoomNo(this));
@@ -1836,7 +1836,7 @@ void daB_DR_c::executeWeekHit() {
                 sp44.z = 0.0f;
                 sp44.x = 0.0f;
 
-                parentActorID = fopAcM_createChild(PROC_B_DRE, fopAcM_GetID(this), 0, &sp44, fopAcM_GetRoomNo(this), &shape_angle, NULL, -1, NULL);
+                parentActorID = fopAcM_createChild(fpcNm_B_DRE_e, fopAcM_GetID(this), 0, &sp44, fopAcM_GetRoomNo(this), &shape_angle, NULL, -1, NULL);
                 mTimer[0] = BREG_S(3) + 20;
                 mMoveMode = 1000;
                 return;
@@ -2008,7 +2008,7 @@ void daB_DR_c::mBreathSet() {
 
         sp1C.x = NREG_S(8) - 1000;
         mTimer[1] = 3;
-        fopAcM_createChild(PROC_B_DR, fopAcM_GetID(this), 10, &field_0x760, fopAcM_GetRoomNo(this), &sp1C, NULL, -1, NULL);
+        fopAcM_createChild(fpcNm_B_DR_e, fopAcM_GetID(this), 10, &field_0x760, fopAcM_GetRoomNo(this), &sp1C, NULL, -1, NULL);
     }
 }
 
@@ -2091,9 +2091,9 @@ bool daB_DR_c::mFeintBreath() {
             field_0x718++;
         } else {
             if (field_0x756 > 0) {
-                temp_r30 += (s16)(l_HIO.feint_angle * 0xB6);
+                ANGLE_ADD(temp_r30, l_HIO.feint_angle * 0xB6);
             } else {
-                temp_r30 -= (s16)(l_HIO.feint_angle * 0xB6);
+                ANGLE_SUB(temp_r30, l_HIO.feint_angle * 0xB6);
             }
 
             if (abs((s16)(current.angle.y - temp_r30)) > 0x100) {
@@ -3025,14 +3025,14 @@ void daB_DR_c::executePillarWait() {
 }
 
 bool daB_DR_c::startDemoCheck() {
-    camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
-    camera_class* camera0 = dComIfGp_getCamera(0);
+    camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+    camera_process_class* camera0 = dComIfGp_getCamera(0);
 
     if (!eventInfo.checkCommandDemoAccrpt()) {
         fopAcM_orderPotentialEvent(this, 2, 0xFFFF, 0);
         eventInfo.onCondition(2);
-        mDemoCamEye = camera0->lookat.eye;
-        mDemoCamCenter = camera0->lookat.center;
+        mDemoCamEye = camera0->view.lookat.eye;
+        mDemoCamCenter = camera0->view.lookat.center;
         return false;
     } else {
         camera->mCamera.Stop();
@@ -3043,7 +3043,7 @@ bool daB_DR_c::startDemoCheck() {
 }
 
 void daB_DR_c::executeDamageDemo() {
-    camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+    camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
     fopAc_ac_c* player = dComIfGp_getPlayer(0);
     cXyz unused;
     cXyz unused2;
@@ -3238,7 +3238,7 @@ void daB_DR_c::executeDamageDemo() {
 }
 
 void daB_DR_c::executeMiddleDemo() {
-    camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+    camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
     fopAc_ac_c* player = dComIfGp_getPlayer(0);
     cXyz unused;
     cXyz unused2;
@@ -3269,7 +3269,7 @@ void daB_DR_c::executeMiddleDemo() {
 }
 
 void daB_DR_c::executeDead() {
-    camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+    camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
     fopAc_ac_c* player = dComIfGp_getPlayer(0);
     cXyz unused;
     cXyz unused2;
@@ -3327,7 +3327,8 @@ void daB_DR_c::executeBullet() {
         if (parentActorID != 0) {
             daB_DR_c* dr_p = (daB_DR_c*)fopAcM_SearchByID(fopAcM_GetLinkId(this));
             if (dr_p != NULL) {
-                current.angle.y -= (s16)((s16)(dr_p->mHeadAngle.y - home.angle.y) * (0.002f + JREG_F(13)));
+                ANGLE_SUB(current.angle.y,
+                          (s16)(dr_p->mHeadAngle.y - home.angle.y) * (0.002f + JREG_F(13)));
             }
         }
 
@@ -3350,14 +3351,14 @@ void daB_DR_c::executeBullet() {
 }
 
 void daB_DR_c::executeParts() {
-    camera_class* camera = dComIfGp_getCamera(0);
+    camera_process_class* camera = dComIfGp_getCamera(0);
     cXyz mae;
     cXyz ato;
 
     switch (mMoveMode) {
     case 0:
         speedF = 20.0f + ZREG_F(13) + cM_rndF(10.0f + ZREG_F(14));
-        current.angle.y += (s16)cM_rndFX(65536.0f);
+        ANGLE_ADD(current.angle.y, cM_rndFX(65536.0f));
         speed.y = 30.0f + ZREG_F(10);
         speed.y += cM_rndFX(10.0f + ZREG_F(11));
 
@@ -3396,11 +3397,11 @@ void daB_DR_c::executeParts() {
     case 10:
         speedF = 40.0f + ZREG_F(13) + cM_rndF(10.0f + ZREG_F(14));
         mTimer[0] = 50;
-        current.angle.x += (s16)cM_rndFX(16384.0f);
+        ANGLE_ADD(current.angle.x, cM_rndFX(16384.0f));
 
-        mae = camera->lookat.center - current.pos;
+        mae = camera->view.lookat.center - current.pos;
         current.angle.y = mae.atan2sX_Z();
-        current.angle.y += (s16)cM_rndFX(16384.0f);
+        ANGLE_ADD(current.angle.y, cM_rndFX(16384.0f));
 
         cMtx_YrotS(*calc_mtx, current.angle.y);
         cMtx_XrotM(*calc_mtx, current.angle.x);
@@ -3812,7 +3813,7 @@ void daB_DR_c::down_cc_set() {
 void daB_DR_c::demo_skip(int) {
     fopAc_ac_c* parent;
     if (cDmr_SkipInfo == 0 && fopAcM_SearchByID(parentActorID, &parent) && parent != NULL) {
-        camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+        camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
         dStage_changeScene(1, 0.0f, 0, fopAcM_GetRoomNo(this), 0, -1);
         Z2GetAudioMgr()->subBgmStop();
         dKy_getEnvlight()->wether = 1;
@@ -4082,9 +4083,9 @@ int daB_DR_c::create() {
                 gravity = -3.0f;
 
                 mSound.init(&current.pos, &eyePos, 3, 1);
-                mColliderStts.Init(0x19, NULL, this);
+                mColliderStts.Init(0x19, 0, this);
 
-                fopAcM_OnStatus(this, 0x4000);
+                fopAcM_OnStatus(this, fopAcStts_UNK_0x4000_e);
 
                 if (arg0 == 0x14) {
                     setActionMode(0xF, 0);
@@ -4107,7 +4108,7 @@ int daB_DR_c::create() {
                     angle.x = angle.y = angle.z = 0;
                     pos.set(224.0f, 0.0f, 762.0f);
 
-                    fopAcM_createItemForBoss(&pos, fpcNm_ITEM_UTAWA_HEART, fopAcM_GetRoomNo(this), &angle, &size, 0.0f, 0.0f, -1);
+                    fopAcM_createItemForBoss(&pos, dItemNo_UTAWA_HEART_e, fopAcM_GetRoomNo(this), &angle, &size, 0.0f, 0.0f, -1);
                 }
 
                 dScnKy_env_light_c* kankyo = dKy_getEnvlight();
@@ -4247,10 +4248,10 @@ int daB_DR_c::create() {
                     mTimer[0] = 2;
 
                     if (BREG_S(5) == 0) {
-                        parentActorID = fopAcM_createChild(PROC_L7ODR, fopAcM_GetID(this), 0, &current.pos, fopAcM_GetRoomNo(this), &shape_angle, NULL, -1, NULL);
+                        parentActorID = fopAcM_createChild(fpcNm_L7ODR_e, fopAcM_GetID(this), 0, &current.pos, fopAcM_GetRoomNo(this), &shape_angle, NULL, -1, NULL);
                         mStatusONOFF(0);
                     } else if (BREG_S(0) != 0) {
-                        parentActorID = fopAcM_createChild(PROC_B_DRE, fopAcM_GetID(this), 0, &current.pos, fopAcM_GetRoomNo(this), &shape_angle, NULL, -1, NULL);
+                        parentActorID = fopAcM_createChild(fpcNm_B_DRE_e, fopAcM_GetID(this), 0, &current.pos, fopAcM_GetRoomNo(this), &shape_angle, NULL, -1, NULL);
                     }
     
                     dScnKy_env_light_c* kankyo = dKy_getEnvlight();
@@ -4293,20 +4294,20 @@ static actor_method_class l_daB_DR_Method = {
 };
 
 actor_process_profile_definition g_profile_B_DR = {
-  fpcLy_CURRENT_e,        // mLayerID
-  4,                      // mListID
-  fpcPi_CURRENT_e,        // mListPrio
-  PROC_B_DR,              // mProcName
-  &g_fpcLf_Method.base,  // sub_method
-  sizeof(daB_DR_c),       // mSize
-  0,                      // mSizeOther
-  0,                      // mParameters
-  &g_fopAc_Method.base,   // sub_method
-  221,                    // mPriority
-  &l_daB_DR_Method,       // sub_method
-  0x04040000,             // mStatus
-  fopAc_ENEMY_e,          // mActorType
-  fopAc_CULLBOX_CUSTOM_e, // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 4,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_B_DR_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daB_DR_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_B_DR_e,
+    /* Actor SubMtd */ &l_daB_DR_Method,
+    /* Status       */ fopAcStts_BOSS_e | fopAcStts_UNK_0x40000_e,
+    /* Group        */ fopAc_ENEMY_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };
 
 AUDIO_INSTANCES;

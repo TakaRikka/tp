@@ -14,6 +14,7 @@
 #include "f_op/f_op_kankyo_mng.h"
 #include "d/actor/d_a_mirror.h"
 #include "JSystem/JAudio2/JAUSectionHeap.h"
+#include <cstring>
 
 void daNbomb_c::coHitCallback(fopAc_ac_c* i_hitActor) {
     if (fopAcM_GetGroup(i_hitActor) == fopAc_ENEMY_e ||
@@ -48,7 +49,7 @@ void daNbomb_c::tgHitCallback(dCcD_GObjInf* i_hitObj) {
         {
             procBoomerangMoveInit(i_hitObj);
         }
-    } else if (i_hitObj->ChkAtType(AT_TYPE_HOOKSHOT) && fopAcM_CheckStatus(this, 0x80000)) {
+    } else if (i_hitObj->ChkAtType(AT_TYPE_HOOKSHOT) && fopAcM_CheckStatus(this, fopAcStts_UNK_0x80000_e)) {
         if (fopAcM_checkCarryNow(this)) {
             fopAcM_cancelCarryNow(this);
         }
@@ -96,7 +97,7 @@ int daNbomb_c::searchEnemy(fopAc_ac_c* i_enemy) {
 
 static void* daNbomb_searchEnemy(fopAc_ac_c* i_actor, void* i_data) {
     if (fopAcM_GetGroup(i_actor) == fopAc_ENEMY_e &&
-        ((daNbomb_c*)i_data)->searchEnemy(i_actor) != NULL)
+        ((daNbomb_c*)i_data)->searchEnemy(i_actor) != 0)
     {
         return i_actor;
     }
@@ -349,7 +350,7 @@ int daNbomb_c::create() {
         mDoMtx_stack_c::transS(current.pos);
 
         if (!checkStateFlg0(FLG0_INSECT_BOMB)) {
-            fopAcM_OnStatus(this, 0x80000);
+            fopAcM_OnStatus(this, fopAcStts_UNK_0x80000_e);
         }
 
         mDoMtx_stack_c::ZXYrotM(0, shape_angle.y, shape_angle.z);
@@ -606,7 +607,7 @@ void daNbomb_c::setHitPolygon(BOOL param_0) {
 }
 
 BOOL daNbomb_c::procExplodeInit() {
-    fopAcM_OnStatus(this, 0x20000);
+    fopAcM_OnStatus(this, fopAcStts_NOPAUSE_e);
     daAlink_c* player = daAlink_getAlinkActorClass();
 
     scale.x = player->getBombEffScale();
@@ -707,13 +708,13 @@ BOOL daNbomb_c::procExplodeInit() {
 }
 
 BOOL daNbomb_c::procExplode() {
-    camera_class* camera = dComIfGp_getCamera(0);
+    camera_process_class* camera = dComIfGp_getCamera(0);
     f32 dist_scale = 0.0f;
 
     mLightInfluence.mPow = mExplosionStrength * 1500.0f;
     mWindInfluence.mStrength = mExplosionStrength;
 
-    f32 dist_to_cam = current.pos.abs(camera->lookat.eye);
+    f32 dist_to_cam = current.pos.abs(camera->view.lookat.eye);
     if (dist_to_cam < 1500.0f) {
         dist_scale = dist_to_cam / 1500.0f;
         dist_scale *= dist_scale * dist_scale;
@@ -985,7 +986,7 @@ BOOL daNbomb_c::procWait() {
         speedF *= player->getBombBoundRate();
         current.angle.y = (mAcchCir.GetWallAngleY() * 2) - (current.angle.y + 0x8000);
     } else if (mAcch.ChkGroundLanding() && speedF > 5.0f && cM_deg2s(50.0f) <= field_0xb5a) {
-        if ((f32)fabs(var_r28) >= (f32)0x4000) {
+        if ((f32)fabs((f64)var_r28) >= (f32)0x4000) {
             speedF *= player->getBombBoundRate();
             current.angle.y = (var_r27 * 2) - (current.angle.y + 0x8000);
             mAcch.ClrGroundLanding();
@@ -1684,18 +1685,18 @@ static actor_method_class l_daNbombMethod = {
 };
 
 actor_process_profile_definition g_profile_NBOMB = {
-  fpcLy_CURRENT_e,        // mLayerID
-  7,                      // mListID
-  fpcPi_CURRENT_e,        // mListPrio
-  PROC_NBOMB,             // mProcName
-  &g_fpcLf_Method.base,  // sub_method
-  sizeof(daNbomb_c),      // mSize
-  0,                      // mSizeOther
-  0,                      // mParameters
-  &g_fopAc_Method.base,   // sub_method
-  270,                    // mPriority
-  &l_daNbombMethod,       // sub_method
-  0x00040100,             // mStatus
-  fopAc_ACTOR_e,          // mActorType
-  fopAc_CULLBOX_CUSTOM_e, // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_NBOMB_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daNbomb_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_NBOMB_e,
+    /* Actor SubMtd */ &l_daNbombMethod,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_CULL_e,
+    /* Group        */ fopAc_ACTOR_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

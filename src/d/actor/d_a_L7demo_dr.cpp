@@ -69,8 +69,8 @@ void daDr_c::wait() {
         current.angle.y = 0;
         field_0x654++;
     } else if (field_0x654 != -1) {
-        camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
-        camera_class* camera0 = dComIfGp_getCamera(0);
+        camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+        camera_process_class* camera0 = dComIfGp_getCamera(0);
 
         if (eventInfo.checkCommandDemoAccrpt()) {
             camera->mCamera.Stop();
@@ -86,15 +86,15 @@ void daDr_c::wait() {
             fopAcM_orderPotentialEvent(this, 2, 0xFFFF, 0);
             eventInfo.onCondition(2);
 
-            mDemoCamEye = camera0->lookat.eye;
-            mDemoCamCenter = camera0->lookat.center;
+            mDemoCamEye = camera0->view.lookat.eye;
+            mDemoCamCenter = camera0->view.lookat.center;
         }
     }
 }
 
 void daDr_c::pl_walk() {
-    camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
-    camera_class* camera0 = dComIfGp_getCamera(0);
+    camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+    camera_process_class* camera0 = dComIfGp_getCamera(0);
     daPy_py_c* player = daPy_getPlayerActorClass();
     cXyz sp4C;
 
@@ -167,8 +167,8 @@ void daDr_c::pl_turn() {
 }
 
 void daDr_c::bridge_destroy() {
-    camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
-    camera_class* camera0 = dComIfGp_getCamera(0);
+    camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+    camera_process_class* camera0 = dComIfGp_getCamera(0);
     daPy_py_c* player = daPy_getPlayerActorClass();
 
     if (field_0x654 == 0) {
@@ -192,7 +192,7 @@ void daDr_c::bridge_destroy() {
             camera->mCamera.Set(mDemoCamCenter, mDemoCamEye);
         } else if (156.0f == mpModelMorf->getFrame()) {
             cXyz sp5C;
-            daObjLv7Brg_c* brg = (daObjLv7Brg_c*)fopAcM_SearchByName(PROC_Obj_Lv7Bridge);
+            daObjLv7Brg_c* brg = (daObjLv7Brg_c*)fopAcM_SearchByName(fpcNm_Obj_Lv7Bridge_e);
             if (brg != NULL) {
                 brg->setDestroyAnmA();
             }
@@ -216,12 +216,12 @@ void daDr_c::bridge_destroy() {
 }
 
 void daDr_c::bridge_destroy2() {
-    camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+    camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
     dComIfGp_getCamera(0);
     daPy_getPlayerActorClass();
 
     if (field_0x654 == 0) {
-        daObjLv7Brg_c* brg = (daObjLv7Brg_c*)fopAcM_SearchByName(PROC_Obj_Lv7Bridge);
+        daObjLv7Brg_c* brg = (daObjLv7Brg_c*)fopAcM_SearchByName(fpcNm_Obj_Lv7Bridge_e);
         if (brg != NULL) {
             brg->setDestroyAnmB();
         }
@@ -408,18 +408,18 @@ static actor_method_class l_daDr_Method = {
 };
 
 actor_process_profile_definition g_profile_DR = {
-  fpcLy_CURRENT_e,        // mLayerID
-  7,                      // mListID
-  fpcPi_CURRENT_e,        // mListPrio
-  PROC_DR,                // mProcName
-  &g_fpcLf_Method.base,  // sub_method
-  sizeof(daDr_c),         // mSize
-  0,                      // mSizeOther
-  0,                      // mParameters
-  &g_fopAc_Method.base,   // sub_method
-  206,                    // mPriority
-  &l_daDr_Method,         // sub_method
-  0x00040000,             // mStatus
-  fopAc_ENEMY_e,          // mActorType
-  fopAc_CULLBOX_CUSTOM_e, // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_DR_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daDr_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_DR_e,
+    /* Actor SubMtd */ &l_daDr_Method,
+    /* Status       */ fopAcStts_UNK_0x40000_e,
+    /* Group        */ fopAc_ENEMY_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

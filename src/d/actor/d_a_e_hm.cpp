@@ -94,7 +94,7 @@ static int useHeapInit(fopAc_ac_c* i_this) {
 void daE_HM_c::initCcCylinder() {
     static const dCcD_SrcSph ccShpSrc = {
         {
-            {0x0, {{0x2, 0x1, 0xd}, {(s32)0xD8FBFDFF, 0x43}, 0x75}},  // mObj
+            {0x0, {{0x2, 0x1, 0xd}, {0xD8FBFDFF, 0x43}, 0x75}},  // mObj
             {dCcD_SE_STONE, 0x0, 0x0, 0x0, 0x0},                  // mGObjAt
             {dCcD_SE_NONE, 0x0, 0x0, 0x0, 0x0},                   // mGObjTg
             {0x0},                                                // mGObjCo
@@ -395,7 +395,7 @@ int daE_HM_c::W_MoveCheckWall() {
         dComIfG_Bgsp().GetTriPla(linChk, &plane1);
 
         if (!dComIfG_Bgsp().GetMagnetCode(linChk)) {
-            field_0x5b4 += (s16)0x200;
+            ANGLE_ADD(field_0x5b4, 0x200);
             return 1;
         }
 
@@ -438,7 +438,7 @@ int daE_HM_c::W_WallCheck() {
         cM3dGPla plane;
         dComIfG_Bgsp().GetTriPla(linChk, &plane);
         if (!dComIfG_Bgsp().GetMagnetCode(linChk)) {
-            field_0x5b4 += (s16)0x200;
+            ANGLE_ADD(field_0x5b4, 0x200);
             return 1;
         }
     }
@@ -497,7 +497,7 @@ void daE_HM_c::CreateExecute() {
         field_0x5b8 = 300;
     }
     if (field_0x5c4 == fpcM_ERROR_PROCESS_ID_e && field_0x5b8 == 0) {
-        field_0x5c4 = fopAcM_createChild(PROC_E_HM, fopAcM_GetID(this), 0xfffff05, &current.pos,
+        field_0x5c4 = fopAcM_createChild(fpcNm_E_HM_e, fopAcM_GetID(this), 0xfffff05, &current.pos,
                                          fopAcM_GetRoomNo(this), &shape_angle, NULL, -1, NULL);
     }
 }
@@ -841,7 +841,7 @@ void daE_HM_c::DeathMotion() {
     f32 frame = mAnm_p->getFrame();
     if (mAcch.ChkGroundHit() && (field_0x5da++, field_0x5da) == 1) {
         speed.y = yREG_F(11) + 35.0f;
-        current.angle.y -= (s16)0x1000;
+        ANGLE_SUB(current.angle.y, 0x1000);
         SetAnm(8, 0, nREG_F(9) + 1.0f, nREG_F(12) + 1.0f);
         mAnm_p->setPlaySpeed(yREG_F(12) + 2.0f);
     }
@@ -1075,7 +1075,7 @@ void daE_HM_c::At_Check() {
         }
 
         if ((s16)mAtInfo.mAttackPower > 0) {
-            health -= (s16)mAtInfo.mAttackPower;
+            S16_SUB(health, mAtInfo.mAttackPower);
         }
 
         s8 unkByte1 = 0;
@@ -1603,18 +1603,18 @@ static actor_method_class l_daE_HM_Method = {
 };
 
 actor_process_profile_definition g_profile_E_HM = {
-    fpcLy_CURRENT_e,        // mLayerID
-    7,                      // mListID
-    fpcPi_CURRENT_e,        // mListPrio
-    PROC_E_HM,              // mProcName
-    &g_fpcLf_Method.base,  // sub_method
-    sizeof(daE_HM_c),       // mSize
-    0,                      // mSizeOther
-    0,                      // mParameters
-    &g_fopAc_Method.base,   // sub_method
-    146,                    // mPriority
-    &l_daE_HM_Method,       // sub_method
-    0x00040100,             // mStatus
-    fopAc_ENEMY_e,          // mActorType
-    fopAc_CULLBOX_CUSTOM_e, // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_E_HM_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daE_HM_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_E_HM_e,
+    /* Actor SubMtd */ &l_daE_HM_Method,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_CULL_e,
+    /* Group        */ fopAc_ENEMY_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

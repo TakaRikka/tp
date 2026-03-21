@@ -9,9 +9,10 @@
 #include "SSystem/SComponent/c_counter.h"
 #include "SSystem/SComponent/c_math.h"
 #include "d/d_com_inf_game.h"
-#include "d/d_procname.h"
+#include "f_pc/f_pc_name.h"
 #include "f_op/f_op_camera_mng.h"
 #include "Z2AudioLib/Z2Instances.h"
+#include <cstring>
 
 static void dice_wether_init(u8 i_weatherMode, f32 i_weatherTime, f32 i_currentTime) {
     dScnKy_env_light_c* env_light = dKy_getEnvlight();
@@ -512,7 +513,7 @@ static void daKytag06_type_07_Execute(kytag06_class* i_this) {
     cXyz spX;
     f32 current_time = dComIfGs_getTime();
     dScnKy_env_light_c* env_light = dKy_getEnvlight();
-    camera_class* camera = dComIfGp_getCamera(0);
+    camera_process_class* camera = dComIfGp_getCamera(0);
 
     if (i_this->field_0x574 == 0) {
         if (current_time > 285.0f || current_time < 82.5f) {
@@ -572,7 +573,7 @@ static void daKytag06_type_07_Execute(kytag06_class* i_this) {
     daKytag06_type_07_wether_Execute(i_this);
 
     if (camera != NULL) {
-        if (camera->lookat.eye.y > 0.0f) {
+        if (camera->view.lookat.eye.y > 0.0f) {
             dKy_BossLight_set(&spX, &color, i_this->mWindPower * 2.0f, 0);
             g_env_light.bg_amb_col[3].r = (u8)(i_this->mWindPower * 230.0f + 25.0f);
             g_env_light.bg_amb_col[3].g = (u8)(i_this->mWindPower * 215.0f + 30.0f);
@@ -710,9 +711,9 @@ static void daKytag06_type_10_Execute(kytag06_class* i_this) {
         }
 
         dKyw_evt_wind_set_go();
-        camera_class* camera = dComIfGp_getCamera(0);
+        camera_process_class* camera = dComIfGp_getCamera(0);
 
-        cXyz eye(camera->lookat.eye);
+        cXyz eye(camera->view.lookat.eye);
 
         if (camera != NULL) {
             if (((eye.x > 2079.0f && eye.x < 3013.0f && eye.y < 864.0f && eye.z > -6000.0f &&
@@ -864,12 +865,12 @@ static int daKytag06_Execute(kytag06_class* i_this) {
 
     switch (i_this->mType) {
     case 1: {
-        camera_class* camera = dComIfGp_getCamera(0);
+        camera_process_class* camera = dComIfGp_getCamera(0);
 
         if (i_this->mpPath != NULL) {
             int target1 = 0;
             int target2 = 0;
-            dPnt* pnt = near_rail_get(i_this, &camera->lookat.eye);
+            dPnt* pnt = near_rail_get(i_this, &camera->view.lookat.eye);
 
             if (pnt != NULL && pnt->mArg0 != 0xFF) {
                 dKy_change_colpat(pnt->mArg0);
@@ -1194,20 +1195,20 @@ static actor_method_class l_daKytag06_Method = {
 };
 
 actor_process_profile_definition g_profile_KYTAG06 = {
-    fpcLy_CURRENT_e,
-    7,
-    fpcPi_CURRENT_e,
-    PROC_KYTAG06,
-    &g_fpcLf_Method.base,
-    sizeof(kytag06_class),
-    0,
-    0,
-    &g_fopAc_Method.base,
-    100,
-    &l_daKytag06_Method,
-    0x60000,
-    fopAc_ACTOR_e,
-    fopAc_CULLBOX_0_e,
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_KYTAG06_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(kytag06_class),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_KYTAG06_e,
+    /* Actor SubMtd */ &l_daKytag06_Method,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_NOPAUSE_e,
+    /* Group        */ fopAc_ACTOR_e,
+    /* Cull Type    */ fopAc_CULLBOX_0_e,
 };
 
 AUDIO_INSTANCES;

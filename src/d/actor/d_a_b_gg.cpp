@@ -12,6 +12,7 @@
 #include "Z2AudioLib/Z2Instances.h"
 #include "f_op/f_op_actor_enemy.h"
 #include "f_op/f_op_camera_mng.h"
+#include <cstring>
 
 class daB_GG_HIO_c : public JORReflexible {
 public:
@@ -591,7 +592,7 @@ int daB_GG_c::DemoSkipCallBack(void* i_process, int param_1) {
 }
 
 bool daB_GG_c::CameraSet() {
-    camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+    camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
     dCamera_c* cam_body = dCam_getBody();
 
     if (!eventInfo.checkCommandDemoAccrpt()) {
@@ -611,12 +612,12 @@ bool daB_GG_c::CameraSet() {
 }
 
 void daB_GG_c::SetStopingCam() {
-    camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+    camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
     camera->mCamera.Set(mCamCenter, mCamEye, mCamFovy, 0);
 }
 
 void daB_GG_c::SetStopCam(cXyz param_0, f32 param_1, f32 param_2, s16 param_3) {
-    camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+    camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
 
     cXyz sp38(0.0f, param_2, param_1);
     cXyz sp2C(0.0f, 0.0f, 0.0f);
@@ -634,7 +635,7 @@ void daB_GG_c::SetStopCam(cXyz param_0, f32 param_1, f32 param_2, s16 param_3) {
 
 void daB_GG_c::SetMoveCam(cXyz param_0, f32 param_1, f32 param_2, s16 param_3, f32 param_4,
                           f32 param_5) {
-    camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+    camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
     cXyz sp38(0.0f, param_2, param_1);
     cXyz sp2C(0.0f, 0.0f, 0.0f);
     field_0x60c = param_0;
@@ -651,7 +652,7 @@ void daB_GG_c::SetMoveCam(cXyz param_0, f32 param_1, f32 param_2, s16 param_3, f
 }
 
 void daB_GG_c::SetMoveCam1(f32 i_scale, f32 i_step) {
-    camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+    camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
 
     cLib_addCalcPos(&mCamCenterTarget, field_0x60c, i_scale, i_step, 0.0f);
     cLib_addCalcPos(&mCamEyeTarget, field_0x618, i_scale, i_step, 0.0f);
@@ -662,7 +663,7 @@ void daB_GG_c::SetMoveCam1(f32 i_scale, f32 i_step) {
 }
 
 void daB_GG_c::SetReleaseCam() {
-    camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+    camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
     camera->mCamera.Reset(mCamCenter, mCamEye);
     camera->mCamera.Start();
     camera->mCamera.SetTrimSize(0);
@@ -688,7 +689,7 @@ void daB_GG_c::St_CamAction() {
     cXyz sp4C(0.0f, 0.0f, -300.0f);
     cXyz sp40;
 
-    camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+    camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
 
     switch (mCamMode) {
     case 0:
@@ -1190,8 +1191,8 @@ void daB_GG_c::Md_DemoAction() {
         } else if (mpModelMorf->getFrame() > 18.0f && mAnm == BCK_GGB_TAKE_OFF) {
             var_r29 = 1;
         } else if (mAnm == BCK_GGB_WAIT_B && mTimers[0] == 0) {
-            fopAcM_OffStatus(this, 0x200000);
-            fopAcM_OnStatus(this, 0x80000);
+            fopAcM_OffStatus(this, fopAcStts_UNK_0x200000_e);
+            fopAcM_OnStatus(this, fopAcStts_UNK_0x80000_e);
             SetAnm(BCK_GGB_TAKE_OFF, 0, 5.0f, 1.0f);
 
             mSound.startCreatureVoice(Z2SE_EN_GG_V_TAKE_OFF, -1);
@@ -1801,7 +1802,7 @@ void daB_GG_c::F_AttackAction() {
             speedF = field_0x5bc;
             field_0x5c0 = (100.0f + (s_LinkPos->y - current.pos.y)) / ((0.9f * var_f31) / speedF);
             speed.y = field_0x5c0;
-            fopAcM_OffStatus(this, 0x80000);
+            fopAcM_OffStatus(this, fopAcStts_UNK_0x80000_e);
         }
         break;
     case 1: {
@@ -1841,7 +1842,7 @@ void daB_GG_c::F_AttackAction() {
             }
         } else if (current.pos.y - field_0x648 > 500.0f || (field_0x650 == current.pos.y - field_0x648 && mAnm == BCK_GGA_ATTACK_4)) {
             mCcHookCyl.OnTgSetBit();
-            fopAcM_OnStatus(this, 0x80000);
+            fopAcM_OnStatus(this, fopAcStts_UNK_0x80000_e);
 
             if (field_0x5b6 != 0) {
                 SetAnm(BCK_GGA_ATTACK_2, 2, 5.0f, 1.0f);
@@ -1886,8 +1887,8 @@ void daB_GG_c::F_AttackAction() {
             mCcHookCyl.OnTgSetBit();
             SetAnm(BCK_GGA_PREPARATION, 2, 5.0f, 1.0f);
 
-            fopAcM_OffStatus(this, 0x200000);
-            fopAcM_OnStatus(this, 0x80000);
+            fopAcM_OffStatus(this, fopAcStts_UNK_0x200000_e);
+            fopAcM_OnStatus(this, fopAcStts_UNK_0x80000_e);
 
             if (field_0x6ba != 0) {
                 mTimers[0] = l_HIO.fly_attack_wait_time * 0.5f;
@@ -2001,8 +2002,8 @@ void daB_GG_c::F_DamageAction() {
         if (mTimers[0] == 1 && mAnm == BCK_GGA_PULL) {
             mMode++;
             fopAcM_cancelHookCarryNow(this);
-            fopAcM_OffStatus(this, 0x80000);
-            fopAcM_OnStatus(this, 0x200000);
+            fopAcM_OffStatus(this, fopAcStts_UNK_0x80000_e);
+            fopAcM_OnStatus(this, fopAcStts_UNK_0x200000_e);
             mTimers[0] = 5;
         }
         break;
@@ -2030,8 +2031,8 @@ void daB_GG_c::F_DamageAction() {
             s_M_Action = 0;
             s_W_Action = 0;
 
-            fopAcM_OffStatus(this, 0x80000);
-            fopAcM_OnStatus(this, 0x200000);
+            fopAcM_OffStatus(this, fopAcStts_UNK_0x80000_e);
+            fopAcM_OnStatus(this, fopAcStts_UNK_0x200000_e);
         } else {
             cXyz* hookshot_top = player->getHookshotTopPos();
             cXyz sp24(0.0f, 0.0f, 0.0f);
@@ -2045,8 +2046,8 @@ void daB_GG_c::F_DamageAction() {
 
             if (mAcch.ChkWallHit() && mTimers[0] == 0) {
                 SetAction(ACTION_FLY, SUBACT_MOVE, 0);
-                fopAcM_OffStatus(this, 0x200000);
-                fopAcM_OnStatus(this, 0x80000);
+                fopAcM_OffStatus(this, fopAcStts_UNK_0x200000_e);
+                fopAcM_OnStatus(this, fopAcStts_UNK_0x80000_e);
 
                 SetAnm(BCK_GGA_WAIT, 2, 5.0f + BREG_F(12), 1.0f);
 
@@ -2083,8 +2084,8 @@ void daB_GG_c::F_DamageAction() {
             }
         } else if (current.pos.y < (field_0x648 - 50.0f)) {
             SetAction(ACTION_FLY, SUBACT_MOVE, 0);
-            fopAcM_OffStatus(this, 0x200000);
-            fopAcM_OnStatus(this, 0x80000);
+            fopAcM_OffStatus(this, fopAcStts_UNK_0x200000_e);
+            fopAcM_OnStatus(this, fopAcStts_UNK_0x80000_e);
 
             SetAnm(BCK_GGA_WAIT, 2, 5.0f + BREG_F(12), 1.0f);
 
@@ -2545,8 +2546,8 @@ void daB_GG_c::G_MoveAction() {
                 mTimers[1] = 0;
                 gravity = 0.0f;
 
-                fopAcM_OffStatus(this, 0x200000);
-                fopAcM_OnStatus(this, 0x80000);
+                fopAcM_OffStatus(this, fopAcStts_UNK_0x200000_e);
+                fopAcM_OnStatus(this, fopAcStts_UNK_0x80000_e);
 
                 SetAnm(BCK_GGA_WAIT, 2, 5.0f, 1.0f);
 
@@ -2575,8 +2576,8 @@ void daB_GG_c::FallChk() {
     if (current.pos.y < (field_0x648 - 10.0f) && field_0x5b6 != 0) {
         if (!mAcch.ChkGroundHit()) {
             SetAction(ACTION_FLY, SUBACT_MOVE, 0);
-            fopAcM_OffStatus(this, 0x200000);
-            fopAcM_OnStatus(this, 0x80000);
+            fopAcM_OffStatus(this, fopAcStts_UNK_0x200000_e);
+            fopAcM_OnStatus(this, fopAcStts_UNK_0x80000_e);
 
             SetAnm(BCK_GGA_WAIT, 2, 5.0f + BREG_F(12), 1.0f);
 
@@ -2614,8 +2615,8 @@ void daB_GG_c::FallChk() {
     } else if (current.pos.y < (field_0x648 - 10.0f)) {
         SpeedClear();
         SetAction(ACTION_FLY, SUBACT_MOVE, 0);
-        fopAcM_OffStatus(this, 0x200000);
-        fopAcM_OnStatus(this, 0x80000);
+        fopAcM_OffStatus(this, fopAcStts_UNK_0x200000_e);
+        fopAcM_OnStatus(this, fopAcStts_UNK_0x80000_e);
 
         SetAnm(BCK_GGA_WAIT, 2, 5.0f + BREG_F(12), 1.0f);
 
@@ -2905,7 +2906,7 @@ void daB_GG_c::G_DamageAction() {
             speedF = 0.0f;
         }
 
-        s_TargetAngle += (s16) 0x4000;
+        ANGLE_ADD(s_TargetAngle, 0x4000);
         break;
     case 2:
         cXyz* tg_hit_pos;
@@ -3789,7 +3790,7 @@ void daB_GG_c::At_Check() {
                 mAtInfo.mAttackPower = 80;
             }
 
-            health -= (s16)mAtInfo.mAttackPower;
+            S16_SUB(health, mAtInfo.mAttackPower);
         }
 
         int pause_time;
@@ -4408,7 +4409,7 @@ int daB_GG_c::Create() {
             mMode = 0;
 
             SetAnm(BCK_GG_WAIT, 2, 5.0f, 1.0f);
-            fopAcM_OnStatus(this, 0x200000);
+            fopAcM_OnStatus(this, fopAcStts_UNK_0x200000_e);
 
             if (-G_CM3D_F_INF != mAcch.GetGroundH()) {
                 current.pos.y = mAcch.GetGroundH();
@@ -4461,20 +4462,20 @@ static actor_method_class l_daB_GG_Method = {
 };
 
 actor_process_profile_definition g_profile_B_GG = {
-    fpcLy_CURRENT_e,        // mLayerID
-    7,                      // mListID
-    fpcPi_CURRENT_e,        // mListPrio
-    PROC_B_GG,              // mProcName
-    &g_fpcLf_Method.base,  // sub_method
-    sizeof(daB_GG_c),       // mSize
-    0,                      // mSizeOther
-    0,                      // mParameters
-    &g_fopAc_Method.base,   // sub_method
-    230,                    // mPriority
-    &l_daB_GG_Method,       // sub_method
-    0x000C0100,             // mStatus
-    fopAc_ENEMY_e,          // mActorType
-    fopAc_CULLBOX_CUSTOM_e, // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_B_GG_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daB_GG_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_B_GG_e,
+    /* Actor SubMtd */ &l_daB_GG_Method,
+    /* Status       */ fopAcStts_UNK_0x80000_e | fopAcStts_UNK_0x40000_e | fopAcStts_CULL_e,
+    /* Group        */ fopAc_ENEMY_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };
 
 AUDIO_INSTANCES

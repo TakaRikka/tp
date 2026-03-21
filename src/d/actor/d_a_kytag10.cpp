@@ -64,7 +64,7 @@ static dPath* get_Extent_pos_end_get(kytag10_class* i_this, dPath* i_path, cXyz*
 }
 
 static void sparks_move(kytag10_class* i_this) {
-    camera_class* camera_p = dComIfGp_getCamera(0);
+    camera_process_class* camera_p = dComIfGp_getCamera(0);
 
     cXyz ratio_pos_1;
     cXyz ratio_pos_2;
@@ -76,11 +76,11 @@ static void sparks_move(kytag10_class* i_this) {
 
     if (path_p != NULL) {
         int start_point_idx;
-        dPath* path_start = get_Extent_pos_start_get(i_this, path_p, &camera_p->lookat.eye,
+        dPath* path_start = get_Extent_pos_start_get(i_this, path_p, &camera_p->view.lookat.eye,
                                                      1000.0f, &start_point_idx);
 
         int end_point_idx;
-        dPath* path_end = get_Extent_pos_end_get(i_this, path_p, &camera_p->lookat.eye, 1000.0f,
+        dPath* path_end = get_Extent_pos_end_get(i_this, path_p, &camera_p->view.lookat.eye, 1000.0f,
                                                  &end_point_idx);
 
         s16 spD6;
@@ -207,18 +207,18 @@ static actor_method_class l_daKytag10_Method = {
 };
 
 actor_process_profile_definition g_profile_KYTAG10 = {
-    fpcLy_CURRENT_e,
-    7,
-    fpcPi_CURRENT_e,
-    PROC_KYTAG10,
-    &g_fpcLf_Method.base,
-    sizeof(kytag10_class),
-    0,
-    0,
-    &g_fopAc_Method.base,
-    104,
-    &l_daKytag10_Method,
-    0x44000,
-    fopAc_ACTOR_e,
-    fopAc_CULLBOX_0_e,
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_KYTAG10_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(kytag10_class),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_KYTAG10_e,
+    /* Actor SubMtd */ &l_daKytag10_Method,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_UNK_0x4000_e,
+    /* Group        */ fopAc_ACTOR_e,
+    /* Cull Type    */ fopAc_CULLBOX_0_e,
 };

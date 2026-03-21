@@ -12,6 +12,7 @@
 #include "d/actor/d_a_npc_wrestler.h"
 #include "Z2AudioLib/Z2Instances.h"
 #include "d/d_camera.h"
+#include <cstring>
 
 enum Bou_RES_File_ID {
     /* BCK */
@@ -672,7 +673,7 @@ BOOL daNpcBouS_c::setAction(actionFunc action) {
 
 static void* s_sub(void* i_actor, void* i_data) {
     if (
-        fopAcM_IsActor(i_actor) && fopAcM_GetName(i_actor) == PROC_Tag_Instruction &&
+        fopAcM_IsActor(i_actor) && fopAcM_GetName(i_actor) == fpcNm_Tag_Instruction_e &&
         ((daNpcBouS_c*)i_data)->checkInstructionTag((fopAc_ac_c*)i_actor)
     ) {
         return i_actor;
@@ -1034,7 +1035,7 @@ bool daNpcBouS_c::wait(void* param_1) {
                 }
             }
 
-            if (!checkItemGet(fpcNm_ITEM_HVY_BOOTS, 1) && dComIfGs_isTbox(2)) {
+            if (!checkItemGet(dItemNo_HVY_BOOTS_e, 1) && dComIfGs_isTbox(2)) {
                 mForcibleTalk = 1;
             }
 
@@ -1142,7 +1143,7 @@ bool daNpcBouS_c::talk(void* param_1) {
                         if (itemNo == 1) {
                             setAction(&daNpcBouS_c::instruction);
                         } else {
-                            parentActorID = fopAcM_createChild(PROC_NPC_WRESTLER, fopAcM_GetID(this),
+                            parentActorID = fopAcM_createChild(fpcNm_NPC_WRESTLER_e, fopAcM_GetID(this),
                                                (itemNo << 24) | (getArenaNo() | 0x700), &l_createPos, fopAcM_GetRoomNo(this),
                                                NULL, NULL, getType(), NULL);
                             setAngle(home.angle.y);
@@ -1290,7 +1291,7 @@ bool daNpcBouS_c::instruction(void* param_1) {
                 case 2:
                     if (talkProc(NULL, TRUE, NULL)) {
                         mActorMngrs[0].entry(daPy_getPlayerActorClass());
-                        parentActorID = fopAcM_createChild(PROC_NPC_WRESTLER, fopAcM_GetID(this),
+                        parentActorID = fopAcM_createChild(fpcNm_NPC_WRESTLER_e, fopAcM_GetID(this),
                                             getArenaNo() | 0x700 | 0x2000000, &l_createPos, fopAcM_GetRoomNo(this),
                                             NULL, NULL, getType(), NULL);
                         mInstructionMode++;
@@ -1360,22 +1361,22 @@ int daNpcBouS_c::EvCut_BousIntroSumo1(int i_staffId) {
 
     if (eventManager.getIsAddvance(i_staffId)) {
         switch (*cutName) {
-            case '0x0001':
+            case '0001':
                 setLookMode(LOOK_PLAYER_TALK);
                 mActorMngrs[0].entry(daPy_getPlayerActorClass());
                 break;
 
-            case '0x0002':
-            case '0x0003':
-            case '0x0005':
-            case '0x0006':
-            case '0x0007':
-            case '0x0008':
-            case '0x0009':
+            case '0002':
+            case '0003':
+            case '0005':
+            case '0006':
+            case '0007':
+            case '0008':
+            case '0009':
                 initTalk(9, NULL);
                 break;
             
-            case '0x0004':
+            case '0004':
                 setExpressionAnm(ANM_FH_TALK_B, true);
                 break;
 
@@ -1396,17 +1397,17 @@ int daNpcBouS_c::EvCut_BousIntroSumo1(int i_staffId) {
     }
 
     switch (*cutName) {
-        case '0x0001':
-        case '0x0004':
+        case '0001':
+        case '0004':
             return 1;
 
-        case '0x0002':
-        case '0x0003':
-        case '0x0005':
-        case '0x0006':
-        case '0x0007':
-        case '0x0008':
-        case '0x0009':
+        case '0002':
+        case '0003':
+        case '0005':
+        case '0006':
+        case '0007':
+        case '0008':
+        case '0009':
             if (talkProc(NULL, TRUE, NULL)) {
                 s32 choiceNo = mFlow.getChoiceNo();
                 OS_REPORT("二択分岐 %s\n", choiceNo == 0 ? "はい" : "いいえ");
@@ -1434,7 +1435,7 @@ int daNpcBouS_c::EvCut_BousIntroSumo2(int i_staffId) {
 
     if (eventManager.getIsAddvance(i_staffId)) {
         switch (*cutName) {
-            case '0x0001':
+            case '0001':
                 initTalk(9, NULL);
                 setLookMode(LOOK_PLAYER_TALK);
                 mActorMngrs[0].entry(daPy_getPlayerActorClass());
@@ -1456,7 +1457,7 @@ int daNpcBouS_c::EvCut_BousIntroSumo2(int i_staffId) {
     }
 
     switch (*cutName) {
-        case '0x0001':
+        case '0001':
             if (mCurAngle.y == fopAcM_searchPlayerAngleY(this)) {
                 if (talkProc(NULL, TRUE, NULL)) {
                     int choiceNo = mFlow.getChoiceNo();
@@ -1489,15 +1490,15 @@ int daNpcBouS_c::EvCut_BousIntroSumo3(int i_staffId) {
 
     if (eventManager.getIsAddvance(i_staffId)) {
         switch (*cutName) {
-            case '0x0001':
+            case '0001':
                 setLookMode(LOOK_PLAYER_TALK);
                 mActorMngrs[0].entry(daPy_getPlayerActorClass());
                 break;
 
-            case '0x0003':
+            case '0003':
                 setMotion(MOT_WALK, -1.0f, 0);
                 // fallthrough
-            case '0x0002':
+            case '0002':
                 setAngle(-0x2AAA);
                 initTalk(9, NULL);
                 break;
@@ -1521,16 +1522,16 @@ int daNpcBouS_c::EvCut_BousIntroSumo3(int i_staffId) {
     }
 
     switch (*cutName) {
-        case '0x0001':
+        case '0001':
             return 1;
         
-        case '0x0002':
+        case '0002':
             if (talkProc(NULL, TRUE, NULL)) {
                 return 1;
             }
             break;
 
-        case '0x0003': {
+        case '0003': {
             cXyz* pos = dComIfGp_evmng_getMyXyzP(i_staffId, "pos");
             if (pos != NULL) {
                 if (cLib_chaseAngleS(&shape_angle.y, cLib_targetAngleY(&current.pos, pos), 0x100)) {
@@ -1555,7 +1556,7 @@ int daNpcBouS_c::EvCut_BousIntroSumo3(int i_staffId) {
                     if (itemNo == 1) {
                         setAction((&daNpcBouS_c::instruction));
                     } else {
-                        parentActorID = fopAcM_createChild(PROC_NPC_WRESTLER, fopAcM_GetID(this),
+                        parentActorID = fopAcM_createChild(fpcNm_NPC_WRESTLER_e, fopAcM_GetID(this),
                                             (itemNo << 24) | (getArenaNo() | 0x700), &l_createPos, fopAcM_GetRoomNo(this),
                                             NULL, NULL, getType(), NULL);
                         setAngle(home.angle.y);
@@ -1624,18 +1625,18 @@ static actor_method_class daNpcBouS_MethodTable = {
 };
 
 actor_process_profile_definition g_profile_NPC_BOU_S = {
-  fpcLy_CURRENT_e,        // mLayerID
-  7,                      // mListID
-  fpcPi_CURRENT_e,        // mListPrio
-  PROC_NPC_BOU_S,         // mProcName
-  &g_fpcLf_Method.base,  // sub_method
-  sizeof(daNpcBouS_c),    // mSize
-  0,                      // mSizeOther
-  0,                      // mParameters
-  &g_fopAc_Method.base,   // sub_method
-  325,                    // mPriority
-  &daNpcBouS_MethodTable, // sub_method
-  0x00044100,             // mStatus
-  fopAc_NPC_e,            // mActorType
-  fopAc_CULLBOX_CUSTOM_e, // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_NPC_BOU_S_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daNpcBouS_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_NPC_BOU_S_e,
+    /* Actor SubMtd */ &daNpcBouS_MethodTable,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_UNK_0x4000_e | fopAcStts_CULL_e,
+    /* Group        */ fopAc_NPC_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

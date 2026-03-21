@@ -92,9 +92,9 @@ void daPPolamp_c::setPclModelMtx() {
     Vec local_2c = {0.0f, -45.0f, 0.0f};
     cMtx_multVec(mModel1->getBaseTRMtx(), &local_2c, &local_20);
     mDoMtx_stack_c::transS(local_20.x, local_20.y, local_20.z);
-    camera_class* camera = dComIfGp_getCamera(0);
+    camera_process_class* camera = dComIfGp_getCamera(0);
     if (camera != NULL) {
-        cXyz cStack_38 = camera->lookat.eye - current.pos;
+        cXyz cStack_38 = camera->view.lookat.eye - current.pos;
         mDoMtx_stack_c::YrotM(cStack_38.atan2sX_Z());
         mDoMtx_stack_c::XrotM(cStack_38.atan2sY_XZ());
     }
@@ -127,8 +127,8 @@ int daPPolamp_c::createHeap() {
 
 void daPPolamp_c::moveSwing() {
     s16 sVar1 = field_0x598 * 65 - 500;
-    shape_angle.z += (s16)(field_0x5a4 * (field_0x59c * sVar1));
-    shape_angle.y += (s16)(field_0x59e * field_0x5a4);
+    ANGLE_ADD(shape_angle.z, field_0x5a4 * (field_0x59c * sVar1));
+    ANGLE_ADD(shape_angle.y, field_0x59e * field_0x5a4);
     if (sVar1 > 500) {
         field_0x598 = 0;
         field_0x59c *= -1;
@@ -178,20 +178,20 @@ static actor_method_class daPPolamp_METHODS = {
 };
 
 actor_process_profile_definition g_profile_PPolamp = {
-  fpcLy_CURRENT_e,       // mLayerID
-  7,                     // mListID
-  fpcPi_CURRENT_e,       // mListPrio
-  PROC_PPolamp,          // mProcName
-  &g_fpcLf_Method.base, // sub_method
-  sizeof(daPPolamp_c),   // mSize
-  0,                     // mSizeOther
-  0,                     // mParameters
-  &g_fopAc_Method.base,  // sub_method
-  727,                   // mPriority
-  &daPPolamp_METHODS,    // sub_method
-  0x00040180,            // mStatus
-  fopAc_ENV_e,           // mActorType
-  fopAc_CULLBOX_12_e,    // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_PPolamp_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daPPolamp_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_PPolamp_e,
+    /* Actor SubMtd */ &daPPolamp_METHODS,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_CULL_e | fopAcStts_NOEXEC_e,
+    /* Group        */ fopAc_ENV_e,
+    /* Cull Type    */ fopAc_CULLBOX_12_e,
 };
 
 AUDIO_INSTANCES;

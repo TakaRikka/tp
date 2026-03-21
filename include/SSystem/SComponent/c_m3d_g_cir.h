@@ -1,7 +1,7 @@
 #ifndef C_M3D_G_CIR_H
 #define C_M3D_G_CIR_H
 
-#include <dolphin/types.h>
+#include <types.h>
 
 class cM2dGCir {
 public:
@@ -30,6 +30,8 @@ public:
     cM3dGCir(void);
     virtual ~cM3dGCir(void);
     void Set(f32, f32, f32, f32);
+
+    f32 GetHeight() const { return mPosZ; }
 };
 
 #endif /* C_M3D_G_CIR_H */

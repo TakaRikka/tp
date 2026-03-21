@@ -12,7 +12,7 @@
 #include "d/d_cc_uty.h"
 #include "d/d_com_inf_game.h"
 #include "d/actor/d_a_player.h"
-#include "d/d_procname.h"
+#include "f_pc/f_pc_name.h"
 
 static bool hio_set;
 
@@ -170,8 +170,7 @@ static void food_normal(obj_food_class* i_this) {
 
             Z2GetAudioMgr()->seStart(Z2SE_OBJ_TOY_BONE_BOUND, &i_this->current.pos,
                                      fabsf(i_this->mOldSpeedY), 0, 1.0f, 1.0f, -1.0f, -1.0f, 0);
-            
-            i_this->current.angle.y += (s16)cM_rndFX(8000.0f);
+            ANGLE_ADD(i_this->current.angle.y, cM_rndFX(8000.0f));
 
             if (i_this->mBounces == 3) {
                 i_this->mRotSpeed.z = 0;
@@ -271,7 +270,7 @@ static void action(obj_food_class* i_this) {
     }
 
     if (i_this->mType == obj_food_class::TYPE_BALL) {
-        i_this->current.angle.x += (s16)(i_this->speedF * 700.0f);
+        ANGLE_ADD(i_this->current.angle.x, i_this->speedF * 700.0f);
         cMtx_YrotS(*calc_mtx, i_this->current.angle.y);
         vec1.x = 0.0f;
         vec1.y = 0.0f;
@@ -503,18 +502,18 @@ static actor_method_class l_daObj_Food_Method = {
 };
 
 actor_process_profile_definition g_profile_OBJ_FOOD = {
-    fpcLy_CURRENT_e,
-    7,
-    fpcPi_CURRENT_e,
-    PROC_OBJ_FOOD,
-    &g_fpcLf_Method.base,
-    sizeof(obj_food_class),
-    0,
-    0,
-    &g_fopAc_Method.base,
-    0x2C8,
-    &l_daObj_Food_Method,
-    0x44100,
-    fopAc_ACTOR_e,
-    fopAc_CULLBOX_0_e,
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_OBJ_FOOD_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(obj_food_class),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_OBJ_FOOD_e,
+    /* Actor SubMtd */ &l_daObj_Food_Method,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_UNK_0x4000_e | fopAcStts_CULL_e,
+    /* Group        */ fopAc_ACTOR_e,
+    /* Cull Type    */ fopAc_CULLBOX_0_e,
 };

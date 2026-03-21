@@ -12,6 +12,7 @@
 #include "d/actor/d_a_npc_gra.h"
 #include "d/actor/d_a_tag_gra.h"
 #include "Z2AudioLib/Z2Instances.h"
+#include <cstring>
 
 const daNpc_grA_HIOParam daNpc_grA_Param_c::m = {
     {90.0f,  -4.0f,  1.0f,   850.0f,  255.0f, 280.0f, 40.0f, 100.0f, 0.0f, 0.0f, 20.0f,
@@ -342,10 +343,13 @@ BOOL daNpc_grA_c::create() {
     mType = getTypeFromParam();
     mMode = getMode();
     mSwBit = getSwBit();
+    // !@bug home.angle.x is promoted to a 32-bit signed integer prior
+    //       to being compared, so the compared value can never exceed
+    //       SHORT_MAX and the condition always passes.
     if (home.angle.x != 0xffff) {
-        field_0x146C = home.angle.x;
+        mFlowID = home.angle.x;
     } else{
-        field_0x146C = -1;
+        mFlowID = -1;
     }
     if (isDelete()) {
         return cPhs_ERROR_e;
@@ -591,7 +595,7 @@ BOOL daNpc_grA_c::setHomeJump() {
 
 static void* s_sub(void* i_actor, void* i_this) {
     // a bit ugly, but the debug version can't have any local variables
-    if (fopAcM_IsActor(i_actor) && fopAcM_GetName(i_actor) == PROC_TAG_GRA) {
+    if (fopAcM_IsActor(i_actor) && fopAcM_GetName(i_actor) == fpcNm_TAG_GRA_e) {
         if (((daNpc_grA_c*)i_this)->checkTagGraSub((fopAc_ac_c*)i_actor)) {
             return i_actor;
         }
@@ -612,7 +616,7 @@ bool daNpc_grA_c::checkTagGraSub(fopAc_ac_c* i_this) {
 
 static void* s_sub2(void* i_actor, void* i_this) {
     // a bit ugly, but the debug version can't have any local variables
-    if (fopAcM_IsActor(i_actor) && fopAcM_GetName(i_actor) == PROC_TAG_GRA) {
+    if (fopAcM_IsActor(i_actor) && fopAcM_GetName(i_actor) == fpcNm_TAG_GRA_e) {
         if (((daNpc_grA_c*)i_this)->checkTagGraSub2((fopAc_ac_c*)i_actor)) {
             return i_actor;
         }
@@ -633,7 +637,7 @@ bool daNpc_grA_c::checkTagGraSub2(fopAc_ac_c* i_this) {
 
 static void* s_subShop(void* i_actor, void* i_this) {
     UNUSED(i_this);
-    if (fopAcM_IsActor(i_actor) && fopAcM_GetName(i_actor) == PROC_NPC_GRM) {
+    if (fopAcM_IsActor(i_actor) && fopAcM_GetName(i_actor) == fpcNm_NPC_GRM_e) {
         return i_actor;
     }
     return NULL;
@@ -641,7 +645,7 @@ static void* s_subShop(void* i_actor, void* i_this) {
 
 static void* s_subGRD(void* i_actor, void* i_this) {
     UNUSED(i_this);
-    if (fopAcM_IsActor(i_actor) && fopAcM_GetName(i_actor) == PROC_NPC_WRESTLER) {
+    if (fopAcM_IsActor(i_actor) && fopAcM_GetName(i_actor) == fpcNm_NPC_WRESTLER_e) {
         return i_actor;
     }
     return NULL;
@@ -649,7 +653,7 @@ static void* s_subGRD(void* i_actor, void* i_this) {
 
 static void *s_subOnsenTaru(void* i_actor, void* i_this) {
     UNUSED(i_this);
-    if (fopAcM_IsActor(i_actor) && fopAcM_GetName(i_actor) == PROC_Obj_OnsenTaru &&
+    if (fopAcM_IsActor(i_actor) && fopAcM_GetName(i_actor) == fpcNm_Obj_OnsenTaru_e &&
         !fpcM_IsCreating(fopAcM_GetID((i_actor))))
     {
         return i_actor;
@@ -658,14 +662,14 @@ static void *s_subOnsenTaru(void* i_actor, void* i_this) {
 }
 
 static void *s_subCarry(void* i_actor, void* i_this) {
-    if (fopAcM_IsActor(i_actor) && fopAcM_GetName(i_actor) == PROC_Obj_Carry) {
+    if (fopAcM_IsActor(i_actor) && fopAcM_GetName(i_actor) == fpcNm_Obj_Carry_e) {
         ((daNpc_grA_c*)i_this)->addCarryNum();
     }
     return NULL;
 }
 
 static void *s_subCrashed(void* i_actor, void* i_this) {
-    if (fopAcM_IsActor(i_actor) && fopAcM_GetName(i_actor) == PROC_TAG_GRA &&
+    if (fopAcM_IsActor(i_actor) && fopAcM_GetName(i_actor) == fpcNm_TAG_GRA_e &&
         ((daNpc_grA_c*)i_this)->checkTagGraSubCrashed((fopAc_ac_c*)i_actor))
     {
         return i_actor;
@@ -2145,7 +2149,7 @@ BOOL daNpc_grA_c::ECut_talkSpa(int i_staffID) {
             setLookMode(5);
             break;
         case 1:
-            initTalk(field_0x146C, arr);
+            initTalk(mFlowID, arr);
             break;
         case 2:
             if (daNpcF_chkEvtBit(6) && daNpcF_chkEvtBit(0x3e) == FALSE) {
@@ -3019,7 +3023,7 @@ BOOL daNpc_grA_c::ECut_rollRockCrash(int i_staffID) {
             break;
         case 0x14: {
             setLookMode(0);
-            initTalk(field_0x146C, NULL);
+            initTalk(mFlowID, NULL);
             cXyz c(200.0f, 100.0f, 0.0f);
             mDoMtx_stack_c::YrotS(home.angle.y);
             mDoMtx_stack_c::multVec(&c, &c);
@@ -3587,7 +3591,7 @@ BOOL daNpc_grA_c::waitSpaWater(void*) {
         }
         setLookMode(0);
         mTurnMode = 0;
-        field_0x146C = 0x28;
+        mFlowID = 0x28;
         field_0x1472 = 2;
         field_0x9ea = 1;
         // fallthrough
@@ -3630,7 +3634,7 @@ BOOL daNpc_grA_c::waitSpaWater(void*) {
         if (field_0xC98.ChkTgHit()) {
             daOnsTaru_c* hit = (daOnsTaru_c*)field_0xC98.GetTgHitAc();
             if (fopAcM_GetName(hit) == 0x16c) {
-                fopAcM_OnStatus(hit, 0x4000);
+                fopAcM_OnStatus(hit, fopAcStts_UNK_0x4000_e);
                 if (hit->getTempStat()) {
                     mOrderEvtNo = 7;
                 } else {
@@ -3967,7 +3971,7 @@ BOOL daNpc_grA_c::talk(void*) {
                 setGateWalk();
             }
         } else {
-            r27 = field_0x146C;
+            r27 = mFlowID;
         }
         initTalk(r27, NULL);
         field_0x1484 = fopAcM_searchPlayerAngleY(this);
@@ -4106,20 +4110,20 @@ static actor_method_class daNpc_grA_MethodTable = {
 };
 
 actor_process_profile_definition g_profile_NPC_GRA = {
-  fpcLy_CURRENT_e,        // mLayerID
-  7,                      // mListID
-  fpcPi_CURRENT_e,        // mListPrio
-  PROC_NPC_GRA,           // mProcName
-  &g_fpcLf_Method.base,  // sub_method
-  sizeof(daNpc_grA_c),    // mSize
-  0,                      // mSizeOther
-  0,                      // mParameters
-  &g_fopAc_Method.base,   // sub_method
-  306,                    // mPriority
-  &daNpc_grA_MethodTable, // sub_method
-  0x00044100,             // mStatus
-  fopAc_NPC_e,            // mActorType
-  fopAc_CULLBOX_CUSTOM_e, // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_NPC_GRA_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daNpc_grA_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_NPC_GRA_e,
+    /* Actor SubMtd */ &daNpc_grA_MethodTable,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_UNK_0x4000_e | fopAcStts_CULL_e,
+    /* Group        */ fopAc_NPC_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };
 
 AUDIO_INSTANCES;

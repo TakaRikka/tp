@@ -236,7 +236,7 @@ static void obj_hb_drop(obj_hb_class* i_this) {
                 if (wall_angle != 35) {
                     s16 angle_delta = a_this->current.angle.y - wall_angle;
                     i_this->field_0x690 = angle_delta * (WREG_F(6) + -0.3f);
-                    a_this->current.angle.y += (s16)(0x8000 - (angle_delta << 1));
+                    ANGLE_ADD(a_this->current.angle.y, 0x8000 - (angle_delta << 1));
                     a_this->speedF *= AREG_F(4) + 0.5f;
                     i_this->mTimers[0] = 10;
                     i_this->mSound.startCollisionSE(Z2SE_HIT_SWORD, 41);
@@ -369,8 +369,8 @@ static void obj_hb_float(obj_hb_class* i_this) {
     i_this->field_0x676.x = i_this->field_0x694 * cM_ssin(i_this->field_0x650 * (WREG_S(3) + 1000));
     i_this->field_0x676.z = i_this->field_0x694 * cM_ssin(i_this->field_0x650 * (WREG_S(4) + 1100));
     cLib_addCalc2(&i_this->field_0x694, 500.0f, 0.1f, 30.0f);
-    i_this->field_0x676.x += (s16)(i_this->field_0x698 * cM_ssin(i_this->field_0x650 * (WREG_S(7) + 4000)));
-    a_this->shape_angle.z += (s16)(i_this->field_0x698 * cM_ssin(i_this->field_0x650 * (WREG_S(8) + 4200)));
+    ANGLE_ADD(i_this->field_0x676.x, i_this->field_0x698 * cM_ssin(i_this->field_0x650 * (WREG_S(7) + 4000)));
+    ANGLE_ADD(a_this->shape_angle.z, i_this->field_0x698 * cM_ssin(i_this->field_0x650 * (WREG_S(8) + 4200)));
     cLib_addCalc2(&i_this->field_0x698, 0.0f, 0.1f, 30.0f);
     i_this->field_0x676.y += i_this->field_0x690;
 
@@ -416,7 +416,7 @@ static void action(obj_hb_class* i_this) {
                         s16 target = fopAcM_searchPlayerAngleY(a_this);
                         s16 angle_delta = i_this->field_0x676.y - target;
                         if (angle_delta > 0x4000 || angle_delta < -0x4000) {
-                            ADD_ANGLE(target, 0x8000);
+                            ANGLE_ADD(target, 0x8000);
                         }
                         cLib_addCalcAngleS2(&i_this->field_0x676.y, target, 4, 0x100);
                     }
@@ -697,7 +697,7 @@ static cPhs_Step daOBJ_HB_Create(fopAc_ac_c* a_this) {
             i_this->mMode = 0;
             a_this->scale.x = 1.0f;
             i_this->mChildPlaySpeed = 0.0f;
-            i_this->mChildActorID = fopAcM_createChild(PROC_E_HB_LEAF, fopAcM_GetID(a_this), 0, &a_this->current.pos,
+            i_this->mChildActorID = fopAcM_createChild(fpcNm_E_HB_LEAF_e, fopAcM_GetID(a_this), 0, &a_this->current.pos,
                                                      fopAcM_GetRoomNo(a_this), &a_this->shape_angle, NULL, -1, NULL);
             i_this->field_0x6b0 = 1;
         }
@@ -719,18 +719,18 @@ static actor_method_class l_daOBJ_HB_Method = {
 };
 
 actor_process_profile_definition g_profile_OBJ_HB = {
-  fpcLy_CURRENT_e,       // mLayerID
-  8,                     // mListID
-  fpcPi_CURRENT_e,       // mListPrio
-  PROC_OBJ_HB,           // mProcName
-  &g_fpcLf_Method.base, // sub_method
-  sizeof(obj_hb_class),  // mSize
-  0,                     // mSizeOther
-  0,                     // mParameters
-  &g_fopAc_Method.base,  // sub_method
-  705,                   // mPriority
-  &l_daOBJ_HB_Method,    // sub_method
-  0x00040100,            // mStatus
-  fopAc_ACTOR_e,         // mActorType
-  fopAc_CULLBOX_0_e,     // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 8,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_OBJ_HB_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(obj_hb_class),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_OBJ_HB_e,
+    /* Actor SubMtd */ &l_daOBJ_HB_Method,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_CULL_e,
+    /* Group        */ fopAc_ACTOR_e,
+    /* Cull Type    */ fopAc_CULLBOX_0_e,
 };

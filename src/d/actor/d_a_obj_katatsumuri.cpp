@@ -13,6 +13,19 @@
 #include "d/d_s_play.h"
 #include "f_op/f_op_camera_mng.h"
 #include "m_Do/m_Do_lib.h"
+#include <cstring>
+
+class daObj_KatHIO_c : public JORReflexible {
+public:
+    daObj_KatHIO_c();
+    virtual ~daObj_KatHIO_c() {}
+
+    void genMessage(JORMContext* ctx);
+
+    s8 field_0x4;
+    f32 mScaleFemale;
+    f32 mScaleMale;
+};
 
 static u8 hio_set;
 
@@ -24,9 +37,20 @@ daObj_KatHIO_c::daObj_KatHIO_c() {
     mScaleFemale = 1.0f;
 }
 
+#if DEBUG
+void daObj_KatHIO_c::genMessage(JORMContext* ctx) {
+    // Golden Snail
+    ctx->genLabel("黄金蟲(カタツムリ)", 0x80000001);
+    // Model scale (male)
+    ctx->genSlider("モデルスケール(オス)", &mScaleMale, 0.1f, 4.0f);
+    // Model scale (female)
+    ctx->genSlider("モデルスケール(メス)", &mScaleFemale, 0.1f, 4.0f);
+}
+#endif
+
 static u8 const l_kat_itemno[2] = {
-    fpcNm_ITEM_M_SNAIL,
-    fpcNm_ITEM_F_SNAIL,
+    dItemNo_M_SNAIL_e,
+    dItemNo_F_SNAIL_e,
 };
 
 void daObjKAT_c::InitCcSph() {
@@ -83,7 +107,7 @@ static int useHeapInit(fopAc_ac_c* i_this) {
     return kat->CreateHeap();
 }
 
-int daObjKAT_c::CreateHeap() {
+inline int daObjKAT_c::CreateHeap() {
     J3DModelData* modelData = (J3DModelData*)dComIfG_getObjectRes("Kat", 9);
     JUT_ASSERT(0x136, modelData != NULL);
     mpMorfSO =
@@ -139,12 +163,12 @@ int daObjKAT_c::CreateHeap() {
 
 static int daObjKAT_Create(fopAc_ac_c* i_this) {
     daObjKAT_c* kat = (daObjKAT_c*)i_this;
-    fpc_ProcID unused = fopAcM_GetID(i_this);
+    fopAcM_RegisterCreateID(i_this, "Obj_KAT");
     return kat->create();
 }
 
 static int daObjKAT_Delete(daObjKAT_c* i_this) {
-    fpc_ProcID unused = fopAcM_GetID(i_this);
+    fopAcM_RegisterDeleteID(i_this, "Obj_KAT");
     i_this->Delete();
     return 1;
 }
@@ -233,7 +257,7 @@ void daObjKAT_c::WallWalk() {
             field_0x7c2.x = cM_atan2s(unkXyzP2->z, unkXyzP2->y);
             field_0x7f6 = cM_atan2s(unkXyzP2->x, unkXyzP2->z);
         } else {
-            field_0x7e0 += (s16)0x100;
+            ANGLE_ADD(field_0x7e0, 0x100);
         }
     }
 
@@ -589,7 +613,7 @@ void daObjKAT_c::Z_BufferChk() {
     curWithOff.y += 20.0f;
     mDoLib_project(&curWithOff, &projected);
 
-    camera_class* camera = dComIfGp_getCamera(0);
+    camera_process_class* camera = dComIfGp_getCamera(0);
     f32 unkFloat1;
     if (camera != NULL) {
         unkFloat1 = camera->mCamera.TrimHeight();
@@ -622,7 +646,7 @@ void daObjKAT_c::Z_BufferChk() {
     field_0x800 = ((near + far * near / projected.z) / (far - near) + 1.0f) * 16777215.0f;
 }
 
-int daObjKAT_c::Delete() {
+inline int daObjKAT_c::Delete() {
     dComIfG_resDelete(&mPhase, "Kat");
     if (field_0xa70 != 0) {
         hio_set = 0;
@@ -693,17 +717,17 @@ bool daObjKAT_c::CreateChk() {
     return true;
 }
 
-int daObjKAT_c::create() {
+inline int daObjKAT_c::create() {
     fopAcM_ct(this, daObjKAT_c);
 
     s32 loadResult = dComIfG_resLoad(&mPhase, "Kat");
     if (loadResult == cPhs_COMPLEATE_e) {
-        OS_REPORT("KAT PARAM: %x", fopAcM_GetParam(this));
+        OS_REPORT("KAT PARAM %x\n", fopAcM_GetParam(this));
         field_0x808 = fopAcM_GetParam(this) & 0xf;
         if (field_0x808 == 2) {
             field_0x56c = 0;
-            shape_angle.x += (s16)-0x2000;
-            fopAcM_OnStatus(this, 0x4000);
+            ANGLE_ADD(shape_angle.x, -0x2000);
+            fopAcM_OnStatus(this, fopAcStts_UNK_0x4000_e);
         } else {
             mDraw = true;
         }
@@ -856,18 +880,18 @@ static actor_method_class l_daObjKAT_Method = {
 };
 
 actor_process_profile_definition g_profile_Obj_Kat = {
-    fpcLy_CURRENT_e,        // mLayerID
-    7,                      // mListID
-    fpcPi_CURRENT_e,        // mListPrio
-    PROC_Obj_Kat,           // mProcName
-    &g_fpcLf_Method.base,  // sub_method
-    sizeof(daObjKAT_c),     // mSize
-    0,                      // mSizeOther
-    0,                      // mParameters
-    &g_fopAc_Method.base,   // sub_method
-    488,                    // mPriority
-    &l_daObjKAT_Method,     // sub_method
-    0x000C0100,             // mStatus
-    fopAc_ENV_e,            // mActorType
-    fopAc_CULLBOX_CUSTOM_e, // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_Obj_Kat_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daObjKAT_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_Obj_Kat_e,
+    /* Actor SubMtd */ &l_daObjKAT_Method,
+    /* Status       */ fopAcStts_UNK_0x80000_e | fopAcStts_UNK_0x40000_e | fopAcStts_CULL_e,
+    /* Group        */ fopAc_ENV_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

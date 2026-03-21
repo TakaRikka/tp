@@ -8,6 +8,7 @@
 #include "d/d_kyeff.h"
 #include "d/d_com_inf_game.h"
 #include "d/d_kankyo_wether.h"
+#include <cstring>
 
 #if DEBUG
 class dKyeff_HIO_c : public JORReflexible {
@@ -116,7 +117,7 @@ static int dKyeff_Create(kankyo_class* i_this) {
     dKyw_wether_init();
 
     if (strcmp(dComIfGp_getStartStageName(), "Name") == 0) {
-        camera_class* camera = dComIfGp_getCamera(0);
+        camera_process_class* camera = dComIfGp_getCamera(0);
         OSTime time = OSGetTime();
         OSTicksToCalendarTime(time, &calendar);
 
@@ -143,15 +144,15 @@ static leafdraw_method_class l_dKyeff_Method = {
 };
 
 kankyo_process_profile_definition g_profile_KYEFF = {
-    fpcLy_CURRENT_e,
-    12,
-    fpcPi_CURRENT_e,
-    PROC_KYEFF,
-    &g_fpcLf_Method.base,
-    sizeof(dKyeff_c),
-    0,
-    0,
-    &g_fopKy_Method,
-    5,
-    &l_dKyeff_Method,
+    /* Layer ID      */ fpcLy_CURRENT_e,
+    /* List ID       */ 12,
+    /* List Prio     */ fpcPi_CURRENT_e,
+    /* Proc Name     */ fpcNm_KYEFF_e,
+    /* Proc SubMtd   */ &g_fpcLf_Method.base,
+    /* Size          */ sizeof(dKyeff_c),
+    /* Size Other    */ 0,
+    /* Parameters    */ 0,
+    /* Leaf SubMtd   */ &g_fopKy_Method,
+    /* Draw Prio     */ fpcDwPi_KYEFF_e,
+    /* Kankyo SubMtd */ &l_dKyeff_Method,
 };

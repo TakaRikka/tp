@@ -18,6 +18,7 @@
 #include "d/d_pane_class.h"
 #include "m_Do/m_Do_graphic.h"
 #include "m_Do/m_Do_lib.h"
+#include <cstring>
 
 class daBalloon2D_HIO_c : public mDoHIO_entry_c {
 public:
@@ -164,18 +165,18 @@ int daBalloon2D_c::createHeap() {
     JKRArchive* arc = resInfo->getArchive();
     mScreen->setPriority("zelda_balloon_game.blo", 0x20000, arc);
     dPaneClass_showNullPane(mScreen);
-    field_0x578 = new CPaneMgr(mScreen, 'n_all', 2, NULL);
-    field_0x57c = new CPaneMgr(mScreen, 'score_tn', 0, NULL);
-    field_0x580 = new CPaneMgr(mScreen, 'suji_n', 2, NULL);
-    field_0x584 = new CPaneMgr(mScreen, 's_set_n', 0, NULL);
-    field_0x588 = new CPaneMgr(mScreen, 'tas_n', 0, NULL);
-    field_0x58c = new CPaneMgr(mScreen, 'combo_tn', 0, NULL);
-    field_0x590 = new CPaneMgr(mScreen, 'num_n', 0, NULL);
-    field_0x594 = new CPaneMgr(mScreen, 'co_set_n', 2, NULL);
-    field_0x598 = new CPaneMgr(mScreen, 'bal_3_n', 2, NULL);
-    field_0x59c = new CPaneMgr(mScreen, 'bal_2_n', 2, NULL);
-    field_0x5a0 = new CPaneMgr(mScreen, 'bal_1_n', 2, NULL);
-    field_0x5a4 = new CPaneMgr(mScreen, 'ba_com_n', 2, NULL);
+    field_0x578 = new CPaneMgr(mScreen, MULTI_CHAR('n_all'), 2, NULL);
+    field_0x57c = new CPaneMgr(mScreen, MULTI_CHAR('score_tn'), 0, NULL);
+    field_0x580 = new CPaneMgr(mScreen, MULTI_CHAR('suji_n'), 2, NULL);
+    field_0x584 = new CPaneMgr(mScreen, MULTI_CHAR('s_set_n'), 0, NULL);
+    field_0x588 = new CPaneMgr(mScreen, MULTI_CHAR('tas_n'), 0, NULL);
+    field_0x58c = new CPaneMgr(mScreen, MULTI_CHAR('combo_tn'), 0, NULL);
+    field_0x590 = new CPaneMgr(mScreen, MULTI_CHAR('num_n'), 0, NULL);
+    field_0x594 = new CPaneMgr(mScreen, MULTI_CHAR('co_set_n'), 2, NULL);
+    field_0x598 = new CPaneMgr(mScreen, MULTI_CHAR('bal_3_n'), 2, NULL);
+    field_0x59c = new CPaneMgr(mScreen, MULTI_CHAR('bal_2_n'), 2, NULL);
+    field_0x5a0 = new CPaneMgr(mScreen, MULTI_CHAR('bal_1_n'), 2, NULL);
+    field_0x5a4 = new CPaneMgr(mScreen, MULTI_CHAR('ba_com_n'), 2, NULL);
     field_0x578->setAlphaRate(0.0f);
     field_0x5a4->setAlphaRate(0.0f);
     for (s32 i = 0; i < 10; i++) {
@@ -196,17 +197,17 @@ int daBalloon2D_c::createHeap() {
     }
     J2DTextBox* combos[2];
     J2DTextBox* scores[2];
-    combos[0] = (J2DTextBox*)mScreen->search('combo_ts');
-    combos[1] = (J2DTextBox*)mScreen->search('combo_t');
-    scores[0] = (J2DTextBox*)mScreen->search('score_ts');
-    scores[1] = (J2DTextBox*)mScreen->search('score_t');
-    field_0x5a8[0] = (J2DPicture*)mScreen->search('suji_4');
-    field_0x5a8[1] = (J2DPicture*)mScreen->search('suji_3');
-    field_0x5a8[2] = (J2DPicture*)mScreen->search('suji_2');
-    field_0x5a8[3] = (J2DPicture*)mScreen->search('suji_1');
-    field_0x5a8[4] = (J2DPicture*)mScreen->search('suji_0');
-    field_0x5a8[5] = (J2DPicture*)mScreen->search('num_1');
-    field_0x5a8[6] = (J2DPicture*)mScreen->search('num_0');
+    combos[0] = (J2DTextBox*)mScreen->search(MULTI_CHAR('combo_ts'));
+    combos[1] = (J2DTextBox*)mScreen->search(MULTI_CHAR('combo_t'));
+    scores[0] = (J2DTextBox*)mScreen->search(MULTI_CHAR('score_ts'));
+    scores[1] = (J2DTextBox*)mScreen->search(MULTI_CHAR('score_t'));
+    field_0x5a8[0] = (J2DPicture*)mScreen->search(MULTI_CHAR('suji_4'));
+    field_0x5a8[1] = (J2DPicture*)mScreen->search(MULTI_CHAR('suji_3'));
+    field_0x5a8[2] = (J2DPicture*)mScreen->search(MULTI_CHAR('suji_2'));
+    field_0x5a8[3] = (J2DPicture*)mScreen->search(MULTI_CHAR('suji_1'));
+    field_0x5a8[4] = (J2DPicture*)mScreen->search(MULTI_CHAR('suji_0'));
+    field_0x5a8[5] = (J2DPicture*)mScreen->search(MULTI_CHAR('num_1'));
+    field_0x5a8[6] = (J2DPicture*)mScreen->search(MULTI_CHAR('num_0'));
     for (int i = 0; i < 2; i++) {
         combos[i]->setString(32, "");
         scores[i]->setString(32, "");
@@ -670,18 +671,18 @@ static actor_method_class daBalloon2D_METHODS = {
 };
 
 actor_process_profile_definition g_profile_BALLOON2D = {
-    fpcLy_CURRENT_e,        // mLayerID
-    3,                      // mListID
-    fpcPi_CURRENT_e,        // mListPrio
-    PROC_BALLOON2D,         // mProcName
-    &g_fpcLf_Method.base,  // sub_method
-    sizeof(daBalloon2D_c), // mSize
-    0,                      // mSizeOther
-    0,                      // mParameters
-    &g_fopAc_Method.base,   // sub_method
-    765,                    // mPriority
-    &daBalloon2D_METHODS,   // sub_method
-    0x00040000,             // mStatus
-    fopAc_ACTOR_e,          // mActorType
-    fopAc_CULLBOX_0_e,      // cullType
-  };
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 3,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_BALLOON2D_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daBalloon2D_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_BALLOON2D_e,
+    /* Actor SubMtd */ &daBalloon2D_METHODS,
+    /* Status       */ fopAcStts_UNK_0x40000_e,
+    /* Group        */ fopAc_ACTOR_e,
+    /* Cull Type    */ fopAc_CULLBOX_0_e,
+};

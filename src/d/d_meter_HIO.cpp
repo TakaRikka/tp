@@ -10,6 +10,7 @@
 #include "d/d_menu_fmap_map.h"
 #include "d/d_meter_map.h"
 #include "m_Do/m_Do_ext.h"
+#include <cstring>
 
 dMeter_menuHIO_c::dMeter_menuHIO_c() {
     mGameover = 70;
@@ -3604,7 +3605,7 @@ dMeter_mapIconHIO_c::dMeter_mapIconHIO_c() {
     mCannonBallZoomScale[1] = 0.8f;
 
     mLV5DungeonItemDebug = false;
-    mLV5DungeonItem = fpcNm_ITEM_NONE;
+    mLV5DungeonItem = dItemNo_NONE_e;
     mIconDebug = false;
 
     for (int i = 0; i < ARRAY_SIZE(mIconDisplay); i++) {

@@ -6,6 +6,7 @@
 #include "d/actor/d_a_obj_itamato.h"
 #include "d/actor/d_a_arrow.h"
 #include "f_op/f_op_camera_mng.h"
+#include <cstring>
 
 static daNpcT_evtData_c l_evtList[8] = {
     {"", 0},
@@ -272,7 +273,7 @@ void* daTag_AllMato_c::srchBouMato(void* i_actor, void* i_data) {
     if (l_findCount < 100) {
         fopAc_ac_c* actor = (fopAc_ac_c*)i_actor;
         if (actor != NULL && actor != data) {
-            if (fopAcM_IsExecuting(fopAcM_GetID(actor)) && fopAcM_GetName(i_actor) == PROC_OBJ_BOUMATO) {
+            if (fopAcM_IsExecuting(fopAcM_GetID(actor)) && fopAcM_GetName(i_actor) == fpcNm_OBJ_BOUMATO_e) {
                 l_findActorPtrs[l_findCount] = actor;
                 l_findCount++;
             }
@@ -287,7 +288,7 @@ void* daTag_AllMato_c::srchItaMato(void* i_actor, void* i_data) {
     if (l_findCount < 100) {
         fopAc_ac_c* actor = (fopAc_ac_c*)i_actor;
         if (actor != NULL && actor != data) {
-            if (fopAcM_IsExecuting(fopAcM_GetID(actor)) && fopAcM_GetName(i_actor) == PROC_OBJ_ITAMATO) {
+            if (fopAcM_IsExecuting(fopAcM_GetID(actor)) && fopAcM_GetName(i_actor) == fpcNm_OBJ_ITAMATO_e) {
                 l_findActorPtrs[l_findCount] = actor;
                 l_findCount++;
             }
@@ -302,7 +303,7 @@ void* daTag_AllMato_c::srchTaro(void* i_actor, void* i_data) {
     if (l_findCount < 100) {
         fopAc_ac_c* actor = (fopAc_ac_c*)i_actor;
         if (actor != NULL && actor != data) {
-            if (fopAcM_IsExecuting(fopAcM_GetID(actor)) && fopAcM_GetName(i_actor) == PROC_NPC_TARO) {
+            if (fopAcM_IsExecuting(fopAcM_GetID(actor)) && fopAcM_GetName(i_actor) == fpcNm_NPC_TARO_e) {
                 l_findActorPtrs[l_findCount] = actor;
                 l_findCount++;
             }
@@ -317,7 +318,7 @@ void* daTag_AllMato_c::srchArrow(void* i_actor, void* i_data) {
     if (l_findCount < 100) {
         fopAc_ac_c* actor = (fopAc_ac_c*)i_actor;
         if (actor != NULL && actor != data) {
-            if (fopAcM_IsExecuting(fopAcM_GetID(actor)) && fopAcM_GetName(i_actor) == PROC_ARROW) {
+            if (fopAcM_IsExecuting(fopAcM_GetID(actor)) && fopAcM_GetName(i_actor) == fpcNm_ARROW_e) {
                 l_findActorPtrs[l_findCount] = actor;
                 l_findCount++;
             }
@@ -516,7 +517,7 @@ int daTag_AllMato_c::checkCrsMato2() {
             }
 
             fopAc_ac_c* sp18 = NULL;
-            int sp14 = NULL;
+            int sp14 = 0;
 
             for (int i = 0; i < 499; i++) {
                 for (int j = 0; j < mBouMatoActorNum; j++) {
@@ -592,18 +593,18 @@ static actor_method_class daTag_AllMato_MethodTable = {
 };
 
 actor_process_profile_definition g_profile_TAG_ALLMATO = {
-    fpcLy_CURRENT_e,                // mLayerID
-    10,                              // mListID
-    fpcPi_CURRENT_e,                // mListPri
-    PROC_TAG_ALLMATO,               // mProcName
-    &g_fpcLf_Method.base,          // sub_method
-    sizeof(daTag_AllMato_c),     // mSize
-    0,                              // mSizeOther
-    0,                              // mParameters
-    &g_fopAc_Method.base,           // sub_method
-    288,                             // mPriority
-    &daTag_AllMato_MethodTable,  // sub_method
-    0x44000,                        // mStatus
-    fopAc_ACTOR_e,                              // mActorType
-    fopAc_CULLBOX_CUSTOM_e,         // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 10,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_TAG_ALLMATO_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daTag_AllMato_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_TAG_ALLMATO_e,
+    /* Actor SubMtd */ &daTag_AllMato_MethodTable,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_UNK_0x4000_e,
+    /* Group        */ fopAc_ACTOR_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

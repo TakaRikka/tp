@@ -874,11 +874,7 @@ void dDlst_blo_c::draw() {
 }
 
 // stand-in for a function that pulls in a bunch of inline functions but was presumably stripped
-static void dummy_misc() {
-    J2DScreen* screen;
-    J2DPane* pane;
-    J2DPicture* picture;
-    J2DAnmBase* anmBase;
+static void dummy_misc(J2DAnmBase* anmBase, J2DPicture* picture, J2DPane* pane, J2DScreen* screen) {
     delete anmBase;
     picture->setBlack(JUtility::TColor(0, 0, 0, 0));
     picture->setWhite(JUtility::TColor(0, 0, 0, 0));
@@ -1824,7 +1820,7 @@ int dDlst_list_c::set(dDlst_base_c**& p_start, dDlst_base_c**& p_end, dDlst_base
         return 0;
     }
     *p_start = p_newDlst;
-    *p_start++;
+    UNUSED(*p_start++);
     return 1;
 }
 

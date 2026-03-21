@@ -70,7 +70,7 @@ static int daB_DRE_Delete(daB_DRE_c* i_this) {
 }
 
 bool daB_DRE_c::CameraSet() {
-    camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+    camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
     dCamera_c* cam_body = dCam_getBody();
 
     if (!eventInfo.checkCommandDemoAccrpt()) {
@@ -92,12 +92,12 @@ bool daB_DRE_c::CameraSet() {
 }
 
 void daB_DRE_c::SetStopingCam() {
-    camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+    camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
     camera->mCamera.Set(mCamCenter, mCamEye, mCamFovy, 0);
 }
 
 void daB_DRE_c::SetStopCam(cXyz i_center, f32 param_1, f32 i_eyeY, s16 i_offsetAngle) {
-    camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+    camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
 
     cXyz eye_pos(0.0f, i_eyeY, param_1);
     mCamCenter.set(i_center.x, i_center.y, i_center.z);
@@ -127,7 +127,7 @@ void daB_DRE_c::SetCMoveCam(cXyz i_target, f32 i_scale, f32 i_step) {
 
 void daB_DRE_c::SetEyeMoveCam(cXyz param_0, f32 param_1, f32 param_2, s16 i_offsetAngle,
                               f32 i_step) {
-    camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+    camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
 
     cXyz offset(0.0f, param_2, param_1);
     cXyz target(0.0f, 0.0f, 0.0f);
@@ -140,7 +140,7 @@ void daB_DRE_c::SetEyeMoveCam(cXyz param_0, f32 param_1, f32 param_2, s16 i_offs
 
 void daB_DRE_c::SetEyeMoveCam(cXyz param_0, f32 param_1, f32 param_2, s16 i_offsetAngle,
                               f32 i_scale, f32 i_step) {
-    camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+    camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
 
     cXyz target(0.0f, param_2, param_1);
     cLib_offsetPos(&target, &param_0, i_offsetAngle, &target);
@@ -151,7 +151,7 @@ void daB_DRE_c::SetEyeMoveCam(cXyz param_0, f32 param_1, f32 param_2, s16 i_offs
 }
 
 void daB_DRE_c::SetMoveCam(f32 i_scale, f32 i_step) {
-    camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+    camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
 
     cLib_addCalcPos(&mCamCenter, mCamCenterTarget, i_scale, i_step, 0.0f);
     cLib_addCalcPos(&mCamEye, mCamEyeTarget, i_scale, i_step, 0.0f);
@@ -160,7 +160,7 @@ void daB_DRE_c::SetMoveCam(f32 i_scale, f32 i_step) {
 }
 
 void daB_DRE_c::SetReleaseCam() {
-    camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+    camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
 
     camera->mCamera.Reset(mCamCenter, mCamEye);
     camera->mCamera.Start();
@@ -564,14 +564,14 @@ void daB_DRE_c::DrAction() {
 
             sp90 = current.pos;
             sp1C.set(0, shape_angle.y + 0x1000, 0);
-            fopAcM_createItemForBoss(&sp90, fpcNm_ITEM_UTAWA_HEART, fopAcM_GetRoomNo(this), &sp1C,
+            fopAcM_createItemForBoss(&sp90, dItemNo_UTAWA_HEART_e, fopAcM_GetRoomNo(this), &sp1C,
                                      NULL, 6.0f + TREG_F(9), 20.0f + TREG_F(10), -1);
             mTimers[0] = 30;
         }
         break;
     case 6:
         fopAc_ac_c* lifecon;
-        fopAcM_SearchByName(PROC_Obj_LifeContainer, &lifecon);
+        fopAcM_SearchByName(fpcNm_Obj_LifeContainer_e, &lifecon);
         if (lifecon != NULL) {
             dComIfGp_event_setTalkPartner(lifecon);
             player->changeDemoMode(0x2F, 3, 0, 0);
@@ -597,7 +597,7 @@ void daB_DRE_c::DrAction() {
             cXyz sp6C(0.0f, 0.0f, 0.0f);
             sp90.set(150.0f + aREG_F(0), 400.0f + XREG_F(4), 800.0f);
             cLib_offsetPos(&sp90, &sp90, shape_angle.y + 0x5000, &sp6C);
-            fopAcM_create(PROC_OBJ_YSTONE, 0, &sp90, fopAcM_GetRoomNo(this), NULL, NULL, -1);
+            fopAcM_create(fpcNm_OBJ_YSTONE_e, 0, &sp90, fopAcM_GetRoomNo(this), NULL, NULL, -1);
 
             sp90.set(-325.0f, 0.0f, 215.0f);
             sp1C.set(0, 0, 0);
@@ -618,7 +618,7 @@ void daB_DRE_c::DrAction() {
         }
 
         fopAc_ac_c* ystone;
-        fopAcM_SearchByName(PROC_OBJ_YSTONE, &ystone);
+        fopAcM_SearchByName(fpcNm_OBJ_YSTONE_e, &ystone);
 
         if (ystone != NULL && field_0x638 == 0) {
             field_0x638 = 1;
@@ -944,20 +944,20 @@ static actor_method_class l_daB_DRE_Method = {
 };
 
 actor_process_profile_definition g_profile_B_DRE = {
-    fpcLy_CURRENT_e,         // mLayerID
-    7,                       // mListID
-    fpcPi_CURRENT_e,         // mListPrio
-    PROC_B_DRE,              // mProcName
-    &g_fpcLf_Method.base,    // sub_method
-    sizeof(daB_DRE_c),       // mSize
-    0,                       // mSizeOther
-    0,                       // mParameters
-    &g_fopAc_Method.base,    // sub_method
-    231,                     // mPriority
-    &l_daB_DRE_Method,       // sub_method
-    0x00044100,              // mStatus
-    fopAc_ENEMY_e,           // mActorType
-    fopAc_CULLBOX_CUSTOM_e,  // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_B_DRE_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daB_DRE_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_B_DRE_e,
+    /* Actor SubMtd */ &l_daB_DRE_Method,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_UNK_0x4000_e | fopAcStts_CULL_e,
+    /* Group        */ fopAc_ENEMY_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };
 
 AUDIO_INSTANCES;

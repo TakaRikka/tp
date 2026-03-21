@@ -127,7 +127,7 @@ int daLv6ChangeGate_c::Execute(Mtx** param_0) {
 
     for (int i = 0; i < 12; i++) {
         cXyz spC(cyl_x_offset + mMoveTransX, 0.0f, 0.0f);
-        mDoMtx_stack_c::ZXYrotS(NULL, shape_angle.y, shape_angle.z);
+        mDoMtx_stack_c::ZXYrotS(0, shape_angle.y, shape_angle.z);
         mDoMtx_stack_c::multVec(&spC, &spC);
         spC += current.pos;
 
@@ -251,7 +251,7 @@ void daLv6ChangeGate_c::init_modeBreak() {
 
 void daLv6ChangeGate_c::modeBreak() {
     cXyz effpos(mMoveTransX, 0.0f, 0.0f);
-    mDoMtx_stack_c::ZXYrotS(NULL, shape_angle.y, shape_angle.z);
+    mDoMtx_stack_c::ZXYrotS(0, shape_angle.y, shape_angle.z);
     mDoMtx_stack_c::multVec(&effpos, &effpos);
     effpos += current.pos;
 
@@ -311,18 +311,18 @@ static actor_method_class l_daLv6ChangeGate_Method = {
 };
 
 actor_process_profile_definition g_profile_Obj_Lv6ChgGate = {
-  fpcLy_CURRENT_e,           // mLayerID
-  3,                         // mListID
-  fpcPi_CURRENT_e,           // mListPrio
-  PROC_Obj_Lv6ChgGate,       // mProcName
-  &g_fpcLf_Method.base,     // sub_method
-  sizeof(daLv6ChangeGate_c), // mSize
-  0,                         // mSizeOther
-  0,                         // mParameters
-  &g_fopAc_Method.base,      // sub_method
-  626,                       // mPriority
-  &l_daLv6ChangeGate_Method, // sub_method
-  0x00040000,                // mStatus
-  fopAc_ACTOR_e,             // mActorType
-  fopAc_CULLBOX_CUSTOM_e,    // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 3,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_Obj_Lv6ChgGate_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daLv6ChangeGate_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_Obj_Lv6ChgGate_e,
+    /* Actor SubMtd */ &l_daLv6ChangeGate_Method,
+    /* Status       */ fopAcStts_UNK_0x40000_e,
+    /* Group        */ fopAc_ACTOR_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

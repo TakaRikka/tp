@@ -8,7 +8,24 @@
 #include "f_pc/f_pc_node.h"
 #include "f_pc/f_pc_manager.h"
 #include "f_pc/f_pc_debug_sv.h"
-#include <dolphin/dolphin.h>
+#include "SSystem/SComponent/c_phase.h"
+#ifdef __REVOLUTION_SDK__
+#include <revolution.h>
+#else
+#include <dolphin.h>
+#endif
+
+typedef struct standard_create_request_class {
+    /* 0x00 */ create_request base;
+    /* 0x48 */ request_of_phase_process_class phase_request;
+    /* 0x50 */ s16 process_name;
+    /* 0x54 */ void* process_append;
+    /* 0x58 */ stdCreateFunc create_post_method;
+    /* 0x5C */ void* unk_0x5C;
+#if DEBUG
+    /* 0x60 */ int unk_0x60;
+#endif
+} standard_create_request_class;
 
 int fpcSCtRq_phase_Load(standard_create_request_class* i_request) {
     int ret = fpcLd_Load(i_request->process_name);

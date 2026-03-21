@@ -12,6 +12,7 @@
 #include "d/actor/d_a_player.h"
 #include "f_op/f_op_camera_mng.h"
 #include "Z2AudioLib/Z2Instances.h"
+#include <cstring>
 
 static int daObj_Lp_Draw(obj_lp_class* i_this) {
     fopAc_ac_c* a_this = (fopAc_ac_c*)&i_this->mActor;
@@ -52,14 +53,14 @@ static int tandem;
 
 static int demo_f;
 
-static int target_info[10];
+static void* target_info[10];
 
 static int target_info_count;
 
 static void* s_ks_sub(void* param_1, void* param_2) {
     if (fopAcM_IsActor(param_1) && fopAcM_GetName(param_1) == 0x60) {
         if (target_info_count < 10) {
-            target_info[target_info_count] = (intptr_t)param_1;
+            target_info[target_info_count] = param_1;
             target_info_count++;
         }
         return param_1;
@@ -76,7 +77,7 @@ static int hit_check(obj_lp_class* i_this, wd_ss* WdSs) {
 
     fVar1 = 50.0f;
     for (int i = 0; i < target_info_count; i++) {
-        sp6c = WdSs->field_0x10 - *(cXyz *)(target_info[i] + 0x4d0);
+        sp6c = WdSs->field_0x10 - *(cXyz *)((u8 *)target_info[i] + 0x4d0);
         if (sp6c.y >= -3.0f) {
             f32 dist = JMAFastSqrt(sp6c.x * sp6c.x + sp6c.z * sp6c.z);
             if (dist <= fVar1 * WdSs->field_0x3c) {
@@ -125,7 +126,7 @@ static int hit_check(obj_lp_class* i_this, wd_ss* WdSs) {
             cLib_addCalc2(&WdSs->field_0x10.y, WdSs->field_0x4.y + fVar8 * -0.5f, 0.5f, 3.0f);
             cLib_addCalc2(&WdSs->field_0x28.x, fVar8, 0.1f, fVar8 * 0.5f);
             cLib_addCalcAngleS2(&WdSs->field_0x34, cM_atan2s(sp6c.x, sp6c.z), 0x20, 0x400);
-            cLib_addCalcAngleS2(&WdSs->field_0x36, 0xfffff060, 0x20, 0x400);
+            cLib_addCalcAngleS2(&WdSs->field_0x36, -4000, 0x20, 0x400);
             rv = 1;
         }
     }
@@ -196,10 +197,10 @@ static int set_out_check(obj_lp_class* i_this, cXyz* param_2) {
         return 1;
     }
 
-    camera_class* camera = dComIfGp_getCamera(0);
-    sp3c = camera->lookat.center - camera->lookat.eye;
+    camera_process_class* camera = dComIfGp_getCamera(0);
+    sp3c = camera->view.lookat.center - camera->view.lookat.eye;
     s16 sVar1 = cM_atan2s(sp3c.x, sp3c.z);
-    sp3c = *param_2 - camera->lookat.eye;
+    sp3c = *param_2 - camera->view.lookat.eye;
     s16 sVar2 = cM_atan2s(sp3c.x, sp3c.z);
     s16 diff = sVar1 - sVar2;
 
@@ -220,7 +221,7 @@ static int daObj_Lp_Execute(obj_lp_class* i_this) {
         target_info[i] = 0;
     }
 
-    target_info[0] = (intptr_t)dComIfGp_getPlayer(0);
+    target_info[0] = dComIfGp_getPlayer(0);
     target_info_count = 1;
 
     if (strcmp(dComIfGp_getStartStageName(), "D_MN05") == 0) {
@@ -241,12 +242,12 @@ static int daObj_Lp_Execute(obj_lp_class* i_this) {
         }
     }
 
-    camera_class* camera = dComIfGp_getCamera(0);
+    camera_process_class* camera = dComIfGp_getCamera(0);
     wd_ss* WdSs = i_this->mWdSs;
     for (int i = 0; i < i_this->field_0xad98; i++, WdSs++) {
         if ((i_this->field_0x574 + i & 0x1f) == 0) {
-            f32 fVar1 = WdSs->field_0x10.x - camera->lookat.eye.x;
-            f32 fVar2 = WdSs->field_0x10.z - camera->lookat.eye.z;
+            f32 fVar1 = WdSs->field_0x10.x - camera->view.lookat.eye.x;
+            f32 fVar2 = WdSs->field_0x10.z - camera->view.lookat.eye.z;
             fVar1 = JMAFastSqrt(fVar1 * fVar1 + fVar2 * fVar2);
             if (fVar1 < 5000.0f) {
                 WdSs->field_0x4f = 0;
@@ -494,20 +495,20 @@ static actor_method_class l_daObj_Lp_Method = {
 };
 
 actor_process_profile_definition g_profile_OBJ_LP = {
-  fpcLy_CURRENT_e,        // mLayerID
-  7,                      // mListID
-  fpcPi_CURRENT_e,        // mListPrio
-  PROC_OBJ_LP,            // mProcName
-  &g_fpcLf_Method.base,  // sub_method
-  sizeof(obj_lp_class),   // mSize
-  0,                      // mSizeOther
-  0,                      // mParameters
-  &g_fopAc_Method.base,   // sub_method
-  708,                    // mPriority
-  &l_daObj_Lp_Method,     // sub_method
-  0x00040100,             // mStatus
-  fopAc_ACTOR_e,          // mActorType
-  fopAc_CULLBOX_CUSTOM_e, // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_OBJ_LP_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(obj_lp_class),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_OBJ_LP_e,
+    /* Actor SubMtd */ &l_daObj_Lp_Method,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_CULL_e,
+    /* Group        */ fopAc_ACTOR_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };
 
 AUDIO_INSTANCES;

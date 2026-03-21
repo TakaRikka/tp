@@ -12,6 +12,7 @@
 #include "d/actor/d_a_obj_grave_stone.h"
 #include "d/actor/d_a_obj_zra_rock.h"
 #include "Z2AudioLib/Z2Instances.h"
+#include <cstring>
 
 static NPC_ZRZ_HIO_CLASS l_HIO;
 
@@ -202,6 +203,9 @@ cPhs_Step daNpc_zrZ_c::create() {
     mSwitch1 = home.angle.z & 0xff;
     mSwitch2 = (home.angle.z >> 8) & 0xff;
     mSwitch3 = fopAcM_GetParam(this) >> 0x18;
+    // !@bug home.angle.x is promoted to a 32-bit signed integer prior
+    //       to being compared, so the compared value can never exceed
+    //       SHORT_MAX and the condition always passes.
     if (home.angle.x != 0xffff) {
         mFlowID = home.angle.x;
     } else {
@@ -489,21 +493,21 @@ int daNpc_zrZ_c::ctrlJointCallBack(J3DJoint* i_joint, int param_1) {
 }
 
 static void* s_sub(void* i_proc, void* i_this) {
-    if (fopAc_IsActor(i_proc) && fopAcM_GetName(i_proc) == PROC_Obj_GraveStone) {
+    if (fopAc_IsActor(i_proc) && fopAcM_GetName(i_proc) == fpcNm_Obj_GraveStone_e) {
         return i_proc;
     }
     return NULL;
 }
 
 static void* s_subCloth(void* i_proc, void* i_this) {
-    if (fopAc_IsActor(i_proc) && fopAcM_GetName(i_proc) == PROC_Obj_ZoraCloth) {
+    if (fopAc_IsActor(i_proc) && fopAcM_GetName(i_proc) == fpcNm_Obj_ZoraCloth_e) {
         return i_proc;
     }
     return NULL;
 }
 
 static void* s_subRock(void* i_proc, void* i_this) {
-    if (fopAc_IsActor(i_proc) && fopAcM_GetName(i_proc) == PROC_Obj_ZraRock) {
+    if (fopAc_IsActor(i_proc) && fopAcM_GetName(i_proc) == fpcNm_Obj_ZraRock_e) {
         return i_proc;
     }
     return NULL;
@@ -2451,18 +2455,18 @@ static actor_method_class daNpc_zrZ_MethodTable = {
 };
 
 actor_process_profile_definition g_profile_NPC_ZRZ = {
-  fpcLy_CURRENT_e,        // mLayerID
-  7,                      // mListID
-  fpcPi_CURRENT_e,        // mListPrio
-  PROC_NPC_ZRZ,           // mProcName
-  &g_fpcLf_Method.base,  // sub_method
-  sizeof(daNpc_zrZ_c),    // mSize
-  0,                      // mSizeOther
-  0,                      // mParameters
-  &g_fopAc_Method.base,   // sub_method
-  390,                    // mPriority
-  &daNpc_zrZ_MethodTable, // sub_method
-  0x08044100,             // mStatus
-  fopAc_NPC_e,            // mActorType
-  fopAc_CULLBOX_CUSTOM_e, // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_NPC_ZRZ_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daNpc_zrZ_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_NPC_ZRZ_e,
+    /* Actor SubMtd */ &daNpc_zrZ_MethodTable,
+    /* Status       */ fopAcStts_UNK_0x8000000_e | fopAcStts_UNK_0x40000_e | fopAcStts_UNK_0x4000_e | fopAcStts_CULL_e,
+    /* Group        */ fopAc_NPC_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

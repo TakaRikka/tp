@@ -80,7 +80,7 @@ void daObjFlag_c::calcJointAngle() {
             joint->mJoint3 = joint->mJoint1 - joint->mJoint2;
         }
 
-        if(attr().field_0x25 != NULL) {
+        if(attr().field_0x25 != 0) {
             if(i == 1) {
                 calcAngleSwingX(joint, power);
             }
@@ -106,8 +106,7 @@ void daObjFlag_c::calcJointAngle() {
     } else {
         param_0->mJoint1.z = (attr().field_0x0e * cM_ssin(param_0->mRv));
     }
-
-    param_0->mRv += (s16)(param_1 * attr().field_0x30);
+    ANGLE_ADD(param_0->mRv, param_1 * attr().field_0x30);
 }
 
 void daObjFlag_c::calcAngleSwingX(FlagJoint_c* param_0, f32 param_1) {
@@ -307,18 +306,18 @@ static actor_method_class l_daObjFlag_Method = {
 };
 
 actor_process_profile_definition g_profile_Obj_Flag = {
-  fpcLy_CURRENT_e,        // mLayerID
-  7,                      // mListID
-  fpcPi_CURRENT_e,        // mListPrio
-  PROC_Obj_Flag,          // mProcName
-  &g_fpcLf_Method.base,  // sub_method
-  sizeof(daObjFlag_c),    // mSize
-  0,                      // mSizeOther
-  0,                      // mParameters
-  &g_fopAc_Method.base,   // sub_method
-  26,                     // mPriority
-  &l_daObjFlag_Method,    // sub_method
-  0x00040000,             // mStatus
-  fopAc_ACTOR_e,          // mActorType
-  fopAc_CULLBOX_CUSTOM_e, // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_Obj_Flag_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daObjFlag_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_Obj_Flag_e,
+    /* Actor SubMtd */ &l_daObjFlag_Method,
+    /* Status       */ fopAcStts_UNK_0x40000_e,
+    /* Group        */ fopAc_ACTOR_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

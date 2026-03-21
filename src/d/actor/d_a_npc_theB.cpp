@@ -11,6 +11,7 @@
 #include "d/actor/d_a_npc_coach.h"
 #include "d/actor/d_a_startAndGoal.h"
 #include "d/actor/d_a_coach_2D.h"
+#include <cstring>
 
 enum Coach_RES_File_ID {
     /* BCK */
@@ -145,7 +146,7 @@ daNpcTheB_HIO_c::daNpcTheB_HIO_c() {
 
 void daNpcTheB_HIO_c::listenPropertyEvent(const JORPropertyEvent* event) {
     char buffer[2000];
-    
+
     JORReflexible::listenPropertyEvent(event);
 
     JORFile jorFile;
@@ -243,6 +244,9 @@ cPhs_Step daNpcTheB_c::create() {
             return cPhs_ERROR_e;
         }
 
+        // !@bug The return value (an s16) is promoted to a 32-bit signed
+        //       integer prior to being compared, so the compared value can
+        //       never exceed SHORT_MAX and the condition always passes.
         if (getMessageNo() != 0xFFFF) {
             mMsgNo = getMessageNo();
         } else {
@@ -282,7 +286,7 @@ cPhs_Step daNpcTheB_c::create() {
     }
 
     return phase;
-    
+
 }
 
 int daNpcTheB_c::CreateHeap() {
@@ -613,7 +617,7 @@ bool daNpcTheB_c::setExpressionAnm(int i_idx, bool i_modify) {
     }
 
     bool res = false;
-    
+
     switch (i_idx) {
         case ANM_NONE:
             res = setExpressionBtp(EXPR_BTP_THEB);
@@ -729,11 +733,11 @@ void daNpcTheB_c::setMotionAnm(int i_idx, f32 i_morf) {
         case ANM_WHIP:
         case ANM_WHIP_B:
             break;
-            
+
         case ANM_SIT_B:
             setExpressionAnm(ANM_FH_TALK_B, true);
             break;
-        
+
         case ANM_BEND_WAIT:
             setExpressionAnm(ANM_FH_BEND_WAIT, true);
             break;
@@ -773,7 +777,7 @@ void daNpcTheB_c::reset() {
     initialize();
 
     if (strcmp(dComIfGp_getStartStageName(), "F_SP123") == 0) {
-        fopAcM_OnStatus(this, fopAcM_STATUS_UNK_0x4000);
+        fopAcM_OnStatus(this, fopAcStts_UNK_0x4000_e);
     }
 
     mpMatAnm->initialize();
@@ -879,7 +883,7 @@ BOOL daNpcTheB_c::doEvent() {
     e_wb_class* wb_p;
     BOOL rv = FALSE;
     s32 staffId;
-    
+
     if (dComIfGp_event_runCheck()) {
         if (eventInfo.checkCommandTalk()) {
             if (chkAction(&daNpcTheB_c::talk)) {
@@ -889,7 +893,7 @@ BOOL daNpcTheB_c::doEvent() {
 
                 fopAc_ac_c* actor_p = fopAcM_SearchByID(parentActorID);
                 if (actor_p != NULL) {
-                    fopAcM_OnStatus(actor_p, fopAcM_STATUS_UNK_0x800);
+                    fopAcM_OnStatus(actor_p, fopAcStts_STAFF_EXTRA_e);
                 }
             }
 
@@ -900,10 +904,10 @@ BOOL daNpcTheB_c::doEvent() {
             if (staffId != -1) {
                 mStaffID = staffId;
                 JUT_ASSERT(1357, NULL != mEvtSeqList[mOrderEvtNo]);
-                
+
                 actor_p = fopAcM_SearchByID(parentActorID);
                 if (actor_p != NULL) {
-                    fopAcM_OnStatus(actor_p, fopAcM_STATUS_UNK_0x800);
+                    fopAcM_OnStatus(actor_p, fopAcStts_STAFF_EXTRA_e);
                 }
 
                 if ((this->*mEvtSeqList[mOrderEvtNo])(staffId)) {
@@ -916,8 +920,8 @@ BOOL daNpcTheB_c::doEvent() {
                     EvCut_PersonalCombatAfter();
                     rv = TRUE;
                 } else {
-                    wb_p = (e_wb_class*)fopAcM_SearchByName(PROC_E_WB);
-                    if (wb_p->field_0x169e == 0x60 && wb_p->field_0x16a0 == 1) {
+                    wb_p = (e_wb_class*)fopAcM_SearchByName(fpcNm_E_WB_e);
+                    if (wb_p->demo_mode == 0x60 && wb_p->demo_timer == 1) {
                         mPersonalCombatAfterFlag = 1;
                         EvCut_PersonalCombatAfter();
                         rv = TRUE;
@@ -930,7 +934,7 @@ BOOL daNpcTheB_c::doEvent() {
                     default:
                         break;
                 }
-                
+
                 dComIfGp_event_reset();
                 mOrderEvtNo = EVT_NONE;
                 mEventIdx = -1;
@@ -969,7 +973,7 @@ void daNpcTheB_c::lookat() {
     switch (mLookMode) {
         case LOOK_NONE:
             break;
-        
+
         case LOOK_RESET:
         case LOOK_PLAYER:
             player = daPy_getPlayerActorClass();
@@ -1053,7 +1057,7 @@ int daNpcTheB_c::wait(void* param_1) {
             mTurnMode = 0;
             mMode = 2;
             break;
-        
+
         case 2: {
             bool bVar1 = mActorMngrs[0].getActorP() != NULL;
 
@@ -1137,11 +1141,11 @@ int daNpcTheB_c::talk(void* param_1) {
             mTurnMode = 0;
             mMode = 2;
             break;
-        
+
         case 2:
             if (talkProc(NULL, TRUE, NULL)) {
                 field_0x9ec = false;
-                
+
                 if (!field_0x9ec) {
                     dComIfGp_event_reset();
                 }
@@ -1176,10 +1180,10 @@ int daNpcTheB_c::EvCut_PersonalCombatIntro(int i_staffId) {
 
     if (eventManager.getIsAddvance(i_staffId)) {
         switch (*cutName) {
-            case '0x0001':
+            case '0001':
                 break;
                 
-            case '0x0002':
+            case '0002':
                 initTalk(0x16, NULL);
                 setLookMode(LOOK_PLAYER);
                 mActorMngrs[0].entry(daPy_getPlayerActorClass());
@@ -1204,10 +1208,10 @@ int daNpcTheB_c::EvCut_PersonalCombatIntro(int i_staffId) {
     }
 
     switch (*cutName) {
-        case '0x0001':
+        case '0001':
             return 1;
         
-        case '0x0002':
+        case '0002':
             if (talkProc(NULL, TRUE, NULL)) {
                 dComIfGs_onSaveDunSwitch(52);
                 dComIfGs_onSaveDunSwitch(53);
@@ -1229,7 +1233,7 @@ int daNpcTheB_c::EvCut_PersonalCombatRevenge(int i_staffId) {
 
     if (eventManager.getIsAddvance(i_staffId)) {
         switch (*cutName) {
-            case '0x0001': {
+            case '0001': {
                 fopAc_ac_c* actor_p = getEvtAreaTagP(5, 0);
                 cXyz* pos = dComIfGp_evmng_getMyXyzP(i_staffId, "pos");
                 int* angle = dComIfGp_evmng_getMyIntegerP(i_staffId, "angle");
@@ -1248,13 +1252,13 @@ int daNpcTheB_c::EvCut_PersonalCombatRevenge(int i_staffId) {
                 break;
             }
             
-            case '0x0002':
+            case '0002':
                 initTalk(0x17, NULL);
                 setLookMode(LOOK_PLAYER);
                 mActorMngrs[0].entry(daPy_getPlayerActorClass());
                 break;
 
-            case '0x0003':
+            case '0003':
                 break;
 
             default:
@@ -1282,19 +1286,19 @@ int daNpcTheB_c::EvCut_PersonalCombatRevenge(int i_staffId) {
     }
 
     switch (*cutName) {
-        case '0x0001':
+        case '0001':
             if (getCoachSpeed() == 0.0f) {
                 return 1;
             }
             break;
         
-        case '0x0002':
+        case '0002':
             if (talkProc(NULL, TRUE, NULL)) {
                 return 1;
             }
             break;
 
-        case '0x0003':
+        case '0003':
             return 1;
 
         default:
@@ -1401,7 +1405,7 @@ void daNpcTheB_c::EvCut_PersonalCombatAfter() {
 
 int daNpcTheB_c::EvCut_AnnulationFieldRace(int i_staffId) {
     dEvent_manager_c& eventManager = dComIfGp_getEventManager();
-    daStartAndGoal_c* startAndGoal_p = (daStartAndGoal_c*)fpcM_SearchByName(PROC_START_AND_GOAL);
+    daStartAndGoal_c* startAndGoal_p = (daStartAndGoal_c*)fpcM_SearchByName(fpcNm_START_AND_GOAL_e);
 
     if (startAndGoal_p == NULL) {
         return 0;
@@ -1411,7 +1415,7 @@ int daNpcTheB_c::EvCut_AnnulationFieldRace(int i_staffId) {
 
     if (eventManager.getIsAddvance(i_staffId)) {
         switch (*cutName) {
-            case '0x0001':
+            case '0001':
                 if (startAndGoal_p != NULL) {
                     startAndGoal_p->readyStartTimer();
                 }
@@ -1424,7 +1428,7 @@ int daNpcTheB_c::EvCut_AnnulationFieldRace(int i_staffId) {
     }
 
     switch (*cutName) {
-        case '0x0001':
+        case '0001':
             if (startAndGoal_p != NULL && startAndGoal_p->isStartCheck()) {
                 return 1;
             }
@@ -1444,15 +1448,15 @@ int daNpcTheB_c::EvCut_TheBHint(int i_staffId) {
 
     if (eventManager.getIsAddvance(i_staffId)) {
         switch (*cutName) {
-            case '0x0001':
+            case '0001':
                 setMotionAnm(ANM_SIT, 0.0f);
                 break;
             
-            case '0x0002':
+            case '0002':
                 initTalk(mHintMsgNo, NULL);
                 break;
 
-            case '0x0003': {
+            case '0003': {
                 cXyz pos;
                 csXyz angle;
                 daNpcF_getPlayerInfoFromPlayerList(field_0xe04, mRoomNo, pos, angle);
@@ -1479,11 +1483,11 @@ int daNpcTheB_c::EvCut_TheBHint(int i_staffId) {
     }
 
     switch (*cutName) {
-        case '0x0001':
-        case '0x0003':
+        case '0001':
+        case '0003':
             return 1;
         
-        case '0x0002':
+        case '0002':
             if (talkProc(NULL, TRUE, NULL)) {
                 mHintEvtFlag = 0;
                 return 1;
@@ -1504,22 +1508,22 @@ int daNpcTheB_c::EvCut_CoachGuardGameOver(int i_staffId) {
 
     if (eventManager.getIsAddvance(i_staffId)) {
         switch (*cutName) {
-            case '0x0001':
+            case '0001':
                 Z2GetAudioMgr()->bgmStart(Z2BGM_GAME_OVER, 0, 0);
                 break;
 
-            case '0x0002': {
+            case '0002': {
                 daNpcCoach_c* coach_p = (daNpcCoach_c*)fopAcM_SearchByID(parentActorID);
                 cXyz pos(0.0f, -30000.0f, 0.0f);
                 coach_p->setPosAngle(pos, shape_angle);
                 break;
             }
             
-            case '0x0003':
-                ((daCoach2D_c*)fpcM_SearchByName(PROC_COACH2D))->hide();
+            case '0003':
+                ((daCoach2D_c*)fpcM_SearchByName(fpcNm_COACH2D_e))->hide();
                 break;
 
-            case '0x0004':
+            case '0004':
                 break;
 
             default:
@@ -1529,12 +1533,12 @@ int daNpcTheB_c::EvCut_CoachGuardGameOver(int i_staffId) {
     }
 
     switch (*cutName) {
-        case '0x0001':
-        case '0x0002':
-        case '0x0003':
+        case '0001':
+        case '0002':
+        case '0003':
             return 1;
         
-        case '0x0004':
+        case '0004':
             daPy_getPlayerActorClass()->onForceGameOver();
             return 1;
 
@@ -1575,18 +1579,18 @@ static actor_method_class daNpcTheB_MethodTable = {
 };
 
 actor_process_profile_definition g_profile_NPC_THEB = {
-  fpcLy_CURRENT_e,        // mLayerID
-  3,                      // mListID
-  fpcPi_CURRENT_e,        // mListPrio
-  PROC_NPC_THEB,          // mProcName
-  &g_fpcLf_Method.base,  // sub_method
-  sizeof(daNpcTheB_c),    // mSize
-  0,                      // mSizeOther
-  0,                      // mParameters
-  &g_fopAc_Method.base,   // sub_method
-  331,                    // mPriority
-  &daNpcTheB_MethodTable, // sub_method
-  0x00040108,             // mStatus
-  fopAc_NPC_e,            // mActorType
-  fopAc_CULLBOX_CUSTOM_e, // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 3,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_NPC_THEB_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daNpcTheB_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_NPC_THEB_e,
+    /* Actor SubMtd */ &daNpcTheB_MethodTable,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_CULL_e | fopAcStts_UNK_0x8_e,
+    /* Group        */ fopAc_NPC_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

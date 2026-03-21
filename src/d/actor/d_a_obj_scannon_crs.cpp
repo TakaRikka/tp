@@ -8,6 +8,7 @@
 #include "d/actor/d_a_obj_scannon_crs.h"
 #include "d/actor/d_a_player.h"
 #include "d/d_meter2_info.h"
+#include <cstring>
 
 static int daSCannonCrs_c_createHeap(fopAc_ac_c* i_this) {
     return ((daSCannonCrs_c*)i_this)->createHeap();
@@ -517,18 +518,18 @@ static actor_method_class daSCannonCrs_METHODS = {
 };
 
 actor_process_profile_definition g_profile_Obj_SCannonCrs = {
-  fpcLy_CURRENT_e,        // mLayerID
-  7,                      // mListID
-  fpcPi_CURRENT_e,        // mListPrio
-  PROC_Obj_SCannonCrs,    // mProcName
-  &g_fpcLf_Method.base,  // sub_method
-  sizeof(daSCannonCrs_c), // mSize
-  0,                      // mSizeOther
-  0,                      // mParameters
-  &g_fopAc_Method.base,   // sub_method
-  736,                    // mPriority
-  &daSCannonCrs_METHODS,  // sub_method
-  0x00044180,             // mStatus
-  fopAc_ENV_e,            // mActorType
-  fopAc_CULLBOX_CUSTOM_e, // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_Obj_SCannonCrs_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daSCannonCrs_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_Obj_SCannonCrs_e,
+    /* Actor SubMtd */ &daSCannonCrs_METHODS,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_UNK_0x4000_e | fopAcStts_CULL_e | fopAcStts_NOEXEC_e,
+    /* Group        */ fopAc_ENV_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

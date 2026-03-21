@@ -8,6 +8,7 @@
 #include "d/actor/d_a_tbox2.h"
 #include "d/d_bg_w.h"
 #include "d/actor/d_a_midna.h"
+#include <cstring>
 
 void daTbox2_c::initBaseMtx() {
     mpModel->setBaseScale(scale);
@@ -455,18 +456,18 @@ static actor_method_class daTbox2_METHODS = {
 };
 
 actor_process_profile_definition g_profile_TBOX2 = {
-    fpcLy_CURRENT_e,
-    4,
-    fpcPi_CURRENT_e,
-    PROC_TBOX2,
-    &g_fpcLf_Method.base,
-    sizeof(daTbox2_c),
-    0,
-    0,
-    &g_fopAc_Method.base,
-    269,
-    &daTbox2_METHODS,
-    0x44100,
-    fopAc_ACTOR_e,
-    fopAc_CULLBOX_CUSTOM_e,
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 4,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_TBOX2_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daTbox2_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_TBOX2_e,
+    /* Actor SubMtd */ &daTbox2_METHODS,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_UNK_0x4000_e | fopAcStts_CULL_e,
+    /* Group        */ fopAc_ACTOR_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

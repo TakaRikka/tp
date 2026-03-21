@@ -2,6 +2,7 @@
 #define D_A_NPC_KN_H
 
 #include "d/actor/d_a_npc.h"
+#include <cstring>
 
 struct daNpc_Kn_HIOParam {
     /* 0x00 */ daNpcT_HIOParam common;
@@ -76,7 +77,7 @@ public:
 
     class daNpc_Kn_prtclMngr_c {
     public:
-        /* 0x00 */ bool mpModel;
+        /* 0x00 */ bool field_0x00;
         /* 0x04 */ cXyz mPos;
         /* 0x10 */ csXyz mAngle;
         /* 0x18 */ cXyz mScale;

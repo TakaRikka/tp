@@ -8,6 +8,7 @@
 #include "d/actor/d_a_obj_rope_bridge.h"
 #include "d/d_com_inf_game.h"
 #include "d/d_s_play.h"
+#include <cstring>
 
 static char* l_arcName[2] = {"L_RopeB_S", "L_RopeB_L"};
 
@@ -15,7 +16,7 @@ static char* l_ropeArcName = "L_Ropest";
 
 void daObjRBridge_c::initBaseMtx() {
     mDoMtx_stack_c::transS(current.pos);
-    mDoMtx_stack_c::ZXYrotM(NULL, current.angle.y, 0);
+    mDoMtx_stack_c::ZXYrotM(0, current.angle.y, 0);
     MTXCopy(mDoMtx_stack_c::get(), mMtx);
 
     mpBrgModel->setBaseScale(scale);
@@ -637,18 +638,18 @@ static actor_method_class daObjRBridge_METHODS = {
 };
 
 actor_process_profile_definition g_profile_Obj_RopeBridge = {
-  fpcLy_CURRENT_e,        // mLayerID
-  3,                      // mListID
-  fpcPi_CURRENT_e,        // mListPrio
-  PROC_Obj_RopeBridge,    // mProcName
-  &g_fpcLf_Method.base,  // sub_method
-  sizeof(daObjRBridge_c), // mSize
-  0,                      // mSizeOther
-  0,                      // mParameters
-  &g_fopAc_Method.base,   // sub_method
-  16,                     // mPriority
-  &daObjRBridge_METHODS,  // sub_method
-  0x00040100,             // mStatus
-  fopAc_ACTOR_e,          // mActorType
-  fopAc_CULLBOX_CUSTOM_e, // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 3,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_Obj_RopeBridge_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daObjRBridge_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_Obj_RopeBridge_e,
+    /* Actor SubMtd */ &daObjRBridge_METHODS,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_CULL_e,
+    /* Group        */ fopAc_ACTOR_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

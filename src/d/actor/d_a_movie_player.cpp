@@ -20,6 +20,7 @@
 #include "d/actor/d_a_movie_player.h"
 #include "Z2AudioLib/Z2Instances.h"
 #include "f_op/f_op_overlap_mng.h"
+#include <cstring>
 
 inline s32 daMP_NEXT_READ_SIZE(daMP_THPReadBuffer* readBuf) {
     return *(s32*)readBuf->ptr;
@@ -523,7 +524,11 @@ static u8 __THPReadHuffmanTableSpecification() {
     __THPHuffmanCodeTab = (u16*)((u32)__THPWorkArea + 256 + 1);
     length = (u16)((__THPInfo->c)[0] << 8 | (__THPInfo->c)[1]);
     __THPInfo->c += 2;
+#if PLATFORM_SHIELD
+    length -= (u16)2;
+#else
     length -= 2;
+#endif
 
     for (;;) {
         i = (*(__THPInfo->c)++);
@@ -542,8 +547,12 @@ static u8 __THPReadHuffmanTableSpecification() {
         __THPHuffGenerateSizeTable();
         __THPHuffGenerateCodeTable();
         __THPHuffGenerateDecoderTables(tab_index);
-        __THPInfo->validHuffmanTabs |= 1 << tab_index;
-        length -= 17 + num_Vij;
+#if PLATFORM_SHIELD
+        __THPInfo->validHuffmanTabs |= (u8)(1 << tab_index);
+#else
+        __THPInfo->validHuffmanTabs |= (1 << tab_index);
+#endif
+        U16_SUB_2(length, (17 + num_Vij));
 
         if (length == 0) {
             break;
@@ -689,17 +698,17 @@ static void __THPDecompressYUV(void* tileY, void* tileU, void* tileV) {
     if (__THPInfo->xPixelSize == 512 && targetY == 448) {
         while (currentY < targetY) {
             __THPDecompressiMCURow512x448();
-            currentY += (u16)16;
+            U16_ADD(currentY, 16);
         }
     } else if (__THPInfo->xPixelSize == 640 && targetY == 480) {
         while (currentY < targetY) {
             __THPDecompressiMCURow640x480();
-            currentY += (u16)16;
+            U16_ADD(currentY, 16);
         }
     } else {
         while (currentY < targetY) {
             __THPDecompressiMCURowNxN();
-            currentY += (u16)16;
+            U16_ADD(currentY, 16);
         }
     }
 
@@ -1626,7 +1635,7 @@ static void __THPHuffDecodeDCTCompY(__REGISTER THPFileInfo* info, THPCoeff* bloc
             }
 
             if (__cntlzw((u32)diff) > 32 - t) {
-                diff += ((0xFFFFFFFF << t) + 1);
+                S16_ADD_2(diff, (0xFFFFFFFF << t) + 1);
             }
         };
 
@@ -2330,7 +2339,7 @@ static void __THPHuffDecodeDCTCompU(__REGISTER THPFileInfo* info, THPCoeff* bloc
         ASSERTLINE(5070, info->cnt <=33);
 
         if (__cntlzw((u32)diff) > 32 - t) {
-            diff += ((0xFFFFFFFF << t) + 1);
+            S16_ADD_2(diff, (0xFFFFFFFF << t) + 1);
         }
     }
 
@@ -2474,7 +2483,7 @@ static void __THPHuffDecodeDCTCompV(__REGISTER THPFileInfo* info, THPCoeff* bloc
         ASSERTLINE(5255, info->cnt <=33);
 
         if (__cntlzw((u32)diff) > 32 - t) {
-            diff += ((0xFFFFFFFF << t) + 1);
+            S16_ADD_2(diff, (0xFFFFFFFF << t) + 1);
         }
     }
 
@@ -3718,7 +3727,7 @@ BOOL daMP_WaitUntilPrepare() {
 }
 
 void daMP_PrepareReady(BOOL msg) {
-    OSSendMessage(&daMP_PrepareReadyQueue, (OSMessage)msg, 1);
+    OSSendMessage(&daMP_PrepareReadyQueue, (OSMessage)(uintptr_t)msg, 1);
 }
 
 static BOOL daMP_THPPlayerPrepare(s32 frame, s32 flag, s32 audioTrack) {
@@ -4196,20 +4205,20 @@ static actor_method_class daMP_METHODS = {
 };
 
 actor_process_profile_definition g_profile_MOVIE_PLAYER = {
-  fpcLy_CURRENT_e,        // mLayerID
-  7,                      // mListID
-  fpcPi_CURRENT_e,        // mListPrio
-  PROC_MOVIE_PLAYER,      // mProcName
-  &g_fpcLf_Method.base,  // sub_method
-  sizeof(daMP_c),         // mSize
-  0,                      // mSizeOther
-  0,                      // mParameters
-  &g_fopAc_Method.base,   // sub_method
-  9,                      // mPriority
-  &daMP_METHODS,          // sub_method
-  0x0006C000,             // mStatus
-  fopAc_ACTOR_e,          // mActorType
-  fopAc_CULLBOX_CUSTOM_e, // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_MOVIE_PLAYER_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daMP_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_MOVIE_PLAYER_e,
+    /* Actor SubMtd */ &daMP_METHODS,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_NOPAUSE_e | fopAcStts_STAFF_PRIMARY_e | fopAcStts_UNK_0x4000_e,
+    /* Group        */ fopAc_ACTOR_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };
 
 AUDIO_INSTANCES;

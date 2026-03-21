@@ -1,6 +1,6 @@
 /**
  * @file d_a_npc_taro.cpp
- * 
+ *
 */
 
 #include "d/dolzel_rel.h" // IWYU pragma: keep
@@ -18,7 +18,8 @@
 #include "d/d_msg_object.h"
 #include "f_op/f_op_actor.h"
 #include "f_op/f_op_camera_mng.h"
-#include <dolphin/types.h>
+#include <types.h>
+#include <cstring>
 
 daNpc_Maro_c::actionFunc dummy_lit_3931() {
     return &daNpc_Maro_c::choccai;
@@ -462,7 +463,7 @@ int daNpc_Taro_c::createHeapCallBack(fopAc_ac_c* i_this) {
 
 void* daNpc_Taro_c::srchArrow(void* param_1, void* param_2) {
     if (mFindCount < 50 && param_1 != NULL && param_1 != param_2) {
-        if (fopAcM_IsExecuting(fopAcM_GetID(param_1)) && fopAcM_GetName(param_1) == PROC_ARROW) {
+        if (fopAcM_IsExecuting(fopAcM_GetID(param_1)) && fopAcM_GetName(param_1) == fpcNm_ARROW_e) {
             mFindActorPtrs[mFindCount] = (fopAc_ac_c*)param_1;
             mFindCount++;
         }
@@ -472,9 +473,9 @@ void* daNpc_Taro_c::srchArrow(void* param_1, void* param_2) {
 
 void* daNpc_Taro_c::srchNpc(void* param_1, void* param_2) {
     if (mFindCount < 50 && param_1 != NULL && param_1 != param_2) {
-        if (fopAcM_IsExecuting(fopAcM_GetID(param_1)) && 
-        (fopAcM_GetGroup((fopAc_ac_c*)param_1) == 4 || 
-        (fopAcM_GetName(param_1) == PROC_TAG_EVTAREA && ((daTag_EvtArea_c*)param_1)->getType() == 15))) {
+        if (fopAcM_IsExecuting(fopAcM_GetID(param_1)) &&
+        (fopAcM_GetGroup((fopAc_ac_c*)param_1) == 4 ||
+        (fopAcM_GetName(param_1) == fpcNm_TAG_EVTAREA_e && ((daTag_EvtArea_c*)param_1)->getType() == 15))) {
             mFindActorPtrs[mFindCount] = (fopAc_ac_c*)param_1;
             mFindCount++;
         }
@@ -943,7 +944,7 @@ void daNpc_Taro_c::action() {
             setAction(mAction);
         }
     }
-    
+
     daTag_Push_c* pushTag = (daTag_Push_c*)field_0xba0.getActorP();
     if (pushTag != NULL) {
         switch (pushTag->getId()) {
@@ -958,9 +959,9 @@ void daNpc_Taro_c::action() {
 }
 
 void daNpc_Taro_c::beforeMove() {
-    fopAcM_OffStatus(this, fopAcM_STATUS_UNK_0x8000000);
+    fopAcM_OffStatus(this, fopAcStts_UNK_0x8000000_e);
     if (checkHide()) {
-        fopAcM_OnStatus(this, fopAcM_STATUS_UNK_0x8000000);
+        fopAcM_OnStatus(this, fopAcStts_UNK_0x8000000_e);
     }
     if (checkHide() || mNoDraw) {
         attention_info.flags = 0;
@@ -1115,7 +1116,7 @@ BOOL daNpc_Taro_c::selectAction() {
         mAction = &daNpc_Taro_c::nurse;
         break;
     case TYPE_15:
-        // daNpcKakashi_chkSwdTutorialStage itself doesn't match when it returns bool 
+        // daNpcKakashi_chkSwdTutorialStage itself doesn't match when it returns bool
         if ((u8)daNpcKakashi_chkSwdTutorialStage()) {
             mAction = &daNpc_Taro_c::swdTutorial;
         } else {
@@ -1914,10 +1915,10 @@ int daNpc_Taro_c::cutGiveMeWoodSwd(int param_1) {
     case 4:
     case 5:
     case 6:
-    case 8: 
+    case 8:
     {
         switch(prm) {
-        case 5: 
+        case 5:
         case 8: {
             fopAc_ac_c* actor_p = mActors[2].getActorP();
             JUT_ASSERT(4405, NULL != actor_p);
@@ -1992,7 +1993,7 @@ int daNpc_Taro_c::cutGetWoodSwd(int param_1) {
     if (pTimer != NULL) {
         timer = *pTimer;
     }
-    
+
     int* pSend = dComIfGp_evmng_getMyIntegerP(param_1, "send");
     if (pSend != NULL) {
         send = *pSend;
@@ -2271,7 +2272,7 @@ int daNpc_Taro_c::cutCacaricoConversation(int param_1) {
     }
 
     int msgNos[2] = {-1, -1};
-    
+
     switch (prm) {
     case 0:
         mJntAnm.lookPlayer(0);
@@ -2362,7 +2363,7 @@ int daNpc_Taro_c::cutArrowTutorial(int param_1) {
             mMotionSeqMngr.setNo(0, 0.0f, 0, 0);
             mEventTimer = timer;
             if (!daNpcT_chkEvtBit(0x4c)) {
-                camera_class* pCamera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+                camera_process_class* pCamera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
                 mJntAnm.lookCamera(0);
                 mPlayerAngle = cLib_targetAngleY(fopAcM_GetPosition_p(this), fopCamM_GetEye_p(pCamera));
             } else {
@@ -2432,7 +2433,7 @@ int daNpc_Taro_c::cutArrowTutorial(int param_1) {
     case 7:
         if (cLib_calcTimer(&mEventTimer) == 0) {
             if (!daNpcT_chkEvtBit(0x4c)) {
-                camera_class* pCamera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+                camera_process_class* pCamera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
                 mJntAnm.lookCamera(0);
                 cStack_48.y = cLib_targetAngleY(fopAcM_GetPosition_p(this), fopCamM_GetEye_p(pCamera));
             } else {
@@ -2511,7 +2512,7 @@ int daNpc_Taro_c::cutCaution(int param_1) {
         }
         break;
     }
-   
+
     return rv;
 }
 
@@ -3260,7 +3261,7 @@ int daNpc_Taro_c::practice(void* param_0) {
         break;
     }
 
-    
+
     return 1;
 }
 
@@ -3397,18 +3398,18 @@ static actor_method_class daNpc_Taro_MethodTable = {
 };
 
 actor_process_profile_definition g_profile_NPC_TARO = {
-  fpcLy_CURRENT_e,         // mLayerID
-  7,                       // mListID
-  fpcPi_CURRENT_e,         // mListPrio
-  PROC_NPC_TARO,           // mProcName
-  &g_fpcLf_Method.base,   // sub_method
-  sizeof(daNpc_Taro_c),    // mSize
-  0,                       // mSizeOther
-  0,                       // mParameters
-  &g_fopAc_Method.base,    // sub_method
-  367,                     // mPriority
-  &daNpc_Taro_MethodTable, // sub_method
-  0x00040107,              // mStatus
-  fopAc_NPC_e,             // mActorType
-  fopAc_CULLBOX_CUSTOM_e,  // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_NPC_TARO_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daNpc_Taro_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_NPC_TARO_e,
+    /* Actor SubMtd */ &daNpc_Taro_MethodTable,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_CULL_e | fopAcStts_UNK_0x4_e | fopAcStts_UNK_0x2_e | fopAcStts_UNK_0x1_e,
+    /* Group        */ fopAc_NPC_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

@@ -23,6 +23,7 @@
 #include "d/actor/d_a_midna.h"
 #include "f_op/f_op_msg_mng.h"
 #include <cstdio>
+#include <cstring>
 #include "m_Do/m_Do_controller_pad.h"
 #include "m_Do/m_Do_lib.h"
 #include "JSystem/JKernel/JKRExpHeap.h"
@@ -38,7 +39,7 @@ s16 dMsgObject_getGroupID() {
 
 static int dMsgObject_searchSSItem(void* param_1, void* param_2) {
     daPy_py_c* player = daPy_getPlayerActorClass();
-    if (fopAcM_IsActor(param_1) && fopAcM_GetName(param_1) == PROC_OBJ_SSITEM) {
+    if (fopAcM_IsActor(param_1) && fopAcM_GetName(param_1) == fpcNm_OBJ_SSITEM_e) {
         if (static_cast<daObj_SSBase_c*>(param_1)->getProcessID() == player->getGrabActorID()) {
             static_cast<daObj_SSBase_c*>(param_1)->setSoldOut();
             return 0;
@@ -1601,7 +1602,16 @@ u8 dMsgObject_c::isSend() {
 }
 
 void dMsgObject_c::readMessageGroupLocal(mDoDvdThd_mountXArchive_c** p_arcMount) {
+#if AVOID_UB
+    // largest possible value msgGroup appears to be 99, but just in case
+    // we leave enough space to fit INT_MAX
+    static char arcName[32];
+#else
+    // We write at least 23 bytes into this which causes an overflow,
+    // but in practice arcName is followed by two bytes of padding
+    // at the end of .bss which mitigates the problem.
     static char arcName[22];
+#endif
 
     int msgGroup = dStage_stagInfo_GetMsgGroup(dComIfGp_getStage()->getStagInfo());
     #if REGION_PAL
@@ -2129,10 +2139,10 @@ void dMsgObject_c::setDemoMessageLocal(u32 param_1) {
 u16 dMsgObject_c::getSmellTypeMessageIDLocal() {
     u16 msgId = 0;
     int smell = dComIfGs_getCollectSmell();
-    if (smell < fpcNm_ITEM_SMELL_MEDICINE + 1 && smell >= fpcNm_ITEM_SMELL_YELIA_POUCH) {
+    if (smell < dItemNo_SMELL_MEDICINE_e + 1 && smell >= dItemNo_SMELL_YELIA_POUCH_e) {
         msgId = smell + 0x165;
     } else {
-        if (dComIfGs_getCollectSmell() != -1) {
+        if (dComIfGs_getCollectSmell() != 0xFF) {
             OS_REPORT("smell type ====> %d\n", dComIfGs_getCollectSmell());
             JUT_WARN(4858, "smell type no entry!");
         }
@@ -2462,15 +2472,15 @@ static leafdraw_method_class l_dMsgObject_Method = {
 };
 
 msg_process_profile_definition g_profile_MSG_OBJECT = {
-  fpcLy_CURRENT_e,        // mLayerID
-  12,                     // mListID
-  fpcPi_CURRENT_e,        // mListPrio
-  PROC_MSG_OBJECT,        // mProcName
-  &g_fpcLf_Method.base,  // sub_method
-  sizeof(dMsgObject_c),   // mSize
-  0,                      // mSizeOther
-  0,                      // mParameters
-  &g_fopMsg_Method,       // sub_method
-  770,                    // mPriority
-  &l_dMsgObject_Method,   // sub_method
+    /* Layer ID    */ fpcLy_CURRENT_e,
+    /* List ID     */ 12,
+    /* List Prio   */ fpcPi_CURRENT_e,
+    /* Proc Name   */ fpcNm_MSG_OBJECT_e,
+    /* Proc SubMtd */ &g_fpcLf_Method.base,
+    /* Size        */ sizeof(dMsgObject_c),
+    /* Size Other  */ 0,
+    /* Parameters  */ 0,
+    /* Leaf SubMtd */ &g_fopMsg_Method,
+    /* Draw Prio   */ fpcDwPi_MSG_OBJECT_e,
+    /* Msg SubMtd  */ &l_dMsgObject_Method,
 };

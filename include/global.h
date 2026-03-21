@@ -106,7 +106,7 @@ static const float INF = 2000000000.0f;
 #define NO_INLINE
 #endif
 #endif
-    
+
 // Hack to trick the compiler into not inlining functions that use this macro.
 #define FORCE_DONT_INLINE \
     (void*)0; (void*)0; (void*)0; (void*)0; (void*)0; (void*)0; (void*)0; (void*)0; (void*)0; (void*)0; \
@@ -145,11 +145,46 @@ static const float INF = 2000000000.0f;
     #define UNSET_FLAG(var, flag, type) (var) &= ~(flag)
 #endif
 
+// Macro for multi-character literals that exceed 4 bytes (e.g. 'ari_os').
+// CW encodes all characters in big-endian order into the full integer, but GCC/Clang
+// truncate multi-char constants to int (4 bytes). This macro produces matching u64
+// values on all compilers. For <=4-char literals, raw constants like 'ABCD' are fine.
+#ifdef __MWERKS__
+    #define MULTI_CHAR(x) (x)
+#else
+    template <int N>
+    inline constexpr unsigned long long MultiCharLiteral(const char (&buf)[N]) {
+        static_assert(N - 1 >= 3 && N - 1 <= 10, "MULTI_CHAR literal must be 1-8 characters");
+        unsigned long long out = 0;
+        for (int i = 1; i < N - 2; i++) {
+            out = (out << 8) | static_cast<unsigned char>(buf[i]);
+        }
+        return out;
+    }
+    #define MULTI_CHAR(x) MultiCharLiteral(#x)
+#endif
+
 // potential fakematch?
 #if DEBUG
 #define FABSF fabsf
 #else
 #define FABSF std::fabsf
+#endif
+
+#ifndef __MWERKS__
+#include <cmath>
+using std::isnan;
+#endif
+
+// Comparing a non-volatile reference type to NULL is tautological
+// and triggers a warning on modern compilers, but in some cases is
+// required to match the original assembly.
+#if defined(__MWERKS__) || defined(DECOMPCTX)
+#define IS_REF_NULL(r) (&(r) == NULL)
+#define IS_REF_NONNULL(r) (&(r) != NULL)
+#else
+#define IS_REF_NULL(r) (0)
+#define IS_REF_NONNULL(r) (1)
 #endif
 
 #endif

@@ -1,7 +1,7 @@
 #ifndef C_BG_W_H
 #define C_BG_W_H
 
-#include <dolphin/types.h>
+#include <types.h>
 
 class cBgW_BgId {
 private:
@@ -18,7 +18,7 @@ public:
     cBgW_BgId() { Ct(); }
     void Ct() { m_id = 0x100; }
 
-    u16 GetId() const { return m_id; }
+    int GetId() const { return m_id; }
 };
 
 bool cBgW_CheckBGround(float a1);

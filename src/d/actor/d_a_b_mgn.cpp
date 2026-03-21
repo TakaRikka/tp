@@ -251,8 +251,8 @@ static u8 body_front_sph[15] = {
 }  // namespace
 
 int daB_MGN_c::ctrlJoint(J3DJoint* i_joint, J3DModel* i_model) {
-    u16 jntNo = i_joint->getJntNo();
-    int jointNo = jntNo;
+    J3DJoint* joint = i_joint;
+    int jointNo = joint->getJntNo();
     mDoMtx_stack_c::copy(i_model->getAnmMtx(jointNo));
 
     if (jointNo == JNT_BACKBONE1) {
@@ -351,7 +351,7 @@ static int daB_MGN_Draw(daB_MGN_c* i_this) {
 
 static void* s_obj_sub(void* i_actor, void* i_data) {
     if (fopAcM_IsActor(i_actor)) {
-        if (!fpcM_IsCreating(fopAcM_GetID(i_actor)) && fopAcM_GetName(i_actor) == PROC_ARROW) {
+        if (!fpcM_IsCreating(fopAcM_GetID(i_actor)) && fopAcM_GetName(i_actor) == fpcNm_ARROW_e) {
             if (fopAcM_searchActorDistance((fopAc_ac_c*)i_actor, (fopAc_ac_c*)i_data) < 1500.0f + nREG_F(9)) {
                 if (fopAcM_GetSpeedF((fopAc_ac_c*)i_actor)) {
                     s16 var_r29 = ((fopAc_ac_c*)i_actor)->current.angle.y;
@@ -840,9 +840,9 @@ void daB_MGN_c::checkDownBeforeBG() {
         s16 var_r28 = (s16)cM_atan2s(var_r29->x, var_r29->z);
         if (abs((s16)(var_r28 - shape_angle.y)) > 0x5000) {
             if ((s16)(var_r28 - shape_angle.y) != 0) {
-                field_0xa92 -= (s16)0x300;
+                ANGLE_SUB(field_0xa92, 0x300);
             } else {
-                field_0xa92 += (s16)0x300;
+                ANGLE_ADD(field_0xa92, 0x300);
             }
         }
     }
@@ -919,7 +919,7 @@ void daB_MGN_c::offBodySlideAt() {
 bool daB_MGN_c::checkHitSlideAt() {
     for (int i = 0; i < 15; i++) {
         if (mBodyCcSph[i].ChkAtHit() && !mBodyCcSph[i].ChkAtShieldHit()) {
-            if (fopAcM_GetName(dCc_GetAc(mBodyCcSph[i].GetAtHitObj()->GetAc())) == PROC_ALINK) {
+            if (fopAcM_GetName(dCc_GetAc(mBodyCcSph[i].GetAtHitObj()->GetAc())) == fpcNm_ALINK_e) {
                 return true;
             }
         }
@@ -1325,6 +1325,7 @@ void daB_MGN_c::executeDash() {
         }
 
         if (mMoveMode == 11) {
+            // @bug - parenthesis should not be on the condition
             if (abs((s16)(angle - field_0xa90) < 0x1800) != 0) {
                 if ((s16)(angle - field_0xa90) < 0) {
                     angle = field_0xa90 - 0x1800;
@@ -1526,7 +1527,7 @@ void daB_MGN_c::executeDash() {
 
                 if (dComIfG_Bgsp().LineCross(&spE8)) {
                     var_r27 = dComIfG_Bgsp().GetActorPointer(spE8);
-                    if (!var_r27 || fopAcM_GetName(var_r27) != PROC_Obj_BHASHI) {
+                    if (!var_r27 || fopAcM_GetName(var_r27) != fpcNm_Obj_BHASHI_e) {
                         attention_info.flags = 0;
                         field_0x20f4[0].OffTgSetBit();
                         mAtSph.OffAtSetBit();
@@ -1537,7 +1538,7 @@ void daB_MGN_c::executeDash() {
             } else {
                 if (mAcch.ChkWallHit()) {
                     var_r27 = dComIfG_Bgsp().GetActorPointer(mAcchCir);
-                    if (!var_r27 || fopAcM_GetName(var_r27) != PROC_Obj_BHASHI) {
+                    if (!var_r27 || fopAcM_GetName(var_r27) != fpcNm_Obj_BHASHI_e) {
                         if (abs((s16)(mAcchCir.GetWallAngleY() - shape_angle.y)) > 0x6000) {
                             field_0x20f4[0].OffTgSetBit();
                             mAtSph.OffAtSetBit();
@@ -1546,9 +1547,9 @@ void daB_MGN_c::executeDash() {
                         }
     
                         if ((s16)(mAcchCir.GetWallAngleY() - shape_angle.y) < 0) {
-                            shape_angle.y += (s16) 0x100;
+                            ANGLE_ADD(shape_angle.y, 0x100);
                         } else {
-                            shape_angle.y += (s16) -0x100;
+                            ANGLE_ADD(shape_angle.y, -0x100);
                         }
     
                         current.angle.y = shape_angle.y;
@@ -2488,7 +2489,8 @@ void daB_MGN_c::executeFall() {
 }
 
 void daB_MGN_c::demo_skip(int param_1) {
-    camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+    UNUSED(param_1);
+    camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
     daPy_py_c* player = daPy_getPlayerActorClass();
     mBlurRate = 0.0f;
 
@@ -2528,7 +2530,7 @@ int daB_MGN_c::DemoSkipCallBack(void* i_this, int param_1) {
 }
 
 void daB_MGN_c::executeOpening() {
-    camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+    camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
     daPy_py_c* player = daPy_getPlayerActorClass();
     J3DModelData* modelData = mpMgnModelMorf->getModel()->getModelData();
 
@@ -2547,7 +2549,7 @@ void daB_MGN_c::executeOpening() {
             return;
         }
 
-        fopAcM_OffStatus(this, 0x4000);
+        fopAcM_OffStatus(this, fopAcStts_UNK_0x4000_e);
 
         player->changeOriginalDemo();
         player->setPlayerPosAndAngle(&pos, 0, 0);
@@ -2820,7 +2822,7 @@ void daB_MGN_c::executeOpening() {
 }
 
 void daB_MGN_c::executeDeath() {
-    camera_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
+    camera_process_class* camera = dComIfGp_getCamera(dComIfGp_getPlayerCameraID(0));
     daPy_py_c* player = daPy_getPlayerActorClass();
     cXyz sp60;
     cXyz sp54;
@@ -3168,7 +3170,7 @@ void daB_MGN_c::action() {
 
     if (mBodyCcSph[0].ChkAtSPrm(1) && mAcch.ChkWallHit()) {
         daObjBHASHI_c* pillar = (daObjBHASHI_c*)dComIfG_Bgsp().GetActorPointer(mAcchCir);
-        if (pillar != NULL && fopAcM_GetName(pillar) == PROC_Obj_BHASHI) {
+        if (pillar != NULL && fopAcM_GetName(pillar) == fpcNm_Obj_BHASHI_e) {
             pillar->Obj_Damage(current.pos);
         }
     }
@@ -3581,18 +3583,18 @@ static actor_method_class l_daB_MGN_Method = {
 };
 
 actor_process_profile_definition g_profile_B_MGN = {
-    fpcLy_CURRENT_e,         // mLayerID
-    7,                       // mListID
-    fpcPi_CURRENT_e,         // mListPrio
-    PROC_B_MGN,              // mProcName
-    &g_fpcLf_Method.base,    // sub_method
-    sizeof(daB_MGN_c),       // mSize
-    0,                       // mSizeOther
-    0,                       // mParameters
-    &g_fopAc_Method.base,    // sub_method
-    232,                     // mPriority
-    &l_daB_MGN_Method,       // sub_method
-    0x00044000,              // mStatus
-    fopAc_ENEMY_e,           // mActorType
-    fopAc_CULLBOX_CUSTOM_e,  // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_B_MGN_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daB_MGN_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_B_MGN_e,
+    /* Actor SubMtd */ &l_daB_MGN_Method,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_UNK_0x4000_e,
+    /* Group        */ fopAc_ENEMY_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

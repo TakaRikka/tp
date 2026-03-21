@@ -291,10 +291,13 @@ cPhs_Step daNpc_GWolf_c::create() {
 
     mExitId = fopAcM_GetParam(this) >> 24;
 
+    // !@bug home.angle.x is promoted to a 32-bit signed integer prior
+    //       to being compared, so the compared value can never exceed
+    //       SHORT_MAX and the condition always passes.
     if (home.angle.x != 0xFFFF) {
-        field_0xe08 = home.angle.x;
+        mFlowID = home.angle.x;
     } else {
-        field_0xe08 = -1;
+        mFlowID = -1;
     }
 
     swBit = getSwBitFromParam();
@@ -1817,7 +1820,7 @@ BOOL daNpc_GWolf_c::talk(void* param_1) {
                 break;
             }
 
-            int msgNo = field_0xe08;
+            int msgNo = mFlowID;
             mOrderSpeakEvt = false;
             initTalk(msgNo, NULL);
             mTurnMode = 0;
@@ -1922,18 +1925,18 @@ static actor_method_class daNpc_GWolf_MethodTable = {
 };
 
 actor_process_profile_definition g_profile_NPC_GWOLF = {
-  fpcLy_CURRENT_e,          // mLayerID
-  7,                        // mListID
-  fpcPi_CURRENT_e,          // mListPrio
-  PROC_NPC_GWOLF,           // mProcName
-  &g_fpcLf_Method.base,    // sub_method
-  sizeof(daNpc_GWolf_c),    // mSize
-  0,                        // mSizeOther
-  0,                        // mParameters
-  &g_fopAc_Method.base,     // sub_method
-  336,                      // mPriority
-  &daNpc_GWolf_MethodTable, // sub_method
-  0x08044100,               // mStatus
-  fopAc_NPC_e,              // mActorType
-  fopAc_CULLBOX_CUSTOM_e,   // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_NPC_GWOLF_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daNpc_GWolf_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_NPC_GWOLF_e,
+    /* Actor SubMtd */ &daNpc_GWolf_MethodTable,
+    /* Status       */ fopAcStts_UNK_0x8000000_e | fopAcStts_UNK_0x40000_e | fopAcStts_UNK_0x4000_e | fopAcStts_CULL_e,
+    /* Group        */ fopAc_NPC_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

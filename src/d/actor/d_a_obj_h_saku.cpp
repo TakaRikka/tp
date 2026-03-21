@@ -120,10 +120,10 @@ void daObjH_Saku_c::Action() {
 
             shape_angle.y += field_0x5d6.y;
             shape_angle.x += field_0x5d6.x;
-            shape_angle.z -= (s16)0x100;
+            ANGLE_SUB(shape_angle.z, 0x100);
             field_0x5bc.y += field_0x5d0.y * 1.5f;
             field_0x5bc.x += field_0x5d0.x;
-            field_0x5bc.z -= (s16)0x100;
+            ANGLE_SUB(field_0x5bc.z, 0x100);
             break;
 
         case 2:
@@ -143,9 +143,9 @@ void daObjH_Saku_c::Action() {
 
             if (field_0x5dd != 0) {
                 if (speed.y > 0.0f) {
-                    shape_angle.z += (s16)0x400;
+                    ANGLE_ADD(shape_angle.z, 0x400);
                 } else {
-                    shape_angle.z -= (s16)0x400;
+                    ANGLE_SUB(shape_angle.z, 0x400);
                 }
 
                 cLib_chaseAngleS(&shape_angle.x, 0x4000, field_0x5d6.x);
@@ -181,9 +181,9 @@ void daObjH_Saku_c::Action() {
 
             if (field_0x5dc != 0) {
                 if (field_0x5b0.y > 0.0f) {
-                    field_0x5bc.z += (s16)0x400;
+                    ANGLE_ADD(field_0x5bc.z, 0x400);
                 } else {
-                    field_0x5bc.z -= (s16)0x400;
+                    ANGLE_SUB(field_0x5bc.z, 0x400);
                 }
 
                 cLib_chaseAngleS(&field_0x5bc.x, -0x4000, field_0x5d6.x);
@@ -303,18 +303,18 @@ static actor_method_class l_daObjH_Saku_Method = {
 };
 
 actor_process_profile_definition g_profile_Obj_H_Saku = {
-  fpcLy_CURRENT_e,        // mLayerID
-  7,                      // mListID
-  fpcPi_CURRENT_e,        // mListPrio
-  PROC_Obj_H_Saku,        // mProcName
-  &g_fpcLf_Method.base,  // sub_method
-  sizeof(daObjH_Saku_c),  // mSize
-  0,                      // mSizeOther
-  0,                      // mParameters
-  &g_fopAc_Method.base,   // sub_method
-  464,                    // mPriority
-  &l_daObjH_Saku_Method,  // sub_method
-  0x00040180,             // mStatus
-  fopAc_ACTOR_e,          // mActorType
-  fopAc_CULLBOX_CUSTOM_e, // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_Obj_H_Saku_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daObjH_Saku_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_Obj_H_Saku_e,
+    /* Actor SubMtd */ &l_daObjH_Saku_Method,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_CULL_e | fopAcStts_NOEXEC_e,
+    /* Group        */ fopAc_ACTOR_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

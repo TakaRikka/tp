@@ -9,7 +9,7 @@
 
 static char* l_arcName = "LV6EGATE";
 
-static const int l_dzbidx = 3;
+const int l_dzbidx = 3;
 
 int daObjLv6EGate_c::create1st() {
     int phase_state = dComIfG_resLoad(this, l_arcName);
@@ -40,6 +40,22 @@ static const cull_box l_cull_box = {
     {500.0f, 300.0f, 50.0f},
 };
 
+static dCcD_SrcCyl l_cc_cyl_src = {
+    {
+        {0x0, {{0x0, 0x2, 0x0}, {0x400, 0x11}, 0x79}}, // mObj
+        {dCcD_SE_NONE, 0x0, 0x0, 0x0, 0x0}, // mGObjAt
+        {dCcD_SE_NONE, 0x0, 0x0, 0x0, 0x2}, // mGObjTg
+        {0x0}, // mGObjCo
+    }, // mObjInf
+    {
+            {
+                {0.0f, 0.0f, 0.0f}, // mCenter
+                30.0f, // mRadius
+                300.0f // mHeight
+            } // mCyl
+    }
+};
+
 static dCcD_SrcCyl l_at_cyl_src = {
     {
         {0x0, {{0x100, 0x2, 0xd}, {0x400, 0x0}, 0x11}}, // mObj
@@ -54,6 +70,12 @@ static dCcD_SrcCyl l_at_cyl_src = {
             300.0f // mHeight
         } // mCyl
     }
+};
+
+static u8 l_local_cyl[] = {
+    0xC3, 0x91, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x43, 0x91, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 };
 
 int daObjLv6EGate_c::Create() {
@@ -151,7 +173,7 @@ int daObjLv6EGate_c::Execute(Mtx** param_0) {
 
     cXyz cyl_pos;
     f32 var_f31 = -280.0f;
-    f32 temp_f30 = (330.0f - var_f31) * 0.125f;
+    f32 temp_f30 = (330.0f - var_f31) / 8.0f;
     for (int i = 0; i < 8; i++) {
         cXyz local_pos;
         local_pos.x = var_f31;
@@ -213,18 +235,18 @@ static actor_method_class daObjLv6EGate_METHODS = {
 };
 
 actor_process_profile_definition g_profile_Obj_Lv6EGate = {
-  fpcLy_CURRENT_e,         // mLayerID
-  3,                       // mListID
-  fpcPi_CURRENT_e,         // mListPrio
-  PROC_Obj_Lv6EGate,       // mProcName
-  &g_fpcLf_Method.base,   // sub_method
-  sizeof(daObjLv6EGate_c), // mSize
-  0,                       // mSizeOther
-  0,                       // mParameters
-  &g_fopAc_Method.base,    // sub_method
-  668,                     // mPriority
-  &daObjLv6EGate_METHODS,  // sub_method
-  0x00040100,              // mStatus
-  fopAc_ACTOR_e,           // mActorType
-  fopAc_CULLBOX_CUSTOM_e,  // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 3,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_Obj_Lv6EGate_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daObjLv6EGate_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_Obj_Lv6EGate_e,
+    /* Actor SubMtd */ &daObjLv6EGate_METHODS,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_CULL_e,
+    /* Group        */ fopAc_ACTOR_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

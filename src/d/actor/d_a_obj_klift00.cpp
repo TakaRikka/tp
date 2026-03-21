@@ -78,7 +78,7 @@ static const char* l_arcName = "K_lift00";
 
 static dCcD_SrcSph l_cc_sph_src = {
     {
-        {0x0, {{0x0, 0x0, 0x0}, {(s32)0xd8fbfdff, 0x11}, 0x79}}, // mObj
+        {0x0, {{0x0, 0x0, 0x0}, {0xd8fbfdff, 0x11}, 0x79}}, // mObj
         {dCcD_SE_NONE, 0x0, 0x0, 0x0, 0x0}, // mGObjAt
         {dCcD_SE_NONE, 0x5, 0x0, 0x0, 0x2}, // mGObjTg
         {0x0}, // mGObjCo
@@ -496,18 +496,18 @@ static actor_method_class daObjKLift00_METHODS = {
 };
 
 actor_process_profile_definition g_profile_Obj_KLift00 = {
-    fpcLy_CURRENT_e,        // mLayerID
-    3,                      // mListID
-    fpcPi_CURRENT_e,        // mListPrio
-    PROC_Obj_KLift00,       // mProcName
-    &g_fpcLf_Method.base,  // sub_method
-    sizeof(daObjKLift00_c), // mSize
-    0,                      // mSizeOther
-    0,                      // mParameters
-    &g_fopAc_Method.base,   // sub_method
-    673,                    // mPriority
-    &daObjKLift00_METHODS,  // sub_method
-    0x00040100,             // mStatus
-    fopAc_ACTOR_e,          // mActorType
-    fopAc_CULLBOX_CUSTOM_e, // cullType
-  };
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 3,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_Obj_KLift00_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daObjKLift00_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_Obj_KLift00_e,
+    /* Actor SubMtd */ &daObjKLift00_METHODS,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_CULL_e,
+    /* Group        */ fopAc_ACTOR_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
+};

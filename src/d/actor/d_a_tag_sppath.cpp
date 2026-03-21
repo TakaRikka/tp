@@ -8,6 +8,7 @@
 #include "d/actor/d_a_tag_sppath.h"
 #include "d/actor/d_a_player.h"
 #include <cmath>
+#include <cstring>
 
 static dCcD_SrcCyl l_cylSrc = {
     {
@@ -96,7 +97,7 @@ int daTagSppath_c::getNearPathPos(cXyz* i_result, dPath* i_path) {
                     if (flatness > 0.001f) {
                         flatness = 30.0f / flatness;
                         if (segLen > flatness) {
-                            line.GetStartP() = line.GetStart() + pntDiff * flatness;
+                            *line.GetStartP() = line.GetStart() + pntDiff * flatness;
                         }
                     }
                 }
@@ -110,7 +111,7 @@ int daTagSppath_c::getNearPathPos(cXyz* i_result, dPath* i_path) {
                     if (flatness > 0.001f) {
                         flatness = 30.0f / flatness;
                         if (segLen > flatness) {
-                            line.GetEndP() = line.GetEnd() + pntDiff * flatness;
+                            *line.GetEndP() = line.GetEnd() + pntDiff * flatness;
                         }
                     }
                 }
@@ -219,18 +220,18 @@ static actor_method_class l_daTagSppath_Method = {
 };
 
 actor_process_profile_definition g_profile_Tag_Sppath = {
-    fpcLy_CURRENT_e,         // mLayerID
-    7,                       // mListID
-    fpcPi_CURRENT_e,         // mListPrio
-    PROC_Tag_Sppath,         // mProcName,
-    &g_fpcLf_Method.base,   // sub_method
-    sizeof(daTagSppath_c),   // mSize
-    0,                       // mSizeOther
-    0,                       // mParameters
-    &g_fopAc_Method.base,    // sub_method
-    258,                     // mPriority
-    &l_daTagSppath_Method,   // sub_method
-    0x44000,                 // mStatus
-    fopAc_ENV_e,             // mActorType
-    fopAc_CULLBOX_CUSTOM_e,  // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_Tag_Sppath_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(daTagSppath_c),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_Tag_Sppath_e,
+    /* Actor SubMtd */ &l_daTagSppath_Method,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_UNK_0x4000_e,
+    /* Group        */ fopAc_ENV_e,
+    /* Cull Type    */ fopAc_CULLBOX_CUSTOM_e,
 };

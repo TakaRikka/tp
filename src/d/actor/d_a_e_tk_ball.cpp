@@ -81,7 +81,7 @@ static void impact_eff_set(e_tk_ball_class* i_this) {
     cXyz scale(2.0f + TREG_F(8), 2.0f + TREG_F(8), 2.0f + TREG_F(8));
 
     csXyz rotation = actor->current.angle;
-    ADD_ANGLE(rotation.y, 0x8000);
+    ANGLE_ADD(rotation.y, 0x8000);
 
     if (i_this->mType == TYPE_TK_BALL_WATER) {
         dComIfGp_particle_set(0x819B, &pos, &rotation, &scale);
@@ -157,7 +157,7 @@ static void e_tk_ball_move(e_tk_ball_class* i_this) {
         if (actor_lockon && daPy_getPlayerActorClass()->getCutType() != daPy_py_c::CUT_TYPE_NONE) {
             i_this->mAction = ACT_TK_BALL_RETURN;
             i_this->mMode = MODE_TK_BALL_INIT;
-            ADD_ANGLE(actor->current.angle.y, 0x8000);
+            ANGLE_ADD(actor->current.angle.y, 0x8000);
         } else {
             i_this->mAction = ACT_TK_BALL_DROP;
             i_this->mMode = MODE_TK_BALL_INIT;
@@ -335,8 +335,8 @@ static int daE_TK_BALL_Execute(e_tk_ball_class* i_this) {
 
     action(i_this);
 
-    ADD_ANGLE(actor->shape_angle.y, 0x1000);
-    ADD_ANGLE(actor->shape_angle.x, 0xE00);
+    ANGLE_ADD(actor->shape_angle.y, 0x1000);
+    ANGLE_ADD(actor->shape_angle.x, 0xE00);
 
     mDoMtx_stack_c::transS(actor->current.pos.x, actor->current.pos.y + i_this->mArcHeight,
                            actor->current.pos.z);
@@ -477,18 +477,18 @@ static actor_method_class l_daE_TK_BALL_Method = {
 };
 
 actor_process_profile_definition g_profile_E_TK_BALL = {
-    fpcLy_CURRENT_e,          // mLayerID
-    7,                        // mListID
-    fpcPi_CURRENT_e,          // mListPrio
-    PROC_E_TK_BALL,           // mProcName
-    &g_fpcLf_Method.base,     // sub_method
-    sizeof(e_tk_ball_class),  // mSize
-    0,                        // mSizeOther
-    0,                        // mParameters
-    &g_fopAc_Method.base,     // sub_method
-    151,                      // mPriority
-    &l_daE_TK_BALL_Method,    // sub_method
-    0x00040120,               // mStatus
-    fopAc_ACTOR_e,            // mActorType
-    fopAc_CULLBOX_0_e,        // cullType
+    /* Layer ID     */ fpcLy_CURRENT_e,
+    /* List ID      */ 7,
+    /* List Prio    */ fpcPi_CURRENT_e,
+    /* Proc Name    */ fpcNm_E_TK_BALL_e,
+    /* Proc SubMtd  */ &g_fpcLf_Method.base,
+    /* Size         */ sizeof(e_tk_ball_class),
+    /* Size Other   */ 0,
+    /* Parameters   */ 0,
+    /* Leaf SubMtd  */ &g_fopAc_Method.base,
+    /* Draw Prio    */ fpcDwPi_E_TK_BALL_e,
+    /* Actor SubMtd */ &l_daE_TK_BALL_Method,
+    /* Status       */ fopAcStts_UNK_0x40000_e | fopAcStts_CULL_e | fopAcStts_UNK_0x20_e,
+    /* Group        */ fopAc_ACTOR_e,
+    /* Cull Type    */ fopAc_CULLBOX_0_e,
 };

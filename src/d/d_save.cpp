@@ -14,9 +14,11 @@
 #include "d/d_save_init.h"
 #include "f_op/f_op_scene_mng.h"
 #include <cstdio>
+#include <cstring>
 
 #if PLATFORM_WII || PLATFORM_SHIELD
 #include <revolution/sc.h>
+#include <revolution/wpad.h>
 #endif
 
 #if VERSION == VERSION_SHIELD
@@ -25,12 +27,12 @@
 
 static u8 dSv_item_rename(u8 i_itemNo) {
     switch (i_itemNo) {
-    case fpcNm_ITEM_OIL_BOTTLE_2:
-        return fpcNm_ITEM_OIL_BOTTLE;
-    case fpcNm_ITEM_RED_BOTTLE_2:
-        return fpcNm_ITEM_RED_BOTTLE;
-    case fpcNm_ITEM_OIL2:
-        return fpcNm_ITEM_OIL;
+    case dItemNo_OIL_BOTTLE_2_e:
+        return dItemNo_OIL_BOTTLE_e;
+    case dItemNo_RED_BOTTLE_2_e:
+        return dItemNo_RED_BOTTLE_e;
+    case dItemNo_OIL2_e:
+        return dItemNo_OIL_e;
     default:
         return i_itemNo;
     }
@@ -54,11 +56,11 @@ void dSv_player_status_a_c::init() {
         mSelectEquip[i] = 0;
     }
 
-    mSelectEquip[COLLECT_CLOTHING] = fpcNm_ITEM_WEAR_CASUAL;
-    mSelectEquip[COLLECT_SWORD] = fpcNm_ITEM_NONE;
-    mSelectEquip[COLLECT_SHIELD] = fpcNm_ITEM_NONE;
-    mSelectEquip[COLLECT_SMELL] = fpcNm_ITEM_NONE;
-    mSelectEquip[B_BUTTON_ITEM] = fpcNm_ITEM_NONE;
+    mSelectEquip[COLLECT_CLOTHING] = dItemNo_WEAR_CASUAL_e;
+    mSelectEquip[COLLECT_SWORD] = dItemNo_NONE_e;
+    mSelectEquip[COLLECT_SHIELD] = dItemNo_NONE_e;
+    mSelectEquip[COLLECT_SMELL] = dItemNo_NONE_e;
+    mSelectEquip[B_BUTTON_ITEM] = dItemNo_NONE_e;
     mWalletSize = WALLET;
     mMaxMagic = 0;
     mMagic = 0;
@@ -291,8 +293,8 @@ void dSv_player_last_mark_info_c::setWarpItemData(const char* i_name, const cXyz
 
 void dSv_player_item_c::init() {
     for (int i = 0; i < MAX_ITEM_SLOTS; i++) {
-        mItems[i] = fpcNm_ITEM_NONE;
-        mItemSlots[i] = fpcNm_ITEM_NONE;
+        mItems[i] = dItemNo_NONE_e;
+        mItemSlots[i] = dItemNo_NONE_e;
     }
 }
 
@@ -314,51 +316,51 @@ u8 dSv_player_item_c::getItem(int i_slotNo, bool i_checkCombo) const {
         if (i_checkCombo) {
             for (int i = 0; i < SELECT_ITEM_NUM; i++) {
                 if ((i_slotNo == dComIfGs_getSelectItemIndex(i) || i_slotNo == dComIfGs_getMixItemIndex(i)) &&
-                    dComIfGs_getMixItemIndex(i) != fpcNm_ITEM_NONE)
+                    dComIfGs_getMixItemIndex(i) != dItemNo_NONE_e)
                 {
                     u8 select_item = mItems[dComIfGs_getSelectItemIndex(i)];
                     u8 mix_item = mItems[dComIfGs_getMixItemIndex(i)];
 
                     // Get Bomb arrow check: Bow + Normal Bombs
-                    if ((select_item == fpcNm_ITEM_BOW && mix_item == fpcNm_ITEM_NORMAL_BOMB) ||
-                        (mix_item == fpcNm_ITEM_BOW && select_item == fpcNm_ITEM_NORMAL_BOMB)) {
-                        return fpcNm_ITEM_BOMB_ARROW;
+                    if ((select_item == dItemNo_BOW_e && mix_item == dItemNo_NORMAL_BOMB_e) ||
+                        (mix_item == dItemNo_BOW_e && select_item == dItemNo_NORMAL_BOMB_e)) {
+                        return dItemNo_BOMB_ARROW_e;
                     }
 
                     // Get Bomb arrow check: Bow + Water Bombs
-                    if ((select_item == fpcNm_ITEM_BOW && mix_item == fpcNm_ITEM_WATER_BOMB) ||
-                        (mix_item == fpcNm_ITEM_BOW && select_item == fpcNm_ITEM_WATER_BOMB)) {
-                        return fpcNm_ITEM_BOMB_ARROW;
+                    if ((select_item == dItemNo_BOW_e && mix_item == dItemNo_WATER_BOMB_e) ||
+                        (mix_item == dItemNo_BOW_e && select_item == dItemNo_WATER_BOMB_e)) {
+                        return dItemNo_BOMB_ARROW_e;
                     }
 
                     // Get Bomb arrow check: Bow + Bomblings
-                    if ((select_item == fpcNm_ITEM_BOW && mix_item == fpcNm_ITEM_POKE_BOMB) ||
-                        (mix_item == fpcNm_ITEM_BOW && select_item == fpcNm_ITEM_POKE_BOMB)) {
-                        return fpcNm_ITEM_BOMB_ARROW;
+                    if ((select_item == dItemNo_BOW_e && mix_item == dItemNo_POKE_BOMB_e) ||
+                        (mix_item == dItemNo_BOW_e && select_item == dItemNo_POKE_BOMB_e)) {
+                        return dItemNo_BOMB_ARROW_e;
                     }
 
                     // Get Hawkeye check
-                    if ((select_item == fpcNm_ITEM_BOW && mix_item == fpcNm_ITEM_HAWK_EYE) ||
-                        (mix_item == fpcNm_ITEM_BOW && select_item == fpcNm_ITEM_HAWK_EYE)) {
-                        return fpcNm_ITEM_HAWK_ARROW;
+                    if ((select_item == dItemNo_BOW_e && mix_item == dItemNo_HAWK_EYE_e) ||
+                        (mix_item == dItemNo_BOW_e && select_item == dItemNo_HAWK_EYE_e)) {
+                        return dItemNo_HAWK_ARROW_e;
                     }
 
                     // Get Rod w/ bee larva
-                    if ((select_item == fpcNm_ITEM_FISHING_ROD_1 && mix_item == fpcNm_ITEM_BEE_CHILD) ||
-                        (mix_item == fpcNm_ITEM_FISHING_ROD_1 && select_item == fpcNm_ITEM_BEE_CHILD)) {
-                        return fpcNm_ITEM_BEE_ROD;
+                    if ((select_item == dItemNo_FISHING_ROD_1_e && mix_item == dItemNo_BEE_CHILD_e) ||
+                        (mix_item == dItemNo_FISHING_ROD_1_e && select_item == dItemNo_BEE_CHILD_e)) {
+                        return dItemNo_BEE_ROD_e;
                     }
 
                     // Get Rod w/ coral earring
-                    if ((select_item == fpcNm_ITEM_FISHING_ROD_1 && mix_item == fpcNm_ITEM_ZORAS_JEWEL) ||
-                        (mix_item == fpcNm_ITEM_FISHING_ROD_1 && select_item == fpcNm_ITEM_ZORAS_JEWEL)) {
-                        return fpcNm_ITEM_JEWEL_ROD;
+                    if ((select_item == dItemNo_FISHING_ROD_1_e && mix_item == dItemNo_ZORAS_JEWEL_e) ||
+                        (mix_item == dItemNo_FISHING_ROD_1_e && select_item == dItemNo_ZORAS_JEWEL_e)) {
+                        return dItemNo_JEWEL_ROD_e;
                     }
 
                     // Get Rod w/ worm
-                    if ((select_item == fpcNm_ITEM_FISHING_ROD_1 && mix_item == fpcNm_ITEM_WORM) ||
-                        (mix_item == fpcNm_ITEM_FISHING_ROD_1 && select_item == fpcNm_ITEM_WORM)) {
-                        return fpcNm_ITEM_WORM_ROD;
+                    if ((select_item == dItemNo_FISHING_ROD_1_e && mix_item == dItemNo_WORM_e) ||
+                        (mix_item == dItemNo_FISHING_ROD_1_e && select_item == dItemNo_WORM_e)) {
+                        return dItemNo_WORM_ROD_e;
                     }
 
                     // This block will only run on the Wii version
@@ -368,9 +370,9 @@ u8 dSv_player_item_c::getItem(int i_slotNo, bool i_checkCombo) const {
                         if (dComIfGs_getSelectItemIndex(i) == 0 &&
                             dComIfGs_getMixItemIndex(i) == 0)
                         {
-                            dComIfGs_setSelectItemIndex(i, fpcNm_ITEM_NONE);
-                            dComIfGs_setMixItemIndex(i, fpcNm_ITEM_NONE);
-                            return fpcNm_ITEM_NONE;
+                            dComIfGs_setSelectItemIndex(i, dItemNo_NONE_e);
+                            dComIfGs_setMixItemIndex(i, dItemNo_NONE_e);
+                            return dItemNo_NONE_e;
                         }
                     }
                     // Uncertain combination item＝＝＝＞%d, %d\n
@@ -382,7 +384,7 @@ u8 dSv_player_item_c::getItem(int i_slotNo, bool i_checkCombo) const {
         return mItems[i_slotNo];
     }
 
-    return fpcNm_ITEM_NONE;
+    return dItemNo_NONE_e;
 }
 
 void dSv_player_item_c::setLineUpItem() {
@@ -396,12 +398,12 @@ void dSv_player_item_c::setLineUpItem() {
     int slot_idx = 0;
 
     for (int i = 0; i < 24; i++) {
-        mItemSlots[i] = fpcNm_ITEM_NONE;
+        mItemSlots[i] = dItemNo_NONE_e;
     }
 
     for (int i = 0; i < 23; i++) {
         u8 current = i_item_lst[i];
-        if (mItems[current] != fpcNm_ITEM_NONE) {
+        if (mItems[current] != dItemNo_NONE_e) {
             mItemSlots[slot_idx] = current;
             slot_idx++;
         }
@@ -413,7 +415,7 @@ u8 dSv_player_item_c::getLineUpItem(int i_slotNo) const {
         return mItemSlots[i_slotNo];
     }
 
-    return fpcNm_ITEM_NONE;
+    return dItemNo_NONE_e;
 }
 
 void dSv_player_item_c::setBottleItemIn(u8 curItemIn, u8 newItemIn) {
@@ -423,7 +425,7 @@ void dSv_player_item_c::setBottleItemIn(u8 curItemIn, u8 newItemIn) {
     for (int i = 0; i < 4; i++) {
         if (curItemIn == mItems[i + SLOT_11]) {
             setItem(i + SLOT_11, newItemIn);
-            if (newItemIn == fpcNm_ITEM_HOT_SPRING) {
+            if (newItemIn == dItemNo_HOT_SPRING_e) {
                 dMeter2Info_setHotSpringTimer(i + SLOT_11);
             }
 
@@ -439,13 +441,13 @@ void dSv_player_item_c::setBottleItemIn(u8 curItemIn, u8 newItemIn) {
 
 void dSv_player_item_c::setEmptyBottleItemIn(u8 i_itemNo) {
     i_itemNo = dSv_item_rename(i_itemNo);
-    setBottleItemIn(fpcNm_ITEM_EMPTY_BOTTLE, i_itemNo);
+    setBottleItemIn(dItemNo_EMPTY_BOTTLE_e, i_itemNo);
 }
 
 void dSv_player_item_c::setEmptyBottle() {
     for (int i = 0; i < 4; i++) {
-        if (dComIfGs_getItem((u8)(i + SLOT_11), true) == fpcNm_ITEM_NONE) {
-            dComIfGs_setItem((u8)(i + SLOT_11), fpcNm_ITEM_EMPTY_BOTTLE);
+        if (dComIfGs_getItem((u8)(i + SLOT_11), true) == dItemNo_NONE_e) {
+            dComIfGs_setItem((u8)(i + SLOT_11), dItemNo_EMPTY_BOTTLE_e);
             return;
         }
     }
@@ -453,7 +455,7 @@ void dSv_player_item_c::setEmptyBottle() {
 
 void dSv_player_item_c::setEmptyBottle(u8 i_itemNo) {
     for (int i = 0; i < 4; i++) {
-        if (dComIfGs_getItem((u8)(i + SLOT_11), true) == fpcNm_ITEM_NONE) {
+        if (dComIfGs_getItem((u8)(i + SLOT_11), true) == dItemNo_NONE_e) {
             dComIfGs_setItem((u8)(i + SLOT_11), i_itemNo);
             return;
         }
@@ -465,7 +467,7 @@ void dSv_player_item_c::setEquipBottleItemIn(u8 curItemIn, u8 newItemIn) {
 
     if (dComIfGs_getSelectItemIndex(curItemIn) >= SLOT_11 &&
         dComIfGs_getSelectItemIndex(curItemIn) <= SLOT_14) {
-        if (newItemIn == fpcNm_ITEM_HOT_SPRING) {
+        if (newItemIn == dItemNo_HOT_SPRING_e) {
             dMeter2Info_setHotSpringTimer(dComIfGs_getSelectItemIndex(curItemIn));
         }
 
@@ -477,7 +479,7 @@ void dSv_player_item_c::setEquipBottleItemIn(u8 curItemIn, u8 newItemIn) {
 }
 
 void dSv_player_item_c::setEquipBottleItemEmpty(u8 curItemIn) {
-    setEquipBottleItemIn(curItemIn, fpcNm_ITEM_EMPTY_BOTTLE);
+    setEquipBottleItemIn(curItemIn, dItemNo_EMPTY_BOTTLE_e);
 }
 
 u8 dSv_player_item_c::checkBottle(u8 i_itemNo) {
@@ -494,7 +496,7 @@ u8 dSv_player_item_c::checkBottle(u8 i_itemNo) {
 
 BOOL dSv_player_item_c::checkInsectBottle() {
     for (int i = 0; i < 24; i++) {
-        if (dComIfGs_isItemFirstBit(fpcNm_ITEM_M_BEETLE + i) &&
+        if (dComIfGs_isItemFirstBit(dItemNo_M_BEETLE_e + i) &&
             !dComIfGs_isEventBit(dSv_event_flag_c::saveBitLabels[0x191 + i])) {
             return TRUE;
         }
@@ -506,7 +508,7 @@ u8 dSv_player_item_c::checkEmptyBottle() {
     u8 bottleNum = 0;
 
     for (int i = 0; i < BOTTLE_MAX; i++) {
-        if (mItems[i + SLOT_11] == fpcNm_ITEM_EMPTY_BOTTLE) {
+        if (mItems[i + SLOT_11] == dItemNo_EMPTY_BOTTLE_e) {
             bottleNum++;
         }
     }
@@ -518,7 +520,7 @@ void dSv_player_item_c::setBombBagItemIn(u8 i_curBomb, u8 i_newBomb, bool i_setN
         if (i_curBomb == mItems[i + SLOT_15]) {
             setItem(i + SLOT_15, i_newBomb);
 
-            if (i_setNum == true && i_newBomb != fpcNm_ITEM_BOMB_BAG_LV1) {
+            if (i_setNum == true && i_newBomb != dItemNo_BOMB_BAG_LV1_e) {
                 dComIfGs_setBombNum(i, dComIfGs_getBombMax(i_newBomb));
             }
 
@@ -537,7 +539,7 @@ void dSv_player_item_c::setBombBagItemIn(u8 i_curBomb, u8 i_newBomb, u8 i_bombNu
         if (i_curBomb == mItems[i + SLOT_15]) {
             setItem(i + SLOT_15, i_newBomb);
 
-            if (i_setNum == 1 && i_newBomb != fpcNm_ITEM_BOMB_BAG_LV1) {
+            if (i_setNum == 1 && i_newBomb != dItemNo_BOMB_BAG_LV1_e) {
                 if (i_bombNum > dComIfGs_getBombMax(i_newBomb)) {
                     i_bombNum = dComIfGs_getBombMax(i_newBomb);
                 }
@@ -555,17 +557,17 @@ void dSv_player_item_c::setBombBagItemIn(u8 i_curBomb, u8 i_newBomb, u8 i_bombNu
 }
 
 void dSv_player_item_c::setEmptyBombBagItemIn(u8 i_newBomb, bool i_setNum) {
-    setBombBagItemIn(fpcNm_ITEM_BOMB_BAG_LV1, i_newBomb, i_setNum);
+    setBombBagItemIn(dItemNo_BOMB_BAG_LV1_e, i_newBomb, i_setNum);
 }
 
 void dSv_player_item_c::setEmptyBombBagItemIn(u8 i_newBomb, u8 i_bombNum, bool i_setNum) {
-    setBombBagItemIn(fpcNm_ITEM_BOMB_BAG_LV1, i_newBomb, i_bombNum, i_setNum);
+    setBombBagItemIn(dItemNo_BOMB_BAG_LV1_e, i_newBomb, i_bombNum, i_setNum);
 }
 
 void dSv_player_item_c::setEmptyBombBag() {
     for (int i = 0; i < 3; i++) {
-        if (dComIfGs_getItem((u8)(i + SLOT_15), true) == fpcNm_ITEM_NONE) {
-            dComIfGs_setItem((u8)(i + SLOT_15), fpcNm_ITEM_BOMB_BAG_LV1);
+        if (dComIfGs_getItem((u8)(i + SLOT_15), true) == dItemNo_NONE_e) {
+            dComIfGs_setItem((u8)(i + SLOT_15), dItemNo_BOMB_BAG_LV1_e);
             return;
         }
     }
@@ -573,10 +575,10 @@ void dSv_player_item_c::setEmptyBombBag() {
 
 void dSv_player_item_c::setEmptyBombBag(u8 i_newBomb, u8 i_bombNum) {
     for (int i = 0; i < 3; i++) {
-        if (dComIfGs_getItem((u8)(i + SLOT_15), true) == fpcNm_ITEM_NONE) {
+        if (dComIfGs_getItem((u8)(i + SLOT_15), true) == dItemNo_NONE_e) {
             dComIfGs_setItem((u8)(i + SLOT_15), i_newBomb);
 
-            if (i_newBomb != fpcNm_ITEM_BOMB_BAG_LV1) {
+            if (i_newBomb != dItemNo_BOMB_BAG_LV1_e) {
                 if (i_bombNum > dComIfGs_getBombMax(i_newBomb)) {
                     i_bombNum = dComIfGs_getBombMax(i_newBomb);
                 }
@@ -612,16 +614,16 @@ void dSv_player_item_c::setWarashibeItem(u8 i_itemNo) {
 
 void dSv_player_item_c::setRodTypeLevelUp() {
     switch (mItems[SLOT_20]) {
-    case fpcNm_ITEM_BEE_ROD: {
-        mItems[SLOT_20] = fpcNm_ITEM_JEWEL_BEE_ROD;
+    case dItemNo_BEE_ROD_e: {
+        mItems[SLOT_20] = dItemNo_JEWEL_BEE_ROD_e;
         break;
     }
-    case fpcNm_ITEM_WORM_ROD: {
-        mItems[SLOT_20] = fpcNm_ITEM_JEWEL_WORM_ROD;
+    case dItemNo_WORM_ROD_e: {
+        mItems[SLOT_20] = dItemNo_JEWEL_WORM_ROD_e;
         break;
     }
-    case fpcNm_ITEM_FISHING_ROD_1: {
-        mItems[SLOT_20] = fpcNm_ITEM_JEWEL_ROD;
+    case dItemNo_FISHING_ROD_1_e: {
+        mItems[SLOT_20] = dItemNo_JEWEL_ROD_e;
         break;
     }
     }
@@ -633,27 +635,27 @@ void dSv_player_item_c::setRodTypeLevelUp() {
 
 void dSv_player_item_c::setBaitItem(u8 i_itemNo) {
     switch (i_itemNo) {
-    case fpcNm_ITEM_BEE_CHILD: {
-        if (dComIfGs_isItemFirstBit(fpcNm_ITEM_ZORAS_JEWEL)) {
-            mItems[SLOT_20] = fpcNm_ITEM_JEWEL_BEE_ROD;
+    case dItemNo_BEE_CHILD_e: {
+        if (dComIfGs_isItemFirstBit(dItemNo_ZORAS_JEWEL_e)) {
+            mItems[SLOT_20] = dItemNo_JEWEL_BEE_ROD_e;
         } else {
-            mItems[SLOT_20] = fpcNm_ITEM_BEE_ROD;
+            mItems[SLOT_20] = dItemNo_BEE_ROD_e;
         }
         break;
     }
-    case fpcNm_ITEM_WORM: {
-        if (dComIfGs_isItemFirstBit(fpcNm_ITEM_ZORAS_JEWEL)) {
-            mItems[SLOT_20] = fpcNm_ITEM_JEWEL_WORM_ROD;
+    case dItemNo_WORM_e: {
+        if (dComIfGs_isItemFirstBit(dItemNo_ZORAS_JEWEL_e)) {
+            mItems[SLOT_20] = dItemNo_JEWEL_WORM_ROD_e;
         } else {
-            mItems[SLOT_20] = fpcNm_ITEM_WORM_ROD;
+            mItems[SLOT_20] = dItemNo_WORM_ROD_e;
         }
         break;
     }
-    case fpcNm_ITEM_NONE: {
-        if (dComIfGs_isItemFirstBit(fpcNm_ITEM_ZORAS_JEWEL)) {
-            mItems[SLOT_20] = fpcNm_ITEM_JEWEL_ROD;
+    case dItemNo_NONE_e: {
+        if (dComIfGs_isItemFirstBit(dItemNo_ZORAS_JEWEL_e)) {
+            mItems[SLOT_20] = dItemNo_JEWEL_ROD_e;
         } else {
-            mItems[SLOT_20] = fpcNm_ITEM_FISHING_ROD_1;
+            mItems[SLOT_20] = dItemNo_FISHING_ROD_1_e;
         }
         break;
     }
@@ -683,7 +685,7 @@ void dSv_player_get_item_c::offFirstBit(u8 i_itemno) {
 
     int index = i_itemno / 32;
     int bit = i_itemno % 32;
-    mItemFlags[index] &= ~(1 << bit);
+    mItemFlags[index] &= ~u32(1 << bit);
 }
 
 BOOL dSv_player_get_item_c::isFirstBit(u8 i_itemno) const {
@@ -759,37 +761,37 @@ void dSv_player_item_max_c::init() {
     for (int i = 0; i < 7; i++) {
         mItemMax[i] = 30;
     }
-    setBombNum(fpcNm_ITEM_NORMAL_BOMB, 30);
-    setBombNum(fpcNm_ITEM_WATER_BOMB, 15);
-    setBombNum(fpcNm_ITEM_POKE_BOMB, 10);
+    setBombNum(dItemNo_NORMAL_BOMB_e, 30);
+    setBombNum(dItemNo_WATER_BOMB_e, 15);
+    setBombNum(dItemNo_POKE_BOMB_e, 10);
     mItemMax[7] = 0;
 }
 
 void dSv_player_item_max_c::setBombNum(u8 i_bombType, u8 i_maxNum) {
     switch (i_bombType) {
-    case fpcNm_ITEM_NORMAL_BOMB:
+    case dItemNo_NORMAL_BOMB_e:
         mItemMax[NORMAL_BOMB_MAX] = i_maxNum;
         return;
-    case fpcNm_ITEM_WATER_BOMB:
+    case dItemNo_WATER_BOMB_e:
         mItemMax[WATER_BOMB_MAX] = i_maxNum;
         return;
-    case fpcNm_ITEM_POKE_BOMB:
+    case dItemNo_POKE_BOMB_e:
         mItemMax[POKE_BOMB_MAX] = i_maxNum;
     }
 }
 
 u8 dSv_player_item_max_c::getBombNum(u8 i_bombType) const {
     u8 lv_multiplier = 1;
-    if (dComIfGs_isItemFirstBit(fpcNm_ITEM_BOMB_BAG_LV2)) {
+    if (dComIfGs_isItemFirstBit(dItemNo_BOMB_BAG_LV2_e)) {
         lv_multiplier = 2;
     }
 
     switch (i_bombType) {
-    case fpcNm_ITEM_NORMAL_BOMB:
+    case dItemNo_NORMAL_BOMB_e:
         return (u8)(mItemMax[NORMAL_BOMB_MAX] * lv_multiplier);
-    case fpcNm_ITEM_WATER_BOMB:
+    case dItemNo_WATER_BOMB_e:
         return (u8)(mItemMax[WATER_BOMB_MAX] * lv_multiplier);
-    case fpcNm_ITEM_POKE_BOMB:
+    case dItemNo_POKE_BOMB_e:
         return (u8)(mItemMax[POKE_BOMB_MAX] * lv_multiplier);
     default:
         return 0;
@@ -1024,7 +1026,11 @@ void dSv_player_config_c::setSound(u8 i_mode) {
 }
 
 u8 dSv_player_config_c::getVibration() {
+#if PLATFORM_WII
+    return WPADIsMotorEnabled() != 0;
+#else
     return mVibration;
+#endif
 }
 
 void dSv_player_config_c::setVibration(u8 i_status) {
@@ -1103,7 +1109,7 @@ void dSv_memBit_c::onTbox(int i_no) {
 
 void dSv_memBit_c::offTbox(int i_no) {
     JUT_ASSERT(2740, 0 <= i_no && i_no < TBOX_MAX);
-    mTbox[i_no >> 5] &= ~(1 << (i_no & 0x1F));
+    mTbox[i_no >> 5] &= ~u32(1 << (i_no & 0x1F));
 }
 
 BOOL dSv_memBit_c::isTbox(int i_no) const {
@@ -1118,7 +1124,7 @@ void dSv_memBit_c::onSwitch(int i_no) {
 
 void dSv_memBit_c::offSwitch(int i_no) {
     JUT_ASSERT(2800, 0 <= i_no && i_no < 128);
-    mSwitch[i_no >> 5] &= ~(1 << (i_no & 0x1F));
+    mSwitch[i_no >> 5] &= ~u32(1 << (i_no & 0x1F));
 }
 
 BOOL dSv_memBit_c::isSwitch(int i_no) const {
@@ -1142,7 +1148,7 @@ void dSv_memBit_c::onItem(int i_no) {
 
 void dSv_memBit_c::offItem(int i_no) {
     JUT_ASSERT(2861, 0 <= i_no && i_no < 64);
-    mItem[i_no >> 5] |= ~(1 << (i_no & 0x1F));
+    mItem[i_no >> 5] &= ~u32(1 << (i_no & 0x1F));
 }
 
 BOOL dSv_memBit_c::isItem(int i_no) const {
@@ -1175,11 +1181,11 @@ void dSv_event_c::init() {
 }
 
 void dSv_event_c::onEventBit(u16 i_no) {
-    mEvent[i_no >> 8] |= (u8)i_no;
+    mEvent[i_no >> 8] |= u8(i_no);
 }
 
 void dSv_event_c::offEventBit(u16 i_no) {
-    mEvent[i_no >> 8] &= ~(u8)i_no;
+    mEvent[i_no >> 8] &= ~u8(i_no);
 }
 
 BOOL dSv_event_c::isEventBit(const u16 i_no) const {
@@ -1187,7 +1193,7 @@ BOOL dSv_event_c::isEventBit(const u16 i_no) const {
 }
 
 void dSv_event_c::setEventReg(u16 i_reg, u8 i_no) {
-    mEvent[i_reg >> 8] &= ~(u8)i_reg;
+    mEvent[i_reg >> 8] &= ~u8(i_reg);
     mEvent[i_reg >> 8] |= i_no;
 }
 
@@ -1227,7 +1233,7 @@ void dSv_memory2_c::onVisitedRoom(int i_no) {
 
 void dSv_memory2_c::offVisitedRoom(int i_no) {
     JUT_ASSERT(3293, 0 <= i_no && i_no < 64);
-    mVisitedRoom[i_no >> 5] &= ~(1 << (i_no & 0x1F));
+    mVisitedRoom[i_no >> 5] &= ~u32(1 << (i_no & 0x1F));
 }
 
 BOOL dSv_memory2_c::isVisitedRoom(int i_no) {
@@ -1269,7 +1275,7 @@ void dSv_danBit_c::onSwitch(int i_no) {
 
 void dSv_danBit_c::offSwitch(int i_no) {
     JUT_ASSERT(3398, 0 <= i_no && i_no < 64);
-    mSwitch[i_no >> 5] &= ~(1 << (i_no & 0x1F));
+    mSwitch[i_no >> 5] &= ~u32(1 << (i_no & 0x1F));
 }
 
 BOOL dSv_danBit_c::isSwitch(int i_no) const {
@@ -1292,7 +1298,7 @@ void dSv_danBit_c::onItem(int i_no) {
 
 void dSv_danBit_c::offItem(int i_no) {
     JUT_ASSERT(3458, 0 <= i_no && i_no < ITEM_MAX_DAN);
-    mItem[i_no >> 5] &= ~(1 << (i_no & 0x1F));
+    mItem[i_no >> 5] &= ~u32(1 << (i_no & 0x1F));
 }
 
 BOOL dSv_danBit_c::isItem(int i_no) const {
@@ -1417,7 +1423,7 @@ void dSv_zoneActor_c::on(int i_id) {
 
 void dSv_zoneActor_c::off(int i_id) {
     JUT_ASSERT(3870, 0 <= i_id && i_id < ACTOR_MAX);
-    mActorFlags[i_id >> 5] &= ~(1 << (i_id & 0x1F));
+    mActorFlags[i_id >> 5] &= ~u32(1 << (i_id & 0x1F));
 }
 
 BOOL dSv_zoneActor_c::is(int i_id) const {
@@ -1457,6 +1463,18 @@ void dSv_info_c::init() {
 #endif
 }
 
+static void dummy() {
+    dComIfGs_getEventReg(0);
+    dComIfGs_getClearCount();
+    const char* playerName = dComIfGs_getPlayerName();
+    const char* horseName = dComIfGs_getHorseName();
+    dComIfGs_getOptAttentionType();
+    dComIfGs_setEventReg(0, 0);
+    dComIfGs_setPlayerName(playerName);
+    dComIfGs_setHorseName(horseName);
+    dComIfGs_setOptAttentionType(0);
+}
+
 void dSv_save_c::init() {
     mPlayer.init();
     for (int i = 0; i < STAGE_MAX; i++) {
@@ -1494,11 +1512,12 @@ void dSv_info_c::initZone() {
 
 u32 dSv_info_c::createZone(int i_roomNo) {
     dSv_zone_c* zone = mZone;
-    for (int i = 0; i < 0x20; zone++, i++) {
+    for (int i = 0; i < 0x20; i++) {
         if (zone->getRoomNo() < 0) {
             zone->init(i_roomNo);
             return i;
         }
+        zone++;
     }
     return -1;
 }
@@ -1552,7 +1571,19 @@ void dSv_info_c::offSwitch(int i_no, int i_roomNo) {
 }
 
 BOOL dSv_info_c::isSwitch(int i_no, int i_roomNo) const {
-    if (!((0 <= i_no && i_no < (MEMORY_SWITCH+ DAN_SWITCH+ ZONE_SWITCH+ ONEZONE_SWITCH)) || i_no == -1 || i_no == 255)) {
+    bool r27 = true;
+    bool r26 = true;
+    bool r25 = false;
+    if (0 <= i_no && i_no < (MEMORY_SWITCH|DAN_SWITCH|ZONE_SWITCH|ONEZONE_SWITCH)) {
+        r25 = true;
+    }
+    if (!r25 && i_no != -1) {
+        r26 = false;
+    }
+    if (!r26 && i_no != 255) {
+        r27 = false;
+    }
+    if (!r27) {
         OS_REPORT("i_no = %d\n", i_no);
         JUT_ASSERT(4302, FALSE);
     }
@@ -1565,19 +1596,18 @@ BOOL dSv_info_c::isSwitch(int i_no, int i_roomNo) const {
         return mMemory.getBit().isSwitch(i_no);
     } else if (i_no < (MEMORY_SWITCH + DAN_SWITCH)) {
         return mDan.isSwitch(i_no - MEMORY_SWITCH);
-    } else {
-        JUT_ASSERT(4269, 0 <= i_roomNo && i_roomNo < 64);
-        int zoneId = dComIfGp_roomControl_getZoneNo(i_roomNo);
+    }
+    JUT_ASSERT(4324, 0 <= i_roomNo && i_roomNo < 64);
+    int zoneId = dComIfGp_roomControl_getZoneNo(i_roomNo);
 
-        if (zoneId < 0 || zoneId >= ZONE_MAX) {
-            return FALSE;
+    if (zoneId < 0 || zoneId >= ZONE_MAX) {
+        return FALSE;
+    } else {
+        if (i_no < (MEMORY_SWITCH + DAN_SWITCH + ZONE_SWITCH)) {
+            return mZone[zoneId].getBit().isSwitch(i_no - (MEMORY_SWITCH + DAN_SWITCH));
         } else {
-            if (i_no < (MEMORY_SWITCH + DAN_SWITCH + ZONE_SWITCH)) {
-                return mZone[zoneId].getBit().isSwitch(i_no - (MEMORY_SWITCH + DAN_SWITCH));
-            } else {
-                return mZone[zoneId].getBit().isOneSwitch(
-                    i_no - (MEMORY_SWITCH + DAN_SWITCH + ZONE_SWITCH));
-            }
+            return mZone[zoneId].getBit().isOneSwitch(
+                i_no - (MEMORY_SWITCH + DAN_SWITCH + ZONE_SWITCH));
         }
     }
 }
@@ -1593,17 +1623,16 @@ BOOL dSv_info_c::revSwitch(int i_no, int i_roomNo) {
         return mMemory.getBit().revSwitch(i_no);
     } else if (i_no < (MEMORY_SWITCH + DAN_SWITCH)) {
         return mDan.revSwitch(i_no - MEMORY_SWITCH);
-    } else {
-        JUT_ASSERT(4368, 0 <= i_roomNo && i_roomNo < 64);
-        int zoneNo = dComIfGp_roomControl_getZoneNo(i_roomNo);
-        JUT_ASSERT(4370, 0 <= zoneNo && zoneNo < ZONE_MAX);
+    }
+    JUT_ASSERT(4368, 0 <= i_roomNo && i_roomNo < 64);
+    int zoneNo = dComIfGp_roomControl_getZoneNo(i_roomNo);
+    JUT_ASSERT(4370, 0 <= zoneNo && zoneNo < ZONE_MAX);
 
-        if (i_no < (MEMORY_SWITCH + DAN_SWITCH + ZONE_SWITCH)) {
-            return mZone[zoneNo].getBit().revSwitch(i_no - (MEMORY_SWITCH + DAN_SWITCH));
-        } else {
-            return mZone[zoneNo].getBit().revOneSwitch(
-                i_no - (MEMORY_SWITCH + DAN_SWITCH + ZONE_SWITCH));
-        }
+    if (i_no < (MEMORY_SWITCH + DAN_SWITCH + ZONE_SWITCH)) {
+        return mZone[zoneNo].getBit().revSwitch(i_no - (MEMORY_SWITCH + DAN_SWITCH));
+    } else {
+        return mZone[zoneNo].getBit().revOneSwitch(
+            i_no - (MEMORY_SWITCH + DAN_SWITCH + ZONE_SWITCH));
     }
 }
 
@@ -1642,16 +1671,15 @@ BOOL dSv_info_c::isItem(int i_no, int i_roomNo) const {
         return mDan.isItem(i_no);
     } else if (i_no < (MEMORY_ITEM + DAN_ITEM)) {
         return mMemory.getBit().isItem(i_no - MEMORY_ITEM);
-    } else {
-        JUT_ASSERT(4501, 0 <= i_roomNo && i_roomNo < 64);
-        int zoneNo = dComIfGp_roomControl_getZoneNo(i_roomNo);
-        JUT_ASSERT(4503, 0 <= zoneNo && zoneNo < ZONE_MAX);
+    }
+    JUT_ASSERT(4501, 0 <= i_roomNo && i_roomNo < 64);
+    int zoneNo = dComIfGp_roomControl_getZoneNo(i_roomNo);
+    JUT_ASSERT(4503, 0 <= zoneNo && zoneNo < ZONE_MAX);
 
-        if (i_no < (MEMORY_ITEM + DAN_ITEM + ZONE_ITEM)) {
-            return mZone[zoneNo].getBit().isItem(i_no - (MEMORY_ITEM + DAN_ITEM));
-        } else {
-            return mZone[zoneNo].getBit().isOneItem(i_no - (MEMORY_ITEM + DAN_ITEM + ZONE_ITEM));
-        }
+    if (i_no < (MEMORY_ITEM + DAN_ITEM + ZONE_ITEM)) {
+        return mZone[zoneNo].getBit().isItem(i_no - (MEMORY_ITEM + DAN_ITEM));
+    } else {
+        return mZone[zoneNo].getBit().isOneItem(i_no - (MEMORY_ITEM + DAN_ITEM + ZONE_ITEM));
     }
 }
 
@@ -1700,7 +1728,7 @@ int dSv_info_c::memory_to_card(char* card_ptr, int dataNum) {
     OSTime start;
     OSTime time;
     OSTime play_time;
-    
+
     bool lantern_not_recovered = false;
     bool tmp_lantern_check = false;
     u16 current_lantern_oil = 0;
@@ -1724,9 +1752,9 @@ int dSv_info_c::memory_to_card(char* card_ptr, int dataNum) {
     }
 
     // If have the lantern and Slot 1 in the item wheel is blank
-    if (dComIfGs_isItemFirstBit(fpcNm_ITEM_KANTERA) && dComIfGs_getItem(SLOT_1, 1) == fpcNm_ITEM_NONE) {
+    if (dComIfGs_isItemFirstBit(dItemNo_KANTERA_e) && dComIfGs_getItem(SLOT_1, 1) == dItemNo_NONE_e) {
         // Set Slot 1 to Lantern and fetch current oil
-        dComIfGs_setItem(SLOT_1, fpcNm_ITEM_KANTERA);
+        dComIfGs_setItem(SLOT_1, dItemNo_KANTERA_e);
         current_lantern_oil = dComIfGs_getOil();
 
         // Set oil to oil gauge backup
@@ -1762,7 +1790,7 @@ int dSv_info_c::memory_to_card(char* card_ptr, int dataNum) {
     OS_REPORT("(dSv_reserve_c) size %d\n", sizeof(dSv_reserve_c));
     OS_REPORT("(dSv_MiniGame_c) size %d\n", sizeof(dSv_MiniGame_c));
     OS_REPORT("セーブ全体情報(dSv_save_c) size %d\n", sizeof(dSv_save_c));
-    printf("Write size:%d\n", card_ptr - var_r29);
+    printf("Write size:%d\n", (int)(card_ptr - var_r29));
 
     // Now that we've saved, reset events if needed
     if (lantern_not_recovered == true) {
@@ -1776,16 +1804,16 @@ int dSv_info_c::memory_to_card(char* card_ptr, int dataNum) {
 
     // Now that we've saved, reset slot if needed
     if (tmp_lantern_check == true) {
-        dComIfGs_setItem(SLOT_1, fpcNm_ITEM_NONE);
+        dComIfGs_setItem(SLOT_1, dItemNo_NONE_e);
         dComIfGs_setOil(current_lantern_oil);
     }
     
     if (card_ptr - var_r29 > (QUEST_LOG_SIZE - 8)) {
-        printf("SAVE size over(%d/%d)\n", (QUEST_LOG_SIZE - 8), card_ptr - var_r29);
+        printf("SAVE size over(%d/%d)\n", (QUEST_LOG_SIZE - 8), (int)(card_ptr - var_r29));
         return -1;
     }
 
-    printf("SAVE size:%d\n", card_ptr - var_r29);
+    printf("SAVE size:%d\n", (int)(card_ptr - var_r29));
     return 0;
 }
 
@@ -1816,13 +1844,13 @@ int dSv_info_c::card_to_memory(char* i_cardPtr, int i_dataNum) {
 
     dComIfGs_setKeyNum(6, 0);
 
-    if (dComIfGs_getItem(SLOT_9, true) == fpcNm_ITEM_W_HOOKSHOT) {
-        dComIfGs_setItem(SLOT_10, fpcNm_ITEM_W_HOOKSHOT);
-        dComIfGs_setItem(SLOT_9, fpcNm_ITEM_NONE);
+    if (dComIfGs_getItem(SLOT_9, true) == dItemNo_W_HOOKSHOT_e) {
+        dComIfGs_setItem(SLOT_10, dItemNo_W_HOOKSHOT_e);
+        dComIfGs_setItem(SLOT_9, dItemNo_NONE_e);
     }
 
-    if (dComIfGs_getItem(SLOT_9, true) == fpcNm_ITEM_HOOKSHOT && dComIfGs_getItem(SLOT_10, true) == fpcNm_ITEM_W_HOOKSHOT) {
-        dComIfGs_setItem(SLOT_9, fpcNm_ITEM_NONE);
+    if (dComIfGs_getItem(SLOT_9, true) == dItemNo_HOOKSHOT_e && dComIfGs_getItem(SLOT_10, true) == dItemNo_W_HOOKSHOT_e) {
+        dComIfGs_setItem(SLOT_9, dItemNo_NONE_e);
     }
 
     dComIfGs_setLineUpItem();
@@ -1831,11 +1859,11 @@ int dSv_info_c::card_to_memory(char* i_cardPtr, int i_dataNum) {
 
     OS_REPORT("########### save stage ====> %s\n", dMeter2Info_getSaveStageName());
     if (i_cardPtr - var_r30 > (QUEST_LOG_SIZE - 8)) {
-        printf("LOAD size over(%d/%d)\n", (QUEST_LOG_SIZE - 8), i_cardPtr - var_r30);
+        printf("LOAD size over(%d/%d)\n", (QUEST_LOG_SIZE - 8), (int)(i_cardPtr - var_r30));
         return -1;
     }
 
-    printf("LOAD size:%d\n", i_cardPtr - var_r30);
+    printf("LOAD size:%d\n", (int)(i_cardPtr - var_r30));
     return 0;
 }
 
@@ -1852,11 +1880,11 @@ int dSv_info_c::initdata_to_card(char* i_cardPtr, int i_dataNum) {
     i_cardPtr += sizeof(dSv_save_c);
 
     if (i_cardPtr - var_r30 > (QUEST_LOG_SIZE - 8)) {
-        printf("INIT size over %d/%d\n", (QUEST_LOG_SIZE - 8), i_cardPtr - var_r30);
+        printf("INIT size over %d/%d\n", (QUEST_LOG_SIZE - 8), (int)(i_cardPtr - var_r30));
         return -1;
     }
 
-    printf("INIT size:%d\n", i_cardPtr - var_r30);
+    printf("INIT size:%d\n", (int)(i_cardPtr - var_r30));
     return 0;
 }
 
@@ -1966,7 +1994,7 @@ void flagFile_c::listenPropertyEvent(const JORPropertyEvent* i_event) {
         OS_REPORT("write to %s\n", filename);
 
         JORFile file;
-        if (file.open(filename, 2, "", NULL, NULL, NULL)) {
+        if (file.open(filename, 2, "\0", NULL, NULL, NULL)) {
             if (check_flag(FLAG_SCENE_e)) {
                 head[0] = '_SCN';
                 head[1] = strlen(start_stage_name) + 1;
@@ -2008,10 +2036,6 @@ void flagFile_c::listenPropertyEvent(const JORPropertyEvent* i_event) {
         break;
     }
     }
-}
-
-BOOL flagFile_c::check_flag(u16 i_flag) {
-    return (m_flags & i_flag) != 0;
 }
 #endif
 
